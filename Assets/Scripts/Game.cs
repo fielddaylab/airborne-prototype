@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static Game Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
