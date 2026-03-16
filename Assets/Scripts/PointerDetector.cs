@@ -14,23 +14,19 @@ public class PointerDetector : MonoBehaviour, IPointerEnterHandler, IPointerExit
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("I got hovered over!");
         evidenceBucket.SetText(evidenceHoverText);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("I got unhovered over!");
         evidenceBucket.ClearText();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         

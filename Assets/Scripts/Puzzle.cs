@@ -10,7 +10,6 @@ public class Puzzle : MonoBehaviour
     [SerializeField] private EvidenceBucket evidenceBucket;
     [SerializeField] private TextMeshProUGUI promptText;
     
-    // Start is called before the first frame update
     void Start()
     {
         foreach (var pointer in rooms)
