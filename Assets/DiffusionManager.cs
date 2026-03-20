@@ -74,7 +74,7 @@ public class DiffusionManager : MonoBehaviour
 
     public void UpdateDiffusionType(int t)
     {
-        diffusionPhase = DiffusionPhase.SelectingMovement;
+        diffusionPhase = DiffusionPhase.SelectingSource;
 
         switch (t)
         {
@@ -109,7 +109,6 @@ public class DiffusionManager : MonoBehaviour
 enum DiffusionPhase
 {
     SelectingSource,
-    SelectingMovement,
     SelectingSpread,
     SubmitToBucket
 }
