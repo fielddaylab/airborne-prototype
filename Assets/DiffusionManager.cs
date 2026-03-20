@@ -70,7 +70,6 @@ public class DiffusionManager : MonoBehaviour
         diffusionPhase = DiffusionPhase.SelectingSource;
 
         AddTime(1);
-        prompter.UpdatePrompt(time);
     }
 
     public void UpdateDiffusionType(int t)
