@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class RoomController : MonoBehaviour
 {
-    [SerializeField] GameObject dialogueMenu;
-    [SerializeField] Vector3 dialoguePositionOffset;
-
-
-    public void SpawnMenu()
+    [SerializeField] private DiffusionManager diffusionManager;
+    
+    public void SelectThisRoom()
     {
-        dialogueMenu.SetActive(true);
-        dialogueMenu.transform.position = transform.position + dialoguePositionOffset;
+        diffusionManager.SelectedRoom(this);
     }
 }
