@@ -19,11 +19,16 @@ public class DiffusionManager : MonoBehaviour
 
     public void SelectedRoom(RoomController room)
     {
-        if (diffusionPhase == 0)
+        if (diffusionPhase == DiffusionPhase.SelectingSource)
         {
             movementDialogue.UpdatePosition(room);
             movementDialogue.gameObject.SetActive(true);
             source = room;
+        }
+
+        if (diffusionPhase == DiffusionPhase.SelectingSpread)
+        {
+
         }
     }
 
@@ -53,9 +58,11 @@ public class DiffusionManager : MonoBehaviour
         {
             case 0:
                 evidenceBucket.AddEvidence($"{pollutant} <b>increased</b> in the <b>{source.name}</b>.");
+                timeBlockButton.AllowAdvance(true);
                 break;
             case 1:
                 evidenceBucket.AddEvidence($"{pollutant} <b>decreased</b> in the <b>{source.name}</b>.");
+                timeBlockButton.AllowAdvance(true);
                 break;
             case 2:
                 Debug.Log("Spreading?");
@@ -67,8 +74,6 @@ public class DiffusionManager : MonoBehaviour
                 spreadingDialogue.UpdatePosition(source);
                 break;
         }
-
-        timeBlockButton.AllowAdvance(true);
     }
 }
 enum DiffusionPhase
