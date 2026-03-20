@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DiffusionManager : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class DiffusionManager : MonoBehaviour
     [SerializeField] private TimeBlockButton timeBlockButton;
 
     private RoomController source;
+    private RoomController[] validRooms;
 
-    [SerializeField] private int time = 0;
+    [SerializeField] public int time = 0;
 
     public void SelectedRoom(RoomController room)
     {
@@ -28,7 +30,19 @@ public class DiffusionManager : MonoBehaviour
 
         if (diffusionPhase == DiffusionPhase.SelectingSpread)
         {
-
+            //TODO: Graphs? Connections that sort of act like graphs?
+            if (validRooms.Contains(room))
+            {
+                evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through TODO to <b>{room.name}");
+                source.DisableConnections();
+                spreadingDialogue.gameObject.SetActive(false);
+                movementDialogue.gameObject.SetActive(true);
+                timeBlockButton.AllowAdvance(true);
+                diffusionPhase = DiffusionPhase.SelectingSource;
+            } else
+            {
+                Debug.Log("Invalid room selection.");
+            }
         }
     }
 
@@ -39,7 +53,7 @@ public class DiffusionManager : MonoBehaviour
             if (diffusionPhase == 0)
             {
                 // TODO: Fix this and make it so the dialogue can disappear if a player clicks an empty region of space
-                //       right now it overrides selecting increase/decrease which is issue
+                //       right now it overrides selecting increase/decrease which is an issue
                 //movementDialogue.gameObject.SetActive(false);
             }
         }
@@ -48,6 +62,13 @@ public class DiffusionManager : MonoBehaviour
     public void AdvanceToNextTimeBlock()
     {
         evidenceBucket.ClearEvidence();
+        timeBlockButton.AllowAdvance(false);
+
+        spreadingDialogue.gameObject.SetActive(false);
+        movementDialogue.gameObject.SetActive(false);
+        diffusionPhase = DiffusionPhase.SelectingSource;
+
+        AddTime(1);
     }
 
     public void UpdateDiffusionType(int t)
@@ -65,15 +86,23 @@ public class DiffusionManager : MonoBehaviour
                 timeBlockButton.AllowAdvance(true);
                 break;
             case 2:
-                Debug.Log("Spreading?");
+                //Debug.Log("Spreading?");
                 diffusionPhase = DiffusionPhase.SelectingSpread;
 
                 movementDialogue.gameObject.SetActive(false);
 
                 spreadingDialogue.gameObject.SetActive(true);
                 spreadingDialogue.UpdatePosition(source);
+
+                validRooms = source.EnableConnections();
+
                 break;
         }
+    }
+
+    public void AddTime(int i)
+    {
+        time = Mathf.Clamp(time + i, 0, 7);
     }
 }
 enum DiffusionPhase

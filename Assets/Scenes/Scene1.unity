@@ -1478,7 +1478,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeIndicator: {fileID: 1445547408}
-  time: 1
+  diffusionManager: {fileID: 274493699}
+  time: 0
 --- !u!114 &200814136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2579,7 +2580,7 @@ MonoBehaviour:
   spreadingDialogue: {fileID: 1153938131}
   evidenceBucket: {fileID: 1474962993}
   timeBlockButton: {fileID: 1487445198}
-  time: 1
+  time: 0
 --- !u!1 &291556581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,7 +2665,7 @@ GameObject:
   - component: {fileID: 292272992}
   - component: {fileID: 292272993}
   m_Layer: 5
-  m_Name: Vent - Basement - Dining
+  m_Name: Vent - Basement - Kitchen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3904,6 +3905,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diffusionManager: {fileID: 274493699}
+  connections:
+  - {fileID: 236922057}
+  - {fileID: 292272993}
 --- !u!114 &421221351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8305,6 +8309,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diffusionManager: {fileID: 274493699}
+  connections:
+  - {fileID: 292272993}
+  - {fileID: 133345500}
 --- !u!114 &815834940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9934,6 +9941,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diffusionManager: {fileID: 274493699}
+  connections:
+  - {fileID: 1118528922}
 --- !u!114 &954826759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11099,6 +11108,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diffusionManager: {fileID: 274493699}
+  connections:
+  - {fileID: 133345500}
+  - {fileID: 1118528922}
+  - {fileID: 236922057}
 --- !u!114 &1127099235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13962,6 +13975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1445547407}
   - component: {fileID: 1445547408}
+  - component: {fileID: 1445547409}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -14038,10 +14052,24 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 8
   m_WholeNumbers: 1
-  m_Value: 3
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1445547409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445547406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b5b54b2dc6ccc43993a0bc6f12b077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1445547408}
+  diffusionManager: {fileID: 274493699}
 --- !u!1 &1453360270
 GameObject:
   m_ObjectHideFlags: 0
@@ -14494,6 +14522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeIndicator: {fileID: 1880130815}
+  diffusionManager: {fileID: 0}
   time: 1
 --- !u!1 &1474962989
 GameObject:
@@ -15931,8 +15960,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 23.270885}
+  m_SizeDelta: {x: 20, y: 46.5417}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1598740536
 MonoBehaviour:
@@ -15954,7 +15983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

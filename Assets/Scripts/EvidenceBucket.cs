@@ -31,6 +31,7 @@ public class EvidenceBucket : MonoBehaviour
         {
             Destroy(evidenceParent.transform.GetChild(i).gameObject);
         }
+        evidencePieces = 0;
     }
 
     public void SetText(string text)

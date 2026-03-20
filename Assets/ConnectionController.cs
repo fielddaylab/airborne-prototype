@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ConnectionController : MonoBehaviour
 {
-    [SerializeField] private RoomController[] connectedRooms;
+    [SerializeField] public RoomController[] connectedRooms;
     [SerializeField] private Image[] connectionHighlights;
 
     void Start()
