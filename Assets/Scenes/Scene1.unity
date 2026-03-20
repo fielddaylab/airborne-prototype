@@ -1117,6 +1117,7 @@ MonoBehaviour:
   - {fileID: 1127099234}
   connectionHighlights:
   - {fileID: 133345498}
+  name: door
 --- !u!1 &148372736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,6 +1916,7 @@ MonoBehaviour:
   - {fileID: 1127099234}
   connectionHighlights:
   - {fileID: 236922058}
+  name: door
 --- !u!114 &236922058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2179,6 +2181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionOffest: {x: 150, y: 0, z: 0}
   diffusionManager: {fileID: 274493699}
+  timeText: {fileID: 1497766606}
 --- !u!1 &247753553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,6 +2583,7 @@ MonoBehaviour:
   spreadingDialogue: {fileID: 1153938131}
   evidenceBucket: {fileID: 1474962993}
   timeBlockButton: {fileID: 1487445198}
+  prompter: {fileID: 1034459673}
   time: 0
 --- !u!1 &291556581
 GameObject:
@@ -2711,6 +2715,7 @@ MonoBehaviour:
   connectionHighlights:
   - {fileID: 687005136}
   - {fileID: 148475481}
+  name: vent
 --- !u!1 &302182380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,7 +3222,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 354851860}
   m_OnClick:
     m_PersistentCalls:
@@ -10473,6 +10478,7 @@ GameObject:
   - component: {fileID: 1034459670}
   - component: {fileID: 1034459672}
   - component: {fileID: 1034459671}
+  - component: {fileID: 1034459673}
   m_Layer: 5
   m_Name: Prompt Panel
   m_TagString: Untagged
@@ -10538,6 +10544,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1034459669}
   m_CullTransparentMesh: 1
+--- !u!114 &1034459673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034459669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f22bae5ec0e50479943b656d3a2da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptText: {fileID: 448849192}
 --- !u!1 &1038335021
 GameObject:
   m_ObjectHideFlags: 0
@@ -10870,7 +10889,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1104496907}
   m_OnClick:
     m_PersistentCalls:
@@ -10979,6 +10998,7 @@ MonoBehaviour:
   - {fileID: 1127099234}
   connectionHighlights:
   - {fileID: 1118528923}
+  name: door
 --- !u!114 &1118528923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11946,6 +11966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionOffest: {x: 150, y: 0, z: 0}
   diffusionManager: {fileID: 274493699}
+  timeText: {fileID: 1292554237}
 --- !u!1 &1196337460
 GameObject:
   m_ObjectHideFlags: 0

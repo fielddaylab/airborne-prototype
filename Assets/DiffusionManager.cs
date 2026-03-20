@@ -13,6 +13,7 @@ public class DiffusionManager : MonoBehaviour
     [SerializeField] private SpreadingDialogue spreadingDialogue;
     [SerializeField] private EvidenceBucket evidenceBucket;
     [SerializeField] private TimeBlockButton timeBlockButton;
+    [SerializeField] private Prompter prompter;
 
     private RoomController source;
     private RoomController[] validRooms;
@@ -69,6 +70,7 @@ public class DiffusionManager : MonoBehaviour
         diffusionPhase = DiffusionPhase.SelectingSource;
 
         AddTime(1);
+        prompter.UpdatePrompt(time);
     }
 
     public void UpdateDiffusionType(int t)

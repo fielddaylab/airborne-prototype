@@ -7,6 +7,7 @@ public class ConnectionController : MonoBehaviour
 {
     [SerializeField] public RoomController[] connectedRooms;
     [SerializeField] private Image[] connectionHighlights;
+    public string name = "door";
 
     void Start()
     {
