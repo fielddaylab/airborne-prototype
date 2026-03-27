@@ -26,8 +26,5 @@ public class MapGraph : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
+    
 }

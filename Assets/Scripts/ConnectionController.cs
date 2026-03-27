@@ -8,6 +8,7 @@ public class ConnectionController : MonoBehaviour
     [SerializeField] public RoomController[] connectedRooms;
     [SerializeField] private Image[] connectionHighlights;
     [SerializeField] private Button[] buttons;
+    [SerializeField] private DiffusionManager diffusionManager;
     public string connectionName = "door";
 
 
@@ -41,5 +42,10 @@ public class ConnectionController : MonoBehaviour
             buttons[i].interactable = false;
         }
 
+    }
+
+    public void SelectThisConnection()
+    {
+        diffusionManager.SelectedConnection(this);
     }
 }

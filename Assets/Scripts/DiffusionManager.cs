@@ -47,6 +47,26 @@ public class DiffusionManager : MonoBehaviour
         }
     }
 
+    public void SelectedConnection(ConnectionController connection)
+    {
+        if (diffusionPhase == DiffusionPhase.SelectingSpread)
+        {
+            foreach (var room in connection.connectedRooms)
+            {
+                if (validRooms.Contains(room))
+                {
+                    evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through TODO to <b>{room.name}");
+                    source.DisableConnections();
+                    spreadingDialogue.gameObject.SetActive(false);
+                    movementDialogue.gameObject.SetActive(true);
+                    timeBlockButton.AllowAdvance(true);
+                    diffusionPhase = DiffusionPhase.SelectingSource;
+                    return;
+                }
+            }
+        }
+    }
+
     public void LateUpdate()
     {
         if (Input.GetMouseButtonDown(0))
@@ -95,7 +115,7 @@ public class DiffusionManager : MonoBehaviour
                 spreadingDialogue.gameObject.SetActive(true);
                 spreadingDialogue.UpdatePosition(source);
 
-                validRooms = source.EnableConnections();
+                validRooms = source.FindAndEnableConnections();
 
                 break;
         }

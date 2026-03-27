@@ -12,7 +12,7 @@ public class RoomController : MonoBehaviour
         diffusionManager.SelectedRoom(this);
     }
 
-    public RoomController[] EnableConnections()
+    public RoomController[] FindAndEnableConnections()
     {
         List<RoomController> connectedRooms = new List<RoomController>();
         
