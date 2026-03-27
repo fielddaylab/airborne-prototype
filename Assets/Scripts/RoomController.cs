@@ -14,7 +14,6 @@ public class RoomController : MonoBehaviour
     public void SelectThisRoom()
     {
         RoomSelected?.Invoke(this, EventArgs.Empty);
-        diffusionManager.SelectedRoom(this);
     }
 
     public RoomController[] FindAndEnableConnections()

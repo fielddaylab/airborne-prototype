@@ -61,37 +61,6 @@ public class DiffusionManager : MonoBehaviour
         }
     }
 
-    public void SelectedRoom(RoomController room)
-    {
-        //return; // old script
-        
-        //if (!modeling) return;
-        
-        //if (diffusionPhase == DiffusionPhase.SelectingSource)
-        //{
-        //    movementDialogue.UpdatePosition(room);
-        //    movementDialogue.gameObject.SetActive(true);
-        //    source = room;
-        //}
-
-        //if (diffusionPhase == DiffusionPhase.SelectingSpread)
-        //{
-        //    //TODO: Graphs? Connections that sort of act like graphs?
-        //    if (validRooms.Contains(room))
-        //    {
-        //        string connectionName = source.FindConnectionName(room);
-        //        evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through {connectionName} to <b>{room.name}");
-        //        source.DisableConnections();
-        //        spreadingDialogue.gameObject.SetActive(false);
-        //        movementDialogue.gameObject.SetActive(true);
-        //        timeBlockButton.AllowAdvance(true);
-        //        diffusionPhase = DiffusionPhase.SelectingSource;
-        //    } else
-        //    {
-        //        Debug.Log("Invalid room selection.");
-        //    }
-        //}
-    }
 
     public void SelectedConnection(ConnectionController connection)
     {
