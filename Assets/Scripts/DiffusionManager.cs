@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class DiffusionManager : MonoBehaviour
 {
@@ -22,10 +23,17 @@ public class DiffusionManager : MonoBehaviour
 
     public bool modeling = false;
 
-    public void SelectedRoom(RoomController room)
+    private void Start()
     {
+        RoomController.RoomSelected += HandleRoomSelected;
+    }
+
+    private void HandleRoomSelected(object sender, EventArgs e)
+    {
+        RoomController room = sender as RoomController;
+
         if (!modeling) return;
-        
+
         if (diffusionPhase == DiffusionPhase.SelectingSource)
         {
             movementDialogue.UpdatePosition(room);
@@ -45,11 +53,44 @@ public class DiffusionManager : MonoBehaviour
                 movementDialogue.gameObject.SetActive(true);
                 timeBlockButton.AllowAdvance(true);
                 diffusionPhase = DiffusionPhase.SelectingSource;
-            } else
+            }
+            else
             {
                 Debug.Log("Invalid room selection.");
             }
         }
+    }
+
+    public void SelectedRoom(RoomController room)
+    {
+        //return; // old script
+        
+        //if (!modeling) return;
+        
+        //if (diffusionPhase == DiffusionPhase.SelectingSource)
+        //{
+        //    movementDialogue.UpdatePosition(room);
+        //    movementDialogue.gameObject.SetActive(true);
+        //    source = room;
+        //}
+
+        //if (diffusionPhase == DiffusionPhase.SelectingSpread)
+        //{
+        //    //TODO: Graphs? Connections that sort of act like graphs?
+        //    if (validRooms.Contains(room))
+        //    {
+        //        string connectionName = source.FindConnectionName(room);
+        //        evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through {connectionName} to <b>{room.name}");
+        //        source.DisableConnections();
+        //        spreadingDialogue.gameObject.SetActive(false);
+        //        movementDialogue.gameObject.SetActive(true);
+        //        timeBlockButton.AllowAdvance(true);
+        //        diffusionPhase = DiffusionPhase.SelectingSource;
+        //    } else
+        //    {
+        //        Debug.Log("Invalid room selection.");
+        //    }
+        //}
     }
 
     public void SelectedConnection(ConnectionController connection)

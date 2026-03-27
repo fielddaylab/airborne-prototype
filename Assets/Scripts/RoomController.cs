@@ -9,6 +9,7 @@ public class RoomController : MonoBehaviour
     [SerializeField] private ConnectionController[] connections;
 
     public static event EventHandler RoomSelected;
+    public RoomType roomType;
     
     public void SelectThisRoom()
     {

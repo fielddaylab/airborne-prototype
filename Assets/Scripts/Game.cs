@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Game : MonoBehaviour
 {
@@ -37,6 +38,22 @@ public class Game : MonoBehaviour
     {
         gamePhase = GamePhase.FindingPollutant;
         diffusionManager.modeling = false;
+        RoomController.RoomSelected += HandleRoomSelected;
+    }
+    private void HandleRoomSelected(object sender, EventArgs e)
+    {
+        RoomController room = sender as RoomController;
+
+        if (gamePhase == GamePhase.SelectingSource)
+        {
+            if (room.roomType == currentSuspect.sourceRoom)
+            {
+                Debug.Log("YOU DID HAVE A COOKIE!");
+                gamePhase = GamePhase.DeterminingSpread;
+                prompt.SetText($"How did the <b>Carbon Monoxide</b> move through the building at <b>{diffusionManager.time + 1}PM</b>?");
+                diffusionManager.modeling = true;
+            }
+        }
     }
 
     void Update()
