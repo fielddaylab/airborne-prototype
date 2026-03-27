@@ -34,7 +34,8 @@ public class DiffusionManager : MonoBehaviour
             //TODO: Graphs? Connections that sort of act like graphs?
             if (validRooms.Contains(room))
             {
-                evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through TODO to <b>{room.name}");
+                string connectionName = source.FindConnectionName(room);
+                evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through {connectionName} to <b>{room.name}");
                 source.DisableConnections();
                 spreadingDialogue.gameObject.SetActive(false);
                 movementDialogue.gameObject.SetActive(true);
@@ -55,7 +56,7 @@ public class DiffusionManager : MonoBehaviour
             {
                 if (validRooms.Contains(room))
                 {
-                    evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through TODO to <b>{room.name}");
+                    evidenceBucket.AddEvidence($"{pollutant} <b>spread</b> through {connection.connectionName} to <b>{room.name}");
                     source.DisableConnections();
                     spreadingDialogue.gameObject.SetActive(false);
                     movementDialogue.gameObject.SetActive(true);

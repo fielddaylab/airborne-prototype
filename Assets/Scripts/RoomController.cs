@@ -39,4 +39,22 @@ public class RoomController : MonoBehaviour
             connection.HideConnections();
         }
     }
+
+    public string FindConnectionName(RoomController targetRoom)
+    {
+        if (targetRoom == this) return null;
+        foreach (var connection in connections)
+        {
+            foreach (var room in connection.connectedRooms)
+            {
+                if (room == targetRoom)
+                {
+                    return connection.connectionName;
+                }
+            }
+        }
+
+        Debug.LogWarning("Could not find a connection to this room.");
+        return "UNKNOWN";
+    }
 }
