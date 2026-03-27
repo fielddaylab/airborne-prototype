@@ -11,7 +11,7 @@ public class SpreadingDialogue : MonoBehaviour
 
     public void UpdatePosition(RoomController room)
     {
-        transform.position = room.transform.position + positionOffest;
-        timeText.text = $"{room.name}, {diffusionManager.time + 1}PM";
+        //transform.position = room.transform.position + positionOffest;
+        //timeText.text = $"{room.name}, {diffusionManager.time + 1}PM";
     }
 }
