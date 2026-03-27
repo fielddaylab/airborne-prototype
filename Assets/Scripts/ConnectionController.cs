@@ -7,7 +7,9 @@ public class ConnectionController : MonoBehaviour
 {
     [SerializeField] public RoomController[] connectedRooms;
     [SerializeField] private Image[] connectionHighlights;
-    public string name = "door";
+    [SerializeField] private Button[] buttons;
+    public string connectionName = "door";
+
 
     void Start()
     {
@@ -22,7 +24,10 @@ public class ConnectionController : MonoBehaviour
             highlightColor.a = 255;
 
             connectionHighlights[i].color = highlightColor;
+
+            buttons[i].interactable = true;
         }
+
     }
 
     public void HideConnections()
@@ -33,6 +38,8 @@ public class ConnectionController : MonoBehaviour
             highlightColor.a = 0;
 
             connectionHighlights[i].color = highlightColor;
+            buttons[i].interactable = false;
         }
+
     }
 }
