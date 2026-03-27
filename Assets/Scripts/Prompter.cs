@@ -8,8 +8,13 @@ public class Prompter : MonoBehaviour
     [SerializeField] TextMeshProUGUI promptText;
     [SerializeField] DiffusionManager diffusionManager;
 
+    public void SetText(string text)
+    {
+        promptText.text = text;
+    }
+
     public void Update()
     {
-        promptText.text = $"How did the <b>Carbon Monoxide</b> move through the building at <b>{diffusionManager.time + 1}PM</b>?";
+        //promptText.text = $"How did the <b>Carbon Monoxide</b> move through the building at <b>{diffusionManager.time + 1}PM</b>?";
     }
 }

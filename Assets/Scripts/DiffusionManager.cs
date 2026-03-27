@@ -20,8 +20,12 @@ public class DiffusionManager : MonoBehaviour
 
     [SerializeField] public int time = 0;
 
+    public bool modeling = false;
+
     public void SelectedRoom(RoomController room)
     {
+        if (!modeling) return;
+        
         if (diffusionPhase == DiffusionPhase.SelectingSource)
         {
             movementDialogue.UpdatePosition(room);

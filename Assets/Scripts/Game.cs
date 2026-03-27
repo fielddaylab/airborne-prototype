@@ -5,6 +5,23 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public static Game Instance;
+    public SuspectObject currentSuspect;
+    public GamePhase gamePhase;
+    public Prompter prompt;
+
+    [SerializeField] private DiffusionManager diffusionManager = null;
+
+    public void CheckPollutant(Pollutant p)
+    {
+        if (gamePhase != GamePhase.FindingPollutant) return;
+        
+        if (currentSuspect.pollutant == p)
+        {
+            Debug.Log("YOU DID IT HAVE A COOKE!");
+            prompt.SetText($"What was the source of {p}?");
+            gamePhase = GamePhase.SelectingSource;
+        }
+    }
 
     private void Awake()
     {
@@ -19,11 +36,19 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        
+        gamePhase = GamePhase.FindingPollutant;
+        diffusionManager.modeling = false;
     }
 
     void Update()
     {
         
     }
+}
+
+public enum GamePhase
+{
+    FindingPollutant,
+    SelectingSource,
+    DeterminingSpread
 }
