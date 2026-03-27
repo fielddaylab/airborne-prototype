@@ -17,7 +17,6 @@ public class Game : MonoBehaviour
         
         if (currentSuspect.pollutant == p)
         {
-            Debug.Log("YOU DID IT HAVE A COOKE!");
             prompt.SetText($"What was the source of {p}?");
             gamePhase = GamePhase.SelectingSource;
         }

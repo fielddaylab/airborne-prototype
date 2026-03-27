@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,12 @@ public class RoomController : MonoBehaviour
 {
     [SerializeField] private DiffusionManager diffusionManager;
     [SerializeField] private ConnectionController[] connections;
+
+    public static event EventHandler RoomSelected;
     
     public void SelectThisRoom()
     {
+        RoomSelected?.Invoke(this, EventArgs.Empty);
         diffusionManager.SelectedRoom(this);
     }
 
