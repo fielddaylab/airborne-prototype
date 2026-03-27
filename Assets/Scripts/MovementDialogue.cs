@@ -16,6 +16,11 @@ public class MovementDialogue : MonoBehaviour
         Spread
     }
 
+    public void Start()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void UpdatePosition(RoomController room)
     {
         transform.position = room.transform.position + positionOffest;
