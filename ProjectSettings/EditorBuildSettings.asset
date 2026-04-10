@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Scene1.unity
+    path: Assets/Scenes/Diffusion Modeling.unity
     guid: 49d6f9cd80d06134aaf4daa038b816f9
   m_configObjects: {}
