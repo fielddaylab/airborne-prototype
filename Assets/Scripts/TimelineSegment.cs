@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class TimelineSegment : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class TimelineSegment : MonoBehaviour
         public Texture2D symptomTexture;
     }
 
+    public List<SymptomTexturePair> symptomTextures;
 
     public GameObject DialogueImagePrefab, PollutantImagePrefab, SensorPrefab;
     public GameObject SensorBlockParent, DialogueSymptomParent, SourceStatusParent;
@@ -39,6 +41,7 @@ public class TimelineSegment : MonoBehaviour
 
             RoomStep roomStep = timeStep.roomSteps[i];
 
+            // Sensor block backgrounds
             foreach (var pollutantStep in roomStep.pollutantSteps)
             {
                 GameObject sensorStep = Instantiate(SensorPrefab);
@@ -57,6 +60,38 @@ public class TimelineSegment : MonoBehaviour
                 }
                 sensorStep.transform.SetParent(SensorBlockParent.transform);
                 sensorStep.transform.localScale = Vector3.one;
+            }
+
+            foreach (var sourceStep in roomStep.sourceSteps)
+            {
+                GameObject sourceObj = Instantiate(PollutantImagePrefab);
+                RawImage image = sourceObj.GetComponent<RawImage>();
+                SourceTexturePair match = sourceTextures.Find(x => x.source == sourceStep.pollutionSource);
+                image.texture = sourceStep.sourceAction == SourceAction.On ? match.textureOn : match.textureOff;
+
+                sourceObj.transform.SetParent(SourceStatusParent.transform);
+                sourceObj.transform.localScale = Vector3.one;
+            }
+
+            foreach (var characterStep in roomStep.characterSteps)
+            {
+                if (characterStep.dialogue != "")
+                {
+                    GameObject dialogueObj = Instantiate(DialogueImagePrefab);
+                    dialogueObj.transform.SetParent(DialogueSymptomParent.transform);
+                    dialogueObj.transform.localScale = Vector3.one;
+                }
+
+                if (characterStep.observedSymptom != Symptom.None)
+                {
+                    GameObject symptomObj = Instantiate(PollutantImagePrefab);
+                    RawImage image = symptomObj.GetComponent<RawImage>();
+                    SymptomTexturePair match = symptomTextures.Find(x => x.symptom == characterStep.observedSymptom);
+                    image.texture = match.symptomTexture;
+
+                    symptomObj.transform.SetParent(DialogueSymptomParent.transform);
+                    symptomObj.transform.localScale = Vector3.one;
+                }
             }
         }
     }

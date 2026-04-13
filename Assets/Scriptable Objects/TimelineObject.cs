@@ -42,6 +42,6 @@ public class PollutantStep
 public class CharacterStep
 {
     public CharacterType character;
-    public string dialogue;
+    public string dialogue = "";
     public Symptom observedSymptom;
 }

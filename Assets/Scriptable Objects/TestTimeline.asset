@@ -38,7 +38,7 @@ MonoBehaviour:
     - roomType: 0
       pollutantSteps:
       - pollutantType: 0
-        concentration: 1
+        concentration: 0
       characterSteps:
       - character: 0
         dialogue: 
@@ -51,7 +51,7 @@ MonoBehaviour:
     - roomType: 0
       pollutantSteps:
       - pollutantType: 0
-        concentration: 2
+        concentration: 1
       characterSteps: []
       sourceSteps: []
   - hourTime: 18
@@ -59,7 +59,7 @@ MonoBehaviour:
     - roomType: 0
       pollutantSteps:
       - pollutantType: 0
-        concentration: 2
+        concentration: 3
       - pollutantType: 1
         concentration: 2
       characterSteps:
