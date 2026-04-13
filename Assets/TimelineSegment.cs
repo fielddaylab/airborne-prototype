@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimelineSegment : MonoBehaviour
 {
@@ -30,13 +31,33 @@ public class TimelineSegment : MonoBehaviour
     public GameObject SensorBlockParent, DialogueSymptomParent, SourceStatusParent;
 
 
-    void Start()
+    public void AssembleChunk(TimelineStep timeStep)
     {
-        
-    }
+        for (int i = 0; i < 1; i++) // only do the first one for now
+        {
+            if (timeStep.roomSteps.Length == 0) return;
 
-    void Update()
-    {
-        
+            RoomStep roomStep = timeStep.roomSteps[i];
+
+            foreach (var pollutantStep in roomStep.pollutantSteps)
+            {
+                GameObject sensorStep = Instantiate(SensorPrefab);
+                RawImage image = sensorStep.GetComponent<RawImage>();
+                switch (pollutantStep.pollutantType)
+                {
+                    case Pollutant.CO2:
+                        image.texture = COSensors[pollutantStep.concentration];
+                        break;
+                    case Pollutant.NO:
+                        image.texture = NOSensors[pollutantStep.concentration];
+                        break;
+                    case Pollutant.VOC:
+                        image.texture = VOCSensors[pollutantStep.concentration];
+                        break;
+                }
+                sensorStep.transform.SetParent(SensorBlockParent.transform);
+                sensorStep.transform.localScale = Vector3.one;
+            }
+        }
     }
 }
