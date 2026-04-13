@@ -27,6 +27,7 @@ public class TimelineSegment : MonoBehaviour
 
 
     public GameObject DialogueImagePrefab, PollutantImagePrefab, SensorPrefab;
+    public GameObject SensorBlockParent, DialogueSymptomParent, SourceStatusParent;
 
 
     void Start()
