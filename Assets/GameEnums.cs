@@ -14,6 +14,12 @@ public enum PollutionSource
     Spraycan
 }
 
+public enum SourceAction
+{
+    On,
+    Off
+}
+
 public enum Pollutant
 {
     CO2,
@@ -24,6 +30,7 @@ public enum Pollutant
 
 public enum Symptom
 {
+    None,
     ShortBreath,
     LungIrritation,
     Headache,
@@ -35,4 +42,11 @@ public enum Symptom
     Nausea,
     Cough,
     Z
+}
+
+public enum CharacterType
+{
+    Roundy,
+    Blockhead,
+    Triangelo
 }
