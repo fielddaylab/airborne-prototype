@@ -21,10 +21,11 @@ public class RoomStep
     public RoomType roomType;
     public PollutantStep[] pollutantSteps;
     public CharacterStep[] characterSteps;
+    public SourceStep[] sourceSteps;
 }
 
 [System.Serializable]
-public class ObjectStep
+public class SourceStep
 {
     public PollutionSource pollutionSource;
     public SourceAction sourceAction;

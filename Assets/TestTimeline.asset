@@ -14,6 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeline:
   - hourTime: 13
+    roomSteps: []
+  - hourTime: 14
+    roomSteps:
+    - roomType: 0
+      pollutantSteps: []
+      characterSteps:
+      - character: 0
+        dialogue: Dialogue Test!
+        observedSymptom: 0
+      sourceSteps: []
+  - hourTime: 15
+    roomSteps:
+    - roomType: 0
+      pollutantSteps: []
+      characterSteps:
+      - character: 0
+        dialogue: Dialogue Test 2!
+        observedSymptom: 0
+      sourceSteps: []
+  - hourTime: 16
     roomSteps:
     - roomType: 0
       pollutantSteps:
@@ -22,16 +42,52 @@ MonoBehaviour:
       characterSteps:
       - character: 0
         dialogue: 
-        observedSymptom: 0
-    - roomType: 1
+        observedSymptom: 2
+      sourceSteps:
+      - pollutionSource: 1
+        sourceAction: 0
+  - hourTime: 17
+    roomSteps:
+    - roomType: 0
       pollutantSteps:
       - pollutantType: 0
         concentration: 2
+      characterSteps: []
+      sourceSteps: []
+  - hourTime: 18
+    roomSteps:
+    - roomType: 0
+      pollutantSteps:
+      - pollutantType: 0
+        concentration: 2
+      - pollutantType: 1
+        concentration: 2
+      characterSteps:
+      - character: 0
+        dialogue: I feel weird!
+        observedSymptom: 5
+      sourceSteps:
+      - pollutionSource: 1
+        sourceAction: 1
+  - hourTime: 19
+    roomSteps:
+    - roomType: 0
+      pollutantSteps:
+      - pollutantType: 1
+        concentration: 3
       characterSteps:
       - character: 0
         dialogue: 
-        observedSymptom: 0
-  - hourTime: 14
-    roomSteps: []
-  - hourTime: 15
-    roomSteps: []
+        observedSymptom: 2
+      sourceSteps: []
+  - hourTime: 20
+    roomSteps:
+    - roomType: 0
+      pollutantSteps:
+      - pollutantType: 1
+        concentration: 4
+      characterSteps:
+      - character: 0
+        dialogue: 
+        observedSymptom: 8
+      sourceSteps: []
