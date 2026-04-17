@@ -39,11 +39,11 @@ public class SuspectPicker : MonoBehaviour
 
     public void LoadPollutant()
     {
+        GameManager.Instance.GamePhase = GamePhase.ArguingPollutant;
         pollutantPanels[selectedPanel].enabled = false;
         comboArea.gameObject.SetActive(true);
         comboArea.LoadPollutant(pollutantPanels[selectedPanel].gameObject);
         gameObject.SetActive(false);
         nextStepButton.interactable = false;
-
     }
 }

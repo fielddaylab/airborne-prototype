@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ComboAreaManager : MonoBehaviour
 {
@@ -17,5 +18,8 @@ public class ComboAreaManager : MonoBehaviour
         prefab.transform.SetParent(_selectedPollutantArea.transform);
         prefab.transform.localScale = Vector3.one;
         prefab.transform.localPosition = Vector3.zero;
+
+        Button panelButton = prefab.GetComponentInChildren<Button>();
+        panelButton.enabled = false;
     }
 }

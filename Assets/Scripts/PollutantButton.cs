@@ -8,6 +8,6 @@ public class PollutantButton : MonoBehaviour
 
     public void Selection()
     {
-        Game.Instance.CheckPollutant(pollutantType);
+        GameManager.Instance.CheckPollutant(pollutantType);
     }
 }
