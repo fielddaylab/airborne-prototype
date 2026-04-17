@@ -12,6 +12,7 @@ public class SuspectPicker : MonoBehaviour
 
     void Start()
     {
+        gameObject.SetActive(true);
         nextStepButton.interactable = false;
         foreach (RawImage panel in pollutantPanels)
         {
@@ -38,10 +39,11 @@ public class SuspectPicker : MonoBehaviour
 
     public void LoadPollutant()
     {
+        pollutantPanels[selectedPanel].enabled = false;
         comboArea.gameObject.SetActive(true);
         comboArea.LoadPollutant(pollutantPanels[selectedPanel].gameObject);
         gameObject.SetActive(false);
         nextStepButton.interactable = false;
-        pollutantPanels[selectedPanel].enabled = false;
+
     }
 }
