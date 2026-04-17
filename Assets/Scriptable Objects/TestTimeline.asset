@@ -78,7 +78,7 @@ MonoBehaviour:
       characterSteps:
       - character: 0
         dialogue: 
-        observedSymptom: 2
+        observedSymptom: 9
       sourceSteps: []
   - hourTime: 20
     roomSteps:

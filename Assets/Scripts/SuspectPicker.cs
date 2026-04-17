@@ -7,6 +7,7 @@ public class SuspectPicker : MonoBehaviour
 {
     [SerializeField] private RawImage[] pollutantPanels;
     [SerializeField] private Button nextStepButton;
+    [SerializeField] private ComboAreaManager comboArea;
     private int selectedPanel = -1;
 
     void Start()
@@ -33,5 +34,14 @@ public class SuspectPicker : MonoBehaviour
             pollutantPanels[i].enabled = true;
             selectedPanel = i;
         }
+    }
+
+    public void LoadPollutant()
+    {
+        comboArea.gameObject.SetActive(true);
+        comboArea.LoadPollutant(pollutantPanels[selectedPanel].gameObject);
+        gameObject.SetActive(false);
+        nextStepButton.interactable = false;
+        pollutantPanels[selectedPanel].enabled = false;
     }
 }
