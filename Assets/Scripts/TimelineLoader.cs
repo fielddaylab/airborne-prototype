@@ -7,6 +7,7 @@ public class TimelineLoader : MonoBehaviour
     [SerializeField] private TimelineObject _timelineToLoad;
     [SerializeField] private GameObject _timelineChunkPrefab;
     [SerializeField] private GameObject _timelineChunkParent;
+    [SerializeField] private FeedbackBlock _feedbackBlock;
 
     void Start()
     {
@@ -32,7 +33,7 @@ public class TimelineLoader : MonoBehaviour
             timeChunk.transform.localScale = Vector3.one; // still not sure why this is needed?
             TimelineSegment timeSegment = timeChunk.GetComponent<TimelineSegment>();
             timeChunk.name = "" + timeStep.hourTime;
-            timeSegment.AssembleChunk(timeStep);
+            timeSegment.AssembleChunk(timeStep, _feedbackBlock);
         }
     }
 }

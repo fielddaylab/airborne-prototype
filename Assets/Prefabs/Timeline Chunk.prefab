@@ -162,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01632ddafa4e8634e8a57989773a4089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EvenColor: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 1}
+  OddColor: {r: 0.54901963, g: 0.54901963, b: 0.54901963, a: 1}
   COSensors:
   - {fileID: 2800000, guid: 9d00dc87121f3344fb508e8fb1946187, type: 3}
   - {fileID: 2800000, guid: e43887ccfc7f4ef43bb654bcc465dfbc, type: 3}

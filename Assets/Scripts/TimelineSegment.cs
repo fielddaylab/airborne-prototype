@@ -6,6 +6,8 @@ using System.Linq;
 
 public class TimelineSegment : MonoBehaviour
 {
+    public Color EvenColor, OddColor;
+    
     public Texture2D[] COSensors, NOSensors, VOCSensors;
 
     [System.Serializable]
@@ -31,8 +33,11 @@ public class TimelineSegment : MonoBehaviour
     public GameObject SensorBlockParent, DialogueAndSymptomParent, SourceStatusParent;
 
 
-    public void AssembleChunk(TimelineStep timeStep)
+    public void AssembleChunk(TimelineStep timeStep, FeedbackBlock feedbackBlock)
     {
+        Image img = GetComponent<Image>();
+        img.color = timeStep.hourTime % 2 == 0 ? EvenColor : OddColor;
+        
         for (int i = 0; i < 1; i++) // only do the first one for now
         {
             if (timeStep.roomSteps.Length == 0) return;
@@ -65,10 +70,15 @@ public class TimelineSegment : MonoBehaviour
                 GameObject sourceObj = Instantiate(SymptomAndSourceImagePrefab);
                 RawImage image = sourceObj.GetComponent<RawImage>();
                 SourceTexturePair match = sourceTextures.Find(x => x.source == sourceStep.pollutionSource);
-                image.texture = sourceStep.sourceAction == SourceAction.On ? match.textureOn : match.textureOff;
+                Texture2D matchingTexture = sourceStep.sourceAction == SourceAction.On ? match.textureOn : match.textureOff;
+                image.texture = matchingTexture;
 
                 sourceObj.transform.SetParent(SourceStatusParent.transform);
                 sourceObj.transform.localScale = Vector3.one;
+
+                TimelineButton sourceButton = sourceObj.GetComponent<TimelineButton>();
+                string status = sourceStep.sourceAction == SourceAction.On ? " turns on." : " turns off.";
+                sourceButton.Setup(feedbackBlock, sourceStep.pollutionSource.ToString(), matchingTexture, status);
             }
 
             foreach (var characterStep in roomStep.characterSteps)
@@ -78,6 +88,9 @@ public class TimelineSegment : MonoBehaviour
                     GameObject dialogueObj = Instantiate(DialogueImagePrefab);
                     dialogueObj.transform.SetParent(DialogueAndSymptomParent.transform);
                     dialogueObj.transform.localScale = Vector3.one;
+
+                    TimelineButton dialogueButton = dialogueObj.GetComponent<TimelineButton>();
+                    dialogueButton.Setup(feedbackBlock, characterStep.dialogue); // dialogue, no image
                 }
 
                 if (characterStep.observedSymptom != Symptom.None)
@@ -89,6 +102,9 @@ public class TimelineSegment : MonoBehaviour
 
                     symptomObj.transform.SetParent(DialogueAndSymptomParent.transform);
                     symptomObj.transform.localScale = Vector3.one;
+
+                    TimelineButton symptomButton = symptomObj.GetComponent<TimelineButton>();
+                    symptomButton.Setup(feedbackBlock, "Roundy experiences", match.symptomTexture, characterStep.observedSymptom.ToString()); // character, image, symptom 
                 }
             }
         }
