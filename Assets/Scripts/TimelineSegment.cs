@@ -68,7 +68,7 @@ public class TimelineSegment : MonoBehaviour
             foreach (var sourceStep in roomStep.sourceSteps)
             {
                 GameObject sourceObj = Instantiate(SymptomAndSourceImagePrefab);
-                RawImage image = sourceObj.GetComponent<RawImage>();
+                RawImage image = sourceObj.transform.Find("Button Texture").GetComponent<RawImage>();
                 SourceTexturePair match = sourceTextures.Find(x => x.source == sourceStep.pollutionSource);
                 Texture2D matchingTexture = sourceStep.sourceAction == SourceAction.On ? match.textureOn : match.textureOff;
                 image.texture = matchingTexture;
@@ -79,6 +79,9 @@ public class TimelineSegment : MonoBehaviour
                 TimelineButton sourceButton = sourceObj.GetComponent<TimelineButton>();
                 string status = sourceStep.sourceAction == SourceAction.On ? " turns on." : " turns off.";
                 sourceButton.Setup(feedbackBlock, sourceStep.pollutionSource.ToString(), matchingTexture, status);
+
+                HighlighterSlot highlightSlot = sourceObj.GetComponent<HighlighterSlot>();
+                highlightSlot.SlotType = SlotType.Source; // defaults to symptom so only need to set here
             }
 
             foreach (var characterStep in roomStep.characterSteps)
@@ -96,7 +99,7 @@ public class TimelineSegment : MonoBehaviour
                 if (characterStep.observedSymptom != Symptom.None)
                 {
                     GameObject symptomObj = Instantiate(SymptomAndSourceImagePrefab);
-                    RawImage image = symptomObj.GetComponent<RawImage>();
+                    RawImage image = symptomObj.transform.Find("Button Texture").GetComponent<RawImage>();
                     SymptomTexturePair match = symptomTextures.Find(x => x.symptom == characterStep.observedSymptom);
                     image.texture = match.symptomTexture;
 
