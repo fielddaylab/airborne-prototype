@@ -16,7 +16,7 @@ public class FeedbackBlock : MonoBehaviour
 
     public void ShowFeedback(string part1, Texture2D texture = null, string part2 = null)
     {
-        Debug.Log("blargh!");
+        //Debug.Log("blargh!");
         _part1.text = part1;
         _part2.text = part2;
         _image.texture = texture;

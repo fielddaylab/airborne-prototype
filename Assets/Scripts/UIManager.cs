@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static UIManager Instance;
+    public CyclerHighlighterButton SelectedSlot;
+    
     void Start()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Debug.LogWarning("Two UI Managers in scene.");
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HandleSlotClick(CyclerHighlighterButton slot)
     {
-        
+
     }
 }

@@ -6,6 +6,14 @@ public enum RoomType
     Bedroom
 }
 
+public enum SlotType
+{
+    Symptom,
+    Source,
+    Dialogue,
+    Sensor
+}
+
 public enum PollutionSource
 {
     Furnace,

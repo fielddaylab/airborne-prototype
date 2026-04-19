@@ -9,7 +9,7 @@ public class ComboAreaManager : MonoBehaviour
 
     public void Start()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     public void LoadPollutant(GameObject pollutantPrefab)
