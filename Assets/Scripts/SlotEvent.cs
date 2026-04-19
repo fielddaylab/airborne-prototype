@@ -11,11 +11,13 @@ public static class SlotEvent
 
     public static void SelectSlot(SlotType type)
     {
+        if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
         OnSlotSelected?.Invoke(type);
     }
 
     public static void ClearHighlights()
     {
+        if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
         OnClearHighlights?.Invoke();
     }
 }

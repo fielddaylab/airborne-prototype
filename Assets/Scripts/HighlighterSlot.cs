@@ -13,7 +13,10 @@ public class HighlighterSlot : MonoBehaviour
     {
         _highlightTexture = GetComponent<RawImage>();
         _highlightTexture.enabled = false;
-        FillSlot.enabled = false;
+        if (FillSlot != null)
+        {
+            FillSlot.enabled = false;
+        }
     }
 
     private void OnEnable()

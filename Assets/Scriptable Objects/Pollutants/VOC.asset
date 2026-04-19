@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff9baf6ef10bd34dae6ccd9e9b8c273, type: 3}
   m_Name: VOC
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 3
   Symptoms: 0800000003000000040000000600000002000000
   Sources: 03000000
