@@ -64,6 +64,10 @@ public class TimelineSegment : MonoBehaviour
                 }
                 sensorStep.transform.SetParent(SensorBlockParent.transform);
                 sensorStep.transform.localScale = Vector3.one;
+
+                SensorBlock sensorBlock = sensorStep.GetComponent<SensorBlock>();
+                sensorBlock.PollutantType = pollutantStep.pollutantType;
+                sensorBlock.Concentration = pollutantStep.concentration;
             }
 
             foreach (var sourceStep in roomStep.sourceSteps)
