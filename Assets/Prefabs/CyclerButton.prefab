@@ -315,5 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c3c228432c0a4188ca9288c845833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FillSlot: {fileID: 0}
+  SlotImage: {fileID: 4242739566862021921}
   SlotType: 0
+  IsSlot: 0

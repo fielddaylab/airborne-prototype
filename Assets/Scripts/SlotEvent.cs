@@ -6,13 +6,13 @@ using UnityEngine;
 public static class SlotEvent 
 {
 
-    public static event Action<SlotType, bool> OnSlotSelected;
+    public static event Action<HighlighterSlot> OnSlotSelected;
     public static event Action OnClearHighlights;
 
-    public static void SelectSlot(SlotType type, bool isSlot)
+    public static void SelectSlot(HighlighterSlot highlighterSlot)
     {
         if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
-        OnSlotSelected?.Invoke(type, isSlot);
+        OnSlotSelected?.Invoke(highlighterSlot);
     }
 
     public static void ClearHighlights()

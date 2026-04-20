@@ -1064,6 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a773776c89abe4199aa1ae5eceb962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedSlot: {fileID: 0}
 --- !u!1 &203025423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,7 +2867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c3c228432c0a4188ca9288c845833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FillSlot: {fileID: 1088768577}
+  SlotImage: {fileID: 1088768577}
   SlotType: 1
   IsSlot: 1
 --- !u!1 &547907981
@@ -3861,7 +3862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c3c228432c0a4188ca9288c845833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FillSlot: {fileID: 1492075734}
+  SlotImage: {fileID: 0}
   SlotType: 3
   IsSlot: 0
 --- !u!1 &632202862
@@ -6381,7 +6382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c3c228432c0a4188ca9288c845833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FillSlot: {fileID: 440917165}
+  SlotImage: {fileID: 440917165}
   SlotType: 2
   IsSlot: 1
 --- !u!1 &1246633078
@@ -8393,7 +8394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656c3c228432c0a4188ca9288c845833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FillSlot: {fileID: 642433291}
+  SlotImage: {fileID: 642433291}
   SlotType: 0
   IsSlot: 1
 --- !u!1 &1824755471

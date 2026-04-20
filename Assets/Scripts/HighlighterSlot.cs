@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HighlighterSlot : MonoBehaviour
 {
     private RawImage _highlightTexture;
-    public RawImage FillSlot;
+    public RawImage SlotImage;
     public SlotType SlotType;
     public bool IsSlot = false;
     
@@ -14,10 +14,7 @@ public class HighlighterSlot : MonoBehaviour
     {
         _highlightTexture = GetComponent<RawImage>();
         _highlightTexture.enabled = false;
-        if (FillSlot != null)
-        {
-            FillSlot.enabled = false;
-        }
+        
     }
 
     private void OnEnable()
@@ -35,12 +32,15 @@ public class HighlighterSlot : MonoBehaviour
     public void OnButtonClick()
     {
         SlotEvent.ClearHighlights();
-        SlotEvent.SelectSlot(this.SlotType, this.IsSlot);
+        SlotEvent.SelectSlot(this);
+        //_highlightTexture.enabled = true;
     }
 
-    private void HandleSlotSelection(SlotType selectedType, bool isSlot)
+    
+
+    private void HandleSlotSelection(HighlighterSlot highlighterSlot)
     {
-        if (selectedType == this.SlotType && IsSlot != isSlot)
+        if (highlighterSlot.SlotType == this.SlotType && highlighterSlot.IsSlot != IsSlot)
         {
             _highlightTexture.enabled = true;
         }
