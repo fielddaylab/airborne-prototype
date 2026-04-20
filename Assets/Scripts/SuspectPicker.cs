@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SuspectPicker : MonoBehaviour
 {
     [SerializeField] private RawImage[] pollutantPanels;
-    [SerializeField] private Button nextStepButton;
+    [SerializeField] private Button nextStepButton, backStepButton;
     [SerializeField] private ComboAreaManager comboArea;
     private int selectedPanel = -1;
 
@@ -45,5 +45,14 @@ public class SuspectPicker : MonoBehaviour
         comboArea.LoadPollutant(pollutantPanels[selectedPanel].gameObject);
         gameObject.SetActive(false);
         nextStepButton.interactable = false;
+        backStepButton.interactable = true;
+    }
+
+    public void Restore()
+    {
+        nextStepButton.interactable = true;
+        backStepButton.interactable = false;
+        GameManager.Instance.GamePhase = GamePhase.SelectingPollutant;
+        Start();
     }
 }

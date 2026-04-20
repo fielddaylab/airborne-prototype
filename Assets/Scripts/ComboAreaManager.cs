@@ -7,6 +7,8 @@ public class ComboAreaManager : MonoBehaviour
 {
     public GameObject _selectedPollutantArea;
 
+    [SerializeField] private SuspectPicker _suspectPicker;
+
     public void Start()
     {
         //gameObject.SetActive(false);
@@ -21,5 +23,12 @@ public class ComboAreaManager : MonoBehaviour
 
         Button panelButton = prefab.GetComponentInChildren<Button>();
         panelButton.enabled = false;
+    }
+
+    public void ReturnToSuspects()
+    {
+        _suspectPicker.gameObject.SetActive(true);
+        _suspectPicker.Restore();
+        gameObject.SetActive(false);
     }
 }
