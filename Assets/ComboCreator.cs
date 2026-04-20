@@ -10,8 +10,6 @@ public class ComboCreator : MonoBehaviour
     [SerializeField] private RawImage _sensorSlot;
     [SerializeField] private GameObject _cardPrefab, _cardParent;
 
-    int phase = 0;
-
     private void OnEnable()
     {
         SlotEvent.OnSlotSelected += HandleSlotSelection;
@@ -62,7 +60,6 @@ public class ComboCreator : MonoBehaviour
                         break;
                 }
 
-                phase += 1;
                 SlotEvent.ClearHighlights();
                 SlotEvent.Locked = true;
                 SlotEvent.UnlockSensorBlocks();
@@ -83,11 +80,28 @@ public class ComboCreator : MonoBehaviour
 
     private void CreateCombo(SensorBlock sensorBlock)
     {
-        int persuasion = 1;
+        int persuasion = 1; // have some calculation for this someday
+        
         GameObject cardPrefab = Instantiate(_cardPrefab);
         cardPrefab.transform.SetParent(_cardParent.transform);
         cardPrefab.transform.localScale = Vector3.one;
 
+        ComboCard comboCard = cardPrefab.GetComponent<ComboCard>();
+        comboCard.Setup(persuasion, SelectedSlot.SlotImage.texture, sensorBlock.GetComponent<RawImage>().texture);
+
+        PersuasionManager.Instance.UpdateAmount(persuasion);
+
+        ResetSlots();
+    }
+
+    private void ResetSlots()
+    {
+        _sourceSlot.SetActive(true);
+        _dialogueSlot.SetActive(true);
+        _symptomSlot.SetActive(true);
+
+        SlotEvent.Locked = false;
+        SlotEvent.LockSensorBlocks();
     }
 
     void Update()
