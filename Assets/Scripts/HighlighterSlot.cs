@@ -8,6 +8,7 @@ public class HighlighterSlot : MonoBehaviour
     private RawImage _highlightTexture;
     public RawImage FillSlot;
     public SlotType SlotType;
+    public bool IsSlot = false;
     
     void Start()
     {
@@ -34,12 +35,12 @@ public class HighlighterSlot : MonoBehaviour
     public void OnButtonClick()
     {
         SlotEvent.ClearHighlights();
-        SlotEvent.SelectSlot(this.SlotType);
+        SlotEvent.SelectSlot(this.SlotType, this.IsSlot);
     }
 
-    private void HandleSlotSelection(SlotType selectedType)
+    private void HandleSlotSelection(SlotType selectedType, bool isSlot)
     {
-        if (selectedType == this.SlotType)
+        if (selectedType == this.SlotType && IsSlot != isSlot)
         {
             _highlightTexture.enabled = true;
         }

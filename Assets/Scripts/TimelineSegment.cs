@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+// this really needs to be refactored later
 public class TimelineSegment : MonoBehaviour
 {
     public Color EvenColor, OddColor;
