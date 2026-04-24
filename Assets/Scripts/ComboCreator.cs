@@ -55,7 +55,7 @@ public class ComboCreator : MonoBehaviour
     private void UpdateSlot()
     {
         if (FilledSlot.SlotType != SelectedSlot.SlotType) return;
-        
+
         FilledSlot.SlotImage.texture = SelectedSlot.SlotImage.texture;
         FilledSlot.SlotImage.enabled = true;
 
@@ -76,6 +76,7 @@ public class ComboCreator : MonoBehaviour
         }
 
         SlotEvent.ClearHighlights();
+        SlotEvent.Locked = true;
         SlotEvent.UnlockSensorBlocks();
     }
 
