@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GamePhase = GamePhase.SelectingPollutant;
-        diffusionManager.modeling = false;
+        diffusionManager.modeling = true;
         RoomController.RoomSelected += HandleRoomSelected;
     }
     private void HandleRoomSelected(object sender, EventArgs e)

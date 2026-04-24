@@ -58,3 +58,10 @@ public enum CharacterType
     Blockhead,
     Triangelo
 }
+
+public enum DialogueSenses
+{
+    None,
+    MetallicOdor,
+    Various
+}

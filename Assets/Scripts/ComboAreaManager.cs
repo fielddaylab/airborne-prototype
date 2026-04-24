@@ -8,11 +8,7 @@ public class ComboAreaManager : MonoBehaviour
     public GameObject _selectedPollutantArea;
 
     [SerializeField] private SuspectPicker _suspectPicker;
-
-    public void Start()
-    {
-        //gameObject.SetActive(false);
-    }
+    [SerializeField] private ComboCreator _comboCreator;
 
     public void LoadPollutant(GameObject pollutantPrefab)
     {
@@ -27,6 +23,7 @@ public class ComboAreaManager : MonoBehaviour
 
     public void ReturnToSuspects()
     {
+        _comboCreator.ClearCombos();
         _suspectPicker.gameObject.SetActive(true);
         _suspectPicker.Restore();
         gameObject.SetActive(false);

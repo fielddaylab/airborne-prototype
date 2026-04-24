@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Timeline Autoloading.unity
+    path: Assets/Scenes/Main.unity
     guid: 8fb634fc6898efd48939a2e80c7762cb
   - enabled: 1
     path: Assets/Scenes/Suspect Finding.unity

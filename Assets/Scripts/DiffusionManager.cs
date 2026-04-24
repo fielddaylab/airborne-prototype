@@ -30,6 +30,7 @@ public class DiffusionManager : MonoBehaviour
 
     private void HandleRoomSelected(object sender, EventArgs e)
     {
+        Debug.Log("Room was selected!");
         RoomController room = sender as RoomController;
 
         if (!modeling) return;

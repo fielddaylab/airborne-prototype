@@ -11,6 +11,17 @@ public class ComboCreator : MonoBehaviour
     [SerializeField] private RawImage _sensorSlot;
     [SerializeField] private GameObject _cardPrefab, _cardParent;
 
+    public void ClearCombos()
+    {
+        for (int i = 0; i < _cardParent.transform.childCount; i++)
+        {
+            ComboCard card = _cardParent.transform.GetChild(i).gameObject.GetComponent<ComboCard>();
+            card.Remove();
+        }
+
+        ResetSlots();
+    }
+
     private enum comboPhase
     {
         SelectingObject,
@@ -121,7 +132,10 @@ public class ComboCreator : MonoBehaviour
         _dialogueSlot.SetActive(true);
         _symptomSlot.SetActive(true);
 
-        FilledSlot.SlotImage.enabled = false;
+        if (FilledSlot != null)
+        {
+            FilledSlot.SlotImage.enabled = false;
+        }
 
         FilledSlot = null;
         SelectedSlot = null;
