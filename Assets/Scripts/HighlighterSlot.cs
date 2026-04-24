@@ -49,6 +49,5 @@ public class HighlighterSlot : MonoBehaviour
         Color color = _highlightTexture.color;
         color.a = 0;
         _highlightTexture.color = color;
-        Debug.Log("I attempted to clear my highlights and my name is " + gameObject.name);
     }
 }
