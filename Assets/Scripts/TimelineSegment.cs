@@ -44,6 +44,7 @@ public class TimelineSegment : MonoBehaviour
             if (timeStep.roomSteps.Length == 0) return;
 
             RoomStep roomStep = timeStep.roomSteps[i];
+            string timeLabel = $"Kitchen, {timeStep.hourTime - 12}:00PM";
 
             // Sensor block backgrounds
             foreach (var pollutantStep in roomStep.pollutantSteps)
@@ -83,7 +84,7 @@ public class TimelineSegment : MonoBehaviour
 
                 TimelineButton sourceButton = sourceObj.GetComponent<TimelineButton>();
                 string status = sourceStep.sourceAction == SourceAction.On ? " turns on." : " turns off.";
-                sourceButton.Setup(feedbackBlock, sourceStep.pollutionSource.ToString(), matchingTexture, status);
+                sourceButton.Setup(feedbackBlock, timeLabel, sourceStep.pollutionSource.ToString(), matchingTexture, status);
 
                 HighlighterSlot highlightSlot = sourceObj.GetComponent<HighlighterSlot>();
                 highlightSlot.SlotType = SlotType.Source; // defaults to symptom so only need to set here
@@ -98,7 +99,7 @@ public class TimelineSegment : MonoBehaviour
                     dialogueObj.transform.localScale = Vector3.one;
 
                     TimelineButton dialogueButton = dialogueObj.GetComponent<TimelineButton>();
-                    dialogueButton.Setup(feedbackBlock, characterStep.dialogue); // dialogue, no image
+                    dialogueButton.Setup(feedbackBlock, timeLabel, characterStep.dialogue); // dialogue, no image
                 }
 
                 if (characterStep.observedSymptom != Symptom.None)
@@ -112,7 +113,7 @@ public class TimelineSegment : MonoBehaviour
                     symptomObj.transform.localScale = Vector3.one;
 
                     TimelineButton symptomButton = symptomObj.GetComponent<TimelineButton>();
-                    symptomButton.Setup(feedbackBlock, "Roundy experiences", match.symptomTexture, characterStep.observedSymptom.ToString()); // character, image, symptom 
+                    symptomButton.Setup(feedbackBlock, timeLabel, "Roundy experiences", match.symptomTexture, characterStep.observedSymptom.ToString()); // character, image, symptom 
                 }
             }
         }

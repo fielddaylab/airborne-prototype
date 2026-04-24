@@ -1649,6 +1649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d26bb691c7bc847bf9b93475ab7553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeSegment: {fileID: 730857159}
   _part1: {fileID: 2007407193}
   _part2: {fileID: 502128790}
   _image: {fileID: 2034259675}
