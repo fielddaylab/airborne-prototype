@@ -5,7 +5,6 @@ using UnityEngine;
 
 public static class SlotEvent 
 {
-
     public static event Action<HighlighterSlot> OnSlotSelected;
     public static event Action OnClearHighlights;
 
@@ -27,6 +26,11 @@ public static class SlotEvent
         if (Locked) return;
         if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
         OnClearHighlights?.Invoke();
+    }
+
+    public static void ForceClearHighlights()
+    {
+        OnClearHighlights?.Invoke(); // debug testing
     }
 
     public static void SelectSensorBlock(SensorBlock block)

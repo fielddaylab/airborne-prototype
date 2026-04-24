@@ -11,6 +11,14 @@ public class ComboCreator : MonoBehaviour
     [SerializeField] private RawImage _sensorSlot;
     [SerializeField] private GameObject _cardPrefab, _cardParent;
 
+    private enum comboPhase
+    {
+        SelectingObject,
+        SelectingSensor
+    }
+
+    private comboPhase _phase = comboPhase.SelectingObject;
+
     private void OnEnable()
     {
         SlotEvent.OnSlotSelected += HandleSlotSelection;
@@ -25,6 +33,13 @@ public class ComboCreator : MonoBehaviour
 
     private void HandleSlotSelection(HighlighterSlot newSlot)
     {
+        if (newSlot == SelectedSlot || newSlot == FilledSlot) {
+            SlotEvent.ClearHighlights();
+            SelectedSlot = null;
+            FilledSlot = null;
+            return;
+        }
+        
         if (newSlot.IsSlot)
         {
             FilledSlot = newSlot;
@@ -39,6 +54,8 @@ public class ComboCreator : MonoBehaviour
 
     private void UpdateSlot()
     {
+        if (FilledSlot.SlotType != SelectedSlot.SlotType) return;
+        
         FilledSlot.SlotImage.texture = SelectedSlot.SlotImage.texture;
         FilledSlot.SlotImage.enabled = true;
 
@@ -59,7 +76,6 @@ public class ComboCreator : MonoBehaviour
         }
 
         SlotEvent.ClearHighlights();
-        SlotEvent.Locked = true;
         SlotEvent.UnlockSensorBlocks();
     }
 

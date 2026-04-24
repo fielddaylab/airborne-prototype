@@ -8,6 +8,7 @@ public class PersuasionManager : MonoBehaviour
     public static PersuasionManager Instance;
     
     [SerializeField] private Slider _slider;
+    private int _persuasionValue;
 
     public void Start()
     {
@@ -23,6 +24,7 @@ public class PersuasionManager : MonoBehaviour
 
     public void UpdateAmount(int i)
     {
-        _slider.value += i;
+        _persuasionValue += i;
+        _slider.value = _persuasionValue;
     }
 }

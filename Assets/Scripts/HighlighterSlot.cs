@@ -33,14 +33,11 @@ public class HighlighterSlot : MonoBehaviour
     {
         SlotEvent.ClearHighlights();
         SlotEvent.SelectSlot(this);
-        //_highlightTexture.enabled = true;
     }
-
-    
 
     private void HandleSlotSelection(HighlighterSlot highlighterSlot)
     {
-        if (highlighterSlot.SlotType == this.SlotType && highlighterSlot.IsSlot != IsSlot)
+        if (highlighterSlot.SlotType == SlotType && highlighterSlot.IsSlot != IsSlot)
         {
             _highlightTexture.enabled = true;
         }
@@ -49,5 +46,6 @@ public class HighlighterSlot : MonoBehaviour
     public void HandleClear()
     {
         _highlightTexture.enabled = false;
+        Debug.Log("I attempted to clear my highlights and my name is " + gameObject.name);
     }
 }
