@@ -17,14 +17,14 @@ public static class SlotEvent
 
     public static void SelectSlot(HighlighterSlot highlighterSlot)
     {
-        if (Locked) return;
+        //if (Locked) return;
         if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
         OnSlotSelected?.Invoke(highlighterSlot);
     }
 
     public static void HighlightSlots(SlotType slotType, bool isSlot)
     {
-        if (Locked) return;
+        //if (Locked) return;
         if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
         OnHighlighted?.Invoke(slotType, isSlot);
     }
@@ -34,11 +34,6 @@ public static class SlotEvent
         if (Locked) return;
         if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
         OnClearHighlights?.Invoke();
-    }
-
-    public static void ForceClearHighlights()
-    {
-        OnClearHighlights?.Invoke(); // debug testing
     }
 
     public static void SelectSensorBlock(SensorBlock block)

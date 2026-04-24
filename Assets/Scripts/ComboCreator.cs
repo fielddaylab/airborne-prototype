@@ -33,6 +33,16 @@ public class ComboCreator : MonoBehaviour
 
     private void HandleSlotSelection(HighlighterSlot newSlot)
     {
+        if (_phase == comboPhase.SelectingSensor)
+        {
+            if (newSlot == FilledSlot)
+            {
+                ResetSlots();
+            }
+            
+            return;
+        }
+        
         if (newSlot == SelectedSlot || newSlot == FilledSlot) {
             SlotEvent.ClearHighlights();
             SelectedSlot = null;
@@ -100,12 +110,13 @@ public class ComboCreator : MonoBehaviour
 
         PersuasionManager.Instance.UpdateAmount(persuasion);
 
-        _phase = comboPhase.SelectingObject;
         ResetSlots();
     }
 
     private void ResetSlots()
     {
+        _phase = comboPhase.SelectingObject;
+
         _sourceSlot.SetActive(true);
         _dialogueSlot.SetActive(true);
         _symptomSlot.SetActive(true);
