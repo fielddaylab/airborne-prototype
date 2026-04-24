@@ -13,19 +13,18 @@ public class HighlighterSlot : MonoBehaviour
     void Start()
     {
         _highlightTexture = GetComponent<RawImage>();
-        _highlightTexture.enabled = false;
-        
+        HandleClear();
     }
 
     private void OnEnable()
     {
-        SlotEvent.OnSlotSelected += HandleSlotSelection;
+        SlotEvent.OnHighlighted += HandleSlotHighlighted;
         SlotEvent.OnClearHighlights += HandleClear;
     }
 
     private void OnDisable()
     {
-        SlotEvent.OnSlotSelected -= HandleSlotSelection;
+        SlotEvent.OnHighlighted -= HandleSlotHighlighted;
         SlotEvent.OnClearHighlights -= HandleClear;
     }
 
@@ -35,17 +34,21 @@ public class HighlighterSlot : MonoBehaviour
         SlotEvent.SelectSlot(this);
     }
 
-    private void HandleSlotSelection(HighlighterSlot highlighterSlot)
+    private void HandleSlotHighlighted(SlotType slotType, bool isSlot)
     {
-        if (highlighterSlot.SlotType == SlotType && highlighterSlot.IsSlot != IsSlot)
+        if (slotType == SlotType && isSlot == IsSlot)
         {
-            _highlightTexture.enabled = true;
+            Color color = _highlightTexture.color;
+            color.a = 255;
+            _highlightTexture.color = color;
         }
     }
 
     public void HandleClear()
     {
-        _highlightTexture.enabled = false;
+        Color color = _highlightTexture.color;
+        color.a = 0;
+        _highlightTexture.color = color;
         Debug.Log("I attempted to clear my highlights and my name is " + gameObject.name);
     }
 }

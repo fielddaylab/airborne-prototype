@@ -39,7 +39,8 @@ public class ComboCreator : MonoBehaviour
             FilledSlot = null;
             return;
         }
-        
+
+        SlotEvent.HighlightSlots(newSlot.SlotType, !newSlot.IsSlot); // all ones that match
         if (newSlot.IsSlot)
         {
             FilledSlot = newSlot;
@@ -77,6 +78,7 @@ public class ComboCreator : MonoBehaviour
 
         SlotEvent.ClearHighlights();
         SlotEvent.Locked = true;
+        _phase = comboPhase.SelectingSensor;
         SlotEvent.UnlockSensorBlocks();
     }
 
@@ -98,6 +100,7 @@ public class ComboCreator : MonoBehaviour
 
         PersuasionManager.Instance.UpdateAmount(persuasion);
 
+        _phase = comboPhase.SelectingObject;
         ResetSlots();
     }
 
