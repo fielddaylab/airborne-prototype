@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
-
 // this really needs to be refactored later
 public class TimelineSegment : MonoBehaviour
 {

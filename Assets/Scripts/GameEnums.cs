@@ -30,6 +30,8 @@ public enum SourceAction
 
 public enum Pollutant
 {
+    None,
+    FreshAir,
     CO2,
     NO,
     O3,
@@ -64,4 +66,17 @@ public enum DialogueSenses
     None,
     MetallicOdor,
     Various
+}
+
+public enum ConnectionType {
+    Door,
+    Window,
+    Vent,
+}
+
+public enum FlowChangeEventType {
+    Add,
+    Remove,
+    Move,
+    Swap
 }
