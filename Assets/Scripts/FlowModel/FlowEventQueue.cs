@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FlowEventQueue : MonoBehaviour {
-    public static FlowEventQueue Instance;
     public Queue<FlowChangeEvent> Queue;
 
-    public static void AddEvent(FlowChangeEventType type, FlowRoom roomA, Pollutant gasA, FlowRoom roomB = null, Pollutant gasB = Pollutant.None) {
-        Instance.Queue.Enqueue(new FlowChangeEvent() {
+    public void AddEvent(FlowChangeEventType type, FlowRoom roomA, Pollutant gasA, FlowRoom roomB = null, Pollutant gasB = Pollutant.None) {
+        Queue.Enqueue(new FlowChangeEvent() {
             Type = type,
             RoomA = roomA,
             GasA = gasA,

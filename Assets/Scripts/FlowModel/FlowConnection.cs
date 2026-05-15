@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,11 +30,19 @@ public class FlowConnection : MonoBehaviour {
             return;
         }
     }
-
+    /// <summary>
+    /// Move gas unit from this connection's origin to its destinantion.
+    /// </summary>
+    /// <param name="gasIdx">Index of gas unit to remove from origin</param>
     public void MoveGasUnitForward(int gasIdx) {
         Destination.AddGasUnitLate(Origin.RemoveGasUnitAt(gasIdx));
     }
 
+    /// <summary>
+    /// Move gas unit from this connection's destination to its origin, if allowed
+    /// </summary>
+    /// <param name="gasIdx">Index of gas unit to remove from destination</param>
+    /// <param name="overrideDirectionality">set true to transfer regardless of this connection's directionality setting</param>
     public void MoveGasUnitReverse(int gasIdx, bool overrideDirectionality = false) {
         if (!Unidirectional || overrideDirectionality) {
             Origin.AddGasUnitLate(Destination.RemoveGasUnitAt(gasIdx));

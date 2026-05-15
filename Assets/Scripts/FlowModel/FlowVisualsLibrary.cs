@@ -8,11 +8,11 @@ public class FlowVisualsLibrary : MonoBehaviour {
     public static FlowVisualsLibrary Instance;
 
     [Header("Gas Units")]
-    public Dictionary<Pollutant, Color> GasUnitColors;
+    public List<GasColorPair> GasUnitColors;
     [Header("Connections")]
     public Color OpenConnectionColor;
     // maybe should just use a list of structs with type, bool open, and sprite
-    [SerializeField] public List<ConnectionIcon> ConnectionIcons;
+    public List<ConnectionIcon> ConnectionIcons;
     public Color ClosedConnectionColor;
 
     public static void GetConnectionVisual(FlowConnection connection, out Color connColor, out Sprite connIcon) {
@@ -31,4 +31,9 @@ public struct ConnectionIcon {
     public ConnectionType Type;
     public bool Open;
     public Sprite Icon;
+}
+[Serializable]
+public struct GasColorPair {
+    public Pollutant Gas;
+    public Color Color;
 }

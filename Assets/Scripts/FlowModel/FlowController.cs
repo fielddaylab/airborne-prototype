@@ -1,30 +1,65 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FlowController : MonoBehaviour {
-    public int TimeIdx;
+    public static FlowController Instance;
     public List<FlowRoom> Rooms;
-    public List<FlowSource> Sources;
+    public List<FlowSource> ActiveSources;
+    [HideInInspector] public FlowEventQueue FlowQueue;
 
-    public static void ProcessRooms(FlowController controller) {
-        AddPollutants(controller);
-        foreach (FlowRoom room in controller.Rooms) {
-            //RoomOverflow(room);
-            RoomDiffusion(room);
+    public FlowTimeline Timeline;
+
+    public GameObject GasUnitPrefab;
+
+    public void Start() {
+        if (Instance == null) {
+            Instance = this;
         }
     }
 
-    private static void AddPollutants(FlowController controller) {
+
+    [ContextMenu("Initialize Rooms")]
+    private void InitializeRooms() {
+        if (Instance == null) {
+            Instance = this;
+        }
+        foreach (FlowRoom room in Instance.Rooms) {
+            room.Visual.InitializeVisual();
+        }
+    }
+
+    public static void FlowStep() {
+        if (Instance.Timeline.AdvanceTime()) {
+            ProcessRooms();
+        }      
+    }
+
+    public static void ProcessRooms() {
+        AddPollutants();
+        foreach (FlowRoom room in Instance.Rooms) {
+            //RoomOverflow(room);
+            RoomDiffusion(room);
+        }
+
+        Instance.FlowQueue.ProcessEventQueue();
+
+        // make sure we update visuals only once every room has diffused.
+        foreach (FlowRoom room in Instance.Rooms) {
+            room.Visual.UpdateGasUnits();
+        }
+    }
+
+    private static void AddPollutants() {
         // add pollutants
-        foreach (FlowSource source in controller.Sources) {
-            if (source.SourceActive && source.Room.ModeledGases.Count < source.Room.RoomSize-1) { 
+        foreach (FlowSource source in Instance.ActiveSources) {
+            if (source.Room.ModeledGases.Count < source.Room.RoomSize-1) { 
                     source.Room.AddGasUnitLate(source.Pollutant);
             }          
         }
     }
 
     // TODO: room overflow logic?
+    // for now, capping transfers and making all transfers single direction.
     private static void RoomOverflow(FlowRoom room) {
         // overflow: excess gas must be moved to adjacent rooms.
         // how to ensure that all overflows are resolved?
