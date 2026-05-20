@@ -11,7 +11,7 @@ public struct Timer {
         if (!Active) return false;
         CurrentTime += delta;   
         if (CurrentTime > MaxTime) {
-            CurrentTime = MaxTime;
+            CurrentTime = 0;
             return true;
         } else {
             return false;

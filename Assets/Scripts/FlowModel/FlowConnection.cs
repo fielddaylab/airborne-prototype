@@ -8,11 +8,19 @@ public class FlowConnection : MonoBehaviour {
     public bool Open;
     public bool Unidirectional;
 
+    public void Start() {
+        if (Origin != null) {
+            Origin.Connections.Add(this);
+        }
+        if (Destination != null) {
+            Destination.Connections.Add(this);
+        }
+    }
+
     public void MoveGasFrom(FlowRoom room, Pollutant gasType = Pollutant.None) {
         int transferIdx = -1;
         if (gasType == Pollutant.None) {
-            // if no pollutant is specified, choose a random unit.
-            transferIdx = Random.Range(0, room.ModeledGases.Count);
+            room.ChooseRandGasUnit(out transferIdx);
         } else {
             // otherwise, find idx
             transferIdx = room.ModeledGases.IndexOf(gasType);
@@ -62,23 +70,21 @@ public class FlowConnection : MonoBehaviour {
     //}
 
     public void SwapGasUnit(Pollutant originUnit = Pollutant.None, Pollutant destUnit = Pollutant.None) {
-        int originIdx = 0;
-        int destIdx = 0;
+        int destIdx;
+        int originIdx;
         if (originUnit == Pollutant.None) {
-            // if no pollutants specified, choose random unit
-            originIdx = Random.Range(0, Origin.ModeledGases.Count);
-            originUnit = Origin.ModeledGases[originIdx];
+            // if no pollutants specified, choose random unit           
+            originUnit = Origin.ChooseRandGasUnit(out originIdx);
         } else {
             originIdx = Origin.ModeledGases.IndexOf(originUnit);
         }
         if (destUnit == Pollutant.None) {
-            destIdx = Random.Range(0, Destination.ModeledGases.Count);
-            destUnit = Destination.ModeledGases[destIdx];
+            destUnit = Destination.ChooseRandGasUnit(out destIdx);
         } else {
-            Origin.ModeledGases.IndexOf(originUnit);
+            destIdx = Destination.ModeledGases.IndexOf(destUnit);
         }
         if (originUnit == destUnit) {
-            Debug.Log("[FlowConnection#SwapGasUnit] Identical units chosen, skipping...");
+            //Debug.Log("[FlowConnection.SwapGasUnit] Identical units chosen, skipping...");
             return;
         }
         MoveGasUnitForward(originIdx);

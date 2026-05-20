@@ -1,23 +1,27 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlowTimeline : MonoBehaviour {
     [HideInInspector] public int TimeIdx = 0;
     public int TimeSteps;
-    public bool Play;
     public Timer StepTimer;
+    public Slider ProgressSlider;
+    public FlowPlayToggle PlayToggle;
 
-    public void Update() {
-        if (StepTimer.Advance(Time.deltaTime)) {
-            AdvanceTime();
-        }
+    public void Start() {
+        ProgressSlider.maxValue = TimeSteps;
+        ProgressSlider.minValue = 0;
+        ProgressSlider.interactable = false;
     }
 
-    public bool AdvanceTime() {
+    public bool Step() {
         if (TimeIdx + 1 < TimeSteps)  {
             TimeIdx++;
+            ProgressSlider.value = TimeIdx;
             return true;
-        } 
+        }
+        PlayToggle.TogglePlaying(false);
         return false;
     }
 }
