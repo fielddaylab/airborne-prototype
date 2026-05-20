@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace FlowModel {
@@ -10,6 +11,10 @@ namespace FlowModel {
         public bool Open;
         public bool Unidirectional;
 
+        [Header("Visuals")]
+        public Image Icon;
+        public Image Background;
+
         public void Start() {
             if (Origin != null) {
                 Origin.Connections.Add(this);
@@ -17,6 +22,7 @@ namespace FlowModel {
             if (Destination != null) {
                 Destination.Connections.Add(this);
             }
+            ToggleConnection(true);
         }
 
         public void MoveGasFrom(FlowRoom room, Pollutant gasType = Pollutant.None) {
@@ -28,6 +34,13 @@ namespace FlowModel {
                 transferIdx = room.ModeledGases.IndexOf(gasType);
             }
             MoveGasFrom(room, transferIdx);
+        }
+
+        public void ToggleConnection(bool toggle) {
+            Open = toggle;
+            FlowVisualsLibrary.GetConnectionVisual(this, out Color col, out Sprite icon);
+            Background.color = col;
+            Icon.sprite = icon;
         }
 
         public void MoveGasFrom(FlowRoom room, int transferIdx) {
@@ -77,7 +90,7 @@ namespace FlowModel {
             if (originUnit == Pollutant.None) {
                 // if no pollutants specified, choose random unit           
                 originUnit = Origin.ChooseRandGasUnit(out originIdx);
-            } else {
+            } else {              
                 originIdx = Origin.ModeledGases.IndexOf(originUnit);
             }
             if (destUnit == Pollutant.None) {

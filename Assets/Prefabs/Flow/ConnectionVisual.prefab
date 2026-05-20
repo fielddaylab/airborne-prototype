@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8063147541308535863}
   - component: {fileID: 5345962649833508519}
   - component: {fileID: 7638989383694554852}
-  - component: {fileID: 6702003992106356782}
   - component: {fileID: 3705659550818413061}
+  - component: {fileID: 7958354120580759904}
   m_Layer: 5
   m_Name: ConnectionVisual
   m_TagString: Untagged
@@ -78,20 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6702003992106356782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2495133272985665908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 485de5754ea665a4d815f16a83dfcae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConnectionBackground: {fileID: 7638989383694554852}
-  ConnectionIcon: {fileID: 2356588630086204476}
 --- !u!114 &3705659550818413061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +95,68 @@ MonoBehaviour:
   ConnectionType: 0
   Open: 1
   Unidirectional: 0
+  Icon: {fileID: 2356588630086204476}
+  Background: {fileID: 7638989383694554852}
+--- !u!114 &7958354120580759904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495133272985665908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 7638989383694554852}
+  toggleTransition: 1
+  graphic: {fileID: 0}
+  m_Group: {fileID: 0}
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3705659550818413061}
+        m_TargetAssemblyTypeName: FlowModel.FlowConnection, Assembly-CSharp
+        m_MethodName: ToggleConnection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_IsOn: 1
 --- !u!1 &6652774566239829966
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +222,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c2d787daf9b289409c3a91d820047c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1617b34e92a3b54bb7af55f86f028f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
