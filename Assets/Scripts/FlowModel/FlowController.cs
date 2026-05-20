@@ -5,43 +5,43 @@ public class FlowController : MonoBehaviour {
     public static FlowController Instance;
     public List<FlowRoom> Rooms;
     public List<FlowSource> ActiveSources;
-    [HideInInspector] public FlowEventQueue FlowQueue;
+    [HideInInspector] public FlowEventQueue FlowQueue = new FlowEventQueue();
 
     public FlowTimeline Timeline;
 
     public GameObject GasUnitPrefab;
 
     public void Start() {
-        if (Instance == null) {
-            Instance = this;
-        }
+        Instance = this;
+
     }
 
-
-    [ContextMenu("Initialize Rooms")]
-    private void InitializeRooms() {
-        if (Instance == null) {
-            Instance = this;
-        }
-        foreach (FlowRoom room in Instance.Rooms) {
-            room.Visual.InitializeVisual();
-        }
+    public void Update() {
+        FlowStep();
     }
 
     public static void FlowStep() {
-        if (Instance.Timeline.AdvanceTime()) {
-            ProcessRooms();
-        }      
+        if (Instance.Timeline.StepTimer.Advance(Time.deltaTime)) {
+            if (Instance.Timeline.Step()) {
+                ProcessRooms();
+            }
+        }     
     }
 
+    public static void ToggleFlow(bool toggle) {
+        Instance.Timeline.StepTimer.Active = toggle;
+    }
+
+
     public static void ProcessRooms() {
+        Debug.Log("[FlowController] Processing Rooms...");
         AddPollutants();
         foreach (FlowRoom room in Instance.Rooms) {
             //RoomOverflow(room);
             RoomDiffusion(room);
         }
 
-        Instance.FlowQueue.ProcessEventQueue();
+        Instance.FlowQueue.ProcessEventQueue(true);
 
         // make sure we update visuals only once every room has diffused.
         foreach (FlowRoom room in Instance.Rooms) {
@@ -52,6 +52,7 @@ public class FlowController : MonoBehaviour {
     private static void AddPollutants() {
         // add pollutants
         foreach (FlowSource source in Instance.ActiveSources) {
+            source.Room.RemoveGasUnit(Pollutant.FreshAir);
             if (source.Room.ModeledGases.Count < source.Room.RoomSize-1) { 
                     source.Room.AddGasUnitLate(source.Pollutant);
             }          

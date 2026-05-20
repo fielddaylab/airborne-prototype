@@ -15,6 +15,12 @@ public class FlowVisualsLibrary : MonoBehaviour {
     public List<ConnectionIcon> ConnectionIcons;
     public Color ClosedConnectionColor;
 
+    public void Start() {
+        if (Instance == null) {
+            Instance = this;
+        }
+    }
+
     public static void GetConnectionVisual(FlowConnection connection, out Color connColor, out Sprite connIcon) {
         if (connection.Open) {
             connColor = Instance.OpenConnectionColor;

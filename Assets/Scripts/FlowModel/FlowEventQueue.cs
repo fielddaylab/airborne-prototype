@@ -3,11 +3,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlowEventQueue : MonoBehaviour {
-    public Queue<FlowChangeEvent> Queue;
+public class FlowEventQueue : Queue<FlowChangeEvent> {
+    //public Queue<FlowChangeEvent> Queue = new Queue<FlowChangeEvent>();
 
     public void AddEvent(FlowChangeEventType type, FlowRoom roomA, Pollutant gasA, FlowRoom roomB = null, Pollutant gasB = Pollutant.None) {
-        Queue.Enqueue(new FlowChangeEvent() {
+        Enqueue(new FlowChangeEvent() {
             Type = type,
             RoomA = roomA,
             GasA = gasA,
@@ -17,8 +17,8 @@ public class FlowEventQueue : MonoBehaviour {
     }
 
     public void ProcessEventQueue(bool debug = false) {
-        while (Queue.Count > 0) {
-            FlowChangeEvent currEvent = Queue.Dequeue();
+        while (Count > 0) {
+            FlowChangeEvent currEvent = Dequeue();
             ProcessFlowChangeEvent(currEvent);
             if (debug) {
                 currEvent.Print();
