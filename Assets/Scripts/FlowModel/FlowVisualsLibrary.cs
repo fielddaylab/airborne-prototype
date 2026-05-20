@@ -12,7 +12,6 @@ namespace FlowModel {
         public List<GasColorPair> GasUnitColors;
         [Header("Connections")]
         public Color OpenConnectionColor;
-        // maybe should just use a list of structs with type, bool open, and sprite
         public List<ConnectionIcon> ConnectionIcons;
         public Color ClosedConnectionColor;
 
@@ -30,6 +29,10 @@ namespace FlowModel {
                 connColor = Instance.ClosedConnectionColor;
                 connIcon = Instance.ConnectionIcons.Find(entry => !entry.Open && entry.Type == connection.ConnectionType).Icon;
             }
+        }
+
+        public static Color GetGasColor(Pollutant gas) {
+            return Instance.GasUnitColors.Find(pair => pair.Gas.Equals(gas)).Color;
         }
     }
 

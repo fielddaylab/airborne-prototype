@@ -19,7 +19,7 @@ namespace FlowModel {
         }
 
         public void PopulateGasUnits() {
-            if (Room.IsOutside || Room.RoomSize < 0) {
+            if (Room.RoomSize <= 0) {
                 GasUnits.Clear();
                 return;
             }
@@ -34,18 +34,23 @@ namespace FlowModel {
 
         public void InitializeVisual() {
             Room = GetComponent<FlowRoom>();
+            if (Room.IsOutside) return;
             TitleText.SetText(Room.RoomId);
             PopulateGasUnits();
         }
 
-        public void UpdateGasUnits() {
+        public void UpdateGasUnits() {     
             if (Room.ModeledGases.Count != GasUnits.Count) {
                 PopulateGasUnits();
             }
             // iterate thru FlowRoom modeled gases, color gas unit graphics according to pollutant colors
             FlowVisualsLibrary lib = FlowVisualsLibrary.Instance;
-            for (int i = 0; i < Room.ModeledGases.Count; i++) {
+            for (int i = 0; i < GasUnits.Count; i++) {
+                GasUnits[i].Type = Room.ModeledGases[i];
                 GasUnits[i].Graphic.color = lib.GasUnitColors.Find(entry => entry.Gas == Room.ModeledGases[i]).Color;
+                if (GasUnits[i].Type == Pollutant.FreshAir) {
+                    GasUnits[i].transform.SetSiblingIndex(0);
+                }
             }
         }
     }

@@ -19,6 +19,7 @@ namespace FlowModel {
         public bool Step() {
             if (TimeIdx + 1 < TimeSteps) {
                 TimeIdx++;
+                Debug.Log("[FlowTimeline] Step " + TimeIdx);
                 ProgressSlider.value = TimeIdx;
                 return true;
             }

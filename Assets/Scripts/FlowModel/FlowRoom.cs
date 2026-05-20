@@ -27,8 +27,10 @@ namespace FlowModel {
         public void AddGasUnitLate(Pollutant gasType) {
             if (IsOutside) {
                 return;
+            } else if (gasType == Pollutant.None) {
+                Debug.Log("[FlowRoom.AddGasUnitLate] 'None' added, skipping...");
             }
-            FlowController.Instance.FlowQueue.AddEvent(FlowChangeEventType.Add, this, gasType);
+                FlowController.Instance.FlowQueue.AddEvent(FlowChangeEventType.Add, this, gasType);
         }
 
         public void AddGasUnitInstant(Pollutant gasType) {
@@ -63,7 +65,7 @@ namespace FlowModel {
 
         // might be better with a sorted list?
         // not worrying about it right now
-        public FlowConnection ChooseRankedConnection() {
+        public FlowConnection ChooseRankedConnection(bool includeClosed = false) {
             if (Connections.Count <= 0) {
                 return null;
             }
@@ -77,10 +79,11 @@ namespace FlowModel {
                     // second rank: all open connections
                     return openConnections[Random.Range(0, openConnections.Count)];
                 }
-            } else {
+            } else if (includeClosed) {
                 // third rank: closed connections
                 return Connections[Random.Range(0, Connections.Count)];
             }
+            return null;
         }
 
         public Pollutant ChooseRandGasUnit(out int idx) {

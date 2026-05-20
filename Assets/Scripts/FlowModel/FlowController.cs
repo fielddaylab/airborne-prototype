@@ -12,6 +12,8 @@ namespace FlowModel {
 
         public GameObject GasUnitPrefab;
 
+        public FlowSourceMenu SourceMenu;
+
         public void Start() {
             Instance = this;
 
@@ -42,9 +44,10 @@ namespace FlowModel {
                 RoomDiffusion(room);
             }
 
-            Instance.FlowQueue.ProcessEventQueue(true);
+            Instance.FlowQueue.ProcessEventQueue(false);
 
             // make sure we update visuals only once every room has diffused.
+            FlowVisualsLibrary lib = FlowVisualsLibrary.Instance;
             foreach (FlowRoom room in Instance.Rooms) {
                 room.Visual.UpdateGasUnits();
             }
@@ -52,11 +55,13 @@ namespace FlowModel {
 
         private static void AddPollutants() {
             // add pollutants
+            Debug.Log("[FlowController] Adding Pollutants...");
             foreach (FlowSource source in Instance.ActiveSources) {
-                source.Room.RemoveGasUnit(Pollutant.FreshAir);
-                if (source.Room.ModeledGases.Count < source.Room.RoomSize - 1) {
-                    source.Room.AddGasUnitLate(source.Pollutant);
-                }
+                if (source.Room.ModeledGases.Count < source.Room.RoomSize || source.Room.RemoveGasUnit(Pollutant.FreshAir)) {
+                    source.Room.AddGasUnitLate(source.Pollutant); 
+                } else {
+                    Debug.Log("[FlowController] No space in room " + source.Room.RoomId);
+                }          
             }
         }
 
@@ -71,7 +76,7 @@ namespace FlowModel {
                 if (!room.ModeledGases.Remove(Pollutant.FreshAir)) {
                     // otherwise, move a pollutant to connected room.
                     // choose random connection
-                    FlowConnection connection = room.ChooseRankedConnection();
+                    FlowConnection connection = room.ChooseRankedConnection(true);
                     // move random gas unit
                     connection.MoveGasFrom(room);
                 }
@@ -80,7 +85,10 @@ namespace FlowModel {
 
         private static void RoomDiffusion(FlowRoom room) {
             // choose random connection, swap random unit
-            room.ChooseRankedConnection().SwapGasUnit();
+            FlowConnection randConn = room.ChooseRankedConnection(false);
+            if (randConn != null) {
+                randConn.SwapGasUnit();
+            }
         }
     }
 }
