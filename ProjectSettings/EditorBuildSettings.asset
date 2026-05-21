@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Diffusion Modeling.unity
     guid: 49d6f9cd80d06134aaf4daa038b816f9
+  - enabled: 1
+    path: Assets/Scenes/FlowModel.unity
+    guid: ce5817c58613fb644a66df962a7ea366
   m_configObjects: {}
