@@ -1,1 +1,1 @@
-Simple prototype for ehs argumentation phase
+Prototype for airborne game.
