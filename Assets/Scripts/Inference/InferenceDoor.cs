@@ -39,28 +39,28 @@ public class InferenceDoor : MonoBehaviour
                 case DoorType.Horizontal:
                     if (other.gameObject.transform.position.x > transform.position.x + _horizontalDistance / 2)
                     {
-                        player.PlayerCharacterController.enabled = false;
+                        //player.PlayerCharacterController.enabled = false;
                         other.gameObject.transform.position -= new Vector3(_horizontalDistance, 0, 0); 
-                        player.PlayerCharacterController.enabled = true;
+                       // player.PlayerCharacterController.enabled = true;
                     } else
                     {
-                        player.PlayerCharacterController.enabled = false;
+                        //player.PlayerCharacterController.enabled = false;
                         other.gameObject.transform.position += new Vector3(_horizontalDistance, 0, 0); 
-                        player.PlayerCharacterController.enabled = true;
+                        //player.PlayerCharacterController.enabled = true;
                     }
                     break;
                 case DoorType.Vertical:
                     if (other.gameObject.transform.position.y > 0)
                     {
-                        player.PlayerCharacterController.enabled = false;
+                       // player.PlayerCharacterController.enabled = false;
                         other.gameObject.transform.position -= new Vector3(0, 8, 0);
-                        player.PlayerCharacterController.enabled = true;
+                        //player.PlayerCharacterController.enabled = true;
                     }
                     else
                     {
-                        player.PlayerCharacterController.enabled = false;
+                        //player.PlayerCharacterController.enabled = false;
                         other.gameObject.transform.position += new Vector3(0, -8, 0);
-                        player.PlayerCharacterController.enabled = true;
+                        //player.PlayerCharacterController.enabled = true;
                     }
                     break;
             }

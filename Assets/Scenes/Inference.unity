@@ -411,6 +411,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Living
       objectReference: {fileID: 0}
+    - target: {fileID: 6780791253906477942, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980813195398990682, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1eadfad1bb30fc4aae01aa6b1de6ef6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1641851485158069276, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
@@ -704,7 +712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 3.39, z: -9.75}
-  m_Smoothing: 0.8
+  m_Smoothing: 0.96
 --- !u!1001 &1282299408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -765,6 +773,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dining
       objectReference: {fileID: 0}
+    - target: {fileID: 6980813195398990682, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1eadfad1bb30fc4aae01aa6b1de6ef6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1367,6 +1379,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bedroom
       objectReference: {fileID: 0}
+    - target: {fileID: 6780791253906477942, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980813195398990682, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1eadfad1bb30fc4aae01aa6b1de6ef6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
