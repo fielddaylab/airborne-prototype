@@ -5,9 +5,11 @@ using UnityEngine;
 public class InferenceCamera : MonoBehaviour
 {
     [SerializeField] private Vector3 m_Offset;
+    // higher values slower
     [SerializeField] private float m_Smoothing;
 
     private Vector3 _targetPosition;
+    private Vector3 _smoothVelocity = Vector3.zero;
 
     public void UpdateRoom(InferenceRoom room)
     {
@@ -16,6 +18,6 @@ public class InferenceCamera : MonoBehaviour
 
     public void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, _targetPosition + m_Offset, m_Smoothing * Time.deltaTime);
+        transform.position = Vector3.SmoothDamp(transform.position, _targetPosition + m_Offset, ref _smoothVelocity,  m_Smoothing);
     }
 }
