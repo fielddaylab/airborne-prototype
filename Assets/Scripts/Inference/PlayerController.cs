@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float m_moveSpeed, m_gravity;
     [SerializeField] public CharacterController PlayerCharacterController;
+    [SerializeField] private float m_TeleportCoolDown;
+
+    [HideInInspector] public bool JustTeleported = false;
+    private float _accumulatedTime = 0;
     public InferenceRoom currentRoom;
     public InferenceCamera playerCamera;
 
@@ -41,5 +45,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 finalMovement = m_moveSpeed * move + Vector3.up * _velocity.y;
         PlayerCharacterController.Move(finalMovement * Time.deltaTime);
+
+        if (JustTeleported)
+        {
+            _accumulatedTime += Time.deltaTime;
+            if (_accumulatedTime >= m_TeleportCoolDown)
+            {
+                JustTeleported = false;
+                _accumulatedTime = 0;
+            }
+        }
     }
 }
