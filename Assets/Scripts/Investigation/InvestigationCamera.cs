@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InferenceCamera : MonoBehaviour
+public class InvestigationCamera : MonoBehaviour
 {
     [SerializeField] private Vector3 m_Offset;
     // higher values slower
@@ -11,7 +11,7 @@ public class InferenceCamera : MonoBehaviour
     private Vector3 _targetPosition;
     private Vector3 _smoothVelocity = Vector3.zero;
 
-    public void UpdateRoom(InferenceRoom room)
+    public void UpdateRoom(InvestigationRoom room)
     {
         _targetPosition = new Vector3(room.transform.position.x, room.transform.position.y, 0);
     }

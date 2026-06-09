@@ -18,6 +18,6 @@ EditorBuildSettings:
     path: Assets/Scenes/FlowModel.unity
     guid: ce5817c58613fb644a66df962a7ea366
   - enabled: 1
-    path: Assets/Scenes/Inference.unity
+    path: Assets/Scenes/Investigation.unity
     guid: 19fbb062f7d481c40a206a7c7b4c793e
   m_configObjects: {}

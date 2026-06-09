@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool JustTeleported = false;
     private float _accumulatedTime = 0;
-    public InferenceRoom currentRoom;
-    public InferenceCamera playerCamera;
+    public InvestigationRoom currentRoom;
+    public InvestigationCamera playerCamera;
 
     private Vector2 _input;
 

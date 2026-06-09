@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InferenceRoom : MonoBehaviour
+public class InvestigationRoom : MonoBehaviour
 {
     [SerializeField] private BoxCollider m_BoxCollider;
+    public string RoomName;
+    public float Size;
     public bool PlayerOccupied = false;
 
     private void OnTriggerEnter(Collider other)
@@ -16,6 +18,7 @@ public class InferenceRoom : MonoBehaviour
 
             player.currentRoom = this;
             player.playerCamera.UpdateRoom(player.currentRoom);
+            InvestigationTimeline.Instance.SetRoom(this);
         }
     }
 
