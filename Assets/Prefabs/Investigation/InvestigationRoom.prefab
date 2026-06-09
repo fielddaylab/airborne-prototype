@@ -885,7 +885,7 @@ GameObject:
   - component: {fileID: 5175240147111626690}
   - component: {fileID: 1692707644006144258}
   m_Layer: 0
-  m_Name: InferenceRoom
+  m_Name: InvestigationRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
