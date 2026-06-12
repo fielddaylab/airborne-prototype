@@ -12,6 +12,11 @@ public class ScanTool : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void OnDestroy()
+    {
+        ToolManager.OnToolUpdated -= HandleToolUpdated;
+    }
+
     void Update()
     {
         Vector3 planePosition = Input.mousePosition;

@@ -12,7 +12,7 @@ public class ObservableBox : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Oestroy()
+    public void OnDestroy()
     {
         ToolManager.OnToolUpdated -= HandleToolUpdated;
     }

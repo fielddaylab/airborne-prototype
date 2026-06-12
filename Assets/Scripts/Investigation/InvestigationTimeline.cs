@@ -2,21 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InvestigationTimeline : MonoBehaviour
 {
-    public static InvestigationTimeline Instance;
-
     [SerializeField] private TextMeshProUGUI m_RoomText;
+    public Slider TimelineSlider;
 
     private void Start()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
-        Instance = this;
+        InvestigationRoom.OnRoomUpdated += HandleRoomUpdated;
+        InvestigationTimelineSystem.OnHourUpdated += HandleHourUpdated;
     }
 
-    public void SetRoom(InvestigationRoom room)
+    public void OnDestroy()
+    {
+        InvestigationRoom.OnRoomUpdated -= HandleRoomUpdated;
+        InvestigationTimelineSystem.OnHourUpdated -= HandleHourUpdated;
+    }
+
+    private void HandleRoomUpdated(InvestigationRoom room)
     {
         m_RoomText.text = room.RoomName;
+    }
+
+    private void HandleHourUpdated(int hour)
+    {
+        TimelineSlider.value = hour;
     }
 }

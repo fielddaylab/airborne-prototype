@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class InvestigationRoom : MonoBehaviour
 {
     [SerializeField] private BoxCollider m_BoxCollider;
+    public static event Action<InvestigationRoom> OnRoomUpdated;
     public string RoomName;
     public float Size;
     public bool PlayerOccupied = false;
@@ -18,7 +20,7 @@ public class InvestigationRoom : MonoBehaviour
 
             player.currentRoom = this;
             player.playerCamera.UpdateRoom(player.currentRoom);
-            InvestigationTimeline.Instance.SetRoom(this);
+            OnRoomUpdated?.Invoke(this);
         }
     }
 
