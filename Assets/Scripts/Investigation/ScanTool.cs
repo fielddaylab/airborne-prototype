@@ -6,6 +6,12 @@ public class ScanTool : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer m_spriteRenderer;
 
+    public void Start()
+    {
+        ToolManager.OnToolUpdated += HandleToolUpdated;
+        gameObject.SetActive(false);
+    }
+
     void Update()
     {
         Vector3 planePosition = Input.mousePosition;
@@ -19,5 +25,11 @@ public class ScanTool : MonoBehaviour
         transform.right = direction;
 
         m_spriteRenderer.flipY = direction.x < 0;
+    }
+
+    private void HandleToolUpdated(ToolType type)
+    {
+        if (type == ToolType.Scan) gameObject.SetActive(true);
+        else gameObject.SetActive(false);
     }   
 }
