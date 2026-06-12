@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObservableBox : MonoBehaviour
+public class ScannableCloud : MonoBehaviour
 {
-    public string DataPointName;
+    public string CloudName;
 
     public void Start()
     {
@@ -17,14 +17,9 @@ public class ObservableBox : MonoBehaviour
         ToolManager.OnToolUpdated -= HandleToolUpdated;
     }
 
-    private void OnMouseDown()
-    {
-        Debug.Log(DataPointName + " was clicked.");
-    }
-
     private void HandleToolUpdated(ToolType type)
     {
-        if (type == ToolType.Observe) gameObject.SetActive(true);
+        if (type == ToolType.Scan) gameObject.SetActive(true);
         else gameObject.SetActive(false);
     }
 }
