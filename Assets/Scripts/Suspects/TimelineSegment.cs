@@ -51,13 +51,13 @@ public class TimelineSegment : MonoBehaviour
                 RawImage image = sensorStep.GetComponent<RawImage>();
                 switch (pollutantStep.pollutantType)
                 {
-                    case Pollutant.CO2:
+                    case PollutantType.CO2:
                         image.texture = COSensors[pollutantStep.concentration];
                         break;
-                    case Pollutant.NO:
+                    case PollutantType.NO:
                         image.texture = NOSensors[pollutantStep.concentration];
                         break;
-                    case Pollutant.VOC:
+                    case PollutantType.VOC:
                         image.texture = VOCSensors[pollutantStep.concentration];
                         break;
                 }

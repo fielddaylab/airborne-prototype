@@ -57,7 +57,7 @@ namespace FlowModel {
             // add pollutants
             Debug.Log("[FlowController] Adding Pollutants...");
             foreach (FlowSource source in Instance.ActiveSources) {
-                if (source.Room.ModeledGases.Count < source.Room.RoomSize || source.Room.RemoveGasUnit(Pollutant.FreshAir)) {
+                if (source.Room.ModeledGases.Count < source.Room.RoomSize || source.Room.RemoveGasUnit(PollutantType.FreshAir)) {
                     source.Room.AddGasUnitLate(source.Pollutant); 
                 } else {
                     Debug.Log("[FlowController] No space in room " + source.Room.RoomId);
@@ -73,7 +73,7 @@ namespace FlowModel {
             while (room.ModeledGases.Count > room.RoomSize) {
                 // if there's fresh air, just remove it.
                 // simplification to avoid shuffling around mostly fresh air
-                if (!room.ModeledGases.Remove(Pollutant.FreshAir)) {
+                if (!room.ModeledGases.Remove(PollutantType.FreshAir)) {
                     // otherwise, move a pollutant to connected room.
                     // choose random connection
                     FlowConnection connection = room.ChooseRankedConnection(true);

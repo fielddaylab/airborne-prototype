@@ -9,8 +9,8 @@ namespace FlowModel {
         public int RoomSize;   // capacity for gas units
         public bool IsOutside; // "outside" room has unlimited fresh air
 
-        private List<Pollutant> ObservedGases;                      // gathered sensor readings
-        [HideInInspector] public List<Pollutant> ModeledGases = new List<Pollutant>();      // gases predicted to be present based on model
+        private List<PollutantType> ObservedGases;                      // gathered sensor readings
+        [HideInInspector] public List<PollutantType> ModeledGases = new List<PollutantType>();      // gases predicted to be present based on model
         [HideInInspector] public List<FlowSource> RoomObjects;        // objects present in this room
         [HideInInspector] public List<FlowConnection> Connections;    // connections to other rooms
 
@@ -18,22 +18,22 @@ namespace FlowModel {
 
         public void Start() {
             for (int i = 0; i < RoomSize; i++) {
-                ModeledGases.Add(Pollutant.FreshAir);
+                ModeledGases.Add(PollutantType.FreshAir);
             }
             Visual.InitializeVisual();
         }
 
         #region Add Gas
-        public void AddGasUnitLate(Pollutant gasType) {
+        public void AddGasUnitLate(PollutantType gasType) {
             if (IsOutside) {
                 return;
-            } else if (gasType == Pollutant.None) {
+            } else if (gasType == PollutantType.None) {
                 Debug.Log("[FlowRoom.AddGasUnitLate] 'None' added, skipping...");
             }
                 FlowController.Instance.FlowQueue.AddEvent(FlowChangeEventType.Add, this, gasType);
         }
 
-        public void AddGasUnitInstant(Pollutant gasType) {
+        public void AddGasUnitInstant(PollutantType gasType) {
             if (IsOutside) {
                 return;
             }
@@ -43,19 +43,19 @@ namespace FlowModel {
         #endregion// Add Gas
 
         #region Remove Gas
-        public Pollutant RemoveGasUnitAt(int idx) {
+        public PollutantType RemoveGasUnitAt(int idx) {
             if (IsOutside) {
-                return Pollutant.FreshAir;
+                return PollutantType.FreshAir;
             }
             if (idx < 0) {
-                return Pollutant.None;
+                return PollutantType.None;
             }
-            Pollutant gasOut = ModeledGases[idx];
+            PollutantType gasOut = ModeledGases[idx];
             ModeledGases.RemoveAt(idx);
             return gasOut;
         }
 
-        public bool RemoveGasUnit(Pollutant gas) {
+        public bool RemoveGasUnit(PollutantType gas) {
             if (IsOutside) {
                 return true;
             }
@@ -86,14 +86,14 @@ namespace FlowModel {
             return null;
         }
 
-        public Pollutant ChooseRandGasUnit(out int idx) {
+        public PollutantType ChooseRandGasUnit(out int idx) {
             idx = -1;
             if (IsOutside) {
                 idx = 0;
-                return Pollutant.FreshAir;
+                return PollutantType.FreshAir;
             }
             if (ModeledGases.Count <= 0) {
-                return Pollutant.None;
+                return PollutantType.None;
             }
             idx = Random.Range(0, ModeledGases.Count);
             return ModeledGases[idx];

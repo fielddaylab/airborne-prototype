@@ -31,7 +31,7 @@ namespace FlowModel {
             }
         }
 
-        public static Color GetGasColor(Pollutant gas) {
+        public static Color GetGasColor(PollutantType gas) {
             return Instance.GasUnitColors.Find(pair => pair.Gas.Equals(gas)).Color;
         }
     }
@@ -44,7 +44,7 @@ namespace FlowModel {
     }
     [Serializable]
     public struct GasColorPair {
-        public Pollutant Gas;
+        public PollutantType Gas;
         public Color Color;
     }
 }

@@ -8,7 +8,7 @@ namespace FlowModel {
     public class FlowEventQueue : Queue<FlowChangeEvent> {
         //public Queue<FlowChangeEvent> Queue = new Queue<FlowChangeEvent>();
 
-        public void AddEvent(FlowChangeEventType type, FlowRoom roomA, Pollutant gasA, FlowRoom roomB = null, Pollutant gasB = Pollutant.None) {
+        public void AddEvent(FlowChangeEventType type, FlowRoom roomA, PollutantType gasA, FlowRoom roomB = null, PollutantType gasB = PollutantType.None) {
             Enqueue(new FlowChangeEvent() {
                 Type = type,
                 RoomA = roomA,
@@ -56,9 +56,9 @@ namespace FlowModel {
 
     public struct FlowChangeEvent {
         public FlowChangeEventType Type;
-        public Pollutant GasA;
+        public PollutantType GasA;
         public FlowRoom RoomA;
-        public Pollutant GasB;
+        public PollutantType GasB;
         public FlowRoom RoomB;
 
         // expensive enum tostring and string concatenation!!! don't do this!!

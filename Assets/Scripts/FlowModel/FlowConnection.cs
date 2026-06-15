@@ -25,9 +25,9 @@ namespace FlowModel {
             ToggleConnection(true);
         }
 
-        public void MoveGasFrom(FlowRoom room, Pollutant gasType = Pollutant.None) {
+        public void MoveGasFrom(FlowRoom room, PollutantType gasType = PollutantType.None) {
             int transferIdx = -1;
-            if (gasType == Pollutant.None) {
+            if (gasType == PollutantType.None) {
                 room.ChooseRandGasUnit(out transferIdx);
             } else {
                 // otherwise, find idx
@@ -84,16 +84,16 @@ namespace FlowModel {
         //    destination.AddGasUnitLate(RemoveGasUnitAt(moveIdx));
         //}
 
-        public void SwapGasUnit(Pollutant originUnit = Pollutant.None, Pollutant destUnit = Pollutant.None) {
+        public void SwapGasUnit(PollutantType originUnit = PollutantType.None, PollutantType destUnit = PollutantType.None) {
             int destIdx;
             int originIdx;
-            if (originUnit == Pollutant.None) {
+            if (originUnit == PollutantType.None) {
                 // if no pollutants specified, choose random unit           
                 originUnit = Origin.ChooseRandGasUnit(out originIdx);
             } else {              
                 originIdx = Origin.ModeledGases.IndexOf(originUnit);
             }
-            if (destUnit == Pollutant.None) {
+            if (destUnit == PollutantType.None) {
                 destUnit = Destination.ChooseRandGasUnit(out destIdx);
             } else {
                 destIdx = Destination.ModeledGases.IndexOf(destUnit);

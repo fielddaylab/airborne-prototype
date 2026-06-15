@@ -34,7 +34,7 @@ public class SourceStep
 [System.Serializable]
 public class PollutantStep
 {
-    public Pollutant pollutantType;
+    public PollutantType pollutantType;
     public int concentration;
 }
 

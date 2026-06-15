@@ -300,9 +300,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52332d82e0ff3e140b977a1dea1b7573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timelineObject: {fileID: 11400000, guid: 50ff8fbbd6e43194b86feedce6beec74, type: 2}
   CurrentHour: 0
   TotalHours: 8
-  TimelineSpeed: 5
+  TimelineSpeed: 0.25
 --- !u!1 &187568680
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,7 +862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -299.34207}
+  m_AnchoredPosition: {x: 0, y: -299.34204}
   m_SizeDelta: {x: 0, y: -598.685}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488254168

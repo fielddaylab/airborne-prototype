@@ -3,7 +3,8 @@ public enum RoomType
     Kitchen,
     Dining,
     Basement,
-    Bedroom
+    Bedroom,
+    Living
 }
 
 public enum SlotType
@@ -28,7 +29,7 @@ public enum SourceAction
     Off
 }
 
-public enum Pollutant
+public enum PollutantType
 {
     None,
     FreshAir,
