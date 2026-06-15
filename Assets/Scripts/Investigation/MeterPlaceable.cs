@@ -21,7 +21,12 @@ public class MeterPlaceable : MonoBehaviour
     {
         if (IsClickable)
         {
-            Debug.Log("Blargh!");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 worldPosition = hit.point;
+                MeterManager.OnShowMeter?.Invoke(worldPosition);
+            }
         }
     }
 
