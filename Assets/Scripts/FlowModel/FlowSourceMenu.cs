@@ -16,7 +16,7 @@ namespace FlowModel {
             }             
         }
 
-        public void SetSourcePollutant(Pollutant pollutant) {
+        public void SetSourcePollutant(PollutantType pollutant) {
             if (CurrentSource != null) {
                 CurrentSource.SetSourceGas(pollutant);
                 MoveMenuTo(CurrentSource);

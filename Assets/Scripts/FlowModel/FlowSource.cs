@@ -10,7 +10,7 @@ namespace FlowModel {
     public class FlowSource : MonoBehaviour {
         //public bool SourceVisible = false;
         public bool SourceActive = false;
-        public Pollutant Pollutant;
+        public PollutantType Pollutant;
         [SerializeField] private PollutionSource ObjectType;
         public FlowRoom Room;
 
@@ -29,10 +29,10 @@ namespace FlowModel {
             FlowController.Instance.SourceMenu.MoveMenuTo(this);
         }
 
-        public void SetSourceGas(Pollutant gas) {
+        public void SetSourceGas(PollutantType gas) {
             Pollutant = gas;
             Background.color = FlowVisualsLibrary.GetGasColor(gas);
-            if (gas == Pollutant.FreshAir || gas == Pollutant.None) {
+            if (gas == PollutantType.FreshAir || gas == PollutantType.None) {
                 FlowController.Instance.ActiveSources.Remove(this);
             } else {
                 FlowController.Instance.ActiveSources.Add(this);

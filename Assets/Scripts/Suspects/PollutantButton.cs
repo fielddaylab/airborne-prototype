@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PollutantButton : MonoBehaviour
 {
-    public Pollutant pollutantType;
+    public PollutantType pollutantType;
 
     public void Selection()
     {

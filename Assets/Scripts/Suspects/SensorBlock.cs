@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SensorBlock : MonoBehaviour
 {
     private Button _button;
-    public Pollutant PollutantType;
+    public PollutantType PollutantType;
     public int Concentration;
     
     public void Start()

@@ -8,6 +8,6 @@ public class SuspectObject : ScriptableObject
     public string levelName;
     public RoomType sourceRoom;
     public PollutionSource pollutionSource;
-    public Pollutant pollutant;
+    public PollutantType pollutant;
     public Symptom Symptom;
 }

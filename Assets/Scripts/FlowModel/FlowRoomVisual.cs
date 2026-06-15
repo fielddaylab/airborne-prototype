@@ -48,7 +48,7 @@ namespace FlowModel {
             for (int i = 0; i < GasUnits.Count; i++) {
                 GasUnits[i].Type = Room.ModeledGases[i];
                 GasUnits[i].Graphic.color = lib.GasUnitColors.Find(entry => entry.Gas == Room.ModeledGases[i]).Color;
-                if (GasUnits[i].Type == Pollutant.FreshAir) {
+                if (GasUnits[i].Type == PollutantType.FreshAir) {
                     GasUnits[i].transform.SetSiblingIndex(0);
                 }
             }

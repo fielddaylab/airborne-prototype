@@ -7,6 +7,8 @@ public class InvestigationTimelineSystem : MonoBehaviour
 {
     public static InvestigationTimelineSystem Instance;
 
+    public ScenarioData timelineObject;
+
     public static event Action<int> OnHourUpdated;
     
     public int CurrentHour = 0;

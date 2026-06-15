@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace FlowModel {
     public class FlowGasUnitVisual : MonoBehaviour {
-        public Pollutant Type;
+        public PollutantType Type;
         public Image Graphic;
 
     }

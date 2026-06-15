@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private DiffusionManager diffusionManager = null;
 
-    public void CheckPollutant(Pollutant p)
+    public void CheckPollutant(PollutantType p)
     {
         if (GamePhase != GamePhase.FindingPollutant) return;
         
