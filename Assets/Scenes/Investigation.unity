@@ -1567,9 +1567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1f43c9f215c14740b5fca73a5e49655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomText: {fileID: 0}
+  RoomText: {fileID: 111781018}
   TimelineSlider: {fileID: 1088959796}
-  TimelineOverlay: {fileID: 0}
+  TimelineOverlay: {fileID: 1786764524}
 --- !u!1001 &552951499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1633,6 +1633,10 @@ PrefabInstance:
     - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: RoomName
       value: Living Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: RoomType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: roomType
@@ -2982,7 +2986,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: RoomName
-      value: Dining
+      value: Dining Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: RoomType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: roomType
@@ -3997,7 +4005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7.482434}
+  m_AnchoredPosition: {x: 0, y: -7.4824333}
   m_SizeDelta: {x: -20, y: -14.965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1786764522
@@ -4703,6 +4711,10 @@ PrefabInstance:
       value: Basement
       objectReference: {fileID: 0}
     - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: RoomType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: roomType
       value: 2
       objectReference: {fileID: 0}
@@ -4797,6 +4809,10 @@ PrefabInstance:
     - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: RoomName
       value: Bedroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: RoomType
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5175240147111626690, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: roomType

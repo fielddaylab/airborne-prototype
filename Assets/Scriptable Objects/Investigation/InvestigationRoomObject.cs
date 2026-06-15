@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Investigation/Room Object")]
 public class InvestigationRoomObject : ScriptableObject
 {
-    public RoomType RoomType;
+    public RoomType RoomTypeValue;
     public TimeSlot[] TimeSlots;
 }
 

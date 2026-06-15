@@ -8,7 +8,7 @@ public class InvestigationRoom : MonoBehaviour
     [SerializeField] private BoxCollider m_BoxCollider;
     public static event Action<InvestigationRoom> OnRoomUpdated;
     public string RoomName;
-    public RoomType RoomType;
+    public RoomType RoomTypeValue;
     public float Size;
     public bool PlayerOccupied = false;
 

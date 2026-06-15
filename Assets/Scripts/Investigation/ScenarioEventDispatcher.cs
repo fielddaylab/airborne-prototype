@@ -31,7 +31,7 @@ public class ScenarioEventDispatcher : MonoBehaviour
             }
 
             PollutantReading[] readings = match != null ? match.PollutantReadings : Array.Empty<PollutantReading>();
-            OnPollutantUpdated?.Invoke(roomObject.RoomType, readings);
+            OnPollutantUpdated?.Invoke(roomObject.RoomTypeValue, readings);
         }
     }
 }
