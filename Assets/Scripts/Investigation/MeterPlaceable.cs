@@ -25,7 +25,7 @@ public class MeterPlaceable : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Vector3 worldPosition = hit.point;
-                MeterManager.OnShowMeter?.Invoke(worldPosition);
+                MeterManager.OnShowMeter?.Invoke(worldPosition, ParentRoom);
             }
         }
     }
