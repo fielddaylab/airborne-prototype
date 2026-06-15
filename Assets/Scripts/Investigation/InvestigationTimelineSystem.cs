@@ -6,7 +6,7 @@ using UnityEngine;
 public class InvestigationTimelineSystem : MonoBehaviour
 {
     public static InvestigationTimelineSystem Instance;
-    public InvestigationTimeline UITimeline;
+    public PlayerInvestigationTimeline UITimeline;
     public ScenarioDataObject ScenarioData;
     public InvestigationRegistry InvestigationRegistry;
 
