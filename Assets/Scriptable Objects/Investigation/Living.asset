@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ec478788988244782d28f207b583da, type: 3}
   m_Name: Living
   m_EditorClassIdentifier: 
-  Room: 4
+  RoomTypeValue: 4
   TimeSlots:
   - Time: 13
     PollutantReadings: []
