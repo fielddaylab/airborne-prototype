@@ -28,7 +28,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         {
             foreach (var slot in room.TimeSlots)
             {
-                _timeSlotLookup[(room.RoomType, slot.Time)] = slot;
+                _timeSlotLookup[(room.RoomTypeValue, slot.Time)] = slot;
             }
         }
     }
@@ -81,8 +81,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         
         if (_currentToolType == ToolType.Scan)
         {
-            TimeSlot slot = GetTimeSlot(_currentRoom.RoomType, _currentHour);
-            if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomType, _currentHour, KnowledgeType.PollutantPresence);
+            TimeSlot slot = GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
+            if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
 
         UpdateTimeline();
@@ -90,16 +90,25 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
     private void UpdateTimeline()
     {
+        RoomText.text = _currentRoom.RoomName;
+        
         int startHour = InvestigationTimelineSystem.Instance.BaseHour;
         int totalHours = startHour + InvestigationTimelineSystem.Instance.TotalNumHours;
-        for (int i = startHour; i < totalHours - 1; i++)
+
+        for (int i = startHour; i < totalHours; i++)
         {
             int trueIndex = i - startHour;
             TimelineOverlay.TimelineImages[trueIndex].enabled = false;
+            TimelineOverlay.TimelineImages[trueIndex].sprite = null;
+        }
+
+        for (int i = startHour; i < totalHours; i++)
+        {
+            int trueIndex = i - startHour;
             
-            if (PlayerKnowledgeState.IsKnown(_currentRoom.RoomType, i, KnowledgeType.PollutantPresence))
+            if (PlayerKnowledgeState.IsKnown(_currentRoom.RoomTypeValue, i, KnowledgeType.PollutantPresence))
             {
-                TimeSlot slot = GetTimeSlot(_currentRoom.RoomType, i);
+                TimeSlot slot = GetTimeSlot(_currentRoom.RoomTypeValue, i);
                 bool pollutantsPresent = slot.PollutantReadings.Length > 0;
                 
                 if (pollutantsPresent)
