@@ -60,9 +60,9 @@ MonoBehaviour:
     NPCEvents: []
   - Time: 20
     PollutantReadings:
-    - Pollutant: 2
-      Concentration: 4
     - Pollutant: 3
       Concentration: 2
+    - Pollutant: 2
+      Concentration: 4
     FeatureEvents: []
     NPCEvents: []

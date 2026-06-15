@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a428d5aa3b41245a0c0612c5ec1fc9, type: 3}
+  m_Name: Pollutant Material Lookup
+  m_EditorClassIdentifier: 
+  Entries:
+  - Pollutant: 2
+    Material: {fileID: 2100000, guid: 261dd4d64c15528469a45e1c8e7885ac, type: 2}
+  - Pollutant: 3
+    Material: {fileID: 2100000, guid: 92f39ba34edd86747b3a3d4f90c24ea8, type: 2}
+  - Pollutant: 4
+    Material: {fileID: 2100000, guid: 02aa70385f65ba4409bedad50252ddde, type: 2}
+  - Pollutant: 5
+    Material: {fileID: 2100000, guid: 28dfe58b9471cd64fbca85a9d035a195, type: 2}

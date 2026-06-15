@@ -12,22 +12,15 @@ public class InvestigationTimeline : MonoBehaviour
     private void Start()
     {
         InvestigationRoom.OnRoomUpdated += HandleRoomUpdated;
-        InvestigationTimelineSystem.OnHourUpdated += HandleHourUpdated;
     }
 
     public void OnDestroy()
     {
         InvestigationRoom.OnRoomUpdated -= HandleRoomUpdated;
-        InvestigationTimelineSystem.OnHourUpdated -= HandleHourUpdated;
     }
 
     private void HandleRoomUpdated(InvestigationRoom room)
     {
         m_RoomText.text = room.RoomName;
-    }
-
-    private void HandleHourUpdated(int hour)
-    {
-        TimelineSlider.value = hour;
     }
 }
