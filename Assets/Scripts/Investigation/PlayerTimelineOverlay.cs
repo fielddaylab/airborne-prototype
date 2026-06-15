@@ -5,6 +5,5 @@ using UnityEngine.UI;
 
 public class PlayerTimelineOverlay : MonoBehaviour
 {
-    public Sprite PollutantPresent, PollutantAbsent;
-    public Image[] TimelineImages;
+    public InvestigationTimelineChunk[] TimelineChunks;
 }

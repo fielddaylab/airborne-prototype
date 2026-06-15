@@ -22,5 +22,5 @@ public static class PlayerKnowledgeState
 
 public enum KnowledgeType
 {
-    PollutantPresence, MeterInfo
+    PollutantPresence, CO2, O3, NO, VOC
 }
