@@ -11,6 +11,7 @@ public class InvestigationRoom : MonoBehaviour
     public RoomType RoomTypeValue;
     public float Size;
     public bool PlayerOccupied = false;
+    public bool MeterPresent = false;
 
     private void OnTriggerEnter(Collider other)
     {
