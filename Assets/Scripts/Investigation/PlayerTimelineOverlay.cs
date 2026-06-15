@@ -1,0 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerTimelineOverlay : MonoBehaviour
+{
+    public Sprite PollutantPresent, PollutantAbsent;
+    public Image[] TimelineImages;
+}

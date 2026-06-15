@@ -37,7 +37,7 @@ public class ScannableCloud : MonoBehaviour
     
     private void HandlePollutantUpdated(RoomType type, PollutantReading[] readings)
     {
-        if (parentRoom.roomType == type)
+        if (parentRoom.RoomType == type)
         {
             if (readings.Length > cloudIndex)
             {

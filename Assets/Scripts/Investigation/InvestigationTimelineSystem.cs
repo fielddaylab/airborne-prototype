@@ -14,7 +14,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
     
     public int BaseHour = 13; // default to 1PM based on scenario tables
     [HideInInspector] public int CurrentHour = 0;
-    public int TotalHours = 9;
+    public int TotalNumHours = 9;
     public float TimelineSpeed = 1;
     private float _trueTime = 0;
 
@@ -31,7 +31,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
     {
         _trueTime += TimelineSpeed * Time.deltaTime;
         
-        _trueTime = _trueTime % TotalHours;
+        _trueTime = _trueTime % TotalNumHours;
 
         UITimeline.TimelineSlider.value = _trueTime;
 
