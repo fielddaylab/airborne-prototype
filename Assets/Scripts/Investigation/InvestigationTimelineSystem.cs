@@ -18,6 +18,8 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public float TimelineSpeed = 1;
     private float _trueTime = 0;
 
+    public Dictionary<(RoomType, int), TimeSlot> TimeSlotLookup = new();
+
     public void Start()
     {
         if (Instance != null) { Destroy(gameObject); return; }
@@ -25,6 +27,20 @@ public class InvestigationTimelineSystem : MonoBehaviour
         
         CurrentHour = BaseHour;
         OnHourUpdated?.Invoke(CurrentHour);
+
+        foreach (var room in ScenarioData.Rooms)
+        {
+            foreach (var slot in room.TimeSlots)
+            {
+                TimeSlotLookup[(room.RoomTypeValue, slot.Time)] = slot;
+            }
+        }
+    }
+
+    public TimeSlot GetTimeSlot(RoomType room, int hour)
+    {
+        TimeSlotLookup.TryGetValue((room, hour), out var slot);
+        return slot;
     }
 
     public void Update()

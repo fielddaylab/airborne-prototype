@@ -17,26 +17,11 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private ToolType _currentToolType;
     private int _currentHour;
     private ScenarioDataObject _scenarioData;
-    private Dictionary<(RoomType, int), TimeSlot> _timeSlotLookup = new();
 
     // lookup should be made before OnEanble
     private void Start()
     {
         _scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
-
-        foreach (var room in _scenarioData.Rooms)
-        {
-            foreach (var slot in room.TimeSlots)
-            {
-                _timeSlotLookup[(room.RoomTypeValue, slot.Time)] = slot;
-            }
-        }
-    }
-
-    public TimeSlot GetTimeSlot(RoomType room, int hour)
-    {
-        _timeSlotLookup.TryGetValue((room, hour), out var slot);
-        return slot;
     }
 
     private void OnEnable()
@@ -81,7 +66,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         
         if (_currentToolType == ToolType.Scan)
         {
-            TimeSlot slot = GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
+            TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
 
@@ -91,36 +76,15 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private void UpdateTimeline()
     {
         RoomText.text = _currentRoom.RoomName;
-        
-        int startHour = InvestigationTimelineSystem.Instance.BaseHour;
-        int totalHours = startHour + InvestigationTimelineSystem.Instance.TotalNumHours;
 
-        for (int i = startHour; i < totalHours; i++)
+        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+
+        for (int i = 0; i < totalHours; i++)
         {
-            int trueIndex = i - startHour;
-            TimelineOverlay.TimelineImages[trueIndex].enabled = false;
-            TimelineOverlay.TimelineImages[trueIndex].sprite = null;
-        }
-
-        for (int i = startHour; i < totalHours; i++)
-        {
-            int trueIndex = i - startHour;
-            
-            if (PlayerKnowledgeState.IsKnown(_currentRoom.RoomTypeValue, i, KnowledgeType.PollutantPresence))
-            {
-                TimeSlot slot = GetTimeSlot(_currentRoom.RoomTypeValue, i);
-                bool pollutantsPresent = slot.PollutantReadings.Length > 0;
-                
-                if (pollutantsPresent)
-                {
-                    TimelineOverlay.TimelineImages[trueIndex].sprite = TimelineOverlay.PollutantPresent;
-                } else
-                {
-                    TimelineOverlay.TimelineImages[trueIndex].sprite = TimelineOverlay.PollutantAbsent;
-                }
-
-                TimelineOverlay.TimelineImages[trueIndex].enabled = true;
-            }
+            int actualHour = baseHour + i;
+            TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, actualHour);
+            TimelineOverlay.TimelineChunks[i].SetGraphics(_currentRoom.RoomTypeValue, actualHour, slot);
         }
     }
 }

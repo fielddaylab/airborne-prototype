@@ -15,6 +15,13 @@ public class MeterManager : MonoBehaviour
 
     public GameObject MeterObject;
 
+    public int numMeters = 4;
+
+    private InvestigationRoom _sourceRoom;
+
+    public Image[] meterPips;
+    public Sprite FullPip, UsePip, EmptyPip;
+
     void Start()
     {
         HideDialogue();
@@ -45,17 +52,30 @@ public class MeterManager : MonoBehaviour
     public void HideDialogue()
     {
         transform.position = HiddenLocation;
+        if (numMeters <= 0) return;
+        meterPips[numMeters - 1].sprite = FullPip;
     }
 
     public void ShowDialogue(Vector3 position, InvestigationRoom sourceRoom)
     {
+        if (numMeters <= 0) return;
+        meterPips[numMeters - 1].sprite = UsePip;
+
         transform.position = position;
+        _sourceRoom = sourceRoom;
     }
 
     public void PlaceMeter(PollutantType pollutantType)
     {
+        if (numMeters <= 0) return;
+        meterPips[numMeters - 1].sprite = EmptyPip;
+        numMeters--;
+        
         GameObject meter = Instantiate(MeterObject);
         meter.transform.position = transform.position;
+
+        _sourceRoom.MeterPresent = true;
+        _sourceRoom.TrackedPollutant = pollutantType;
 
         HideDialogue();
     }
