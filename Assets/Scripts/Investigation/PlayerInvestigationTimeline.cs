@@ -16,13 +16,6 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private InvestigationRoom _currentRoom;
     private ToolType _currentToolType;
     private int _currentHour;
-    private ScenarioDataObject _scenarioData;
-
-    // lookup should be made before OnEanble
-    private void Start()
-    {
-        _scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
-    }
 
     private void OnEnable()
     {
