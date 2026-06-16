@@ -73,9 +73,12 @@ public class MeterManager : MonoBehaviour
         
         GameObject meter = Instantiate(MeterObject);
         meter.transform.position = transform.position;
+        
+        GasMeter gasMeter = meter.GetComponent<GasMeter>();
 
-        _sourceRoom.MeterPresent = true;
-        _sourceRoom.TrackedPollutant = pollutantType;
+        gasMeter.TrackedRoom = _sourceRoom;
+        gasMeter.TrackedPollutant = pollutantType;
+        gasMeter.Label.text = pollutantType.ToString();
 
         HideDialogue();
     }

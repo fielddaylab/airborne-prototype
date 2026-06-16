@@ -11,34 +11,62 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public TextMeshProUGUI NOText, O3Text, VOCText, COText;
 
+    private struct PollutantUIEntry
+    {
+        public KnowledgeType Knowledge;
+        public PollutantType Pollutant;
+        public TextMeshProUGUI Text;
+        public string Label;
+    }
+
+    private List<PollutantUIEntry> _pollutantEntries;
+
+    private void Awake()
+    {
+        _pollutantEntries = new List<PollutantUIEntry>
+        {
+            new PollutantUIEntry {Knowledge = KnowledgeType.CO2, Pollutant = PollutantType.CO2, Text = COText, Label = "CO" },
+            new PollutantUIEntry { Knowledge = KnowledgeType.NO,  Pollutant = PollutantType.NO,  Text = NOText, Label = "NO" },
+            new PollutantUIEntry { Knowledge = KnowledgeType.O3,  Pollutant = PollutantType.O3,  Text = O3Text, Label = "O3" },
+            new PollutantUIEntry { Knowledge = KnowledgeType.VOC, Pollutant = PollutantType.VOC, Text = VOCText, Label = "VOC" }
+        };
+
+        TimelineImage.enabled = false;
+        TextEnabled(false);
+    }
+
     public void SetGraphics(RoomType type, int hour, TimeSlot slot)
     {
         TimelineImage.enabled = false;
         TextEnabled(false);
         if (slot == null) return;
         
-        if (PlayerKnowledgeState.IsKnown(type, hour, KnowledgeType.CO2))
+        bool anyKnowledgeKnown = false;
+        foreach (PollutantUIEntry entry in _pollutantEntries)
         {
-            TextEnabled(true);
-            if (slot.PollutantReadings.Length > 0)
+            if (PlayerKnowledgeState.IsKnown(type, hour, entry.Knowledge))
             {
-                COText.text = "CO:" + slot.PollutantReadings[0].Concentration;
-            } else
-            {
-                COText.text = "CO:0";
+                PollutantReading reading = slot.GetReading(entry.Pollutant);
+                entry.Text.text = entry.Label + ":" + (reading != null ? reading.Concentration : 0);
+                anyKnowledgeKnown = true;
+                TextEnabled(true);
             }
-        } 
-        else if (PlayerKnowledgeState.IsKnown(type, hour, KnowledgeType.PollutantPresence))
+        }
+
+        if (!anyKnowledgeKnown)
         {
-            TimelineImage.enabled = true;
-            bool pollutantsPresent = slot.PollutantReadings.Length > 0;
-                
-            if (pollutantsPresent)
+            if (PlayerKnowledgeState.IsKnown(type, hour, KnowledgeType.PollutantPresence))
             {
-                TimelineImage.sprite = PollutantPresent;
-            } else
-            {
-                TimelineImage.sprite = PollutantAbsent;
+                TimelineImage.enabled = true;
+                bool pollutantsPresent = slot.PollutantReadings.Length > 0;
+                    
+                if (pollutantsPresent)
+                {
+                    TimelineImage.sprite = PollutantPresent;
+                } else
+                {
+                    TimelineImage.sprite = PollutantAbsent;
+                }
             }
         }
     }

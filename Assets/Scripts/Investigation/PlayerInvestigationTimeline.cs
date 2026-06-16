@@ -21,14 +21,16 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     {
         InvestigationRoom.OnRoomUpdated += HandleRoomUpdated;
         ToolManager.OnToolUpdated += HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourUpdated += HandleHourUpdated;
+        InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
+        PlayerKnowledgeState.OnKnowledgeUpdated += HandleKnowledgeUpdated;
     }
 
     public void OnDisable()
     {
         InvestigationRoom.OnRoomUpdated -= HandleRoomUpdated;
         ToolManager.OnToolUpdated -= HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourUpdated -= HandleHourUpdated;
+        InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
+        PlayerKnowledgeState.OnKnowledgeUpdated -= HandleKnowledgeUpdated;
     }
 
     // handle player moving between rooms and what information they should know
@@ -42,6 +44,15 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private void HandleToolUpdated(ToolType type)
     {
         _currentToolType = type;
+
+        if (_currentRoom == null) return;
+        
+        if (_currentToolType == ToolType.Scan)
+        {
+            TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
+            if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
+        }
+        
         UpdateInformation();
     }
 
@@ -56,20 +67,20 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     {
         // for now, check if they should know if a pollutant is present in a room
         if (_currentRoom == null) return;
+
+        RoomText.text = _currentRoom.RoomName;
         
         if (_currentToolType == ToolType.Scan)
         {
             TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
-
-        UpdateTimeline();
     }
 
-    private void UpdateTimeline()
+    private void HandleKnowledgeUpdated()
     {
-        RoomText.text = _currentRoom.RoomName;
-
+        if (_currentRoom == null) return;
+        
         int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
         int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
 
