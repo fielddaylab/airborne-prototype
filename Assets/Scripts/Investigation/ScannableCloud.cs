@@ -18,14 +18,14 @@ public class ScannableCloud : MonoBehaviour
 
     public void OnEnable()
     {
-        ToolManager.OnToolUpdated += HandleToolUpdated;
-        ScenarioEventDispatcher.OnPollutantUpdated += HandlePollutantUpdated;
+        //ToolManager.OnToolUpdated += HandleToolUpdated;
+        //ScenarioEventDispatcher.OnPollutantUpdated += HandlePollutantUpdated;
     }
 
     public void OnDisable()
     {
-        ToolManager.OnToolUpdated -= HandleToolUpdated;
-        ScenarioEventDispatcher.OnPollutantUpdated -= HandlePollutantUpdated;
+        //ToolManager.OnToolUpdated -= HandleToolUpdated;
+        //ScenarioEventDispatcher.OnPollutantUpdated -= HandlePollutantUpdated;
     }
 
     private void HandleToolUpdated(ToolType type)
