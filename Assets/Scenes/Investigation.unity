@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 187568683}
   - component: {fileID: 187568685}
   - component: {fileID: 187568686}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Blueman Roundy
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -987,7 +987,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 0
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1924,7 +1924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418863283}
   - component: {fileID: 418863284}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Meter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2439,7 +2439,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -2447,7 +2447,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.11000001
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -2474,7 +2474,7 @@ GameObject:
   - component: {fileID: 581187315}
   - component: {fileID: 581187317}
   - component: {fileID: 581187316}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Redd Blockhead
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2562,7 +2562,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 0
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -3367,6 +3367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Observe NPC Box
       objectReference: {fileID: 0}
+    - target: {fileID: 1571013954368323287, guid: 755798bdc7578fc4dbbb80ebc4fc9cbd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4719541923265544601, guid: 755798bdc7578fc4dbbb80ebc4fc9cbd, type: 3}
       propertyPath: NPCData
       value: 
@@ -3475,8 +3479,8 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
+    m_Bits: 55
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -3484,9 +3488,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.11000001
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: cb8f724b72fe0e24eb29052b8d43a268, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &797693365 stripped
 Transform:
@@ -3514,7 +3518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 864602323}
   - component: {fileID: 864602324}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Scanner
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3711,7 +3715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 962451432}
   - component: {fileID: 962451433}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Magnifying Glass
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4031,7 +4035,7 @@ Transform:
   m_GameObject: {fileID: 1072697694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 3.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4343,7 +4347,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 31
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4476,6 +4480,10 @@ PrefabInstance:
     - target: {fileID: 1571013954368323287, guid: 755798bdc7578fc4dbbb80ebc4fc9cbd, type: 3}
       propertyPath: m_Name
       value: Observe NPC Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571013954368323287, guid: 755798bdc7578fc4dbbb80ebc4fc9cbd, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4719541923265544601, guid: 755798bdc7578fc4dbbb80ebc4fc9cbd, type: 3}
       propertyPath: NPCData
@@ -4773,6 +4781,7 @@ GameObject:
   - component: {fileID: 1278566238}
   - component: {fileID: 1278566237}
   - component: {fileID: 1278566236}
+  - component: {fileID: 1278566240}
   m_Layer: 0
   m_Name: Door (1)
   m_TagString: Untagged
@@ -4880,6 +4889,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278566234}
   m_Mesh: {fileID: 4493585093827132993, guid: fbc33355f9d6b2442b9c84c819a30a72, type: 3}
+--- !u!114 &1278566240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278566234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 0, y: -1, z: 0.5}
+  m_EndPoint: {x: 0, y: -9, z: 0.5}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!1001 &1282299408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5010,7 +5039,7 @@ GameObject:
   - component: {fileID: 1321439453}
   - component: {fileID: 1321439454}
   - component: {fileID: 1321439455}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5624,7 +5653,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.11000001
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -6047,7 +6076,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1646839417}
   - component: {fileID: 1646839418}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ray
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -7406,7 +7435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1944352397}
   - component: {fileID: 1944352398}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tool Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7941,7 +7970,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.11000001
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
