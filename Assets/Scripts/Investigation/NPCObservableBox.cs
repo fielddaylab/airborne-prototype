@@ -9,12 +9,14 @@ public class NPCObservableBox : MonoBehaviour
     public void Start()
     {
         ToolManager.OnToolUpdated += HandleToolUpdated;
+        InvestigationTimelineSystem.OnHourEntered += HandleHourEntered;
         gameObject.SetActive(false);
     }
 
     public void OnDestroy()
     {
         ToolManager.OnToolUpdated -= HandleToolUpdated;
+        InvestigationTimelineSystem.OnHourEntered -= HandleHourEntered;
     }
 
     private void OnMouseDown()
@@ -27,11 +29,46 @@ public class NPCObservableBox : MonoBehaviour
 
         PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCDialogue);
         PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCSymptom);
+
+        VisibilityCheck();
     }
 
     private void HandleToolUpdated(ToolType type)
     {
-        if (type == ToolType.Observe) gameObject.SetActive(true);
-        else gameObject.SetActive(false);
+        if (type == ToolType.Observe)
+        {
+            VisibilityCheck();
+        } 
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
+
+    private void HandleHourEntered(int h)
+    {
+        VisibilityCheck();
+    }
+
+    private void VisibilityCheck()
+    {
+        // only show box as observable when info not known
+        
+        int hour = InvestigationTimelineSystem.Instance.CurrentHour;
+        int index = hour - InvestigationTimelineSystem.Instance.BaseHour;
+
+        NPCTimeSlot slot = NPCData.TimeSlots[index];
+        RoomType room = slot.CurrentRoom;
+
+        bool knowsDialogue = PlayerKnowledgeState.IsKnown(room, hour, KnowledgeType.NPCDialogue);
+        bool knowsSymptom = PlayerKnowledgeState.IsKnown(room, hour, KnowledgeType.NPCSymptom);
+
+        if (!knowsDialogue || !knowsSymptom)
+        {
+            gameObject.SetActive(true);
+            return;
+        }
+
+        gameObject.SetActive(false);
+    }   
 }
