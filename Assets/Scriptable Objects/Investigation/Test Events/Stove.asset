@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7fb885d3ebd0e945bd927ee2ec6f09c, type: 3}
+  m_Name: Stove
+  m_EditorClassIdentifier: 
+  RoomType: 0
+  FeatureType: 1
+  TimeSlots:
+  - Time: 13
+    FeatureEvent: 1
+  - Time: 14
+    FeatureEvent: 1
+  - Time: 15
+    FeatureEvent: 0
+  - Time: 16
+    FeatureEvent: 0
+  - Time: 17
+    FeatureEvent: 0
+  - Time: 18
+    FeatureEvent: 1
+  - Time: 19
+    FeatureEvent: 1
+  - Time: 20
+    FeatureEvent: 1

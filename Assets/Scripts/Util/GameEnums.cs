@@ -15,15 +15,16 @@ public enum SlotType
     Sensor
 }
 
-public enum PollutionSource
+public enum FeatureType
 {
     Furnace,
     Stove,
     Electricity,
-    Spraycan
+    Spraycan,
+    Fan
 }
 
-public enum SourceAction
+public enum FeatureEvent
 {
     On,
     Off
