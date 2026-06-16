@@ -881,8 +881,9 @@ GameObject:
   - component: {fileID: 187568684}
   - component: {fileID: 187568683}
   - component: {fileID: 187568685}
+  - component: {fileID: 187568686}
   m_Layer: 0
-  m_Name: Blueman
+  m_Name: Blueman Roundy
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,7 +950,7 @@ Transform:
   m_GameObject: {fileID: 187568680}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7600002, y: 1.8677659, z: 1.5}
+  m_LocalPosition: {x: -2.7600002, y: 1.705, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -968,7 +969,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b926445be80e347b795a42176ad076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCData: {fileID: 0}
+  NPCData: {fileID: 11400000, guid: f305b992230b8544bacc3a1128da64e9, type: 2}
+  NavAgent: {fileID: 187568686}
+  Waypoints:
+  - Room: 0
+    Waypoint: {fileID: 233439690}
+--- !u!195 &187568686
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187568680}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.24
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.44
+  m_BaseOffset: 0.72
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!1 &233439689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 233439690}
+  m_Layer: 2
+  m_Name: Blue Kitchen Waypoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &233439690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233439689}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.75, y: 1, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 797693365}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240692901 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4383330827199861472, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
@@ -2338,19 +2396,61 @@ PrefabInstance:
     - {fileID: 2275577421085922001, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
     - {fileID: 6989094769965303142, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2002840852}
     - targetCorrespondingSourceObject: {fileID: 1854809707335913260, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1278566235}
     - targetCorrespondingSourceObject: {fileID: 1854809707335913260, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1368061606}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 795307181}
   m_SourcePrefab: {fileID: 100100000, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
 --- !u!4 &552951500 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
   m_PrefabInstance: {fileID: 552951499}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &566726872 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+  m_PrefabInstance: {fileID: 1983241225}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &566726878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566726872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!114 &580211601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4549203437494238267, guid: f43056cd3f3944442bd286e206e557a4, type: 3}
@@ -2372,8 +2472,10 @@ GameObject:
   m_Component:
   - component: {fileID: 581187314}
   - component: {fileID: 581187315}
+  - component: {fileID: 581187317}
+  - component: {fileID: 581187316}
   m_Layer: 0
-  m_Name: Redd
+  m_Name: Redd Blockhead
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2388,7 +2490,7 @@ Transform:
   m_GameObject: {fileID: 581187313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.510002, y: 1.8677659, z: 1.5}
+  m_LocalPosition: {x: -32.510002, y: 1.707, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2447,6 +2549,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!195 &581187316
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581187313}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.24
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.44
+  m_BaseOffset: 0.72
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &581187317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581187313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b926445be80e347b795a42176ad076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCData: {fileID: 11400000, guid: 9842a6970f63d664495d72d7d5852e33, type: 2}
+  NavAgent: {fileID: 581187316}
+  Waypoints:
+  - Room: 3
+    Waypoint: {fileID: 1619813056}
+  - Room: 4
+    Waypoint: {fileID: 2002840852}
+  - Room: 0
+    Waypoint: {fileID: 1912214707}
 --- !u!1001 &611460392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3307,6 +3452,42 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -5477749408508380018, guid: c5a7601fd71311541a6e902fb00cf113, type: 3}
   m_PrefabInstance: {fileID: 1562034937}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &795307175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+  m_PrefabInstance: {fileID: 552951499}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &795307181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795307175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!4 &797693365 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
@@ -4755,6 +4936,10 @@ PrefabInstance:
       propertyPath: m_Room2
       value: 
       objectReference: {fileID: 797693366}
+    - target: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4794435824231233991, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: m_Name
       value: Dining
@@ -4791,7 +4976,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 2275577421085922001, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1508382606}
   m_SourcePrefab: {fileID: 100100000, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
 --- !u!4 &1282299409 stripped
 Transform:
@@ -5404,6 +5592,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bcc73edc2665ca44ba3a0d33cc34809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1508382600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+  m_PrefabInstance: {fileID: 1282299408}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1508382606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508382600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &1543018041
 GameObject:
   m_ObjectHideFlags: 0
@@ -5632,6 +5856,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1619813055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1619813056}
+  m_Layer: 2
+  m_Name: Redd Bedroom Waypoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1619813056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619813055}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 1, z: 1.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1983241226}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1643055974
 GameObject:
   m_ObjectHideFlags: 0
@@ -6990,6 +7245,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bcc73edc2665ca44ba3a0d33cc34809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1912214706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912214707}
+  m_Layer: 2
+  m_Name: Redd Kitchen Waypoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1912214707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912214706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.25, y: 1, z: -2.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 797693365}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1913143729
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,6 +7603,14 @@ PrefabInstance:
       propertyPath: m_Room2
       value: 
       objectReference: {fileID: 699131250}
+    - target: {fileID: 4030691869531934850, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241714924871990421, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4794435824231233991, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       propertyPath: m_Name
       value: Bedroom
@@ -7362,7 +7656,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1696791238}
+    - targetCorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1619813056}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 566726878}
     - targetCorrespondingSourceObject: {fileID: 2275577421085922001, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 943377740}
@@ -7503,6 +7803,37 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2002840851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2002840852}
+  m_Layer: 2
+  m_Name: Redd Living Room Waypoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2002840852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002840851}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 552951500}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2033026296
 GameObject:
   m_ObjectHideFlags: 0
@@ -7578,6 +7909,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033026296}
   m_CullTransparentMesh: 1
+--- !u!1 &2034324523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+  m_PrefabInstance: {fileID: 7557189626896068370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2034324529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034324523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &2067896905
 GameObject:
   m_ObjectHideFlags: 0
@@ -8183,7 +8550,16 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 684611695}
+    - targetCorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1912214707}
+    - targetCorrespondingSourceObject: {fileID: 362140594926791678, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 233439690}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2034324529}
     - targetCorrespondingSourceObject: {fileID: 4383330827199861472, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 240692905}

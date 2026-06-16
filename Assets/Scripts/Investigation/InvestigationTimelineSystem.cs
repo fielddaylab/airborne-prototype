@@ -10,8 +10,9 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public ScenarioDataObject ScenarioData;
     public InvestigationRegistry InvestigationRegistry;
 
-     public static event Action<int> OnHourLeft;
+    public static event Action<int> OnHourLeft;
     public static event Action<int> OnHourEntered;
+    public static event Action OnTimeReset;
     
     public int BaseHour = 13; // default to 1PM based on scenario tables
     [HideInInspector] public int CurrentHour = 0;
@@ -48,7 +49,12 @@ public class InvestigationTimelineSystem : MonoBehaviour
     {
         _trueTime += TimelineSpeed * Time.deltaTime;
         
+        float previous = _trueTime;
         _trueTime = _trueTime % TotalNumHours;
+        if (_trueTime < previous)
+        {
+            OnTimeReset?.Invoke();
+        }
 
         UITimeline.TimelineSlider.value = _trueTime;
 
