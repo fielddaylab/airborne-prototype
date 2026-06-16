@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObservableBox : MonoBehaviour
+public class NPCObservableBox : MonoBehaviour
 {
-    public KnowledgeType FeatureKnowledge;
-    public RoomType FeatureRoom;
+    public InvestigationNPCObject NPCData;
 
     public void Start()
     {
@@ -21,8 +20,13 @@ public class ObservableBox : MonoBehaviour
     private void OnMouseDown()
     {
         int hour = InvestigationTimelineSystem.Instance.CurrentHour;
-        PlayerKnowledgeState.Discover(FeatureRoom, hour, FeatureKnowledge);
-        Debug.Log("Recorded information!");
+        int index = hour - InvestigationTimelineSystem.Instance.BaseHour;
+
+        NPCTimeSlot slot = NPCData.TimeSlots[index];
+        RoomType room = slot.CurrentRoom;
+
+        PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCDialogue);
+        PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCSymptom);
     }
 
     private void HandleToolUpdated(ToolType type)

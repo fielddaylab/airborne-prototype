@@ -13,6 +13,8 @@ public static class PlayerKnowledgeState
     // classes can log their specific information as discovered
     public static void Discover(RoomType room, int time, KnowledgeType type)
     {
+        //Debug.Log($"Recorded information about {type} in room {room}!");
+        
         Discovered.Add((room, time, type));
         OnKnowledgeUpdated.Invoke();
     }
@@ -40,5 +42,6 @@ public static class PlayerKnowledgeState
 public enum KnowledgeType
 {
     PollutantPresence, CO2, O3, NO, VOC,
-    FanStatus, FurnaceStatus, SpraycanStatus, StoveStatus 
+    FanStatus, FurnaceStatus, SpraycanStatus, StoveStatus,
+    NPCSymptom, NPCDialogue, 
 }
