@@ -7,16 +7,15 @@ using UnityEngine;
 public class InvestigationRoomObject : ScriptableObject
 {
     public RoomType RoomTypeValue;
-    public TimeSlot[] TimeSlots;
+    public RoomTimeSlot[] TimeSlots;
 }
 
 [System.Serializable]
-public class TimeSlot
+public class RoomTimeSlot
 {
     public int Time;
     public PollutantReading[] PollutantReadings;
     public FeatureEvent[] FeatureEvents;
-    public NPCEvent[] NPCEvents;
 
     private Dictionary<PollutantType, PollutantReading> _readingLookup;
 
@@ -45,16 +44,4 @@ public class PollutantReading
 {
     public PollutantType Pollutant;
     public int Concentration;
-}
-
-[System.Serializable]
-public class FeatureEvent
-{
-    
-}
-
-[System.Serializable]
-public class NPCEvent
-{
-    
 }

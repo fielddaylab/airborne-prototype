@@ -19,3 +19,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d5f4495655937e641b581691a91bd39c, type: 2}
   - {fileID: 11400000, guid: b4756293f194803409173433796af244, type: 2}
   - {fileID: 11400000, guid: 872b4fa32e7f6f34588abe1c532d6b9f, type: 2}
+  NPCs:
+  - {fileID: 11400000, guid: f305b992230b8544bacc3a1128da64e9, type: 2}
+  - {fileID: 11400000, guid: 9842a6970f63d664495d72d7d5852e33, type: 2}
+  FeatureEvents:
+  - {fileID: 11400000, guid: 8784e9368d3fad54a8dbb15447089eb8, type: 2}
+  - {fileID: 11400000, guid: 496aff41f0d05d44398fa92b84ff4bc3, type: 2}
+  - {fileID: 11400000, guid: 645c34c5d213bea4c8ab67c875968bc4, type: 2}
+  - {fileID: 11400000, guid: f29289a693a34f6498ee07f25e42e274, type: 2}

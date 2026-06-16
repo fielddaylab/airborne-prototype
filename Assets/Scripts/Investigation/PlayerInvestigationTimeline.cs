@@ -49,7 +49,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         
         if (_currentToolType == ToolType.Scan)
         {
-            TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
+            RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
         
@@ -72,7 +72,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         
         if (_currentToolType == ToolType.Scan)
         {
-            TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
+            RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
 
@@ -94,7 +94,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         for (int i = 0; i < totalHours; i++)
         {
             int actualHour = baseHour + i;
-            TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, actualHour);
+            RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, actualHour);
             TimelineOverlay.TimelineChunks[i].SetGraphics(_currentRoom.RoomTypeValue, actualHour, slot);
         }
     }

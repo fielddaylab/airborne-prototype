@@ -7,7 +7,7 @@ public class SuspectObject : ScriptableObject
 {
     public string levelName;
     public RoomType sourceRoom;
-    public PollutionSource pollutionSource;
+    public FeatureType pollutionSource;
     public PollutantType pollutant;
     public Symptom Symptom;
 }

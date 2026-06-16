@@ -11,7 +11,7 @@ namespace FlowModel {
         //public bool SourceVisible = false;
         public bool SourceActive = false;
         public PollutantType Pollutant;
-        [SerializeField] private PollutionSource ObjectType;
+        [SerializeField] private FeatureType ObjectType;
         public FlowRoom Room;
 
         public Button ObjectButton;

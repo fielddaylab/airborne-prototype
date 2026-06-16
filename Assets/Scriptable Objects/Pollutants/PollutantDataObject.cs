@@ -7,5 +7,5 @@ public class PollutantDataObject : ScriptableObject
 {
     public PollutantType Type;
     public Symptom[] Symptoms;
-    public PollutionSource[] Sources;
+    public FeatureType[] Sources;
 }

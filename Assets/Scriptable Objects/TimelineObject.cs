@@ -27,8 +27,8 @@ public class RoomStep
 [System.Serializable]
 public class SourceStep
 {
-    public PollutionSource pollutionSource;
-    public SourceAction sourceAction;
+    public FeatureType pollutionSource;
+    public FeatureEvent sourceAction;
 }
 
 [System.Serializable]

@@ -35,7 +35,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         TextEnabled(false);
     }
 
-    public void SetGraphics(RoomType type, int hour, TimeSlot slot)
+    public void SetGraphics(RoomType type, int hour, RoomTimeSlot slot)
     {
         TimelineImage.enabled = false;
         TextEnabled(false);

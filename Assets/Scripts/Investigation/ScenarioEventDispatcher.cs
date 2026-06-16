@@ -23,8 +23,8 @@ public class ScenarioEventDispatcher : MonoBehaviour
 
         foreach (InvestigationRoomObject roomObject in scenarioData.Rooms)
         {
-            TimeSlot match = null;
-            foreach (TimeSlot time in roomObject.TimeSlots) {
+            RoomTimeSlot match = null;
+            foreach (RoomTimeSlot time in roomObject.TimeSlots) {
                 if (time.Time == h) {
                     match = time; break; 
                 }

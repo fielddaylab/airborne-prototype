@@ -12,7 +12,7 @@ public class TimelineSegment : MonoBehaviour
     [System.Serializable]
     public struct SourceTexturePair
     {
-        public PollutionSource source;
+        public FeatureType source;
         public Texture2D textureOn;
         public Texture2D textureOff;
     }
@@ -74,14 +74,14 @@ public class TimelineSegment : MonoBehaviour
                 GameObject sourceObj = Instantiate(SymptomAndSourceImagePrefab);
                 RawImage image = sourceObj.transform.Find("Button Texture").GetComponent<RawImage>();
                 SourceTexturePair match = sourceTextures.Find(x => x.source == sourceStep.pollutionSource);
-                Texture2D matchingTexture = sourceStep.sourceAction == SourceAction.On ? match.textureOn : match.textureOff;
+                Texture2D matchingTexture = sourceStep.sourceAction == FeatureEvent.On ? match.textureOn : match.textureOff;
                 image.texture = matchingTexture;
 
                 sourceObj.transform.SetParent(SourceStatusParent.transform);
                 sourceObj.transform.localScale = Vector3.one;
 
                 TimelineButton sourceButton = sourceObj.GetComponent<TimelineButton>();
-                string status = sourceStep.sourceAction == SourceAction.On ? " turns on." : " turns off.";
+                string status = sourceStep.sourceAction == FeatureEvent.On ? " turns on." : " turns off.";
                 sourceButton.Setup(feedbackBlock, timeLabel, sourceStep.pollutionSource.ToString(), matchingTexture, status);
 
                 HighlighterSlot highlightSlot = sourceObj.GetComponent<HighlighterSlot>();

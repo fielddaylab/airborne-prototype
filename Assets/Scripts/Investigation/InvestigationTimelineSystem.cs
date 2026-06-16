@@ -19,7 +19,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public float TimelineSpeed = 1;
     private float _trueTime = 0;
 
-    public Dictionary<(RoomType, int), TimeSlot> TimeSlotLookup = new();
+    public Dictionary<(RoomType, int), RoomTimeSlot> TimeSlotLookup = new();
 
     public void Start()
     {
@@ -38,7 +38,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
         }
     }
 
-    public TimeSlot GetTimeSlot(RoomType room, int hour)
+    public RoomTimeSlot GetTimeSlot(RoomType room, int hour)
     {
         TimeSlotLookup.TryGetValue((room, hour), out var slot);
         return slot;
