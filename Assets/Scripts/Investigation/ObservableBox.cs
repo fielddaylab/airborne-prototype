@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ObservableBox : MonoBehaviour
 {
-    public string DataPointName;
+    public KnowledgeType FeatureKnowledge;
+    public RoomType FeatureRoom;
 
     public void Start()
     {
@@ -19,7 +20,9 @@ public class ObservableBox : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log(DataPointName + " was clicked.");
+        int hour = InvestigationTimelineSystem.Instance.CurrentHour;
+        PlayerKnowledgeState.Discover(FeatureRoom, hour, FeatureKnowledge);
+        Debug.Log("Recorded information!");
     }
 
     private void HandleToolUpdated(ToolType type)
