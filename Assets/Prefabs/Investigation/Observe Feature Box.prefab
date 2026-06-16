@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 429311170747811760}
   - component: {fileID: 475040277822971778}
   m_Layer: 0
-  m_Name: Observe Box
+  m_Name: Observe Feature Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
