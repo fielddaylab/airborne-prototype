@@ -44,5 +44,5 @@ MonoBehaviour:
     Symptom: 0
   - Time: 20
     CurrentRoom: 0
-    CharacterDialogue: 
+    CharacterDialogue: '!!!'
     Symptom: 0

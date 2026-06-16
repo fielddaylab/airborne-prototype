@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 3723319391561323713}
   - component: {fileID: 8985600475281312565}
   m_Layer: 2
-  m_Name: Gas Cloud
+  m_Name: Debug Gas Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -853,7 +853,7 @@ GameObject:
   - component: {fileID: 1972068611831064546}
   - component: {fileID: 4705795551291186525}
   m_Layer: 2
-  m_Name: Secondary Cloud
+  m_Name: Secondary Debug Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

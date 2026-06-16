@@ -6,6 +6,7 @@ public class FeatureObservableBox : MonoBehaviour
 {
     public KnowledgeType FeatureKnowledge;
     public RoomType FeatureRoom;
+    private ToolType _lastToolType;
 
     public void Start()
     {
@@ -30,6 +31,7 @@ public class FeatureObservableBox : MonoBehaviour
 
     private void HandleToolUpdated(ToolType type)
     {
+        _lastToolType = type;
         if (type == ToolType.Observe)
         {
             VisibilityCheck();
@@ -42,7 +44,7 @@ public class FeatureObservableBox : MonoBehaviour
 
     private void HandleHourEntered(int h)
     {
-        VisibilityCheck();
+        if (_lastToolType == ToolType.Observe) VisibilityCheck();
     }
 
     private void VisibilityCheck()

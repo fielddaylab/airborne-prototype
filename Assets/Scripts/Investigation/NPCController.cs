@@ -9,7 +9,7 @@ public class NPCController : MonoBehaviour
     public NavMeshAgent NavAgent;
     public NPCRoomWaypointEntry[] Waypoints;
 
-
+    public SpriteRenderer SymptomIndicator, DialogueIndicator;
 
     private RoomType _currentLocation;
 
@@ -20,21 +20,22 @@ public class NPCController : MonoBehaviour
 
     public void OnEnable()
     {
-        InvestigationTimelineSystem.OnHourEntered += CheckLocation;
+        InvestigationTimelineSystem.OnHourEntered += CheckLocationAndIndicator;
         InvestigationTimelineSystem.OnTimeReset += ResetLocation;
     }
 
     public void OnDisable()
     {
-        InvestigationTimelineSystem.OnHourEntered -= CheckLocation;
+        InvestigationTimelineSystem.OnHourEntered -= CheckLocationAndIndicator;
         InvestigationTimelineSystem.OnTimeReset -= ResetLocation;
     }
 
-    private void CheckLocation(int hour)
+    private void CheckLocationAndIndicator(int hour)
     {
         int index = hour - InvestigationTimelineSystem.Instance.BaseHour;
+        NPCTimeSlot slot = NPCData.TimeSlots[index];
 
-        RoomType expectedLocation = NPCData.TimeSlots[index].CurrentRoom;
+        RoomType expectedLocation = slot.CurrentRoom;
         if (expectedLocation != _currentLocation)
         {
             foreach (NPCRoomWaypointEntry entry in Waypoints)
@@ -48,6 +49,9 @@ public class NPCController : MonoBehaviour
         }
 
         _currentLocation = expectedLocation;
+
+        SymptomIndicator.enabled = slot.Symptom != Symptom.None;
+        DialogueIndicator.enabled = slot.CharacterDialogue != "";
     }
 
     private void ResetLocation()
