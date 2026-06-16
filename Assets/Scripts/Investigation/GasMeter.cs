@@ -21,10 +21,6 @@ public class GasMeter : MonoBehaviour
 
     private void HandleHourUpdated(int time)
     {
-        // TODO: Move this into the meter anchor
-        // Then each meter is what is actually updating information, which makes a lot more sense
-        // And it fixes the issue of tracking multiple pollutants, just put it on the meters instead
-        
         RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(TrackedRoom.RoomTypeValue, time);
         KnowledgeType pollutantKnowledge = PlayerKnowledgeState.PollutantKnowledgeKey[TrackedPollutant];
         if (slot != null) PlayerKnowledgeState.Discover(TrackedRoom.RoomTypeValue, time, pollutantKnowledge);

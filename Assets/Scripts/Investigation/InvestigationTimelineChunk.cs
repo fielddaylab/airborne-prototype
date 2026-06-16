@@ -39,6 +39,11 @@ public class InvestigationTimelineChunk : MonoBehaviour
     {
         TimelineImage.enabled = false;
         TextEnabled(false);
+        foreach (PollutantUIEntry entry in _pollutantEntries)
+        {
+            entry.Text.text = entry.Label + ":?";
+        }
+
         if (slot == null) return;
         
         bool anyKnowledgeKnown = false;
