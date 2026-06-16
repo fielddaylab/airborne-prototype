@@ -75,9 +75,16 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             TimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
+
+        UpdateTimelineVisuals();
     }
 
     private void HandleKnowledgeUpdated()
+    {
+        UpdateTimelineVisuals();
+    }
+
+    private void UpdateTimelineVisuals()
     {
         if (_currentRoom == null) return;
         
