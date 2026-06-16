@@ -9,12 +9,12 @@ public class ScenarioEventDispatcher : MonoBehaviour
 
     public void OnEnable()
     {
-        InvestigationTimelineSystem.OnHourUpdated += HandleHourUpdated;
+        InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
     }
 
     public void OnDisable()
     {
-        InvestigationTimelineSystem.OnHourUpdated -= HandleHourUpdated;
+        InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
     }
 
     private void HandleHourUpdated(int h)

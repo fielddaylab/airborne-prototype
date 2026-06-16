@@ -10,7 +10,8 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public ScenarioDataObject ScenarioData;
     public InvestigationRegistry InvestigationRegistry;
 
-    public static event Action<int> OnHourUpdated;
+     public static event Action<int> OnHourLeft;
+    public static event Action<int> OnHourEntered;
     
     public int BaseHour = 13; // default to 1PM based on scenario tables
     [HideInInspector] public int CurrentHour = 0;
@@ -26,7 +27,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
         Instance = this;
         
         CurrentHour = BaseHour;
-        OnHourUpdated?.Invoke(CurrentHour);
+        OnHourEntered?.Invoke(CurrentHour);
 
         foreach (var room in ScenarioData.Rooms)
         {
@@ -55,8 +56,9 @@ public class InvestigationTimelineSystem : MonoBehaviour
 
         if (thisHour != CurrentHour)
         {
+            OnHourLeft?.Invoke(CurrentHour);
             CurrentHour = thisHour;
-            OnHourUpdated?.Invoke(CurrentHour);
+            OnHourEntered?.Invoke(CurrentHour);
             Debug.Log("Updated hour to: " + CurrentHour);
         }
     }
