@@ -49,7 +49,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         bool anyKnowledgeKnown = false;
         foreach (PollutantUIEntry entry in _pollutantEntries)
         {
-            if (PlayerKnowledgeState.IsKnown(type, hour, entry.Knowledge))
+            if (PlayerKnowledgeState.IsKnownHourly(type, hour, entry.Knowledge))
             {
                 PollutantReading reading = slot.GetReading(entry.Pollutant);
                 entry.Text.text = entry.Label + ":" + (reading != null ? reading.Concentration : 0);
@@ -60,7 +60,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         if (!anyKnowledgeKnown)
         {
-            if (PlayerKnowledgeState.IsKnown(type, hour, KnowledgeType.PollutantPresence))
+            if (PlayerKnowledgeState.IsKnownHourly(type, hour, KnowledgeType.PollutantPresence))
             {
                 TimelineImage.enabled = true;
                 bool pollutantsPresent = slot.PollutantReadings.Length > 0;

@@ -52,7 +52,7 @@ public class FeatureObservableBox : MonoBehaviour
         // only show box as observable when info not known
         
         int hour = InvestigationTimelineSystem.Instance.CurrentHour;
-        bool knowsFeature = PlayerKnowledgeState.IsKnown(FeatureRoom, hour, FeatureKnowledge);
+        bool knowsFeature = PlayerKnowledgeState.IsKnownHourly(FeatureRoom, hour, FeatureKnowledge);
 
         if (!knowsFeature)
         {

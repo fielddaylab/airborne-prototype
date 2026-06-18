@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public static class PlayerKnowledgeState 
 {
     // Stores a combination of room and time and knowledge type to track what the player has discovered so far
-    private static HashSet<(RoomType, int, KnowledgeType)> Discovered = new();
+    private static HashSet<(RoomType, int, KnowledgeType)> HourlyDiscovered = new();
+    private static HashSet<(RoomType, KnowledgeType)> GenerallyDiscovered = new();
+    private static HashSet<(RoomType, CharacterType, KnowledgeType)> CharacterDiscovered = new();
 
     public static event Action OnKnowledgeUpdated;
 
@@ -15,14 +16,40 @@ public static class PlayerKnowledgeState
     {
         //Debug.Log($"Recorded information about {type} in room {room}!");
         
-        Discovered.Add((room, time, type));
+        HourlyDiscovered.Add((room, time, type));
+        OnKnowledgeUpdated.Invoke();
+    }
+
+    public static void Discover(RoomType room, KnowledgeType type)
+    {
+        //Debug.Log($"Recorded information about {type} in room {room}!");
+        
+        GenerallyDiscovered.Add((room, type));
+        OnKnowledgeUpdated.Invoke();
+    }
+
+    public static void Discover(RoomType room, CharacterType character, KnowledgeType type)
+    {
+        //Debug.Log($"Recorded information about {type} in room {room}!");
+        
+        CharacterDiscovered.Add((room, character, type));
         OnKnowledgeUpdated.Invoke();
     }
 
     // other classes can query this to figure out what the players knows or not yet
-    public static bool IsKnown(RoomType room, int time, KnowledgeType type)
+    public static bool IsKnownHourly(RoomType room, int time, KnowledgeType type)
     {
-        return Discovered.Contains((room, time, type));
+        return HourlyDiscovered.Contains((room, time, type));
+    }
+
+    public static bool IsKnownGenerally(RoomType room, KnowledgeType type)
+    {
+        return GenerallyDiscovered.Contains((room, type));
+    }
+
+    public static bool IsKnownCharacterly(RoomType room, CharacterType character, KnowledgeType type)
+    {
+        return CharacterDiscovered.Contains((room, character, type));
     }
 
     public static readonly Dictionary<PollutantType, KnowledgeType> PollutantKnowledgeKey = new Dictionary<PollutantType, KnowledgeType>
@@ -41,6 +68,7 @@ public static class PlayerKnowledgeState
 
 public enum KnowledgeType
 {
+    RoomInfo,
     PollutantPresence, CO2, O3, NO, VOC,
     FanStatus, FurnaceStatus, SpraycanStatus, StoveStatus,
     NPCSymptom, NPCDialogue, 
