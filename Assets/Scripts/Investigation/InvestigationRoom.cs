@@ -19,6 +19,8 @@ public class InvestigationRoom : MonoBehaviour
             PlayerOccupied = true;
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
+            PlayerKnowledgeState.Discover(RoomTypeValue, KnowledgeType.RoomInfo);
+
             player.currentRoom = this;
             player.playerCamera.UpdateRoom(player.currentRoom);
             OnRoomUpdated?.Invoke(this);

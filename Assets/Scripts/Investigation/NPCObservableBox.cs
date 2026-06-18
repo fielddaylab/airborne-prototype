@@ -62,8 +62,8 @@ public class NPCObservableBox : MonoBehaviour
         NPCTimeSlot slot = NPCData.TimeSlots[index];
         RoomType room = slot.CurrentRoom;
 
-        bool knowsDialogue = PlayerKnowledgeState.IsKnown(room, hour, KnowledgeType.NPCDialogue);
-        bool knowsSymptom = PlayerKnowledgeState.IsKnown(room, hour, KnowledgeType.NPCSymptom);
+        bool knowsDialogue = PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCDialogue);
+        bool knowsSymptom = PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCSymptom);
 
         if (!knowsDialogue || !knowsSymptom)
         {

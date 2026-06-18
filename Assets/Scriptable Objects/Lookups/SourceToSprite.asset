@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c790213b8835144a0682898d7ada50, type: 3}
+  m_Name: SourceToSprite
+  m_EditorClassIdentifier: 
+  ImagePairs:
+  - Feature: 0
+    FeatureSprite: {fileID: 21300000, guid: 5e9a5eb33cc78dd4e987d8eb985d4683, type: 3}
+  - Feature: 1
+    FeatureSprite: {fileID: 21300000, guid: 7b8e2988480c29c4282e9f28aa8ec10b, type: 3}
+  - Feature: 2
+    FeatureSprite: {fileID: 21300000, guid: 68194ee9a9a74d64b99f9faac47d7339, type: 3}
+  - Feature: 3
+    FeatureSprite: {fileID: 21300000, guid: 878348e8039c4f547b9f54d6801b8d18, type: 3}
+  - Feature: 4
+    FeatureSprite: {fileID: 21300000, guid: 98766b5b966be4c46bb8aaaa8328fae5, type: 3}
