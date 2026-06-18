@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class InvestigationTimelineChunk : MonoBehaviour
 {
+    public GameObject RoomOverlay, NPCOverlay, SourceOverlay;
+    
     public Sprite PollutantPresent, PollutantAbsent;
     public Image TimelineImage;
 

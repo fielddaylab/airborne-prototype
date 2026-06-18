@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3855c76ff19104fb422958e42e0967, type: 3}
+  m_Name: SymptomSpriteMap
+  m_EditorClassIdentifier: 
+  SpritePairs:
+  - SymptomType: 1
+    SymptomSprite: {fileID: 21300000, guid: d941efcfd14853f47a2f53ca08e8d616, type: 3}
+  - SymptomType: 2
+    SymptomSprite: {fileID: 21300000, guid: cf3a9de9d8e57584aae22690cac3a45e, type: 3}
+  - SymptomType: 3
+    SymptomSprite: {fileID: 21300000, guid: e36f6349b17598744bf71ef0975dceb0, type: 3}
+  - SymptomType: 4
+    SymptomSprite: {fileID: 21300000, guid: 2bab4fdc0d8121b47b2aea686ded0db8, type: 3}
+  - SymptomType: 5
+    SymptomSprite: {fileID: 21300000, guid: 39d70e136b5a42143831604348b59290, type: 3}
+  - SymptomType: 6
+    SymptomSprite: {fileID: 21300000, guid: 78f93749e91999f4aa2b243c0f5426fa, type: 3}
+  - SymptomType: 7
+    SymptomSprite: {fileID: 21300000, guid: 21d8fbaeb6cb7714aa509c0591f5f9b7, type: 3}
+  - SymptomType: 8
+    SymptomSprite: {fileID: 21300000, guid: 9628863a35ca374498e83f40767bcbdf, type: 3}
+  - SymptomType: 9
+    SymptomSprite: {fileID: 21300000, guid: 9615c93b503ff7b4d92a83642e20447d, type: 3}
+  - SymptomType: 10
+    SymptomSprite: {fileID: 21300000, guid: 84f9030f5db85f143a8c80e9f3f483aa, type: 3}
+  - SymptomType: 11
+    SymptomSprite: {fileID: 21300000, guid: f37288e72f1387742b509641f32bf302, type: 3}

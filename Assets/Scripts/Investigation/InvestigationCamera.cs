@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class InvestigationCamera : MonoBehaviour
 {
-    private Vector3 _offset;
+    public Vector3 Offset;
     // higher values slower
     [SerializeField] private float m_Smoothing;
 
     private Vector3 _targetPosition;
     private Vector3 _smoothVelocity = Vector3.zero;
-
-    public void Start()
-    {
-        _offset = transform.position;
-    }
 
     public void UpdateRoom(InvestigationRoom room)
     {
@@ -23,6 +18,6 @@ public class InvestigationCamera : MonoBehaviour
 
     public void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, _targetPosition + _offset, ref _smoothVelocity,  m_Smoothing);
+        transform.position = Vector3.SmoothDamp(transform.position, _targetPosition + Offset, ref _smoothVelocity,  m_Smoothing);
     }
 }
