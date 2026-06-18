@@ -19,7 +19,9 @@ public class ImageCycler : MonoBehaviour
 
     public void IncrementCycle()
     {
-        if (GameManager.Instance.GamePhase != GamePhase.SelectingPollutant) return;
+        if (GameManager.Instance != null) {
+            if (GameManager.Instance.GamePhase != GamePhase.SelectingPollutant) return;
+        }
         
         cycleState = (cycleState + 1) % 3;
         switch (cycleState)

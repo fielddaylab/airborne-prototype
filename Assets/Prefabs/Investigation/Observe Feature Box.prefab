@@ -118,4 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c9ea8116eb6894f80dcd40fe3dc947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataPointName: NPC
+  FeatureKnowledge: 0
+  FeatureRoom: 0
