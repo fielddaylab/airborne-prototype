@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,8 @@ public class MapRoomDisplay : MonoBehaviour
     public Image[] ReadingChunks;
     public Image[] ReadingImages;
     public Image AmbigiousReadingImage;
+
+    public Sprite PollutantPresent, PollutantAbsent;
 
     public void Start()
     {
@@ -40,6 +43,50 @@ public class MapRoomDisplay : MonoBehaviour
                     
                     featuresTracked++;
                     if (featuresTracked >= 2) break;
+                }
+            }
+
+            int metersTracked = 0;
+            foreach (var meter in InvestigationTimelineSystem.Instance.Meters)
+            {
+                if (meter.TrackedRoom.RoomTypeValue != roomType) continue;
+
+                MeterImages[metersTracked].enabled = true;
+                MeterTexts[metersTracked].text = meter.Label.text;
+
+                metersTracked++;
+                if (metersTracked >= 2) break;
+            }
+        }
+
+        // hour specific information
+        RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(roomType, hour);
+
+        bool anyKnowledgeKnown = false;
+        foreach (PollutantType pollutant in Enum.GetValues(typeof(PollutantType)))
+        {
+            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
+            {
+                //anyKnowledgeKnown = true;
+                // to do later
+            }
+        }
+
+        if (!anyKnowledgeKnown)
+        {
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
+            {
+                AmbigiousReadingImage.enabled = true;
+                AmbigiousReadingImage.gameObject.SetActive(true);
+                bool pollutantsPresent = slot.PollutantReadings.Length > 0;
+                    
+                if (pollutantsPresent)
+                {
+                    AmbigiousReadingImage.sprite = PollutantPresent;
+                } else
+                {
+                    AmbigiousReadingImage.sprite = PollutantAbsent;
                 }
             }
         }

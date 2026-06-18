@@ -59,10 +59,13 @@ public class MeterManager : MonoBehaviour
     public void ShowDialogue(Vector3 position, InvestigationRoom sourceRoom)
     {
         if (numMeters <= 0) return;
+        if (sourceRoom.NumMeters >= 2) return;
+
         meterPips[numMeters - 1].sprite = UsePip;
 
         transform.position = position;
         _sourceRoom = sourceRoom;
+        sourceRoom.NumMeters++;
     }
 
     public void PlaceMeter(PollutantType pollutantType)
@@ -79,6 +82,8 @@ public class MeterManager : MonoBehaviour
         gasMeter.TrackedRoom = _sourceRoom;
         gasMeter.TrackedPollutant = pollutantType;
         gasMeter.Label.text = pollutantType.ToString();
+
+        InvestigationTimelineSystem.Instance.RegisterMeter(gasMeter);
 
         HideDialogue();
     }
