@@ -57,6 +57,22 @@ public class MapRoomDisplay : MonoBehaviour
                 metersTracked++;
                 if (metersTracked >= 2) break;
             }
+
+            int npcTracked = 0;
+            foreach (var npc in scenario.NPCs)
+            {
+                foreach (var npcSlot in npc.TimeSlots)
+                {
+                    if (npcSlot.Time == hour && npcSlot.CurrentRoom == roomType)
+                    {
+                        NPCImages[npcTracked].enabled = true;
+                        NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+
+                        npcTracked++;
+                        if (npcTracked >= 2) break;
+                    }
+                }
+            }
         }
 
         // hour specific information
@@ -68,11 +84,41 @@ public class MapRoomDisplay : MonoBehaviour
             KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
-                //anyKnowledgeKnown = true;
-                // to do later
+                anyKnowledgeKnown = true;
             }
         }
 
+        // fill the display
+        if (anyKnowledgeKnown)
+        {
+            foreach (Image chunk in ReadingChunks)
+            {
+                chunk.enabled = true;
+                chunk.gameObject.SetActive(true);
+            }
+
+            int totalConcentration = 0;
+            foreach (PollutantReading reading in slot.PollutantReadings)
+            {
+                PollutantType pollutant = reading.Pollutant;
+                int concentration = reading.Concentration;
+                Sprite spr = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutant);
+
+                for (int i = totalConcentration; i < totalConcentration + concentration && i < 6; i++)
+                {
+                    Debug.Log("Setting image " + i + " to " + pollutant.ToString());
+                    ReadingImages[i].enabled = true;
+                    ReadingImages[i].sprite = spr;
+                }
+
+                totalConcentration += concentration;
+                Debug.Log("Concentration: " + concentration);
+
+                if (totalConcentration >= 6) break;
+            }
+        }
+
+        // don't put the cloud in if no need
         if (!anyKnowledgeKnown)
         {
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
