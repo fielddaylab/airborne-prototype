@@ -8,6 +8,7 @@ public static class PlayerKnowledgeState
     private static HashSet<(RoomType, int, KnowledgeType)> HourlyDiscovered = new();
     private static HashSet<(RoomType, KnowledgeType)> GenerallyDiscovered = new();
     private static HashSet<(RoomType, CharacterType, KnowledgeType)> CharacterDiscovered = new();
+    private static HashSet<string> IDDiscovered = new();
 
     public static event Action OnKnowledgeUpdated;
 
@@ -36,6 +37,12 @@ public static class PlayerKnowledgeState
         OnKnowledgeUpdated.Invoke();
     }
 
+    public static void Discover(string id)
+    {
+        IDDiscovered.Add(id);
+        OnKnowledgeUpdated.Invoke();
+    }
+
     // other classes can query this to figure out what the players knows or not yet
     public static bool IsKnownHourly(RoomType room, int time, KnowledgeType type)
     {
@@ -50,6 +57,11 @@ public static class PlayerKnowledgeState
     public static bool IsKnownCharacterly(RoomType room, CharacterType character, KnowledgeType type)
     {
         return CharacterDiscovered.Contains((room, character, type));
+    }
+
+    public static bool IsKnownID(string id)
+    {
+        return IDDiscovered.Contains(id);
     }
 
     public static readonly Dictionary<PollutantType, KnowledgeType> PollutantKnowledgeKey = new Dictionary<PollutantType, KnowledgeType>
