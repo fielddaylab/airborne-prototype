@@ -9,6 +9,7 @@ public class CaseFileManager : MonoBehaviour
     public GameObject CaseFilePanel;
     public Slider FalseTimelineSlider;
     public Slider TrueTimelineSlider;
+    public InvestigationMap Map;
     private bool _caseFileOpen;
 
     public void Start()
@@ -37,5 +38,10 @@ public class CaseFileManager : MonoBehaviour
         TrueTimelineSlider.interactable = !_caseFileOpen;
 
         InvestigationTimelineSystem.Instance.PauseTime(_caseFileOpen);
+
+        if (_caseFileOpen)
+        {
+            Map.UpdateRooms(FalseTimelineSlider.value);
+        }
     }
 }

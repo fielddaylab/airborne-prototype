@@ -17,6 +17,13 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private ToolType _currentToolType;
     private int _currentHour;
 
+    public enum TimelineType
+    {
+        Room,
+        NPC,
+        Feature
+    }
+
     private void OnEnable()
     {
         InvestigationRoom.OnRoomUpdated += HandleRoomUpdated;
@@ -96,6 +103,22 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             int actualHour = baseHour + i;
             RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, actualHour);
             TimelineOverlay.TimelineChunks[i].SetGraphics(_currentRoom.RoomTypeValue, actualHour, slot);
+        }
+    }
+
+    private void UpdateTimelineVisuals(TimelineType timelineType)
+    {
+        switch (timelineType)
+        {
+            case TimelineType.Room:
+                
+                break;
+            case TimelineType.NPC:
+                
+                break;
+            case TimelineType.Feature:
+                
+                break;
         }
     }
 }
