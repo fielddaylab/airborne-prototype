@@ -13,12 +13,14 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public static event Action<int> OnHourLeft;
     public static event Action<int> OnHourEntered;
     public static event Action OnTimeReset;
+    public static event Action<bool> OnTimePaused;
     
     public int BaseHour = 13; // default to 1PM based on scenario tables
     [HideInInspector] public int CurrentHour = 0;
     public int TotalNumHours = 9;
     public float TimelineSpeed = 1;
     private float _trueTime = 0;
+    public bool IsPaused { get; private set; }
 
     public Dictionary<(RoomType, int), RoomTimeSlot> TimeSlotLookup = new();
 
@@ -47,6 +49,8 @@ public class InvestigationTimelineSystem : MonoBehaviour
 
     public void Update()
     {
+        if (IsPaused) return;
+        
         _trueTime += TimelineSpeed * Time.deltaTime;
         
         float previous = _trueTime;
@@ -67,5 +71,11 @@ public class InvestigationTimelineSystem : MonoBehaviour
             OnHourEntered?.Invoke(CurrentHour);
             Debug.Log("Updated hour to: " + CurrentHour);
         }
+    }
+
+    public void PauseTime(bool pause)
+    {
+        IsPaused = pause;
+        OnTimePaused?.Invoke(IsPaused);
     }
 }
