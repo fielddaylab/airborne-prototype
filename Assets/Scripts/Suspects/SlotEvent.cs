@@ -18,7 +18,9 @@ public static class SlotEvent
     public static void SelectSlot(HighlighterSlot highlighterSlot)
     {
         //if (Locked) return;
-        if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
+        if (GameManager.Instance != null) {
+            if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
+        }
         OnSlotSelected?.Invoke(highlighterSlot);
     }
 
@@ -32,7 +34,9 @@ public static class SlotEvent
     public static void ClearHighlights()
     {
         if (Locked) return;
-        if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
+        if (GameManager.Instance != null) {
+            if (GameManager.Instance.GamePhase != GamePhase.ArguingPollutant) return;
+        }
         OnClearHighlights?.Invoke();
     }
 
