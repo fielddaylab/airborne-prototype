@@ -9,6 +9,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public PlayerInvestigationTimeline UITimeline;
     public ScenarioDataObject ScenarioData;
     public InvestigationRegistry InvestigationRegistry;
+    public List<GasMeter> Meters;
 
     public static event Action<int> OnHourLeft;
     public static event Action<int> OnHourEntered;
@@ -77,5 +78,10 @@ public class InvestigationTimelineSystem : MonoBehaviour
     {
         IsPaused = pause;
         OnTimePaused?.Invoke(IsPaused);
+    }
+
+    public void RegisterMeter(GasMeter meter)
+    {
+        Meters.Add(meter); // just to use for the maps mostly
     }
 }

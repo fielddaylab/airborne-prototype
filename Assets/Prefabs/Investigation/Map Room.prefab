@@ -2259,3 +2259,5 @@ MonoBehaviour:
   - {fileID: 5292639819552358761}
   - {fileID: 6884708886204662608}
   AmbigiousReadingImage: {fileID: 959555605795854899}
+  PollutantPresent: {fileID: 21300000, guid: 1d537888a01297b448f652ebaa8fcae6, type: 3}
+  PollutantAbsent: {fileID: 21300000, guid: 58450b18d57358943b57a9f250c59c0c, type: 3}

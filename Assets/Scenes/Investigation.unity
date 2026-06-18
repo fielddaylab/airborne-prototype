@@ -1392,6 +1392,7 @@ MonoBehaviour:
   UITimeline: {fileID: 488254170}
   ScenarioData: {fileID: 11400000, guid: 50ff8fbbd6e43194b86feedce6beec74, type: 2}
   InvestigationRegistry: {fileID: 11400000, guid: 72423f6eb0bb16a4ca20e269e0c61b5e, type: 2}
+  Meters: []
   BaseHour: 13
   CurrentHour: 0
   TotalNumHours: 8
@@ -5643,6 +5644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SourceImages: {fileID: 11400000, guid: e53dcdf3f503b6642bd8c8fc39f6ce35, type: 2}
+  PollutantMap: {fileID: 11400000, guid: 032b3ef85ddc4094ea11f07e725d2df7, type: 2}
 --- !u!1 &1001343126
 GameObject:
   m_ObjectHideFlags: 0
@@ -10793,6 +10795,7 @@ MonoBehaviour:
   - {fileID: 2118644869}
   - {fileID: 1938587200}
   - {fileID: 1822991329}
+  FalseSlider: {fileID: 748099634}
 --- !u!1 &1786764520
 GameObject:
   m_ObjectHideFlags: 0
@@ -13093,19 +13096,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1997784207}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1783155902}
-        m_TargetAssemblyTypeName: InvestigationMap, Assembly-CSharp
-        m_MethodName: UpdateRooms
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &2002840851
 GameObject:
   m_ObjectHideFlags: 0
