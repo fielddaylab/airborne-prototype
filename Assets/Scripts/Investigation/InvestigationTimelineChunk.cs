@@ -118,7 +118,23 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ClearChunk();
         NPCOverlay.SetActive(true);
 
-        
+        Debug.Log("Displaying mah character!");
+
+        if (slot.CharacterDialogue != "")
+        {
+            DialogueImage.enabled = true;
+            DialogueImage.gameObject.SetActive(true);
+        }
+
+        if (slot.Symptom != Symptom.None)
+        {
+            SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(slot.Symptom);
+            SymptomImage.enabled = true;
+            SymptomImage.gameObject.SetActive(true);
+        }
+
+        // Need to run over this and check for dialogue and symptoms, and put on timeline if they exist
+        // you then also need to check for room changes, in which case the title of the room they have entered should show up
     }
 
     public void SetFeatureGraphics(FeatureType feature, int hour, FeatureTimeSlot slot)
@@ -126,7 +142,10 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ClearChunk();
         SourceOverlay.SetActive(true);
 
+        Debug.Log("Displaying mah features!");
 
+        // just need to show the features if the players have discovered them
+        // and change the lightness/darkness depending on that status
     }
 
     private void TextEnabled(bool enabled)
@@ -145,6 +164,13 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
 
         NPCOverlay.SetActive(false);
+
+        DialogueImage.enabled = false;
+        DialogueImage.gameObject.SetActive(false);
+
+        SymptomImage.enabled = false;
+        SymptomImage.gameObject.SetActive(false);
+
         SourceOverlay.SetActive(false);
     }
 

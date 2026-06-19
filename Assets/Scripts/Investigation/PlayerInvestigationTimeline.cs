@@ -153,21 +153,33 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                 break;
             case TimelineType.NPC:
                 
-                for (int i = 0; i < totalHours; i++)
-                {
-                    ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
-                    //InvestigationNPCObject npcObject = data.NPCs[i];
+                ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
 
+                foreach (var npc in data.NPCs) {   
+                    for (int i = 0; i < totalHours; i++)
+                    {
+                        int actualHour = baseHour + i;
+                        NPCTimeSlot slot = npc.TimeSlots[i];
+                        TimelineOverlay.TimelineChunks[i].SetNPCGraphics(npc.Character, actualHour, slot);
+                    }
                 }
 
                 TimelineText.text = _currentCharacterType.ToString();
-                
-                Debug.Log("TODO!");
 
                 break;
             case TimelineType.Feature:
                 
-                Debug.Log("TODO!");
+                data = InvestigationTimelineSystem.Instance.ScenarioData;
+
+                foreach (var feature in data.FeatureEvents)
+                {
+                    for (int i = 0; i < totalHours; i++)
+                    {
+                        int actualHour = baseHour + i;
+                        FeatureTimeSlot slot = feature.TimeSlots[i];
+                        TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(feature.FeatureType, actualHour, slot);
+                    }
+                }
 
                 TimelineText.text = _currentFeatureType.ToString();
 
