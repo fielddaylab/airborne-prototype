@@ -9,6 +9,6 @@ public class CharacterTimelineRequester : TimelineRequester
     
     public override void RequestTimelineDisplay()
     {
-        Debug.Log(Character.ToString());
+        PlayerInvestigationTimeline.OnTimelineRequested?.Invoke(Character);
     }
 }
