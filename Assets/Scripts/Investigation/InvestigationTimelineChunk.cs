@@ -8,10 +8,22 @@ public class InvestigationTimelineChunk : MonoBehaviour
 {
     public GameObject RoomOverlay, NPCOverlay, SourceOverlay;
     
-    public Sprite PollutantPresent, PollutantAbsent;
+    [Header("Room Overlay")]
+    public Sprite PollutantPresent;
+    public Sprite PollutantAbsent;
     public Image TimelineImage;
 
     public TextMeshProUGUI NOText, O3Text, VOCText, COText;
+    public Image NPC1, NPC2, NPC3;
+
+    [Header("NPC Overlay")]
+    public GameObject RoomTextBG;
+    public TextMeshProUGUI RoomText;
+    public Image SymptomImage, DialogueImage;
+
+    [Header("Source Overlay")]
+    public Image SourceImage;
+    public Color SourceOffColor;
 
     private struct PollutantUIEntry
     {
@@ -33,12 +45,15 @@ public class InvestigationTimelineChunk : MonoBehaviour
             new PollutantUIEntry { Knowledge = KnowledgeType.VOC, Pollutant = PollutantType.VOC, Text = VOCText, Label = "VOC" }
         };
 
-        TimelineImage.enabled = false;
-        TextEnabled(false);
+        ClearChunk();
     }
 
-    public void SetGraphics(RoomType type, int hour, RoomTimeSlot slot)
+    public void SetRoomGraphics(RoomType type, int hour, RoomTimeSlot slot)
     {
+        ClearChunk();
+        RoomOverlay.SetActive(true);
+        
+        
         TimelineImage.enabled = false;
         TextEnabled(false);
         foreach (PollutantUIEntry entry in _pollutantEntries)
@@ -78,6 +93,22 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
     }
 
+    public void SetNPCGraphics()
+    {
+        ClearChunk();
+        NPCOverlay.SetActive(true);
+
+        
+    }
+
+    public void SetSourceGraphics()
+    {
+        ClearChunk();
+        SourceOverlay.SetActive(true);
+
+
+    }
+
     private void TextEnabled(bool enabled)
     {
         NOText.enabled = enabled;
@@ -85,4 +116,13 @@ public class InvestigationTimelineChunk : MonoBehaviour
         VOCText.enabled = enabled;
         COText.enabled = enabled;
     }
+
+    private void ClearChunk()
+    {
+        RoomOverlay.SetActive(false);
+        NPCOverlay.SetActive(false);
+        SourceOverlay.SetActive(false);
+    }
+
+    
 }

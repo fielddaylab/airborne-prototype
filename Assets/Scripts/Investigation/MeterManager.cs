@@ -65,7 +65,6 @@ public class MeterManager : MonoBehaviour
 
         transform.position = position;
         _sourceRoom = sourceRoom;
-        sourceRoom.NumMeters++;
     }
 
     public void PlaceMeter(PollutantType pollutantType)
@@ -73,6 +72,7 @@ public class MeterManager : MonoBehaviour
         if (numMeters <= 0) return;
         meterPips[numMeters - 1].sprite = EmptyPip;
         numMeters--;
+        _sourceRoom.NumMeters++;
         
         GameObject meter = Instantiate(MeterObject);
         meter.transform.position = transform.position;

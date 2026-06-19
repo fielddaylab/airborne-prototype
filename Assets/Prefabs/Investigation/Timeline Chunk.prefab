@@ -32,9 +32,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4830921135698439943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20.64975, y: -18.588}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 33.278, y: 33.337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &905336120209910884
@@ -90,7 +90,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1072761304424166225
 RectTransform:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 5348617098201406247}
   - component: {fileID: 3888723859063998289}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Dialogue and Symptom Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,9 +597,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4830921135698439943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 64.89375, y: -18.588}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 46.167, y: 33.337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &979498994951345603
@@ -881,9 +881,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1907933843074303618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 46.417, y: -16.873001}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 33.278, y: 33.337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6217728649192893119
@@ -1090,9 +1090,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1907933843074303618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16.639, y: -16.873001}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 33.278, y: 33.337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8320192647404792416
@@ -1279,12 +1279,12 @@ GameObject:
   - component: {fileID: 5286725801978108613}
   - component: {fileID: 2611210053182370703}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Character Portraits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1907933843074303618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1353,7 +1353,7 @@ GameObject:
   - component: {fileID: 1363353481382097849}
   - component: {fileID: 3737482279628714816}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Room Text Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1487,6 +1487,15 @@ MonoBehaviour:
   O3Text: {fileID: 4306838069534530386}
   VOCText: {fileID: 3793853215678687719}
   COText: {fileID: 8484003250380164069}
+  NPC1: {fileID: 1786612218955825337}
+  NPC2: {fileID: 7399427462237484818}
+  NPC3: {fileID: 5411634576789357614}
+  RoomTextBG: {fileID: 7142655046268436777}
+  RoomText: {fileID: 3940183918390254160}
+  SymptomImage: {fileID: 1786796300409989969}
+  DialogueImage: {fileID: 6649026459856191475}
+  SourceImage: {fileID: 3765130152704460121}
+  SourceOffColor: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
 --- !u!1 &8652540293379241363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,9 +1601,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1907933843074303618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 76.195, y: -16.873001}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 33.278, y: 33.337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8412290569534286168
@@ -1650,7 +1659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &496803608368994363
 RectTransform:
   m_ObjectHideFlags: 0
