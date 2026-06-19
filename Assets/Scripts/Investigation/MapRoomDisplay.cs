@@ -28,6 +28,9 @@ public class MapRoomDisplay : MonoBehaviour
     public void UpdateDisplay(int hour)
     {
         ClearDisplay();
+
+        RoomTimelineRequester roomTimelineRqstr = GetComponent<RoomTimelineRequester>();
+        roomTimelineRqstr.RoomType = roomType;
         
         // displaying basic room features
         ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
@@ -40,6 +43,8 @@ public class MapRoomDisplay : MonoBehaviour
                 {
                     FeatureImages[featuresTracked].sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature.FeatureType);
                     FeatureImages[featuresTracked].enabled = true;
+                    FeatureTimelineRequester requester = FeatureImages[featuresTracked].GetComponent<FeatureTimelineRequester>();
+                    requester.Feature = feature.FeatureType;
                     
                     featuresTracked++;
                     if (featuresTracked >= 2) break;
@@ -67,6 +72,8 @@ public class MapRoomDisplay : MonoBehaviour
                     {
                         NPCImages[npcTracked].enabled = true;
                         NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+                        CharacterTimelineRequester requester = NPCImages[npcTracked].GetComponent<CharacterTimelineRequester>();
+                        requester.Character = npc.Character;
 
                         npcTracked++;
                         if (npcTracked >= 2) break;
@@ -106,13 +113,11 @@ public class MapRoomDisplay : MonoBehaviour
 
                 for (int i = totalConcentration; i < totalConcentration + concentration && i < 6; i++)
                 {
-                    Debug.Log("Setting image " + i + " to " + pollutant.ToString());
                     ReadingImages[i].enabled = true;
                     ReadingImages[i].sprite = spr;
                 }
 
                 totalConcentration += concentration;
-                Debug.Log("Concentration: " + concentration);
 
                 if (totalConcentration >= 6) break;
             }

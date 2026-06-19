@@ -36,8 +36,6 @@ public class InvestigationMap : MonoBehaviour
 
     public void UpdateRooms(float f)
     {
-        Debug.Log("Float value: " + f);
-        
         int sliderVal = Mathf.FloorToInt(f);
         int hour = InvestigationTimelineSystem.Instance.BaseHour + sliderVal;
         
@@ -45,7 +43,6 @@ public class InvestigationMap : MonoBehaviour
 
         foreach (var room in MapRooms)
         {
-            Debug.Log("Is known: " + PlayerKnowledgeState.IsKnownGenerally(room.roomType, KnowledgeType.RoomInfo));
             if (PlayerKnowledgeState.IsKnownGenerally(room.roomType, KnowledgeType.RoomInfo))
             {
                 knownRooms.Add(room.roomType);
