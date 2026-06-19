@@ -56,6 +56,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private void HandleRoomUpdated(InvestigationRoom room)
     {
         _currentRoom = room;
+        _currentRoomType = _currentRoom.RoomTypeValue;
+        _currentTimelineType = TimelineType.Room;
         UpdateInformation();
     }
 
