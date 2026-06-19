@@ -6,7 +6,6 @@ public class MeterPlaceable : MonoBehaviour
 {
     public InvestigationRoom ParentRoom;
     public bool IsClickable = false;
-    private int metersOnMe;
 
     void OnEnable()
     {

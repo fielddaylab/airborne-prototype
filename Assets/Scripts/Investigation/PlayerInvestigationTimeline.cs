@@ -83,38 +83,42 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
 
-        UpdateTimelineVisuals();
+        UpdateTimelineVisuals(TimelineType.Room);
     }
 
     private void HandleKnowledgeUpdated()
     {
-        UpdateTimelineVisuals();
-    }
-
-    private void UpdateTimelineVisuals()
-    {
-        if (_currentRoom == null) return;
-        
-        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
-        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
-
-        for (int i = 0; i < totalHours; i++)
-        {
-            int actualHour = baseHour + i;
-            RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, actualHour);
-            TimelineOverlay.TimelineChunks[i].SetGraphics(_currentRoom.RoomTypeValue, actualHour, slot);
-        }
+        UpdateTimelineVisuals(TimelineType.Room);
     }
 
     private void UpdateTimelineVisuals(TimelineType timelineType)
     {
+        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+        
         switch (timelineType)
         {
             case TimelineType.Room:
-                
+                if (_currentRoom == null) return;
+
+                for (int i = 0; i < totalHours; i++)
+                {
+                    int actualHour = baseHour + i;
+                    RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, actualHour);
+                    TimelineOverlay.TimelineChunks[i].SetRoomGraphics(_currentRoom.RoomTypeValue, actualHour, slot);
+                }
+
                 break;
             case TimelineType.NPC:
                 
+                for (int i = 0; i < totalHours; i++)
+                {
+                    ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+                    InvestigationNPCObject npcObject = data.NPCs[i];
+
+                }
+                
+
                 break;
             case TimelineType.Feature:
                 

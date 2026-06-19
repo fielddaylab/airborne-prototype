@@ -19,7 +19,7 @@ public class MapRoomDisplay : MonoBehaviour
 
     public Sprite PollutantPresent, PollutantAbsent;
 
-    public void Start()
+    public void Awake()
     {
         ClearDisplay();
         RoomText.text = gameObject.name;

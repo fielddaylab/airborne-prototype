@@ -41,7 +41,7 @@ public class CaseFileManager : MonoBehaviour
 
         if (_caseFileOpen)
         {
-            Map.UpdateRooms(FalseTimelineSlider.value);
+            Map.UpdateRooms(TrueTimelineSlider.value);
         }
     }
 }
