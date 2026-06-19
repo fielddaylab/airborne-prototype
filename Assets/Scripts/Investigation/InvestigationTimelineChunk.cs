@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,7 +15,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image TimelineImage;
 
     public TextMeshProUGUI NOText, O3Text, VOCText, COText;
-    public Image NPC1, NPC2, NPC3;
+    public Image[] NPCImages;
 
     [Header("NPC Overlay")]
     public GameObject RoomTextBG;
@@ -22,7 +23,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image SymptomImage, DialogueImage;
 
     [Header("Source Overlay")]
-    public Image SourceImage;
+    public Image SourceImage1;
+    public Image SourceImage2;
     public Color SourceOffColor;
 
     private struct PollutantUIEntry
@@ -48,11 +50,10 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ClearChunk();
     }
 
-    public void SetRoomGraphics(RoomType type, int hour, RoomTimeSlot slot)
+    public void SetRoomGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
         ClearChunk();
         RoomOverlay.SetActive(true);
-        
         
         TimelineImage.enabled = false;
         TextEnabled(false);
@@ -66,7 +67,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         bool anyKnowledgeKnown = false;
         foreach (PollutantUIEntry entry in _pollutantEntries)
         {
-            if (PlayerKnowledgeState.IsKnownHourly(type, hour, entry.Knowledge))
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, entry.Knowledge))
             {
                 PollutantReading reading = slot.GetReading(entry.Pollutant);
                 entry.Text.text = entry.Label + ":" + (reading != null ? reading.Concentration : 0);
@@ -77,7 +78,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         if (!anyKnowledgeKnown)
         {
-            if (PlayerKnowledgeState.IsKnownHourly(type, hour, KnowledgeType.PollutantPresence))
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
             {
                 TimelineImage.enabled = true;
                 bool pollutantsPresent = slot.PollutantReadings.Length > 0;
@@ -91,9 +92,28 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 }
             }
         }
+
+        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        int npcTracked = 0;
+        foreach (var npc in scenario.NPCs)
+        {
+            foreach (var npcSlot in npc.TimeSlots)
+            {
+                if (npcSlot.Time == hour && npcSlot.CurrentRoom == roomType)
+                {
+                    NPCImages[npcTracked].gameObject.SetActive(true);
+                    NPCImages[npcTracked].enabled = true;
+                    NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+
+                    npcTracked++;
+                    if (npcTracked >= 3) break;
+                }
+            }
+        }
     }
 
-    public void SetNPCGraphics()
+    public void SetNPCGraphics(CharacterType character, int hour, NPCTimeSlot slot)
     {
         ClearChunk();
         NPCOverlay.SetActive(true);
@@ -101,7 +121,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         
     }
 
-    public void SetSourceGraphics()
+    public void SetFeatureGraphics(FeatureType feature, int hour, FeatureTimeSlot slot)
     {
         ClearChunk();
         SourceOverlay.SetActive(true);
@@ -120,6 +140,10 @@ public class InvestigationTimelineChunk : MonoBehaviour
     private void ClearChunk()
     {
         RoomOverlay.SetActive(false);
+
+        foreach (var image in NPCImages) { image.enabled = false; image.gameObject.SetActive(false); }
+
+
         NPCOverlay.SetActive(false);
         SourceOverlay.SetActive(false);
     }
