@@ -23,9 +23,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image SymptomImage, DialogueImage;
 
     [Header("Source Overlay")]
-    public Image SourceImage1;
-    public Image SourceImage2;
-    public Color SourceOffColor;
+    public Image FeatureImage;
+    public Color FeatureOffColor;
 
     private struct PollutantUIEntry
     {
@@ -113,7 +112,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
     }
 
-    public void SetNPCGraphics(CharacterType character, int hour, NPCTimeSlot slot)
+    public void SetNPCGraphics(CharacterType character, int actualHour, bool isNewRoom, NPCTimeSlot slot)
     {
         ClearChunk();
         NPCOverlay.SetActive(true);
@@ -135,6 +134,12 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         // Need to run over this and check for dialogue and symptoms, and put on timeline if they exist
         // you then also need to check for room changes, in which case the title of the room they have entered should show up
+        if (isNewRoom)
+        {
+            RoomTextBG.SetActive(true);
+            RoomText.text = slot.CurrentRoom.ToString();
+        }
+
     }
 
     public void SetFeatureGraphics(FeatureType feature, int hour, FeatureTimeSlot slot)
@@ -146,6 +151,10 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         // just need to show the features if the players have discovered them
         // and change the lightness/darkness depending on that status
+
+        FeatureImage.enabled = true;
+        FeatureImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
+        FeatureImage.color = (slot.FeatureEvent == FeatureEvent.On) ? Color.white : FeatureOffColor;
     }
 
     private void TextEnabled(bool enabled)
@@ -171,7 +180,13 @@ public class InvestigationTimelineChunk : MonoBehaviour
         SymptomImage.enabled = false;
         SymptomImage.gameObject.SetActive(false);
 
+        RoomTextBG.SetActive(false);
+        RoomText.text = "";
+
         SourceOverlay.SetActive(false);
+
+        FeatureImage.enabled = false;
+        FeatureImage.color = Color.white;
     }
 
     
