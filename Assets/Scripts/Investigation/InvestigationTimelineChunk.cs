@@ -117,8 +117,6 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ClearChunk();
         NPCOverlay.SetActive(true);
 
-        Debug.Log("Displaying mah character!");
-
         if (slot.CharacterDialogue != "")
         {
             DialogueImage.enabled = true;

@@ -156,18 +156,20 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                 ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
 
                 foreach (var npc in data.NPCs) {   
-                    for (int i = 0; i < totalHours; i++)
-                    {
-                        int actualHour = baseHour + i;
-                        NPCTimeSlot slot = npc.TimeSlots[i];
-
-                        bool isNewRoom = false;
-                        if (i == 0 || npc.TimeSlots[i - 1].CurrentRoom != npc.TimeSlots[i].CurrentRoom)
+                    if (npc.Character == _currentCharacterType) {
+                        for (int i = 0; i < totalHours; i++)
                         {
-                            isNewRoom = true;
-                        }
+                            int actualHour = baseHour + i;
+                            NPCTimeSlot slot = npc.TimeSlots[i];
 
-                        TimelineOverlay.TimelineChunks[i].SetNPCGraphics(npc.Character, actualHour, isNewRoom, slot);
+                            bool isNewRoom = false;
+                            if (i == 0 || npc.TimeSlots[i - 1].CurrentRoom != npc.TimeSlots[i].CurrentRoom)
+                            {
+                                isNewRoom = true;
+                            }
+
+                            TimelineOverlay.TimelineChunks[i].SetNPCGraphics(npc.Character, actualHour, isNewRoom, slot);
+                        }
                     }
                 }
 
@@ -181,11 +183,13 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
                 foreach (var feature in data.FeatureEvents)
                 {
-                    for (int i = 0; i < totalHours; i++)
-                    {
-                        int actualHour = baseHour + i;
-                        FeatureTimeSlot slot = feature.TimeSlots[i];
-                        TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(feature.FeatureType, actualHour, slot);
+                    if (feature.FeatureType == _currentFeatureType) {
+                        for (int i = 0; i < totalHours; i++)
+                        {
+                            int actualHour = baseHour + i;
+                            FeatureTimeSlot slot = feature.TimeSlots[i];
+                            TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(feature.FeatureType, actualHour, slot);
+                        }
                     }
                 }
 
