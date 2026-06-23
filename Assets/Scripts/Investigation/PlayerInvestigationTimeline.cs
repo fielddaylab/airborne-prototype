@@ -9,6 +9,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 {
     // UI Stuff
     public TextMeshProUGUI TimelineText;
+    public Image TimelineIcon;
     public Slider TimelineSlider;
     public PlayerTimelineOverlay TimelineOverlay;
 
@@ -146,9 +147,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                     TimelineOverlay.TimelineChunks[i].SetRoomGraphics(_currentRoomType, actualHour, slot);
                 }
 
+                TimelineIcon.sprite = InvestigationLookup.Instance.RoomMap.GetSprite(_currentRoomType);
                 TimelineText.text = _currentRoomType.ToString();
-
-                Debug.Log("Current trying to display: " + _currentRoomType);
 
                 break;
             case TimelineType.NPC:
@@ -171,6 +171,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                     }
                 }
 
+                TimelineIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(_currentCharacterType);
                 TimelineText.text = _currentCharacterType.ToString();
 
                 break;
@@ -188,6 +189,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                     }
                 }
 
+                TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(_currentFeatureType);
                 TimelineText.text = _currentFeatureType.ToString();
 
                 break;

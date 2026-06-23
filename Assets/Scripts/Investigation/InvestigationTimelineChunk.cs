@@ -147,8 +147,6 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ClearChunk();
         SourceOverlay.SetActive(true);
 
-        Debug.Log("Displaying mah features!");
-
         // just need to show the features if the players have discovered them
         // and change the lightness/darkness depending on that status
 
