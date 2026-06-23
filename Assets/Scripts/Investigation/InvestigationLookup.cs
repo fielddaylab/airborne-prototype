@@ -16,4 +16,5 @@ public class InvestigationLookup : MonoBehaviour
     public PollutantKnowledgeMapObject PollutantMap;
     public CharacterSpriteMapObject CharacterMap;
     public SymptomSpriteMapObject SymptomMap;
+    public RoomSpriteMapObject RoomMap;
 }
