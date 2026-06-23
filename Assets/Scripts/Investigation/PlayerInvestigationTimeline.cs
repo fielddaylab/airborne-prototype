@@ -160,7 +160,14 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                     {
                         int actualHour = baseHour + i;
                         NPCTimeSlot slot = npc.TimeSlots[i];
-                        TimelineOverlay.TimelineChunks[i].SetNPCGraphics(npc.Character, actualHour, slot);
+
+                        bool isNewRoom = false;
+                        if (i == 0 || npc.TimeSlots[i - 1].CurrentRoom != npc.TimeSlots[i].CurrentRoom)
+                        {
+                            isNewRoom = true;
+                        }
+
+                        TimelineOverlay.TimelineChunks[i].SetNPCGraphics(npc.Character, actualHour, isNewRoom, slot);
                     }
                 }
 
