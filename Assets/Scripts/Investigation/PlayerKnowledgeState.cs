@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class PlayerKnowledgeState 
 {
@@ -15,7 +16,7 @@ public static class PlayerKnowledgeState
     // classes can log their specific information as discovered
     public static void Discover(RoomType room, int time, KnowledgeType type)
     {
-        //Debug.Log($"Recorded information about {type} in room {room}!");
+        Debug.Log($"Recorded information about {type} in room {room}!");
         
         HourlyDiscovered.Add((room, time, type));
         OnKnowledgeUpdated.Invoke();
@@ -23,7 +24,7 @@ public static class PlayerKnowledgeState
 
     public static void Discover(RoomType room, KnowledgeType type)
     {
-        //Debug.Log($"Recorded information about {type} in room {room}!");
+        Debug.Log($"Recorded information about {type} in room {room}!");
         
         GenerallyDiscovered.Add((room, type));
         OnKnowledgeUpdated.Invoke();
@@ -31,7 +32,7 @@ public static class PlayerKnowledgeState
 
     public static void Discover(RoomType room, int time, CharacterType character)
     {
-        //Debug.Log($"Recorded information about {type} in room {room}!");
+        Debug.Log($"Recorded information about {character} in room {room}!");
         
         CharacterDiscovered.Add((room, time, character));
         OnKnowledgeUpdated.Invoke();

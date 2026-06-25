@@ -12,10 +12,11 @@ public class MapRoomDisplay : MonoBehaviour
     public Image[] NPCImages;
     public Image[] MeterImages;
     public TextMeshProUGUI[] MeterTexts;
+    public Image[] MeterIndicators;
     public Image[] FeatureImages;
-    public Image[] ReadingChunks;
-    public Image[] ReadingImages;
     public Image AmbigiousReadingImage;
+
+    public Image GasOverlay;
 
     public Sprite PollutantPresent, PollutantAbsent;
 
@@ -25,7 +26,7 @@ public class MapRoomDisplay : MonoBehaviour
         RoomText.text = gameObject.name;
     }
 
-    public void UpdateDisplay(int hour)
+    public void UpdateDisplay(int hour, PollutantType overlayedPollutant)
     {
         ClearDisplay();
 
@@ -92,34 +93,43 @@ public class MapRoomDisplay : MonoBehaviour
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 anyKnowledgeKnown = true;
+
+                if (pollutant == overlayedPollutant)
+                {
+                    Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetMaterial(pollutant);
+                    PollutantReading reading = slot.GetReading(pollutant);
+                    overlayColor.a = reading != null ? reading.Concentration / 4f : 0; // magic number, but just set to max it can possible be later
+                    GasOverlay.enabled = true;
+                    GasOverlay.color = overlayColor;
+                }
             }
         }
 
-        // fill the display
+        // meter indicators
         if (anyKnowledgeKnown)
         {
-            foreach (Image chunk in ReadingChunks)
+            int metersTracked = 0;
+            foreach (var meter in InvestigationTimelineSystem.Instance.Meters)
             {
-                chunk.enabled = true;
-                chunk.gameObject.SetActive(true);
-            }
-
-            int totalConcentration = 0;
-            foreach (PollutantReading reading in slot.PollutantReadings)
-            {
-                PollutantType pollutant = reading.Pollutant;
-                int concentration = reading.Concentration;
-                Sprite spr = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutant);
-
-                for (int i = totalConcentration; i < totalConcentration + concentration && i < 6; i++)
+                if (meter.TrackedRoom.RoomTypeValue != roomType) continue;
+                
+                if (meter.TrackedPollutant != overlayedPollutant) 
                 {
-                    ReadingImages[i].enabled = true;
-                    ReadingImages[i].sprite = spr;
+                    PollutantType meterPollutant = meter.TrackedPollutant;
+                    PollutantReading reading = slot.GetReading(meterPollutant);
+                    if (reading != null)
+                    {
+                        if (reading.Concentration > 0)
+                        {
+                            MeterIndicators[metersTracked].enabled = true;
+                            Color indicatorColor = InvestigationLookup.Instance.PollutantMap.GetMaterial(meterPollutant);
+                            MeterIndicators[metersTracked].color = indicatorColor;
+                        }
+                    }
                 }
 
-                totalConcentration += concentration;
-
-                if (totalConcentration >= 6) break;
+                metersTracked++;
+                if (metersTracked >= 2) break;
             }
         }
 
@@ -145,6 +155,8 @@ public class MapRoomDisplay : MonoBehaviour
 
     private void ClearDisplay()
     {
+        GasOverlay.enabled = false;
+        
         foreach (Image image in NPCImages)
         {
             image.enabled = false;
@@ -160,18 +172,12 @@ public class MapRoomDisplay : MonoBehaviour
             text.text = "";
         }
 
+        foreach (Image image in MeterIndicators)
+        {
+            image.enabled = false;
+        }
+
         foreach (Image image in FeatureImages)
-        {
-            image.enabled = false;
-        }
-
-        foreach (Image image in ReadingChunks)
-        {
-            image.enabled = false;
-            image.gameObject.SetActive(false);
-        }
-
-        foreach (Image image in ReadingImages)
         {
             image.enabled = false;
         }

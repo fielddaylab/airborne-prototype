@@ -16,12 +16,16 @@ MonoBehaviour:
   - Pollutant: 2
     Knowledge: 2
     SpriteOverlay: {fileID: 21300000, guid: e43887ccfc7f4ef43bb654bcc465dfbc, type: 3}
+    ColorOverlay: {r: 0.98039216, g: 0.39607844, b: 0.39607844, a: 1}
   - Pollutant: 5
     Knowledge: 5
     SpriteOverlay: {fileID: 21300000, guid: 3e5b661209e2c4a4c8605655b6cf409e, type: 3}
+    ColorOverlay: {r: 0.654902, g: 0.8980392, b: 0.47058824, a: 1}
   - Pollutant: 4
     Knowledge: 3
     SpriteOverlay: {fileID: 21300000, guid: f85ce8083f2cf8449b4c097062033c38, type: 3}
+    ColorOverlay: {r: 0.42352942, g: 0.7019608, b: 0.6784314, a: 1}
   - Pollutant: 3
     Knowledge: 4
     SpriteOverlay: {fileID: 21300000, guid: 5a9c50be9a6c18944bdbd5dcfb7f4532, type: 3}
+    ColorOverlay: {r: 0.41568628, g: 0.39607844, b: 0.98039216, a: 1}
