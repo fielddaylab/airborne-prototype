@@ -84,5 +84,5 @@ public enum KnowledgeType
     RoomInfo,
     PollutantPresence, CO2, O3, NO, VOC,
     FanStatus, FurnaceStatus, SpraycanStatus, StoveStatus,
-    NPCSymptom, NPCDialogue, 
+    NPCPresence, NPCSymptom, NPCDialogue, 
 }

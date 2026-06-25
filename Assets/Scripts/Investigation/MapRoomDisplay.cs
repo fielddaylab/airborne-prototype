@@ -71,10 +71,12 @@ public class MapRoomDisplay : MonoBehaviour
                 {
                     if (npcSlot.Time == hour && npcSlot.CurrentRoom == roomType)
                     {
-                        NPCImages[npcTracked].enabled = true;
-                        NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
-                        CharacterTimelineRequester requester = NPCImages[npcTracked].GetComponent<CharacterTimelineRequester>();
-                        requester.Character = npc.Character;
+                        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCPresence)) {
+                            NPCImages[npcTracked].enabled = true;
+                            NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+                            CharacterTimelineRequester requester = NPCImages[npcTracked].GetComponent<CharacterTimelineRequester>();
+                            requester.Character = npc.Character;
+                        }
 
                         npcTracked++;
                         if (npcTracked >= 2) break;
