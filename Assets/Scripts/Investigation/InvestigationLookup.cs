@@ -6,7 +6,7 @@ public class InvestigationLookup : MonoBehaviour
 {
     public static InvestigationLookup Instance {get; private set;}
 
-    public void Start()
+    public void Awake()
     {
         if (Instance != null) {Destroy(gameObject); return; }
         Instance = this;

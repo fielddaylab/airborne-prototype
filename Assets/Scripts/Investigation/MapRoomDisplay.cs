@@ -46,6 +46,8 @@ public class MapRoomDisplay : MonoBehaviour
                     FeatureImages[featuresTracked].enabled = true;
                     FeatureTimelineRequester requester = FeatureImages[featuresTracked].GetComponent<FeatureTimelineRequester>();
                     requester.Feature = feature.FeatureType;
+
+                    PlayerKnowledgeState.Discover(feature.FeatureType); // move somewhere else later
                     
                     featuresTracked++;
                     if (featuresTracked >= 2) break;

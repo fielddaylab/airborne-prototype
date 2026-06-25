@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff9baf6ef10bd34dae6ccd9e9b8c273, type: 3}
   m_Name: Ozone
   m_EditorClassIdentifier: 
-  Type: 2
+  Type: 4
   Symptoms: 080000000a0000000200000001000000
   Sources: 02000000

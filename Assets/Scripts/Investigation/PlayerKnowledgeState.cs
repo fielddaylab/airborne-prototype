@@ -8,8 +8,10 @@ public static class PlayerKnowledgeState
     // Stores a combination of room and time and knowledge type to track what the player has discovered so far
     private static HashSet<(RoomType, int, KnowledgeType)> HourlyDiscovered = new();
     private static HashSet<(RoomType, KnowledgeType)> GenerallyDiscovered = new();
-    private static HashSet<(RoomType, int, CharacterType)> CharacterDiscovered = new();
     private static HashSet<string> IDDiscovered = new();
+
+    private static HashSet<Symptom> SeenSymptoms = new();
+    private static HashSet<FeatureType> SeenFeatures = new();
 
     public static event Action OnKnowledgeUpdated;
 
@@ -30,18 +32,20 @@ public static class PlayerKnowledgeState
         OnKnowledgeUpdated.Invoke();
     }
 
-    public static void Discover(RoomType room, int time, CharacterType character)
-    {
-        Debug.Log($"Recorded information about {character} in room {room}!");
-        
-        CharacterDiscovered.Add((room, time, character));
-        OnKnowledgeUpdated.Invoke();
-    }
-
     public static void Discover(string id)
     {
         IDDiscovered.Add(id);
         OnKnowledgeUpdated.Invoke();
+    }
+
+    public static void Discover(Symptom symptom)
+    {
+        SeenSymptoms.Add(symptom);
+    } 
+
+    public static void Discover(FeatureType feature)
+    {
+        SeenFeatures.Add(feature);
     }
 
     // other classes can query this to figure out what the players knows or not yet
@@ -55,14 +59,19 @@ public static class PlayerKnowledgeState
         return GenerallyDiscovered.Contains((room, type));
     }
 
-    public static bool IsKnownCharacterly(RoomType room, int time, CharacterType character)
-    {
-        return CharacterDiscovered.Contains((room, time, character));
-    }
-
     public static bool IsKnownID(string id)
     {
         return IDDiscovered.Contains(id);
+    }
+
+    public static bool HasSeenSymptom(Symptom symptom)
+    {
+        return SeenSymptoms.Contains(symptom);
+    }
+
+    public static bool HasSeenFeature(FeatureType feature)
+    {
+        return SeenFeatures.Contains(feature);
     }
 
     public static readonly Dictionary<PollutantType, KnowledgeType> PollutantKnowledgeKey = new Dictionary<PollutantType, KnowledgeType>

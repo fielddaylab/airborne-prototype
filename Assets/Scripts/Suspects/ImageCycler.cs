@@ -11,7 +11,7 @@ public class ImageCycler : MonoBehaviour
     private RawImage rawImage;
     private int cycleState = 0;
     
-    void Start()
+    void Awake()
     {
         rawImage = GetComponent<RawImage>();
         rawImage.enabled = false;
@@ -39,5 +39,24 @@ public class ImageCycler : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void SetCycle(int i)
+    {
+        cycleState = i;
+        switch (cycleState)
+        {
+            case 0:
+                rawImage.enabled = false;
+                rawImage.texture = null;
+                break;
+            case 1:
+                rawImage.enabled = true;
+                rawImage.texture = checkMark;
+                break;
+            case 2:
+                rawImage.texture = xMark;
+                break;
+        }
     }
 }
