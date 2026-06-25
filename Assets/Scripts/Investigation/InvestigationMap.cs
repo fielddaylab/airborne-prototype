@@ -7,8 +7,13 @@ public class InvestigationMap : MonoBehaviour
 {
     public MapRoomDisplay[] MapRooms;
     public MapConnector[] MapConnectors;
+    public Button[] OverlayButtons;
+    public PollutantType[] OverlayButtonPollutants;
+    private int _startButton = 0;
 
     public Slider FalseSlider;
+
+    private PollutantType _selectedPollutant = PollutantType.CO2;
 
     public void Start()
     {
@@ -22,16 +27,29 @@ public class InvestigationMap : MonoBehaviour
         }
 
         UpdateRooms(FalseSlider.value);
+
+        SwitchTo(_startButton);
     }
 
     public void OnEnable()
     {
         FalseSlider.onValueChanged.AddListener(UpdateRooms);
+        
+        for (int i = 0; i < OverlayButtons.Length; i++) 
+        {
+            int index = i; 
+            OverlayButtons[i].onClick.AddListener(() => SwitchTo(index));
+        }
     }
 
     public void OnDisable()
     {
         FalseSlider.onValueChanged.RemoveListener(UpdateRooms);
+
+        foreach (var button in OverlayButtons)
+        {
+            button.onClick.RemoveAllListeners();
+        }
     }
 
     public void UpdateRooms(float f)
@@ -47,7 +65,7 @@ public class InvestigationMap : MonoBehaviour
             {
                 knownRooms.Add(room.roomType);
                 room.gameObject.SetActive(true);
-                room.UpdateDisplay(hour);
+                room.UpdateDisplay(hour, _selectedPollutant);
             }
         }
 
@@ -66,5 +84,22 @@ public class InvestigationMap : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SwitchTo(int t)
+    {
+        for (int i = 0; i < OverlayButtons.Length; i++)
+        {
+            if (t == i) 
+            { 
+                _selectedPollutant = OverlayButtonPollutants[i];
+                OverlayButtons[i].interactable = false;
+            } else
+            {
+                OverlayButtons[i].interactable = true;
+            }
+        }
+
+        UpdateRooms(FalseSlider.value);
     }
 }

@@ -115,6 +115,9 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public void SetNPCGraphics(CharacterType character, int actualHour, bool isNewRoom, NPCTimeSlot slot)
     {
         ClearChunk();
+
+        //if (!PlayerKnowledgeState.IsKnownCharacterly())
+
         NPCOverlay.SetActive(true);
 
         if (slot.CharacterDialogue != "")
