@@ -21,7 +21,8 @@ public enum FeatureType
     Stove,
     Electricity,
     Spraycan,
-    Fan
+    Fan,
+    None
 }
 
 public enum FeatureEvent

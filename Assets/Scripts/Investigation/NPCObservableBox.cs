@@ -31,6 +31,8 @@ public class NPCObservableBox : MonoBehaviour
         PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCDialogue);
         PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCSymptom);
 
+        PlayerKnowledgeState.Discover(slot.Symptom);
+
         VisibilityCheck();
     }
 

@@ -11,11 +11,33 @@ public class InvestigationPollutantsManager : MonoBehaviour
     public PollutantPanelPair[] PollutantPanels;
     public PollutantButtonPair[] PollutantEnableButtons;
 
+    public TheoryPanel[] TheoryPanels;
+    public PollutantDataObject[] PollutantDataInfo;
+
     void Start()
     {
         foreach (var pair in PollutantEnableButtons)
         {
             HandlePollutantEnable(pair);
+        }
+
+        foreach (var panel in TheoryPanels)
+        {
+            foreach (var data in PollutantDataInfo)
+            {
+                if (data.Type == panel.PollutantType) {
+                    Debug.Log($"Data type is {data.Type} and panel is {panel.PollutantType}");
+                    panel.AssemblePanel(data);
+                }
+            }
+        }
+    }
+
+    public void UpdateInformation()
+    {
+        foreach (var panel in TheoryPanels)
+        {
+            panel.UpdateInformation();
         }
     }
 

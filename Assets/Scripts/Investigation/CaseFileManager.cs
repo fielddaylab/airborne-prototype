@@ -10,6 +10,7 @@ public class CaseFileManager : MonoBehaviour
     public Slider FalseTimelineSlider;
     public Slider TrueTimelineSlider;
     public InvestigationMap Map;
+    public InvestigationPollutantsManager Pollutants;
     private bool _caseFileOpen;
 
     public void Start()
@@ -42,6 +43,7 @@ public class CaseFileManager : MonoBehaviour
         if (_caseFileOpen)
         {
             Map.UpdateRooms(TrueTimelineSlider.value);
+            Pollutants.UpdateInformation();
         }
     }
 }
