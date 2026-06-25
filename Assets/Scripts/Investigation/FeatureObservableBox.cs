@@ -24,7 +24,16 @@ public class FeatureObservableBox : MonoBehaviour
     private void OnMouseDown()
     {
         int hour = InvestigationTimelineSystem.Instance.CurrentHour;
-        PlayerKnowledgeState.Discover(FeatureRoom, hour, FeatureKnowledge);
+        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+        int maxHour = baseHour + InvestigationTimelineSystem.Instance.TotalNumHours;
+
+        for (int i = hour - 1; i <= hour + 1; i++)
+        {
+            if (i >= baseHour && i <= maxHour)
+            {
+                PlayerKnowledgeState.Discover(FeatureRoom, i, FeatureKnowledge); // learn 3 chunks of time locally
+            }
+        }
         
         VisibilityCheck();
     }

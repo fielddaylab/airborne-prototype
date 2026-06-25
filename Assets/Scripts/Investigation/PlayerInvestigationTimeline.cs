@@ -203,7 +203,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                         {
                             int actualHour = baseHour + i;
                             FeatureTimeSlot slot = feature.TimeSlots[i];
-                            TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(feature.FeatureType, actualHour, slot);
+                            TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(_currentRoomType, feature.FeatureType, actualHour, slot);
                         }
                     }
                 }
