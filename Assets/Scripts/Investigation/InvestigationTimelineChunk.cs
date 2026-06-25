@@ -117,35 +117,42 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
     }
 
-    public void SetNPCGraphics(CharacterType character, int actualHour, bool isNewRoom, NPCTimeSlot slot)
+    public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot)
     {
         ClearChunk();
 
-        //if (!PlayerKnowledgeState.IsKnownCharacterly())
-
-        NPCOverlay.SetActive(true);
-
-        if (slot.CharacterDialogue != "")
+        if (PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCSymptom))
         {
-            DialogueImage.enabled = true;
-            DialogueImage.gameObject.SetActive(true);
+            NPCOverlay.SetActive(true);
+            if (slot.Symptom != Symptom.None)
+            {
+                SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(slot.Symptom);
+                SymptomImage.enabled = true;
+                SymptomImage.gameObject.SetActive(true);
+            }
         }
 
-        if (slot.Symptom != Symptom.None)
+        if (PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCDialogue))
         {
-            SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(slot.Symptom);
-            SymptomImage.enabled = true;
-            SymptomImage.gameObject.SetActive(true);
+            NPCOverlay.SetActive(true);
+            if (slot.CharacterDialogue != "")
+            {
+                DialogueImage.enabled = true;
+                DialogueImage.gameObject.SetActive(true);
+            }
         }
 
         // Need to run over this and check for dialogue and symptoms, and put on timeline if they exist
         // you then also need to check for room changes, in which case the title of the room they have entered should show up
-        if (isNewRoom)
+        if (PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCPresence))
         {
-            RoomTextBG.SetActive(true);
-            RoomText.text = slot.CurrentRoom.ToString();
+            NPCOverlay.SetActive(true);
+            if (isNewRoom)
+            {
+                RoomTextBG.SetActive(true);
+                RoomText.text = slot.CurrentRoom.ToString();
+            }
         }
-
     }
 
     public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot)

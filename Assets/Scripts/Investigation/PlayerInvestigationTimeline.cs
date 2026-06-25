@@ -183,7 +183,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                                 isNewRoom = true;
                             }
 
-                            TimelineOverlay.TimelineChunks[i].SetNPCGraphics(npc.Character, actualHour, isNewRoom, slot);
+                            TimelineOverlay.TimelineChunks[i].SetNPCGraphics(_currentRoomType, npc.Character, actualHour, isNewRoom, slot);
                         }
                     }
                 }
