@@ -26,7 +26,7 @@ public class RoomTimeSlot
             foreach (PollutantReading reading in PollutantReadings)
             {
                 _readingLookup[reading.Pollutant] = reading;
-            }
+            } 
         }
 
         PollutantReading result;
