@@ -15,7 +15,6 @@ public class RoomTimeSlot
 {
     public int Time;
     public PollutantReading[] PollutantReadings;
-    public FeatureEvent[] FeatureEvents;
 
     private Dictionary<PollutantType, PollutantReading> _readingLookup;
 

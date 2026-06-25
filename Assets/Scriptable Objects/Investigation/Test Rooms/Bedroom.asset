@@ -16,39 +16,23 @@ MonoBehaviour:
   TimeSlots:
   - Time: 13
     PollutantReadings: []
-    FeatureEvents: []
-    NPCEvents: []
   - Time: 14
-    PollutantReadings: []
-    FeatureEvents: []
-    NPCEvents: []
+    PollutantReadings:
+    - Pollutant: 5
+      Concentration: 1
   - Time: 15
     PollutantReadings:
     - Pollutant: 5
       Concentration: 1
-    FeatureEvents: []
-    NPCEvents: []
   - Time: 16
     PollutantReadings:
     - Pollutant: 5
-      Concentration: 1
-    FeatureEvents: []
-    NPCEvents: []
-  - Time: 17
-    PollutantReadings:
-    - Pollutant: 5
       Concentration: 2
-    FeatureEvents: []
-    NPCEvents: []
+  - Time: 17
+    PollutantReadings: []
   - Time: 18
     PollutantReadings: []
-    FeatureEvents: []
-    NPCEvents: []
   - Time: 19
     PollutantReadings: []
-    FeatureEvents: []
-    NPCEvents: []
   - Time: 20
     PollutantReadings: []
-    FeatureEvents: []
-    NPCEvents: []

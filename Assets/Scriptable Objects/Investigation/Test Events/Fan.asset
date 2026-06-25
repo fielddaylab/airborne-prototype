@@ -22,7 +22,7 @@ MonoBehaviour:
   - Time: 15
     FeatureEvent: 1
   - Time: 16
-    FeatureEvent: 1
+    FeatureEvent: 0
   - Time: 17
     FeatureEvent: 0
   - Time: 18

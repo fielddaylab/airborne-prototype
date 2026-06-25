@@ -29,13 +29,13 @@ MonoBehaviour:
   - Time: 16
     CurrentRoom: 3
     CharacterDialogue: 
-    Symptom: 0
-  - Time: 17
-    CurrentRoom: 3
-    CharacterDialogue: 
     Symptom: 6
-  - Time: 18
+  - Time: 17
     CurrentRoom: 4
+    CharacterDialogue: 
+    Symptom: 0
+  - Time: 18
+    CurrentRoom: 1
     CharacterDialogue: 
     Symptom: 0
   - Time: 19
