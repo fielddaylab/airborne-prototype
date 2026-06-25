@@ -101,10 +101,15 @@ public class InvestigationTimelineChunk : MonoBehaviour
             {
                 if (npcSlot.Time == hour && npcSlot.CurrentRoom == roomType)
                 {
-                    NPCImages[npcTracked].gameObject.SetActive(true);
-                    NPCImages[npcTracked].enabled = true;
-                    NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+                    if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCPresence)) 
+                    {
+                        NPCImages[npcTracked].gameObject.SetActive(true);
+                        NPCImages[npcTracked].enabled = true;
+                        NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
 
+                        
+                    }
+                    
                     npcTracked++;
                     if (npcTracked >= 3) break;
                 }

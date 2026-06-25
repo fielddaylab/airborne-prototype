@@ -64,8 +64,11 @@ public class NPCObservableBox : MonoBehaviour
 
         bool knowsDialogue = PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCDialogue);
         bool knowsSymptom = PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCSymptom);
+        
+        bool somethingToDisplay = false;
+        if (slot.CharacterDialogue != "" || slot.Symptom != Symptom.None) somethingToDisplay = true; 
 
-        if (!knowsDialogue || !knowsSymptom)
+        if (somethingToDisplay && (!knowsDialogue || !knowsSymptom))
         {
             gameObject.SetActive(true);
             return;

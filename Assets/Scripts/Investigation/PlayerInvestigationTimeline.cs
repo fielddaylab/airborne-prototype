@@ -98,6 +98,21 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
 
+        // update npc information statuses
+        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        foreach (var npc in scenario.NPCs)
+        {
+            int hour = InvestigationTimelineSystem.Instance.CurrentHour;
+            int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+            int index = hour - baseHour;
+            Debug.Log(index);
+            
+            if (npc.TimeSlots[index].CurrentRoom == _currentRoom.RoomTypeValue)
+            {
+                PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, hour, KnowledgeType.NPCPresence);
+            }
+        }
+
         UpdateTimelineVisuals(TimelineType.Room);
     }
 
