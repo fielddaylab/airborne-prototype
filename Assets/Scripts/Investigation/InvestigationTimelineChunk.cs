@@ -148,7 +148,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     }
 
-    public void SetFeatureGraphics(FeatureType feature, int hour, FeatureTimeSlot slot)
+    public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot)
     {
         ClearChunk();
         SourceOverlay.SetActive(true);
@@ -156,9 +156,13 @@ public class InvestigationTimelineChunk : MonoBehaviour
         // just need to show the features if the players have discovered them
         // and change the lightness/darkness depending on that status
 
-        FeatureImage.enabled = true;
-        FeatureImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
-        FeatureImage.color = (slot.FeatureEvent == FeatureEvent.On) ? Color.white : FeatureOffColor;
+        KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(feature);
+
+        if (PlayerKnowledgeState.IsKnownHourly(room, hour, knowledgeType)) {
+            FeatureImage.enabled = true;
+            FeatureImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
+            FeatureImage.color = (slot.FeatureEvent == FeatureEvent.On) ? Color.white : FeatureOffColor;
+        }
     }
 
     private void TextEnabled(bool enabled)

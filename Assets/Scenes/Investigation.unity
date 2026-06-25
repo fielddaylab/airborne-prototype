@@ -7902,6 +7902,7 @@ MonoBehaviour:
   CharacterMap: {fileID: 11400000, guid: 80e39f0c01d9cf145bec1ab6f62a8404, type: 2}
   SymptomMap: {fileID: 11400000, guid: 68ea9823d88e86b4abc4defcd34a4de7, type: 2}
   RoomMap: {fileID: 11400000, guid: cf48c6d91fa2c3848b89d569c8d97814, type: 2}
+  FeatureMap: {fileID: 0}
 --- !u!1 &1001343126
 GameObject:
   m_ObjectHideFlags: 0
@@ -8706,7 +8707,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: FeatureKnowledge
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1571013954368323287, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: m_Name

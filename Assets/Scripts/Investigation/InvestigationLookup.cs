@@ -17,4 +17,5 @@ public class InvestigationLookup : MonoBehaviour
     public CharacterSpriteMapObject CharacterMap;
     public SymptomSpriteMapObject SymptomMap;
     public RoomSpriteMapObject RoomMap;
+    public FeatureMapObject FeatureMap;
 }
