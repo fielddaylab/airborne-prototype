@@ -20,6 +20,8 @@ public class TheoryManager : MonoBehaviour
     [Header("Source Fields")]
     public Image SourcePortrait;
     public TextMeshProUGUI SourceText;
+    public Button SourceButton;
+    public SourceSelector SourceSelection;
 
     [Header("Combo Fields")]
     public TheoryCombo[] Combos;
@@ -27,6 +29,16 @@ public class TheoryManager : MonoBehaviour
     public Slider TheorySlider;
     public TextMeshProUGUI TheoryText;
     public Button TheorizeButton;
+
+    public void OnEnable()
+    {
+        SourceButton.onClick.AddListener(HandleSourceSelection);
+    }
+
+    public void OnDisable()
+    {
+        SourceButton.onClick.RemoveListener(HandleSourceSelection);
+    }
 
     public void AssemblePanel(PollutantDataObject pollutantData)
     {
@@ -70,6 +82,9 @@ public class TheoryManager : MonoBehaviour
 
         PollutantPortrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutantData.Type);
         PollutantText.text = InvestigationLookup.Instance.PollutantMap.GetFullName(pollutantData.Type);
+
+        SourcePortrait.enabled = false;
+        SourceText.enabled = false;
 
         UpdateInformation();
     }
@@ -121,5 +136,13 @@ public class TheoryManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        SourceSelection.gameObject.SetActive(false);
+    }
+
+    private void HandleSourceSelection()
+    {
+        Debug.Log("This occured!");
+        SourceSelection.gameObject.SetActive(true);
     }
 }
