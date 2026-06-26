@@ -76,22 +76,22 @@ public static class PlayerKnowledgeState
 
     public static readonly Dictionary<PollutantType, KnowledgeType> PollutantKnowledgeKey = new Dictionary<PollutantType, KnowledgeType>
     {
-        [PollutantType.CO2] = KnowledgeType.CO2,
+        [PollutantType.CO] = KnowledgeType.CO,
         [PollutantType.O3] = KnowledgeType.O3,
-        [PollutantType.NO] = KnowledgeType.NO,
+        [PollutantType.NOx] = KnowledgeType.NO,
         [PollutantType.VOC] = KnowledgeType.VOC
     };
 
     public static readonly KnowledgeType[] PollutantKnowledgeTypes =
     {
-        KnowledgeType.CO2, KnowledgeType.O3, KnowledgeType.NO, KnowledgeType.VOC
+        KnowledgeType.CO, KnowledgeType.O3, KnowledgeType.NO, KnowledgeType.VOC
     };
 }
 
 public enum KnowledgeType
 {
     RoomInfo,
-    PollutantPresence, CO2, O3, NO, VOC,
+    PollutantPresence, CO, O3, NO, VOC,
     FanStatus, FurnaceStatus, SpraycanStatus, StoveStatus, ElectricStatus,
     NPCPresence, NPCSymptom, NPCDialogue, 
 }

@@ -12,6 +12,8 @@ public class TheoryManager : MonoBehaviour
     public GameObject TheoryPiece;
     public Transform SymptomsBox;
     public Transform SourcesBox;
+    public Image[] PollutantClouds;
+    public TextMeshProUGUI[] PollutantTexts;
     private List<TheoryPiece> _symptoms = new();
     private List<TheoryPiece> _sources = new();
 
@@ -22,6 +24,9 @@ public class TheoryManager : MonoBehaviour
     [Header("Combo Fields")]
     public TheoryCombo[] Combos;
     public bool InTheoryMode = false;
+    public Slider TheorySlider;
+    public TextMeshProUGUI TheoryText;
+    public Button TheorizeButton;
 
     public void AssemblePanel(PollutantDataObject pollutantData)
     {
@@ -53,6 +58,19 @@ public class TheoryManager : MonoBehaviour
             _sources.Add(piece);
         }
 
+        foreach (var image in PollutantClouds)
+        {
+            image.color = InvestigationLookup.Instance.PollutantMap.GetMaterial(pollutantData.Type);
+        }
+
+        foreach (var text in PollutantTexts)
+        {
+            text.text = pollutantData.Type.ToString();
+        }
+
+        PollutantPortrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutantData.Type);
+        PollutantText.text = InvestigationLookup.Instance.PollutantMap.GetFullName(pollutantData.Type);
+
         UpdateInformation();
     }
 
@@ -78,19 +96,22 @@ public class TheoryManager : MonoBehaviour
             }
         }
 
-        // TheorySlider.value = totalInfo;
-        // TheoryText.text = $"{totalInfo}/4";
-        // TheorizeButton.interactable = false;
+        TheorySlider.value = totalInfo;
+        TheoryText.text = $"{totalInfo}/3";
+        TheorizeButton.interactable = false;
 
-        // if (totalInfo >= 4)
-        // {
-        //     TheoryText.text = "Theorize";
-        //     TheorizeButton.interactable = true;
-        // }
+        if (totalInfo >= 3)
+        {
+            TheoryText.text = "Theorize";
+            TheorizeButton.interactable = true;
+        }
     }
 
     private void Reset()
     {
+        _symptoms = new();
+        _sources = new();
+        
         foreach (Transform child in SymptomsBox)
         {
             Destroy(child.gameObject);

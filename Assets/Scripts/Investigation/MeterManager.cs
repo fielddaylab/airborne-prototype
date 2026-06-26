@@ -32,9 +32,9 @@ public class MeterManager : MonoBehaviour
         XButton.onClick.AddListener(HideDialogue);
         OnShowMeter += ShowDialogue;
 
-        COButton.onClick.AddListener(() => PlaceMeter(PollutantType.CO2));
+        COButton.onClick.AddListener(() => PlaceMeter(PollutantType.CO));
         VOCButton.onClick.AddListener(() => PlaceMeter(PollutantType.VOC));
-        NOButton.onClick.AddListener(() => PlaceMeter(PollutantType.NO));
+        NOButton.onClick.AddListener(() => PlaceMeter(PollutantType.NOx));
         O3Button.onClick.AddListener(() => PlaceMeter(PollutantType.O3));
     }
 
