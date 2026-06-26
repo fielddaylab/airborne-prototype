@@ -35,8 +35,8 @@ public enum PollutantType
 {
     None,
     FreshAir,
-    CO2,
-    NO,
+    CO,
+    NOx,
     O3,
     VOC
 }

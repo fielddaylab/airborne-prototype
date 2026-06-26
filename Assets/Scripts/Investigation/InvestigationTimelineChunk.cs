@@ -40,8 +40,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
     {
         _pollutantEntries = new List<PollutantUIEntry>
         {
-            new PollutantUIEntry {Knowledge = KnowledgeType.CO2, Pollutant = PollutantType.CO2, Text = COText, Label = "CO" },
-            new PollutantUIEntry { Knowledge = KnowledgeType.NO,  Pollutant = PollutantType.NO,  Text = NOText, Label = "NO" },
+            new PollutantUIEntry {Knowledge = KnowledgeType.CO, Pollutant = PollutantType.CO, Text = COText, Label = "CO" },
+            new PollutantUIEntry { Knowledge = KnowledgeType.NO,  Pollutant = PollutantType.NOx,  Text = NOText, Label = "NO" },
             new PollutantUIEntry { Knowledge = KnowledgeType.O3,  Pollutant = PollutantType.O3,  Text = O3Text, Label = "O3" },
             new PollutantUIEntry { Knowledge = KnowledgeType.VOC, Pollutant = PollutantType.VOC, Text = VOCText, Label = "VOC" }
         };

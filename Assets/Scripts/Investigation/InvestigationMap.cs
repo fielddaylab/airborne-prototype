@@ -13,7 +13,7 @@ public class InvestigationMap : MonoBehaviour
 
     public Slider FalseSlider;
 
-    private PollutantType _selectedPollutant = PollutantType.CO2;
+    private PollutantType _selectedPollutant = PollutantType.CO;
 
     public void Start()
     {
