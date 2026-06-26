@@ -17,6 +17,8 @@ public class TheoryPanel : MonoBehaviour
     private List<TheoryPiece> _symptoms = new();
     private List<TheoryPiece> _sources = new();
 
+    public Button TheorizeButton;
+
     public void AssemblePanel(PollutantDataObject pollutantData)
     {
         foreach (var symptom in pollutantData.Symptoms)
@@ -68,10 +70,12 @@ public class TheoryPanel : MonoBehaviour
 
         TheorySlider.value = totalInfo;
         TheoryText.text = $"{totalInfo}/4";
+        TheorizeButton.interactable = false;
 
         if (totalInfo >= 4)
         {
             TheoryText.text = "Theorize";
+            TheorizeButton.interactable = true;
         }
     }
 }
