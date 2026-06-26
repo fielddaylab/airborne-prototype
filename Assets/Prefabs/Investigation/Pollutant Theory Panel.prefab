@@ -1132,6 +1132,7 @@ MonoBehaviour:
   TheoryPiece: {fileID: 7640606647731593121, guid: fd445f6fa67ceed41b38f76fa0aab7f1, type: 3}
   SymptomsBox: {fileID: 2551831071764832380}
   SourcesBox: {fileID: 4514167331477179879}
+  TheorizeButton: {fileID: 7830811876796968392}
 --- !u!1 &4824281512812807486
 GameObject:
   m_ObjectHideFlags: 0

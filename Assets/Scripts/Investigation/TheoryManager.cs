@@ -1,26 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using TMPro;
 
-public class TheoryPanel : MonoBehaviour
+public class TheoryManager : MonoBehaviour
 {
-    public PollutantType PollutantType;
-    public Slider TheorySlider;
-    public TextMeshProUGUI TheoryText;
+    [Header("Pollutant Fields")]
+    public Image PollutantPortrait;
+    public TextMeshProUGUI PollutantText;
     public GameObject TheoryPiece;
-
     public Transform SymptomsBox;
     public Transform SourcesBox;
-
     private List<TheoryPiece> _symptoms = new();
     private List<TheoryPiece> _sources = new();
 
-    public Button TheorizeButton;
+    [Header("Source Fields")]
+    public Image SourcePortrait;
+    public TextMeshProUGUI SourceText;
+
+    [Header("Combo Fields")]
+    public TheoryCombo[] Combos;
+    public bool InTheoryMode = false;
 
     public void AssemblePanel(PollutantDataObject pollutantData)
     {
+        Reset();
+        
+        Debug.Log("Assemble: " + pollutantData.Type);
+        
         foreach (var symptom in pollutantData.Symptoms)
         {
             GameObject theoryPiece = Instantiate(TheoryPiece, SymptomsBox); 
@@ -44,6 +52,8 @@ public class TheoryPanel : MonoBehaviour
 
             _sources.Add(piece);
         }
+
+        UpdateInformation();
     }
 
     public void UpdateInformation()
@@ -68,14 +78,27 @@ public class TheoryPanel : MonoBehaviour
             }
         }
 
-        TheorySlider.value = totalInfo;
-        TheoryText.text = $"{totalInfo}/4";
-        TheorizeButton.interactable = false;
+        // TheorySlider.value = totalInfo;
+        // TheoryText.text = $"{totalInfo}/4";
+        // TheorizeButton.interactable = false;
 
-        if (totalInfo >= 4)
+        // if (totalInfo >= 4)
+        // {
+        //     TheoryText.text = "Theorize";
+        //     TheorizeButton.interactable = true;
+        // }
+    }
+
+    private void Reset()
+    {
+        foreach (Transform child in SymptomsBox)
         {
-            TheoryText.text = "Theorize";
-            TheorizeButton.interactable = true;
+            Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in SourcesBox)
+        {
+            Destroy(child.gameObject);
         }
     }
 }

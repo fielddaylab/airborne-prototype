@@ -14,6 +14,12 @@ public class InvestigationPollutantsManager : MonoBehaviour
     public TheoryPanel[] TheoryPanels;
     public PollutantDataObject[] PollutantDataInfo;
 
+    public PollutantButtonPair[] PollutantTheoryButtons;
+
+    public GameObject SuspectPanelParent, CollapsedParent;
+    public TheoryManager TheoryManager;
+    public Button TheoryCollapser;
+
     void Start()
     {
         foreach (var pair in PollutantEnableButtons)
@@ -31,6 +37,8 @@ public class InvestigationPollutantsManager : MonoBehaviour
                 }
             }
         }
+
+        TheoryManager.gameObject.SetActive(false);
     }
 
     public void UpdateInformation()
@@ -39,6 +47,8 @@ public class InvestigationPollutantsManager : MonoBehaviour
         {
             panel.UpdateInformation();
         }
+        
+        if (TheoryManager.InTheoryMode) TheoryManager.UpdateInformation();
     }
 
     void OnEnable()
@@ -52,6 +62,13 @@ public class InvestigationPollutantsManager : MonoBehaviour
         {
             pair.PollutantButton.onClick.AddListener(() => HandlePollutantEnable(pair));
         }
+
+        foreach (var pair in PollutantTheoryButtons)
+        {
+            pair.PollutantButton.onClick.AddListener(() => HandlePollutantTheory(pair));
+        }
+
+        TheoryCollapser.onClick.AddListener(HandleTheoryCollapse);
     }
 
     void OnDisable()
@@ -65,6 +82,13 @@ public class InvestigationPollutantsManager : MonoBehaviour
         {
             pair.PollutantButton.onClick.RemoveAllListeners();
         }
+
+        foreach (var pair in PollutantTheoryButtons)
+        {
+            pair.PollutantButton.onClick.RemoveAllListeners();
+        }
+
+        TheoryCollapser.onClick.RemoveListener(HandleTheoryCollapse);
     }
 
     private void HandlePollutantCollapse(PollutantButtonPair pair)
@@ -97,6 +121,31 @@ public class InvestigationPollutantsManager : MonoBehaviour
         {
             if (button.Pollutant == pollutant) button.PollutantButton.gameObject.SetActive(false);
         }
+    }
+
+    private void HandlePollutantTheory(PollutantButtonPair pair)
+    {
+        SuspectPanelParent.SetActive(false);
+        CollapsedParent.SetActive(false);
+        TheoryManager.gameObject.SetActive(true);
+        foreach (var data in PollutantDataInfo)
+        {
+            if (data.Type == pair.Pollutant) {
+                TheoryManager.AssemblePanel(data);
+                break;
+            }
+        }
+
+        TheoryManager.InTheoryMode = true;
+    }
+
+    private void HandleTheoryCollapse()
+    {
+        SuspectPanelParent.SetActive(true);
+        CollapsedParent.SetActive(true);
+        TheoryManager.gameObject.SetActive(false);
+
+        TheoryManager.InTheoryMode = false;
     }
 
     private void Reset()
