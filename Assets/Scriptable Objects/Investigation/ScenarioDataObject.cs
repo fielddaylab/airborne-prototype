@@ -6,6 +6,7 @@ using UnityEngine;
 public class ScenarioDataObject : ScriptableObject
 {
     public string ScenarioName;
+    public CharacterType MainNpc;
     public InvestigationRoomObject[] Rooms;
     public InvestigationNPCObject[] NPCs;
     public InvestigationFeatureEventObject[] FeatureEvents;
