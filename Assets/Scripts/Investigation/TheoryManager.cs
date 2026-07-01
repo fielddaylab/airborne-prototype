@@ -18,9 +18,10 @@ public class TheoryManager : MonoBehaviour
     private List<TheoryPiece> _sources = new();
 
     [Header("Source Fields")]
-    public Image SourcePortrait;
+    public Image[] SourcePortraits;
     public TextMeshProUGUI SourceText;
     public Button SourceButton;
+    public Image SourceQuestion;
     public SourceSelector SourceSelection;
 
     [Header("Combo Fields")]
@@ -30,14 +31,19 @@ public class TheoryManager : MonoBehaviour
     public TextMeshProUGUI TheoryText;
     public Button TheorizeButton;
 
+    // internals
+    private FeatureType _sourceType;
+
     public void OnEnable()
     {
         SourceButton.onClick.AddListener(HandleSourceSelection);
+        SourceSelector.OnSourceSelection += HandleSourceSelected;
     }
 
     public void OnDisable()
     {
         SourceButton.onClick.RemoveListener(HandleSourceSelection);
+        SourceSelector.OnSourceSelection -= HandleSourceSelected;
     }
 
     public void AssemblePanel(PollutantDataObject pollutantData)
@@ -83,8 +89,11 @@ public class TheoryManager : MonoBehaviour
         PollutantPortrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutantData.Type);
         PollutantText.text = InvestigationLookup.Instance.PollutantMap.GetFullName(pollutantData.Type);
 
-        SourcePortrait.enabled = false;
-        SourceText.enabled = false;
+        foreach (var image in SourcePortraits)
+        {
+            image.enabled = false;
+        }
+        SourceText.text = "";
 
         UpdateInformation();
     }
@@ -122,6 +131,25 @@ public class TheoryManager : MonoBehaviour
         }
     }
 
+    private void HandleSourceSelected(FeatureType feature)
+    {
+        Sprite sourceSprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
+        Color sourceColor = SourceButton.image.color;
+        sourceColor.a = 0;
+        SourceButton.image.color = sourceColor;
+        SourceQuestion.enabled = false;
+
+        SourceText.text = $"{feature}";
+
+        foreach (var image in SourcePortraits)
+        {
+            image.enabled = true;
+            image.sprite = sourceSprite;
+        }
+
+        _sourceType = feature;
+    }
+
     private void Reset()
     {
         _symptoms = new();
@@ -142,7 +170,6 @@ public class TheoryManager : MonoBehaviour
 
     private void HandleSourceSelection()
     {
-        Debug.Log("This occured!");
         SourceSelection.gameObject.SetActive(true);
     }
 }
