@@ -260,6 +260,85 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
     }
 
+    public void SetDetailedNPCGraphics(RoomType roomType, CharacterType character, int hour, bool isNewRoom, Symptom targetSymptom, PollutantType targetPollutant, NPCTimeSlot NPCSlot, RoomTimeSlot roomSlot)
+    {
+        ClearChunk();
+        NPCOverlay.SetActive(true);
+        RoomOverlay.SetActive(true);
+
+        Debug.Log("This was reached!");
+
+        Symptom blockSymptom = Symptom.None;
+
+        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCSymptom))
+        {
+            NPCOverlay.SetActive(true);
+            if (NPCSlot.Symptom != Symptom.None)
+            {
+                SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(NPCSlot.Symptom);
+                SymptomImage.enabled = true;
+                SymptomImage.gameObject.SetActive(true);
+                blockSymptom = NPCSlot.Symptom;
+            }
+        }
+
+        bool valid = false;
+
+        // Need to run over this and check for dialogue and symptoms, and put on timeline if they exist
+        // you then also need to check for room changes, in which case the title of the room they have entered should show up
+        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCPresence))
+        {
+            NPCOverlay.SetActive(true);
+            if (isNewRoom)
+            {
+                RoomTextBG.SetActive(true);
+                RoomText.text = NPCSlot.CurrentRoom.ToString();
+            }
+        }
+
+        bool anyKnowledgeKnown = false;
+        foreach (PollutantUIEntry entry in _pollutantEntries)
+        {
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, entry.Knowledge))
+            {
+                PollutantReading reading = roomSlot.GetReading(entry.Pollutant);
+                entry.Text.text = entry.Label + ":" + (reading != null ? reading.Concentration : 0);
+                anyKnowledgeKnown = true;
+                TextEnabled(true);
+
+                if (reading != null && reading.Pollutant == targetPollutant && reading.Concentration > 0 && blockSymptom == targetSymptom)
+                {
+                    valid = true;
+                }
+            }
+        }
+
+        if (!anyKnowledgeKnown)
+        {
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
+            {
+                TimelineImage.enabled = true;
+                bool pollutantsPresent = roomSlot.PollutantReadings.Length > 0;
+                    
+                if (pollutantsPresent)
+                {
+                    TimelineImage.sprite = PollutantPresent;
+                } else
+                {
+                    TimelineImage.sprite = PollutantAbsent;
+                }
+            }
+        }
+
+        if (valid)
+        {
+            ValidImage.gameObject.SetActive(true);
+        } else
+        {
+            InvalidImage.gameObject.SetActive(true);
+        }
+    }
+
     private void TextEnabled(bool enabled)
     {
         NOText.enabled = enabled;
