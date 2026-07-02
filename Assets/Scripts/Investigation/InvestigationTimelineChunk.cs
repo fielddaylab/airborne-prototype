@@ -7,6 +7,12 @@ using UnityEngine.UI;
 
 public class InvestigationTimelineChunk : MonoBehaviour
 {
+    /*
+    This code is horribly structured and should get refactored later
+    For some ideas, pass in a data type that asks for x to be overlayed, and then this becomes
+    a modular system, rather than specifiying each timeline type.
+    */
+
     public GameObject RoomOverlay, NPCOverlay, SourceOverlay;
     
     [Header("Room Overlay")]
@@ -135,7 +141,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     {
         ClearChunk();
 
-        if (PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCSymptom))
+        if (PlayerKnowledgeState.IsKnownCharacterly(character, hour, KnowledgeType.NPCSymptom))
         {
             NPCOverlay.SetActive(true);
             if (slot.Symptom != Symptom.None)
@@ -146,7 +152,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
             }
         }
 
-        if (PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCDialogue))
+        if (PlayerKnowledgeState.IsKnownCharacterly(character, hour, KnowledgeType.NPCDialogue))
         {
             NPCOverlay.SetActive(true);
             if (slot.CharacterDialogue != "")
@@ -270,7 +276,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         Symptom blockSymptom = Symptom.None;
 
-        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCSymptom))
+        if (PlayerKnowledgeState.IsKnownCharacterly(character, hour, KnowledgeType.NPCSymptom))
         {
             NPCOverlay.SetActive(true);
             if (NPCSlot.Symptom != Symptom.None)

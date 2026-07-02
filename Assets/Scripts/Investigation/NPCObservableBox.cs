@@ -28,8 +28,8 @@ public class NPCObservableBox : MonoBehaviour
         NPCTimeSlot slot = NPCData.TimeSlots[index];
         RoomType room = slot.CurrentRoom;
 
-        PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCDialogue);
-        PlayerKnowledgeState.Discover(room, hour, KnowledgeType.NPCSymptom);
+        PlayerKnowledgeState.Discover(NPCData.Character, hour, KnowledgeType.NPCDialogue);
+        PlayerKnowledgeState.Discover(NPCData.Character, hour, KnowledgeType.NPCSymptom);
 
         PlayerKnowledgeState.Discover(slot.Symptom);
 
@@ -64,8 +64,8 @@ public class NPCObservableBox : MonoBehaviour
         NPCTimeSlot slot = NPCData.TimeSlots[index];
         RoomType room = slot.CurrentRoom;
 
-        bool knowsDialogue = PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCDialogue);
-        bool knowsSymptom = PlayerKnowledgeState.IsKnownHourly(room, hour, KnowledgeType.NPCSymptom);
+        bool knowsDialogue = PlayerKnowledgeState.IsKnownCharacterly(NPCData.Character, hour, KnowledgeType.NPCDialogue);
+        bool knowsSymptom = PlayerKnowledgeState.IsKnownCharacterly(NPCData.Character, hour, KnowledgeType.NPCSymptom);
         
         bool somethingToDisplay = false;
         if (slot.CharacterDialogue != "" || slot.Symptom != Symptom.None) somethingToDisplay = true; 
