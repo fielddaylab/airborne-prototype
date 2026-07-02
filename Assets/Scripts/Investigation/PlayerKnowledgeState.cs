@@ -8,6 +8,7 @@ public static class PlayerKnowledgeState
     // Stores a combination of room and time and knowledge type to track what the player has discovered so far
     private static HashSet<(RoomType, int, KnowledgeType)> HourlyDiscovered = new();
     private static HashSet<(RoomType, KnowledgeType)> GenerallyDiscovered = new();
+    private static HashSet<(CharacterType, int, KnowledgeType)> CharacterDiscovered = new();
     private static HashSet<string> IDDiscovered = new();
 
     private static HashSet<Symptom> SeenSymptoms = new();
@@ -29,6 +30,14 @@ public static class PlayerKnowledgeState
         Debug.Log($"Recorded information about {type} in room {room}!");
         
         GenerallyDiscovered.Add((room, type));
+        OnKnowledgeUpdated.Invoke();
+    }
+
+    public static void Discover(CharacterType character, int time, KnowledgeType type)
+    {
+        Debug.Log($"Recorded information about {type} for {character}!");
+
+        CharacterDiscovered.Add((character, time, type));
         OnKnowledgeUpdated.Invoke();
     }
 
@@ -57,6 +66,11 @@ public static class PlayerKnowledgeState
     public static bool IsKnownGenerally(RoomType room, KnowledgeType type)
     {
         return GenerallyDiscovered.Contains((room, type));
+    }
+
+    public static bool IsKnownCharacterly(CharacterType character, int time, KnowledgeType type)
+    {
+        return CharacterDiscovered.Contains((character, time, type));
     }
 
     public static bool IsKnownID(string id)

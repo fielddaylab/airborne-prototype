@@ -28,6 +28,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     public static Action<Enum> OnTimelineRequested;
 
     public static Action<FeatureType, PollutantType> OnFeatureDetailRequested;
+    public static Action<Symptom, PollutantType> OnNPCDetailRequested;
+    public static Action OnResetRequested;
 
     public enum TimelineType
     {
@@ -44,7 +46,9 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated += HandleKnowledgeUpdated;
         OnTimelineRequested += HandleTimelineRequest;
-        OnFeatureDetailRequested += HandleDetailedRequest;
+        OnFeatureDetailRequested += HandleFeatureRequest;
+        OnResetRequested += HandleReset;
+        OnNPCDetailRequested += HandleNPCRequest;
     }
 
     public void OnDisable()
@@ -54,8 +58,9 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated -= HandleKnowledgeUpdated;
         OnTimelineRequested -= HandleTimelineRequest;
-        OnFeatureDetailRequested -= HandleDetailedRequest;
-
+        OnFeatureDetailRequested -= HandleFeatureRequest;
+        OnResetRequested -= HandleReset;
+        OnNPCDetailRequested += HandleNPCRequest;
     }
 
     // handle player moving between rooms and what information they should know
@@ -149,37 +154,6 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         UpdateTimelineVisuals(_currentTimelineType);
     }
 
-    private void HandleDetailedRequest(FeatureType featureType, PollutantType pollutantType)
-    {
-        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
-        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
-        
-        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
-
-        foreach (var feature in data.FeatureEvents)
-        {
-            if (feature.FeatureType == featureType) {
-                foreach (var room in data.Rooms)
-                {
-                    if (room.RoomTypeValue == feature.RoomType)
-                    {
-                        for (int i = 0; i < totalHours; i++)
-                        {
-                            int actualHour = baseHour + i;
-                            FeatureTimeSlot featureSlot = feature.TimeSlots[i];
-                            RoomTimeSlot roomSlot = room.TimeSlots[i];
-
-                            TimelineOverlay.TimelineChunks[i].SetDetailedFeatureGraphics(feature.RoomType, feature.FeatureType, actualHour, featureSlot, roomSlot, pollutantType);
-                        }
-                    }
-                }
-            }
-        }
-
-        TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(_currentFeatureType);
-        TimelineText.text = _currentFeatureType.ToString();
-    }
-
     private void UpdateTimelineVisuals(TimelineType timelineType)
     {
         int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
@@ -248,5 +222,77 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
                 break;
         }
+    }
+
+    private void HandleFeatureRequest(FeatureType featureType, PollutantType pollutantType)
+    {
+        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+        
+        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        foreach (var feature in data.FeatureEvents)
+        {
+            if (feature.FeatureType == featureType) {
+                foreach (var room in data.Rooms)
+                {
+                    if (room.RoomTypeValue == feature.RoomType)
+                    {
+                        for (int i = 0; i < totalHours; i++)
+                        {
+                            int actualHour = baseHour + i;
+                            FeatureTimeSlot featureSlot = feature.TimeSlots[i];
+                            RoomTimeSlot roomSlot = room.TimeSlots[i];
+
+                            TimelineOverlay.TimelineChunks[i].SetDetailedFeatureGraphics(feature.RoomType, feature.FeatureType, actualHour, featureSlot, roomSlot, pollutantType);
+                        }
+                    }
+                }
+            }
+        }
+
+        TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(_currentFeatureType);
+        TimelineText.text = _currentFeatureType.ToString();
+    }
+
+    private void HandleNPCRequest(Symptom symptom, PollutantType pollutant)
+    {
+        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+        
+        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        foreach (var npc in data.NPCs) {   
+            if (npc.Character == data.MainNpc) {
+                for (int i = 0; i < totalHours; i++)
+                {
+                    int actualHour = baseHour + i;
+                    NPCTimeSlot slot = npc.TimeSlots[i];
+
+                    bool isNewRoom = false;
+                    if (i == 0 || npc.TimeSlots[i - 1].CurrentRoom != npc.TimeSlots[i].CurrentRoom)
+                    {
+                        isNewRoom = true;
+                    }
+
+                    foreach (var room in data.Rooms)
+                    {
+                        if (room.RoomTypeValue == npc.TimeSlots[i].CurrentRoom)
+                        {
+                            RoomTimeSlot roomSlot = room.TimeSlots[i];
+                            TimelineOverlay.TimelineChunks[i].SetDetailedNPCGraphics(_currentRoomType, npc.Character, actualHour, isNewRoom, symptom, pollutant, slot, roomSlot);
+                        }
+                    }
+                }
+            }
+        }
+
+        TimelineIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(_currentCharacterType);
+        TimelineText.text = _currentCharacterType.ToString();
+    }
+
+    private void HandleReset()
+    {
+        HandleRoomUpdated(_currentRoom);
     }
 }

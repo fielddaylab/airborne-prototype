@@ -1,0 +1,72 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SourceAndSymptomManager : MonoBehaviour
+{
+    public GameObject SymptomButton;
+    public GameObject SymptomPanel;
+
+    public TextMeshProUGUI SymptomSelectText, TimelineQuestionText;
+
+    public static Action<Symptom> OnSelectSymptom;
+
+    public GameObject SymptomList, TimelineQuestion;
+
+    private Symptom _symptom;
+    private PollutantType _pollutant;
+
+    enum Phase
+    {
+        SymptomSelect,
+        TimelineSelect
+    }
+
+    void OnEnable()
+    {
+        OnSelectSymptom += OnSymptomSelected;
+    }
+
+    void OnDisable()
+    {
+        OnSelectSymptom -= OnSymptomSelected;
+    }
+
+    public void Setup(PollutantType pollutant)
+    {
+        PollutantDataObject pollutantData = null;
+        _pollutant = pollutant;
+
+        foreach (var map in InvestigationLookup.Instance.PollutantSymptomMaps)
+        {
+            if (map.Type == pollutant)
+            {
+                pollutantData = map;
+            }
+        }
+
+        foreach (var symptom in pollutantData.Symptoms)
+        {
+            GameObject buttonObj = Instantiate(SymptomButton, SymptomPanel.transform);
+            SymptomButton symptomButton = buttonObj.GetComponent<SymptomButton>();
+            symptomButton.SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
+            symptomButton.Symptom = symptom;
+        }
+
+        SymptomSelectText.text = $"Select a symptom Roundy experienced that matches with {pollutant}:";
+    }
+
+    private void OnSymptomSelected(Symptom symptom)
+    {
+        _symptom = symptom;
+        SymptomList.SetActive(false);
+        TimelineQuestion.SetActive(true);
+
+        TimelineQuestionText.text = $"Does the {_symptom} occur while {_pollutant} is present?\n\nSelect from timeline:";
+
+        PlayerInvestigationTimeline.OnNPCDetailRequested.Invoke(_symptom, _pollutant);
+    }
+}

@@ -23,6 +23,14 @@ public class TheoryCombo : MonoBehaviour
     public Button ComboCloser;
     public GameObject UnassignedIndicator;
 
+    public SourceAndSymptomManager SymptomManager;
+
+    public void Start()
+    {
+        if (ComboPopup != null) {
+            ComboPopup.SetActive(false);
+        }
+    }
 
 
     public void Setup(FeatureType source, PollutantType pollutant) 
@@ -31,7 +39,6 @@ public class TheoryCombo : MonoBehaviour
         _pollutant = pollutant;
         ComboEnabled = true;
         ComboButton.enabled = true;
-        InvestigationTimelineChunk.OnValidSelected += HandleValidSelection;
     }
 
     void OnEnable()
@@ -58,11 +65,16 @@ public class TheoryCombo : MonoBehaviour
     private void HandleShowTheory()
     {
         ComboPopup.SetActive(true);
+        
+        InvestigationTimelineChunk.OnValidSelected += HandleValidSelection;
 
         switch (ComboType)
         {
             case TheoryComboType.PollutantAndSource:
                 HandlePAndSCombo();
+                break;
+            case TheoryComboType.PollutantAndSymptom:
+                HandlePAndSymCombo();
                 break;
         }
     }
@@ -77,10 +89,16 @@ public class TheoryCombo : MonoBehaviour
         PlayerInvestigationTimeline.OnFeatureDetailRequested.Invoke(_source, _pollutant);
     }
 
+    private void HandlePAndSymCombo()
+    {
+        SymptomManager.Setup(_pollutant);
+    }
+
     private void HandleValidSelection()
     {
         HandleHideTheory();
         UnassignedIndicator.SetActive(false);
+        PlayerInvestigationTimeline.OnResetRequested.Invoke();
         InvestigationTimelineChunk.OnValidSelected -= HandleValidSelection;
     }
 }
