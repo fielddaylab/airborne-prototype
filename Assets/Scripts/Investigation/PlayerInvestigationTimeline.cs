@@ -27,11 +27,14 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     // event
     public static Action<Enum> OnTimelineRequested;
 
+    public static Action<FeatureType, PollutantType> OnFeatureDetailRequested;
+
     public enum TimelineType
     {
         Room,
         NPC,
-        Feature
+        Feature,
+        FeatureDetail
     }
 
     private void OnEnable()
@@ -41,6 +44,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated += HandleKnowledgeUpdated;
         OnTimelineRequested += HandleTimelineRequest;
+        OnFeatureDetailRequested += HandleDetailedRequest;
     }
 
     public void OnDisable()
@@ -50,6 +54,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated -= HandleKnowledgeUpdated;
         OnTimelineRequested -= HandleTimelineRequest;
+        OnFeatureDetailRequested -= HandleDetailedRequest;
 
     }
 
@@ -105,7 +110,6 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             int hour = InvestigationTimelineSystem.Instance.CurrentHour;
             int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
             int index = hour - baseHour;
-            Debug.Log(index);
             
             if (npc.TimeSlots[index].CurrentRoom == _currentRoom.RoomTypeValue)
             {
@@ -143,6 +147,37 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         }
 
         UpdateTimelineVisuals(_currentTimelineType);
+    }
+
+    private void HandleDetailedRequest(FeatureType featureType, PollutantType pollutantType)
+    {
+        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+        
+        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        foreach (var feature in data.FeatureEvents)
+        {
+            if (feature.FeatureType == featureType) {
+                foreach (var room in data.Rooms)
+                {
+                    if (room.RoomTypeValue == feature.RoomType)
+                    {
+                        for (int i = 0; i < totalHours; i++)
+                        {
+                            int actualHour = baseHour + i;
+                            FeatureTimeSlot featureSlot = feature.TimeSlots[i];
+                            RoomTimeSlot roomSlot = room.TimeSlots[i];
+
+                            TimelineOverlay.TimelineChunks[i].SetDetailedFeatureGraphics(feature.RoomType, feature.FeatureType, actualHour, featureSlot, roomSlot, pollutantType);
+                        }
+                    }
+                }
+            }
+        }
+
+        TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(_currentFeatureType);
+        TimelineText.text = _currentFeatureType.ToString();
     }
 
     private void UpdateTimelineVisuals(TimelineType timelineType)
