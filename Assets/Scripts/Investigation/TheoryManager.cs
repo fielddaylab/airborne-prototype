@@ -33,22 +33,41 @@ public class TheoryManager : MonoBehaviour
 
     // internals
     private FeatureType _sourceType;
+    private PollutantDataObject _pollutantData;
+
+    private int _theoryProgress = 0;
+
+    public void Start()
+    {
+        TheorySlider.value = _theoryProgress;
+        TheoryText.text = $"{_theoryProgress}/3";
+        TheorizeButton.interactable = false;
+
+        if (_theoryProgress >= 3)
+        {
+            TheoryText.text = "Theorize";
+            TheorizeButton.interactable = true;
+        }
+    }
 
     public void OnEnable()
     {
         SourceButton.onClick.AddListener(HandleSourceSelection);
         SourceSelector.OnSourceSelection += HandleSourceSelected;
+        InvestigationTimelineChunk.OnValidSelected += HandleValidSelection;
     }
 
     public void OnDisable()
     {
         SourceButton.onClick.RemoveListener(HandleSourceSelection);
         SourceSelector.OnSourceSelection -= HandleSourceSelected;
+        InvestigationTimelineChunk.OnValidSelected -= HandleValidSelection;
     }
 
     public void AssemblePanel(PollutantDataObject pollutantData)
     {
         Reset();
+        _pollutantData = pollutantData;
         
         Debug.Log("Assemble: " + pollutantData.Type);
         
@@ -119,16 +138,6 @@ public class TheoryManager : MonoBehaviour
                 totalInfo++;
             }
         }
-
-        TheorySlider.value = totalInfo;
-        TheoryText.text = $"{totalInfo}/3";
-        TheorizeButton.interactable = false;
-
-        if (totalInfo >= 3)
-        {
-            TheoryText.text = "Theorize";
-            TheorizeButton.interactable = true;
-        }
     }
 
     private void HandleSourceSelected(FeatureType feature)
@@ -148,6 +157,11 @@ public class TheoryManager : MonoBehaviour
         }
 
         _sourceType = feature;
+
+        foreach (var combo in Combos)
+        {
+            combo.Setup(_sourceType, _pollutantData.Type);
+        }
     }
 
     private void Reset()
@@ -171,5 +185,11 @@ public class TheoryManager : MonoBehaviour
     private void HandleSourceSelection()
     {
         SourceSelection.gameObject.SetActive(true);
+    }
+
+    private void HandleValidSelection()
+    {
+        _theoryProgress += 1;
+        TheorySlider.value = _theoryProgress;
     }
 }

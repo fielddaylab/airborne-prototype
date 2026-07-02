@@ -26,6 +26,12 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image FeatureImage;
     public Color FeatureOffColor;
 
+    [Header("Clickables")]
+    public Image InvalidImage;
+    public Button ValidImage;
+
+    public static event Action OnValidSelected;
+
     private struct PollutantUIEntry
     {
         public KnowledgeType Knowledge;
@@ -47,6 +53,16 @@ public class InvestigationTimelineChunk : MonoBehaviour
         };
 
         ClearChunk();
+    }
+
+    private void OnEnable()
+    {
+        ValidImage.onClick.AddListener(HandleTimelineClick);
+    }
+
+    private void OnDisable()
+    {
+        ValidImage.onClick.RemoveListener(HandleTimelineClick);
     }
 
     public void SetRoomGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
@@ -106,8 +122,6 @@ public class InvestigationTimelineChunk : MonoBehaviour
                         NPCImages[npcTracked].gameObject.SetActive(true);
                         NPCImages[npcTracked].enabled = true;
                         NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
-
-                        
                     }
                     
                     npcTracked++;
@@ -172,6 +186,80 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
     }
 
+    public void SetDetailedFeatureGraphics(RoomType roomType, FeatureType feature, int hour, FeatureTimeSlot featureSlot, RoomTimeSlot roomSlot, PollutantType targetPollutant)
+    {
+        ClearChunk();
+        SourceOverlay.SetActive(true);
+
+        bool valid = false;
+
+        // just need to show the features if the players have discovered them
+        // and change the lightness/darkness depending on that status
+
+        KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(feature);
+
+        bool featureOn = false;
+        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) {
+            FeatureImage.enabled = true;
+            FeatureImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
+            FeatureImage.color = (featureSlot.FeatureEvent == FeatureEvent.On) ? Color.white : FeatureOffColor;
+            featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
+        }
+
+        RoomOverlay.SetActive(true);
+        
+        TimelineImage.enabled = false;
+        TextEnabled(false);
+        foreach (PollutantUIEntry entry in _pollutantEntries)
+        {
+            entry.Text.text = entry.Label + ":?";
+        }
+
+        if (featureSlot == null) return;
+        
+        bool anyKnowledgeKnown = false;
+        foreach (PollutantUIEntry entry in _pollutantEntries)
+        {
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, entry.Knowledge))
+            {
+                PollutantReading reading = roomSlot.GetReading(entry.Pollutant);
+                entry.Text.text = entry.Label + ":" + (reading != null ? reading.Concentration : 0);
+                anyKnowledgeKnown = true;
+                TextEnabled(true);
+
+                if (reading != null && reading.Pollutant == targetPollutant && reading.Concentration > 0 && featureOn)
+                {
+                    valid = true;
+                }
+            }
+        }
+
+        if (!anyKnowledgeKnown)
+        {
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
+            {
+                TimelineImage.enabled = true;
+                bool pollutantsPresent = roomSlot.PollutantReadings.Length > 0;
+                    
+                if (pollutantsPresent)
+                {
+                    TimelineImage.sprite = PollutantPresent;
+                } else
+                {
+                    TimelineImage.sprite = PollutantAbsent;
+                }
+            }
+        }
+
+        if (valid)
+        {
+            ValidImage.gameObject.SetActive(true);
+        } else
+        {
+            InvalidImage.gameObject.SetActive(true);
+        }
+    }
+
     private void TextEnabled(bool enabled)
     {
         NOText.enabled = enabled;
@@ -202,7 +290,13 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         FeatureImage.enabled = false;
         FeatureImage.color = Color.white;
+
+        ValidImage.gameObject.SetActive(false);
+        InvalidImage.gameObject.SetActive(false);
     }
 
-    
+    private void HandleTimelineClick()
+    {
+        OnValidSelected?.Invoke();
+    }
 }
