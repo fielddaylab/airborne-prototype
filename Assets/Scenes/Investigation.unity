@@ -6706,6 +6706,7 @@ MonoBehaviour:
   SymptomManager: {fileID: 0}
   PollutantAtSource: {fileID: 0}
   PollutantAtSymptom: {fileID: 1112839607}
+  LockedMap: {fileID: 725983735}
 --- !u!114 &478940484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6789,7 +6790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -299.99976}
+  m_AnchoredPosition: {x: 0, y: -299.9998}
   m_SizeDelta: {x: 0, y: -600.0005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488254168
@@ -11805,6 +11806,7 @@ MonoBehaviour:
   SymptomManager: {fileID: 0}
   PollutantAtSource: {fileID: 0}
   PollutantAtSymptom: {fileID: 0}
+  LockedMap: {fileID: 725983735}
 --- !u!1 &923613458
 GameObject:
   m_ObjectHideFlags: 0
@@ -11907,6 +11909,7 @@ MonoBehaviour:
   SymptomManager: {fileID: 0}
   PollutantAtSource: {fileID: 1112839608}
   PollutantAtSymptom: {fileID: 0}
+  LockedMap: {fileID: 725983735}
 --- !u!114 &923613463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18461,6 +18464,7 @@ MonoBehaviour:
   SymptomManager: {fileID: 1615694708}
   PollutantAtSource: {fileID: 0}
   PollutantAtSymptom: {fileID: 0}
+  LockedMap: {fileID: 725983735}
 --- !u!1 &1368061605
 GameObject:
   m_ObjectHideFlags: 0
