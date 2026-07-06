@@ -40,12 +40,12 @@ public class TheoryManager : MonoBehaviour
     public void Start()
     {
         TheorySlider.value = _theoryProgress;
-        TheoryText.text = $"{_theoryProgress}/3";
+        TheoryText.text = $"{_theoryProgress}/4";
         TheorizeButton.interactable = false;
 
-        if (_theoryProgress >= 3)
+        if (_theoryProgress >= 4)
         {
-            TheoryText.text = "Theorize";
+            TheoryText.text = "Submit";
             TheorizeButton.interactable = true;
         }
     }
@@ -192,12 +192,12 @@ public class TheoryManager : MonoBehaviour
         _theoryProgress += 1;
 
         TheorySlider.value = _theoryProgress;
-        TheoryText.text = $"{_theoryProgress}/3";
+        TheoryText.text = $"{_theoryProgress}/4";
         TheorizeButton.interactable = false;
 
-        if (_theoryProgress >= 3)
+        if (_theoryProgress >= 4)
         {
-            TheoryText.text = "Theorize";
+            TheoryText.text = "Submit";
             TheorizeButton.interactable = true;
             Debug.Log("You would now switch over to the transition phase!");
         }

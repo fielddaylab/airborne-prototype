@@ -28,6 +28,8 @@ public class TheoryCombo : MonoBehaviour
     public PollutantAtSourceManager PollutantAtSource;
     public PollutantAtSymptomManager PollutantAtSymptom;
 
+    public InvestigationMap LockedMap;
+
     public void Start()
     {
         if (ComboPopup != null) {
@@ -139,6 +141,7 @@ public class TheoryCombo : MonoBehaviour
         }
 
         PollutantAtSource.Setup(earliestTimeSeen, _pollutant);
+        LockedMap.SetupSourceSelector(earliestTimeSeen, _pollutant, _source);
     }
 
     private void HandlePAtSymCombo()
@@ -166,6 +169,7 @@ public class TheoryCombo : MonoBehaviour
         }
 
         PollutantAtSymptom.Setup(unconsciousTime, _pollutant);
+        LockedMap.SetupSymptomSelector(unconsciousTime, _pollutant);
     }
 
     private void HandleValidSelection()

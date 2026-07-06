@@ -25,6 +25,11 @@ public class SourceAndSymptomManager : MonoBehaviour
         TimelineSelect
     }
 
+    void Start()
+    {
+        TimelineQuestion.gameObject.SetActive(false);
+    }
+
     void OnEnable()
     {
         OnSelectSymptom += OnSymptomSelected;
