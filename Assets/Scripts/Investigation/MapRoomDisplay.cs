@@ -250,7 +250,7 @@ public class MapRoomDisplay : MonoBehaviour
             Color lockoutColor = Lockout.color;
             lockoutColor.a = 0;
             Lockout.color = lockoutColor;
-            LockoutButton.enabled = true;
+            LockoutButton.enabled = true; 
         } 
         else
         {
