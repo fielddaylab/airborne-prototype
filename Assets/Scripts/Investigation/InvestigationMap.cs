@@ -86,6 +86,30 @@ public class InvestigationMap : MonoBehaviour
         }
     }
 
+    // find the room with the source in it, and enable it only if the pollutant is in there too
+    public void SetupSourceSelector(int hour, PollutantType pollutant, FeatureType source)
+    {
+        foreach (var room in MapRooms)
+        {
+            if (PlayerKnowledgeState.IsKnownGenerally(room.roomType, KnowledgeType.RoomInfo))
+            {
+                room.UpdateSourceValidity(hour, pollutant, source);
+            }
+        }
+    }
+
+    // find the room with the npc in it, and enable if only if the pollutant is in there too
+    public void SetupSymptomSelector(int hour, PollutantType pollutant)
+    {
+        foreach (var room in MapRooms)
+        {
+            if (PlayerKnowledgeState.IsKnownGenerally(room.roomType, KnowledgeType.RoomInfo))
+            {
+                room.UpdateSymptomValidity(hour, pollutant);
+            }
+        }
+    }
+
     public void SwitchTo(int t)
     {
         for (int i = 0; i < OverlayButtons.Length; i++)

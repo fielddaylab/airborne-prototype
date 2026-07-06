@@ -36,7 +36,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image InvalidImage;
     public Button ValidImage;
 
-    public static event Action OnValidSelected;
+    public static Action OnValidSelected;
 
     private struct PollutantUIEntry
     {
