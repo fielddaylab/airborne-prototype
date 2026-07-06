@@ -94,11 +94,13 @@ public class TheoryCombo : MonoBehaviour
         if (PollutantAtSource != null)
         {
             PollutantAtSource.LockedMap.gameObject.SetActive(false);
+            PollutantAtSource.FalseSlider.interactable = true;
         }
 
         if (PollutantAtSymptom != null)
         {
             PollutantAtSymptom.LockedMap.gameObject.SetActive(false);
+            PollutantAtSymptom.FalseSlider.interactable = true;
         }
     }
 
