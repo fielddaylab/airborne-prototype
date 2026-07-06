@@ -53,12 +53,26 @@ public class SourceAndSymptomManager : MonoBehaviour
             }
         }
 
+        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        List<Symptom> symptoms = new();
+        foreach (InvestigationNPCObject npc in scenario.NPCs) {
+            if (npc.Character == scenario.MainNpc)
+            {
+                foreach (var slot in npc.TimeSlots)
+                {
+                    symptoms.Add(slot.Symptom);
+                }
+            }
+        }
+
         foreach (var symptom in pollutantData.Symptoms)
         {
-            GameObject buttonObj = Instantiate(SymptomButton, SymptomPanel.transform);
-            SymptomButton symptomButton = buttonObj.GetComponent<SymptomButton>();
-            symptomButton.SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
-            symptomButton.Symptom = symptom;
+            if (symptoms.Contains(symptom)) {
+                GameObject buttonObj = Instantiate(SymptomButton, SymptomPanel.transform);
+                SymptomButton symptomButton = buttonObj.GetComponent<SymptomButton>();
+                symptomButton.SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
+                symptomButton.Symptom = symptom;
+            }
         }
 
         SymptomSelectText.text = $"Select a symptom Roundy experienced that matches with {pollutant}:";
