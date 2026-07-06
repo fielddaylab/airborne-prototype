@@ -36,7 +36,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image InvalidImage;
     public Button ValidImage;
 
-    public static event Action OnValidSelected;
+    public static Action OnValidSelected;
 
     private struct PollutantUIEntry
     {
@@ -271,8 +271,6 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ClearChunk();
         NPCOverlay.SetActive(true);
         RoomOverlay.SetActive(true);
-
-        Debug.Log("This was reached!");
 
         Symptom blockSymptom = Symptom.None;
 

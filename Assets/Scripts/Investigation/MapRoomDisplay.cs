@@ -19,11 +19,26 @@ public class MapRoomDisplay : MonoBehaviour
     public Image GasOverlay;
 
     public Sprite PollutantPresent, PollutantAbsent;
+    public Image Lockout;
+    public Button LockoutButton;
+    private int _baseLockoutAlpha = 100;
+
+    public bool isLockoutMap = false;
 
     public void Awake()
     {
         ClearDisplay();
         RoomText.text = gameObject.name;
+    }
+
+    public void OnEnable()
+    {
+        LockoutButton.onClick.AddListener(HandleLockoutClick);
+    }
+
+    public void OnDisable()
+    {
+        LockoutButton.onClick.RemoveListener(HandleLockoutClick);
     }
 
     public void UpdateDisplay(int hour, PollutantType overlayedPollutant)
@@ -157,8 +172,112 @@ public class MapRoomDisplay : MonoBehaviour
         }
     }
 
+    public void UpdateSourceValidity(int hour, PollutantType pollutant, FeatureType source)
+    {
+        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        bool featureValid = false;
+        foreach (var feature in scenario.FeatureEvents)
+        {
+            if (feature.RoomType == roomType && feature.FeatureType == source)
+            {
+                featureValid = true;
+            }
+        }
+
+        bool pollutantValid = false;
+        RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(roomType, hour);
+        foreach (var reading in slot.PollutantReadings)
+        {
+            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
+            if (reading.Pollutant == pollutant && reading.Concentration > 0 && PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
+            {
+                pollutantValid = true;
+            }
+        }
+
+        if (featureValid && pollutantValid)
+        {
+            Lockout.enabled = true;
+            Color lockoutColor = Lockout.color;
+            lockoutColor.a = 0;
+            Lockout.color = lockoutColor;
+            LockoutButton.enabled = true;
+        } 
+        else
+        {
+            Lockout.enabled = true;
+            Color lockoutColor = Lockout.color;
+            lockoutColor.a = _baseLockoutAlpha / 255f;
+            Lockout.color = lockoutColor;
+            LockoutButton.enabled = false;
+        }
+    }
+
+    public void UpdateSymptomValidity(int hour, PollutantType pollutant)
+    {
+        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        bool validNpc = false;
+        foreach (var npc in scenario.NPCs)
+        {
+            foreach (var npcSlot in npc.TimeSlots)
+            {
+                if (npcSlot.Time == hour && npcSlot.CurrentRoom == roomType)
+                {
+                    if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCPresence))
+                    {
+                        validNpc = true; // auto assume loss conscious
+                    }
+                }
+            }
+        }
+
+        bool pollutantValid = false;
+        RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(roomType, hour);
+        foreach (var reading in slot.PollutantReadings)
+        {
+            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
+            if (reading.Pollutant == pollutant && reading.Concentration > 0 && PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
+            {
+                pollutantValid = true;
+            }
+        }
+
+        if (validNpc && pollutantValid)
+        {
+            Lockout.enabled = true;
+            Color lockoutColor = Lockout.color;
+            lockoutColor.a = 0;
+            Lockout.color = lockoutColor;
+            LockoutButton.enabled = true;
+        } 
+        else
+        {
+            Lockout.enabled = true;
+            Color lockoutColor = Lockout.color;
+            lockoutColor.a = _baseLockoutAlpha / 255f;
+            Lockout.color = lockoutColor;
+            LockoutButton.enabled = false;
+        }
+    }
+
+    void HandleLockoutClick()
+    {
+        InvestigationTimelineChunk.OnValidSelected?.Invoke();
+    }
+
     private void ClearDisplay()
     {
+        if (!isLockoutMap) {    
+            Color clearColor = Lockout.color;
+            clearColor.a = 0;
+            Lockout.color = clearColor;
+
+            Lockout.enabled = false;
+            LockoutButton.enabled = false;
+        }
+        
         GasOverlay.enabled = false;
         
         foreach (Image image in NPCImages)
