@@ -91,6 +91,15 @@ public class TheoryCombo : MonoBehaviour
     private void HandleHideTheory()
     {
         ComboPopup.SetActive(false);
+        if (PollutantAtSource != null)
+        {
+            PollutantAtSource.LockedMap.gameObject.SetActive(false);
+        }
+
+        if (PollutantAtSymptom != null)
+        {
+            PollutantAtSymptom.LockedMap.gameObject.SetActive(false);
+        }
     }
 
     private void HandlePAndSCombo()
