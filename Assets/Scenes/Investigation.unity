@@ -18500,6 +18500,9 @@ MonoBehaviour:
   SymptomButton: {fileID: 8184531008185187617, guid: 1740d81d1875ef740808a5e96dbf9a98, type: 3}
   SymptomPanel: {fileID: 597745834}
   SymptomSelectText: {fileID: 1093692422}
+  TimelineQuestionText: {fileID: 1256167559}
+  SymptomList: {fileID: 1149598146}
+  TimelineQuestion: {fileID: 720748010}
 --- !u!4 &1617880880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 31ded32136148a04abaa8c67f36a1780, type: 3}

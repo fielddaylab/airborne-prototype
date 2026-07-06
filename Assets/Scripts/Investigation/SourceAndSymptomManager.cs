@@ -37,6 +37,11 @@ public class SourceAndSymptomManager : MonoBehaviour
 
     public void Setup(PollutantType pollutant)
     {
+        for (int i = 0; i  < SymptomPanel.transform.childCount; i++)
+        {
+            Destroy(SymptomPanel.transform.GetChild(i));
+        }
+        
         PollutantDataObject pollutantData = null;
         _pollutant = pollutant;
 
