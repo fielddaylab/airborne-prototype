@@ -203,7 +203,6 @@ public class MapRoomDisplay : MonoBehaviour
             lockoutColor.a = 0;
             Lockout.color = lockoutColor;
             LockoutButton.enabled = true;
-            Debug.Log("Valid!");
         } 
         else
         {
@@ -212,7 +211,6 @@ public class MapRoomDisplay : MonoBehaviour
             lockoutColor.a = _baseLockoutAlpha / 255f;
             Lockout.color = lockoutColor;
             LockoutButton.enabled = false;
-            Debug.Log("Invalid!");
         }
     }
 
@@ -253,7 +251,6 @@ public class MapRoomDisplay : MonoBehaviour
             lockoutColor.a = 0;
             Lockout.color = lockoutColor;
             LockoutButton.enabled = true;
-            Debug.Log("Valid!");
         } 
         else
         {
@@ -262,7 +259,6 @@ public class MapRoomDisplay : MonoBehaviour
             lockoutColor.a = _baseLockoutAlpha / 255f;
             Lockout.color = lockoutColor;
             LockoutButton.enabled = false;
-            Debug.Log("Invalid!");
         }
     }
 

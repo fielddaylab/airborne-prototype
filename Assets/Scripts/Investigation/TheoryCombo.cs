@@ -37,6 +37,11 @@ public class TheoryCombo : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        ComboEnabled = false;
+        UnassignedIndicator.SetActive(true);
+    }
 
     public void Setup(FeatureType source, PollutantType pollutant) 
     {
@@ -51,20 +56,14 @@ public class TheoryCombo : MonoBehaviour
         ComboButton.onClick.AddListener(HandleShowTheory);
         ComboButton.enabled = ComboEnabled;
 
-        if (ComboCloser != null)
-        {
-            ComboCloser.onClick.AddListener(HandleHideTheory);
-        }
+        ComboCloser.onClick.AddListener(HandleHideTheory);
     }
 
     void OnDisable()
     {
         ComboButton.onClick.RemoveListener(HandleShowTheory);
 
-        if (ComboCloser != null)
-        {
-            ComboCloser.onClick.RemoveListener(HandleHideTheory);
-        }
+        ComboCloser.onClick.RemoveListener(HandleHideTheory);
     }
 
     private void HandleShowTheory()
@@ -104,6 +103,8 @@ public class TheoryCombo : MonoBehaviour
             PollutantAtSymptom.LockedMap.gameObject.SetActive(false);
             PollutantAtSymptom.FalseSlider.interactable = true;
         }
+        
+        InvestigationTimelineChunk.OnValidSelected -= HandleValidSelection;
     }
 
     private void HandlePAndSCombo()
