@@ -190,6 +190,16 @@ public class TheoryManager : MonoBehaviour
     private void HandleValidSelection()
     {
         _theoryProgress += 1;
+
         TheorySlider.value = _theoryProgress;
+        TheoryText.text = $"{_theoryProgress}/3";
+        TheorizeButton.interactable = false;
+
+        if (_theoryProgress >= 3)
+        {
+            TheoryText.text = "Theorize";
+            TheorizeButton.interactable = true;
+            Debug.Log("You would now switch over to the transition phase!");
+        }
     }
 }

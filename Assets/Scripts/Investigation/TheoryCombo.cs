@@ -25,6 +25,9 @@ public class TheoryCombo : MonoBehaviour
 
     public SourceAndSymptomManager SymptomManager;
 
+    public PollutantAtSourceManager PollutantAtSource;
+    public PollutantAtSymptomManager PollutantAtSymptom;
+
     public void Start()
     {
         if (ComboPopup != null) {
@@ -76,6 +79,12 @@ public class TheoryCombo : MonoBehaviour
             case TheoryComboType.PollutantAndSymptom:
                 HandlePAndSymCombo();
                 break;
+            case TheoryComboType.PollutantAtSource:
+                HandlePAtSCombo();
+                break;
+            case TheoryComboType.PollutantAtSymptom:
+                HandlePAtSymCombo();
+                break;
         }
     }
 
@@ -92,6 +101,60 @@ public class TheoryCombo : MonoBehaviour
     private void HandlePAndSymCombo()
     {
         SymptomManager.Setup(_pollutant);
+    }
+
+    private void HandlePAtSCombo()
+    {
+        Debug.Log("Pollutant at source!");
+
+        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+        
+        int earliestTimeSeen = 99;
+        foreach (var room in data.Rooms)
+        {
+            foreach (var timeSlot in room.TimeSlots)
+            {
+                foreach (PollutantReading reading in timeSlot.PollutantReadings)
+                {
+                    if (reading.Pollutant == _pollutant && reading.Concentration > 0 && timeSlot.Time < earliestTimeSeen)
+                    {
+                        KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(_pollutant);
+                        if (PlayerKnowledgeState.IsKnownHourly(room.RoomTypeValue, timeSlot.Time, knowledge)) {
+                            earliestTimeSeen = timeSlot.Time;
+                        }
+                    }
+                }
+            }
+        }
+
+        PollutantAtSource.Setup(earliestTimeSeen, _pollutant);
+    }
+
+    private void HandlePAtSymCombo()
+    {
+        Debug.Log("Pollutant at Symptom!");
+
+        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        int unconsciousTime = 99;
+        foreach (var npc in data.NPCs)
+        {
+            if (npc.Character == data.MainNpc)
+            {
+                foreach (var time in npc.TimeSlots)
+                {
+                    if (time.Symptom == Symptom.LossConsciousness)
+                    {
+                        if (PlayerKnowledgeState.IsKnownCharacterly(data.MainNpc, time.Time, KnowledgeType.NPCSymptom))
+                        {
+                            unconsciousTime = time.Time;
+                        }
+                    }
+                }
+            }
+        }
+
+        PollutantAtSymptom.Setup(unconsciousTime, _pollutant);
     }
 
     private void HandleValidSelection()
