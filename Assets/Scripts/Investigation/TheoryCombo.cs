@@ -28,6 +28,8 @@ public class TheoryCombo : MonoBehaviour
     public PollutantAtSourceManager PollutantAtSource;
     public PollutantAtSymptomManager PollutantAtSymptom;
 
+    public InvestigationMap LockedMap;
+
     public void Start()
     {
         if (ComboPopup != null) {
@@ -35,6 +37,11 @@ public class TheoryCombo : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        ComboEnabled = false;
+        UnassignedIndicator.SetActive(true);
+    }
 
     public void Setup(FeatureType source, PollutantType pollutant) 
     {
@@ -49,20 +56,14 @@ public class TheoryCombo : MonoBehaviour
         ComboButton.onClick.AddListener(HandleShowTheory);
         ComboButton.enabled = ComboEnabled;
 
-        if (ComboCloser != null)
-        {
-            ComboCloser.onClick.AddListener(HandleHideTheory);
-        }
+        ComboCloser.onClick.AddListener(HandleHideTheory);
     }
 
     void OnDisable()
     {
         ComboButton.onClick.RemoveListener(HandleShowTheory);
 
-        if (ComboCloser != null)
-        {
-            ComboCloser.onClick.RemoveListener(HandleHideTheory);
-        }
+        ComboCloser.onClick.RemoveListener(HandleHideTheory);
     }
 
     private void HandleShowTheory()
@@ -91,6 +92,19 @@ public class TheoryCombo : MonoBehaviour
     private void HandleHideTheory()
     {
         ComboPopup.SetActive(false);
+        if (PollutantAtSource != null)
+        {
+            PollutantAtSource.LockedMap.gameObject.SetActive(false);
+            PollutantAtSource.FalseSlider.interactable = true;
+        }
+
+        if (PollutantAtSymptom != null)
+        {
+            PollutantAtSymptom.LockedMap.gameObject.SetActive(false);
+            PollutantAtSymptom.FalseSlider.interactable = true;
+        }
+        
+        InvestigationTimelineChunk.OnValidSelected -= HandleValidSelection;
     }
 
     private void HandlePAndSCombo()
@@ -128,6 +142,7 @@ public class TheoryCombo : MonoBehaviour
         }
 
         PollutantAtSource.Setup(earliestTimeSeen, _pollutant);
+        LockedMap.SetupSourceSelector(earliestTimeSeen, _pollutant, _source);
     }
 
     private void HandlePAtSymCombo()
@@ -155,6 +170,7 @@ public class TheoryCombo : MonoBehaviour
         }
 
         PollutantAtSymptom.Setup(unconsciousTime, _pollutant);
+        LockedMap.SetupSymptomSelector(unconsciousTime, _pollutant);
     }
 
     private void HandleValidSelection()

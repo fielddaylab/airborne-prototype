@@ -25,6 +25,12 @@ public class SourceAndSymptomManager : MonoBehaviour
         TimelineSelect
     }
 
+    void Start()
+    {
+        SymptomList.gameObject.SetActive(false);
+        TimelineQuestion.gameObject.SetActive(false);
+    }
+
     void OnEnable()
     {
         OnSelectSymptom += OnSymptomSelected;
@@ -37,9 +43,12 @@ public class SourceAndSymptomManager : MonoBehaviour
 
     public void Setup(PollutantType pollutant)
     {
+        SymptomList.gameObject.SetActive(true);
+        TimelineQuestion.gameObject.SetActive(false);
+        
         for (int i = 0; i  < SymptomPanel.transform.childCount; i++)
         {
-            Destroy(SymptomPanel.transform.GetChild(i));
+            Destroy(SymptomPanel.transform.GetChild(i).gameObject);
         }
         
         PollutantDataObject pollutantData = null;
@@ -74,6 +83,8 @@ public class SourceAndSymptomManager : MonoBehaviour
                 symptomButton.Symptom = symptom;
             }
         }
+
+        PlayerInvestigationTimeline.OnTimelineRequested?.Invoke(scenario.MainNpc);
 
         SymptomSelectText.text = $"Select a symptom Roundy experienced that matches with {pollutant}:";
     }
