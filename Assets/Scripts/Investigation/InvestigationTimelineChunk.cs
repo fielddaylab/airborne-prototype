@@ -272,8 +272,6 @@ public class InvestigationTimelineChunk : MonoBehaviour
         NPCOverlay.SetActive(true);
         RoomOverlay.SetActive(true);
 
-        Debug.Log("This was reached!");
-
         Symptom blockSymptom = Symptom.None;
 
         if (PlayerKnowledgeState.IsKnownCharacterly(character, hour, KnowledgeType.NPCSymptom))
