@@ -251,8 +251,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             }
         }
 
-        TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(_currentFeatureType);
-        TimelineText.text = _currentFeatureType.ToString();
+        TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(featureType);
+        TimelineText.text = featureType.ToString();
     }
 
     private void HandleNPCRequest(Symptom symptom, PollutantType pollutant)
@@ -280,15 +280,15 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                         if (room.RoomTypeValue == npc.TimeSlots[i].CurrentRoom)
                         {
                             RoomTimeSlot roomSlot = room.TimeSlots[i];
-                            TimelineOverlay.TimelineChunks[i].SetDetailedNPCGraphics(_currentRoomType, npc.Character, actualHour, isNewRoom, symptom, pollutant, slot, roomSlot);
+                            TimelineOverlay.TimelineChunks[i].SetDetailedNPCGraphics(room.RoomTypeValue, npc.Character, actualHour, isNewRoom, symptom, pollutant, slot, roomSlot);
                         }
                     }
                 }
             }
         }
 
-        TimelineIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(_currentCharacterType);
-        TimelineText.text = _currentCharacterType.ToString();
+        TimelineIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(data.MainNpc);
+        TimelineText.text = data.MainNpc.ToString();
     }
 
     private void HandleReset()
