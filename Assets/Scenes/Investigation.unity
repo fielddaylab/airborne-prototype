@@ -2626,7 +2626,7 @@ MonoBehaviour:
   BaseHour: 13
   CurrentHour: 0
   TotalNumHours: 8
-  TimelineSpeed: 1
+  TimelineSpeed: 0.25
 --- !u!114 &173906787
 MonoBehaviour:
   m_ObjectHideFlags: 0
