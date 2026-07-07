@@ -20,6 +20,7 @@ public class PollutantAtSymptomManager : MonoBehaviour
         LockedMap.gameObject.SetActive(true);
         FalseSlider.value = unconsciousTime - 13;
         FalseSlider.interactable = false;
+        StartCoroutine(RefreshLockedMapAfterFrame(pollutant));
 
         if (unconsciousTime < 99)
         {
@@ -28,6 +29,15 @@ public class PollutantAtSymptomManager : MonoBehaviour
         else
         {
             QuestionText.text = "No valid data found.";
+        }
+    }
+
+    private IEnumerator RefreshLockedMapAfterFrame(PollutantType pollutant)
+    {
+        yield return null;
+        if (LockedMap != null)
+        {
+            LockedMap.SetOverlayForPollutant(pollutant);
         }
     }
 }

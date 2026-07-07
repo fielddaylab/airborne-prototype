@@ -20,6 +20,7 @@ public class PollutantAtSourceManager : MonoBehaviour
         LockedMap.gameObject.SetActive(true);
         FalseSlider.value = earliestHour - 13;
         FalseSlider.interactable = false;
+        StartCoroutine(RefreshLockedMapAfterFrame(pollutant));
 
         if (earliestHour < 99)
         {
@@ -28,6 +29,15 @@ public class PollutantAtSourceManager : MonoBehaviour
         else
         {
             QuestionText.text = "No valid data found.";
+        }
+    }
+
+    private IEnumerator RefreshLockedMapAfterFrame(PollutantType pollutant)
+    {
+        yield return null;
+        if (LockedMap != null)
+        {
+            LockedMap.SetOverlayForPollutant(pollutant);
         }
     }
 }

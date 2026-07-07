@@ -14,21 +14,11 @@ public class InvestigationMap : MonoBehaviour
     public Slider FalseSlider;
 
     private PollutantType _selectedPollutant = PollutantType.CO;
+    private int _selectedOverlayIndex = 0;
 
     public void Start()
     {
-        foreach (var room in MapRooms)
-        {
-            room.gameObject.SetActive(false);
-        }
-        foreach (var connector in MapConnectors)
-        {
-            connector.gameObject.SetActive(false);
-        }
-
-        UpdateRooms(FalseSlider.value);
-
-        SwitchTo(_startButton);
+        InitializeDisplay();
     }
 
     public void OnEnable()
@@ -40,6 +30,8 @@ public class InvestigationMap : MonoBehaviour
             int index = i; 
             OverlayButtons[i].onClick.AddListener(() => SwitchTo(index));
         }
+
+        StartCoroutine(InitializeAfterFrame());
     }
 
     public void OnDisable()
@@ -50,6 +42,64 @@ public class InvestigationMap : MonoBehaviour
         {
             button.onClick.RemoveAllListeners();
         }
+    }
+
+    private IEnumerator InitializeAfterFrame()
+    {
+        yield return null;
+        InitializeDisplay();
+    }
+
+    private void InitializeDisplay()
+    {
+        if (MapRooms == null || MapConnectors == null)
+        {
+            return;
+        }
+
+        foreach (var room in MapRooms)
+        {
+            if (room != null)
+            {
+                room.gameObject.SetActive(false);
+            }
+        }
+        foreach (var connector in MapConnectors)
+        {
+            if (connector != null)
+            {
+                connector.gameObject.SetActive(false);
+            }
+        }
+
+        if (FalseSlider != null)
+        {
+            UpdateRooms(FalseSlider.value);
+        }
+
+        if (OverlayButtons != null && OverlayButtons.Length > 0)
+        {
+            SwitchTo(_selectedOverlayIndex);
+        }
+    }
+
+    public void SetOverlayForPollutant(PollutantType pollutant)
+    {
+        if (OverlayButtons == null || OverlayButtonPollutants == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < OverlayButtonPollutants.Length; i++)
+        {
+            if (OverlayButtonPollutants[i] == pollutant)
+            {
+                SwitchTo(i);
+                return;
+            }
+        }
+
+        SwitchTo(_selectedOverlayIndex);
     }
 
     public void UpdateRooms(float f)
@@ -112,9 +162,16 @@ public class InvestigationMap : MonoBehaviour
 
     public void SwitchTo(int t)
     {
+        if (OverlayButtons == null || OverlayButtons.Length == 0)
+        {
+            return;
+        }
+
+        _selectedOverlayIndex = Mathf.Clamp(t, 0, OverlayButtons.Length - 1);
+
         for (int i = 0; i < OverlayButtons.Length; i++)
         {
-            if (t == i) 
+            if (_selectedOverlayIndex == i) 
             { 
                 _selectedPollutant = OverlayButtonPollutants[i];
                 OverlayButtons[i].interactable = false;
@@ -124,6 +181,9 @@ public class InvestigationMap : MonoBehaviour
             }
         }
 
-        UpdateRooms(FalseSlider.value);
+        if (FalseSlider != null)
+        {
+            UpdateRooms(FalseSlider.value);
+        }
     }
 }

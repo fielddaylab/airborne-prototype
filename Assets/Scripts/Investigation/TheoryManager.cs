@@ -142,7 +142,7 @@ public class TheoryManager : MonoBehaviour
 
     private void HandleSourceSelected(FeatureType feature)
     {
-        Reset();
+        ResetSelectionState();
         Sprite sourceSprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
         Color sourceColor = SourceButton.image.color;
         sourceColor.a = 0;
@@ -182,7 +182,16 @@ public class TheoryManager : MonoBehaviour
 
         SourceSelection.gameObject.SetActive(false);
 
-        Debug.Log("Attempted to reset!");
+        foreach (var combo in Combos)
+        {
+            combo.Reset();
+        }
+    }
+
+    private void ResetSelectionState()
+    {
+        SourceSelection.gameObject.SetActive(false);
+
         foreach (var combo in Combos)
         {
             combo.Reset();
