@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class CaseFileManager : MonoBehaviour
     public InvestigationMap Map;
     public InvestigationPollutantsManager Pollutants;
     private bool _caseFileOpen;
+
+    public static event Action OnCaseFileClosed;
 
     public void Start()
     {
@@ -44,6 +47,10 @@ public class CaseFileManager : MonoBehaviour
         {
             Map.UpdateRooms(TrueTimelineSlider.value);
             Pollutants.UpdateInformation();
+        } else
+        {
+            OnCaseFileClosed?.Invoke();
+            PlayerInvestigationTimeline.OnResetRequested.Invoke();
         }
     }
 }
