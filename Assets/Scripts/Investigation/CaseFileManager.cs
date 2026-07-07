@@ -12,7 +12,7 @@ public class CaseFileManager : MonoBehaviour
     public Slider TrueTimelineSlider;
     public InvestigationMap Map;
     public InvestigationPollutantsManager Pollutants;
-    private bool _caseFileOpen;
+    public static bool CaseFileOpen;
 
     public static event Action OnCaseFileClosed;
 
@@ -33,17 +33,17 @@ public class CaseFileManager : MonoBehaviour
 
     public void ToggleCaseFile()
     {
-        _caseFileOpen = !_caseFileOpen;
-        CaseFilePanel.gameObject.SetActive(_caseFileOpen);
+        CaseFileOpen = !CaseFileOpen;
+        CaseFilePanel.gameObject.SetActive(CaseFileOpen);
 
-        FalseTimelineSlider.gameObject.SetActive(_caseFileOpen);
+        FalseTimelineSlider.gameObject.SetActive(CaseFileOpen);
         FalseTimelineSlider.value = InvestigationTimelineSystem.Instance.CurrentHour - InvestigationTimelineSystem.Instance.BaseHour;
 
-        TrueTimelineSlider.interactable = !_caseFileOpen;
+        TrueTimelineSlider.interactable = !CaseFileOpen;
 
-        InvestigationTimelineSystem.Instance.PauseTime(_caseFileOpen);
+        InvestigationTimelineSystem.Instance.PauseTime(CaseFileOpen);
 
-        if (_caseFileOpen)
+        if (CaseFileOpen)
         {
             Map.UpdateRooms(TrueTimelineSlider.value);
             Pollutants.UpdateInformation();
