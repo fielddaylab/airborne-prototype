@@ -17,6 +17,17 @@ public static class PlayerKnowledgeState
     public static event Action OnKnowledgeUpdated;
 
     // classes can log their specific information as discovered
+
+    public static void Reset()
+    {
+        HourlyDiscovered = new();
+        GenerallyDiscovered = new();
+        CharacterDiscovered = new();
+        IDDiscovered = new();
+        SeenSymptoms = new();
+        SeenFeatures = new();
+    }
+
     public static void Discover(RoomType room, int time, KnowledgeType type)
     {
         //Debug.Log($"Recorded information about {type} in room {room}!");

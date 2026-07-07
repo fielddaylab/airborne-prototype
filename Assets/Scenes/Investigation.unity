@@ -4850,14 +4850,14 @@ GameObject:
   - component: {fileID: 334583245}
   - component: {fileID: 334583244}
   - component: {fileID: 334583243}
-  - component: {fileID: 334583242}
+  - component: {fileID: 334583246}
   m_Layer: 5
   m_Name: Return Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &334583241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4878,19 +4878,6 @@ RectTransform:
   m_AnchoredPosition: {x: -95.796265, y: -39.94153}
   m_SizeDelta: {x: 164.988, y: 56.604}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &334583242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334583240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aee216cf30102c845b8580247ca74ce8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneToLoad: Main
 --- !u!114 &334583243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4973,6 +4960,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334583240}
   m_CullTransparentMesh: 1
+--- !u!114 &334583246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334583240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea2e0cb83cbfba4cb5d782cba0687ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneToLoad: Investigation
 --- !u!1 &337560990
 GameObject:
   m_ObjectHideFlags: 0
@@ -8943,7 +8943,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Return to Main
+  m_text: Reset Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
