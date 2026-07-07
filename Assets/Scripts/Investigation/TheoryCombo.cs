@@ -142,7 +142,7 @@ public class TheoryCombo : MonoBehaviour
         }
 
         PollutantAtSource.Setup(earliestTimeSeen, _pollutant);
-        LockedMap.SetupSourceSelector(earliestTimeSeen, _pollutant, _source);
+        StartCoroutine(RefreshLockedMapAfterFrame(earliestTimeSeen, true));
     }
 
     private void HandlePAtSymCombo()
@@ -170,7 +170,25 @@ public class TheoryCombo : MonoBehaviour
         }
 
         PollutantAtSymptom.Setup(unconsciousTime, _pollutant);
-        LockedMap.SetupSymptomSelector(unconsciousTime, _pollutant);
+        StartCoroutine(RefreshLockedMapAfterFrame(unconsciousTime, false));
+    }
+
+    private IEnumerator RefreshLockedMapAfterFrame(int hour, bool isSourceSelector)
+    {
+        yield return null;
+        if (LockedMap == null)
+        {
+            yield break;
+        }
+
+        if (isSourceSelector)
+        {
+            LockedMap.SetupSourceSelector(hour, _pollutant, _source);
+        }
+        else
+        {
+            LockedMap.SetupSymptomSelector(hour, _pollutant);
+        }
     }
 
     private void HandleValidSelection()
