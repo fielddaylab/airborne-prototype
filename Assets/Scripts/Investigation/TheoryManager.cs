@@ -185,7 +185,7 @@ public class TheoryManager : MonoBehaviour
         foreach (var combo in Combos)
         {
             combo.Reset();
-        }
+        } 
     }
 
     private void ResetSelectionState()
