@@ -6790,7 +6790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -299.9998}
+  m_AnchoredPosition: {x: 0, y: -299.99976}
   m_SizeDelta: {x: 0, y: -600.0005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488254168
@@ -9236,6 +9236,10 @@ PrefabInstance:
       propertyPath: Waypoints.Array.data[3].Waypoint
       value: 
       objectReference: {fileID: 213263895}
+    - target: {fileID: 6022862805171814747, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
+      propertyPath: NPCData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9842a6970f63d664495d72d7d5852e33, type: 2}
     - target: {fileID: 6377143293064429358, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
       propertyPath: m_Name
       value: Redmman Blockhead
