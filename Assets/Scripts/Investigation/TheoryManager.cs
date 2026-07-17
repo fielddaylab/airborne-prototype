@@ -6,6 +6,8 @@ using TMPro;
 
 public class TheoryManager : MonoBehaviour
 {
+    public BossPromptController bossPrompt;
+    
     [Header("Pollutant Fields")]
     public Image PollutantPortrait;
     public TextMeshProUGUI PollutantText;
@@ -55,6 +57,7 @@ public class TheoryManager : MonoBehaviour
         SourceButton.onClick.AddListener(HandleSourceSelection);
         SourceSelector.OnSourceSelection += HandleSourceSelected;
         InvestigationTimelineChunk.OnValidSelected += HandleValidSelection;
+        TheorizeButton.onClick.AddListener(HandleTheorySubmission);
     }
 
     public void OnDisable()
@@ -62,6 +65,7 @@ public class TheoryManager : MonoBehaviour
         SourceButton.onClick.RemoveListener(HandleSourceSelection);
         SourceSelector.OnSourceSelection -= HandleSourceSelected;
         InvestigationTimelineChunk.OnValidSelected -= HandleValidSelection;
+        TheorizeButton.onClick.RemoveListener(HandleTheorySubmission);
     }
 
     public void AssemblePanel(PollutantDataObject pollutantData)
@@ -217,5 +221,10 @@ public class TheoryManager : MonoBehaviour
             TheorizeButton.interactable = true;
             Debug.Log("You would now switch over to the transition phase!");
         }
+    }
+
+    private void HandleTheorySubmission()
+    {
+        bossPrompt.StartBossSequence();
     }
 }

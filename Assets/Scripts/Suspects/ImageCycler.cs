@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class ImageCycler : MonoBehaviour
 {
-    [SerializeField] private Texture checkMark;
-    [SerializeField] private Texture xMark;
+    [SerializeField] private Sprite checkMark;
+    [SerializeField] private Sprite xMark;
 
-    private RawImage rawImage;
+    private Image rawImage;
     private int cycleState = 0;
     
     void Awake()
     {
-        rawImage = GetComponent<RawImage>();
+        rawImage = GetComponent<Image>();
         rawImage.enabled = false;
     }
 
@@ -28,14 +28,14 @@ public class ImageCycler : MonoBehaviour
         {
             case 0:
                 rawImage.enabled = false;
-                rawImage.texture = null;
+                rawImage.sprite = null;
                 break;
             case 1:
                 rawImage.enabled = true;
-                rawImage.texture = checkMark;
+                rawImage.sprite = checkMark;
                 break;
             case 2:
-                rawImage.texture = xMark;
+                rawImage.sprite = xMark;
                 break;
         }
 
@@ -48,14 +48,14 @@ public class ImageCycler : MonoBehaviour
         {
             case 0:
                 rawImage.enabled = false;
-                rawImage.texture = null;
+                rawImage.sprite = null;
                 break;
             case 1:
                 rawImage.enabled = true;
-                rawImage.texture = checkMark;
+                rawImage.sprite = checkMark;
                 break;
             case 2:
-                rawImage.texture = xMark;
+                rawImage.sprite = xMark;
                 break;
         }
     }

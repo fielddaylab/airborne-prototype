@@ -9,5 +9,11 @@ public class TheoryPiece : MonoBehaviour
     public FeatureType RepresentedFeature = FeatureType.None;
     
     public Image TheoryImage;
+    public Image Status;
     public ImageCycler Cycler;
+
+    public void Start()
+    {
+        BossPromptController.RegisterCheckmark(Status);
+    }
 }

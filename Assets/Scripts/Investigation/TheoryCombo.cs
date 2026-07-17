@@ -21,7 +21,8 @@ public class TheoryCombo : MonoBehaviour
 
     public GameObject ComboPopup;
     public Button ComboCloser;
-    public GameObject UnassignedIndicator;
+    public Image UnassignedIndicator;
+    public Sprite Checkmark;
 
     public SourceAndSymptomManager SymptomManager;
 
@@ -30,17 +31,24 @@ public class TheoryCombo : MonoBehaviour
 
     public InvestigationMap LockedMap;
 
+
+    private Color _baseColor;
+
     public void Start()
     {
         if (ComboPopup != null) {
             ComboPopup.SetActive(false);
         }
+
+        _baseColor = UnassignedIndicator.color;
+        BossPromptController.RegisterCheckmark(UnassignedIndicator);
     }
 
     public void Reset()
     {
         ComboEnabled = false;
-        UnassignedIndicator.SetActive(true);
+        UnassignedIndicator.sprite = null;
+        UnassignedIndicator.color = _baseColor;
     }
 
     public void Setup(FeatureType source, PollutantType pollutant) 
@@ -194,7 +202,8 @@ public class TheoryCombo : MonoBehaviour
     private void HandleValidSelection()
     {
         HandleHideTheory();
-        UnassignedIndicator.SetActive(false);
+        UnassignedIndicator.sprite = Checkmark;
+        UnassignedIndicator.color = Color.white;
         PlayerInvestigationTimeline.OnResetRequested.Invoke();
         InvestigationTimelineChunk.OnValidSelected -= HandleValidSelection;
     }
