@@ -9,7 +9,7 @@ public class InvestigationMap : MonoBehaviour
     public MapConnector[] MapConnectors;
     public Button[] OverlayButtons;
     public PollutantType[] OverlayButtonPollutants;
-    private int _startButton = 0;
+    //private int _startButton = 0;
 
     public Slider FalseSlider;
 
