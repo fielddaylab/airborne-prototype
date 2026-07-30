@@ -23,6 +23,8 @@ public class InvestigationTimelineSystem : MonoBehaviour
     private float _trueTime = 0;
     public bool IsPaused { get; private set; }
 
+    private bool _isFinalLoop = false;
+
     public Dictionary<(RoomType, int), RoomTimeSlot> TimeSlotLookup = new();
 
     public void Start()
@@ -59,6 +61,13 @@ public class InvestigationTimelineSystem : MonoBehaviour
         if (_trueTime < previous)
         {
             OnTimeReset?.Invoke();
+            NewGameManager.Instance.Statistics.NumLoops++;
+
+            if (_isFinalLoop)
+            {
+                IsPaused = true;
+                NewGameManager.Instance.SwitchToPhase(NewGamePhase.PSA);
+            }
         }
 
         UITimeline.TimelineSlider.value = _trueTime;
@@ -83,5 +92,15 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public void RegisterMeter(GasMeter meter)
     {
         Meters.Add(meter); // just to use for the maps mostly
+    }
+
+    public void HandlePhaseChange(NewGamePhase phase)
+    {
+        if (phase == NewGamePhase.Intervention)
+        {
+            _isFinalLoop = true;
+            _trueTime = 0;
+            IsPaused = false;
+        }
     }
 }

@@ -43,5 +43,6 @@ public class RescuePlannerManager : MonoBehaviour
     public void HandleAdvance()
     {
         gameObject.SetActive(false);
+        NewGameManager.Instance.SwitchToPhase(NewGamePhase.Intervention);
     }
 }

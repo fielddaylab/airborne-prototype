@@ -219,7 +219,8 @@ public class TheoryManager : MonoBehaviour
         {
             TheoryText.text = "Submit";
             TheorizeButton.interactable = true;
-            Debug.Log("You would now switch over to the transition phase!");
+            
+            NewGameManager.Instance.SwitchToPhase(NewGamePhase.Transition);
         }
     }
 
