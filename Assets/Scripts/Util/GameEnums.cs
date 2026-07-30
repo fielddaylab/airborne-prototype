@@ -83,3 +83,12 @@ public enum FlowChangeEventType {
     Move,
     Swap
 }
+
+public enum EquipmentType
+{
+    Fan,
+    Filter,
+    Cleaner,
+    ElectricStove,
+    HeatPump
+}
