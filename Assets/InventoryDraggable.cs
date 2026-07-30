@@ -47,6 +47,8 @@ public class InventoryDraggable : MonoBehaviour, IPointerEnterHandler, IBeginDra
         
         Placed = false;
         SlotImage.raycastTarget = false;
+        
+        RescuePlannerManager.Instance.RemoveEquipment(_equipmentType);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -76,5 +78,10 @@ public class InventoryDraggable : MonoBehaviour, IPointerEnterHandler, IBeginDra
 
         Placed = true;
         SlotImage.raycastTarget = true;
+
+        if (newSlot.IsPlayerInventory)
+        {
+            RescuePlannerManager.Instance.AddEquipment(_equipmentType);
+        }
     }
 }
