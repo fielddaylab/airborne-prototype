@@ -8,17 +8,22 @@ public class InventoryDraggable : MonoBehaviour, IPointerEnterHandler, IBeginDra
 {
     public Button Draggable;
     public Image SlotImage;
+
+    [HideInInspector] public InventorySlot ParentSlot;
+    [HideInInspector] public bool Placed = false;
+
     private EquipmentType _equipmentType;
     private EquipmentMapObject _mapReference;
 
-    private RectTransform rectTransform;
-    private Canvas canvas;
-    Transform _lastParent;
+    private RectTransform _rectTransform;
+    private Canvas _canvas;
+    //private Transform _lastParent;
+
 
     void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
+        _rectTransform = GetComponent<RectTransform>();
+        _canvas = GetComponentInParent<Canvas>();
     }
 
     public void Setup(EquipmentMapObject map, EquipmentType type)
@@ -36,22 +41,40 @@ public class InventoryDraggable : MonoBehaviour, IPointerEnterHandler, IBeginDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        _lastParent = transform.parent;
         transform.SetParent(InventoryDragAnchor.Instance.transform);
+
+        ParentSlot.IsEmpty = true;
+        
+        Placed = false;
+        SlotImage.raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.SetParent(_lastParent, true);
+        if (!Placed) {
+            SetNewParent(ParentSlot);
+        }
+    }
+
+    public void SetNewParent(InventorySlot newSlot)
+    {
+        ParentSlot = newSlot;
+        
+        transform.SetParent(newSlot.transform, true);
 
         if (transform is RectTransform rectTransform)
         {
             rectTransform.anchoredPosition = Vector2.zero;
         }
+        
+        newSlot.IsEmpty = false;
+
+        Placed = true;
+        SlotImage.raycastTarget = true;
     }
 }
