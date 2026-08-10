@@ -15,6 +15,8 @@ public class EquipmentSet
     public Sprite Sprite;
     public string Label;
     public string Description;
+    public bool UsesPips;
+    public int NumPips;
 }
 
 // after learning a bit from spacefab and ais, it seems this is a better way to handle things than holding lookup tables in the object itself
@@ -57,5 +59,31 @@ public static class EquipmentMapUtility
         }
 
         return null;
+    }
+
+    public static bool UsesPips(EquipmentMapObject map, EquipmentType type)
+    {
+        foreach (var set in map.Sets)
+        {
+            if (set.Type == type)
+            {
+                return set.UsesPips;
+            }
+        }
+
+        return false;
+    }
+
+    public static int GetNumPips(EquipmentMapObject map, EquipmentType type)
+    {
+        foreach (var set in map.Sets)
+        {
+            if (set.Type == type)
+            {
+                return set.NumPips;
+            }
+        }
+
+        return -1;
     }
 }

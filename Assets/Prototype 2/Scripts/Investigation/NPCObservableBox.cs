@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCObservableBox : MonoBehaviour
 {
     public InvestigationNPCObject NPCData;
-    private ToolType _lastToolType;
+    private EquipmentType _lastToolType;
 
     public void Start()
     {
@@ -36,10 +36,10 @@ public class NPCObservableBox : MonoBehaviour
         VisibilityCheck();
     }
 
-    private void HandleToolUpdated(ToolType type)
+    private void HandleToolUpdated(EquipmentType type)
     {
         _lastToolType = type;
-        if (type == ToolType.Observe)
+        if (type == EquipmentType.Observe)
         {
             VisibilityCheck();
         } 
@@ -51,7 +51,7 @@ public class NPCObservableBox : MonoBehaviour
 
     private void HandleHourEntered(int h)
     {
-        if (_lastToolType == ToolType.Observe) VisibilityCheck();
+        if (_lastToolType == EquipmentType.Observe) VisibilityCheck();
     }
 
     private void VisibilityCheck()

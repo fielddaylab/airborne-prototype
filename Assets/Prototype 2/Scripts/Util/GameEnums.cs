@@ -86,6 +86,10 @@ public enum FlowChangeEventType {
 
 public enum EquipmentType
 {
+    None,
+    Observe,
+    Scan,
+    Meter,
     Fan,
     Filter,
     Cleaner,

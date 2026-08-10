@@ -5,6 +5,7 @@ using UnityEngine;
 public class ToolboxManager : MonoBehaviour
 {
     public EquipmentMapObject EquipmentMap;
+    public List<EquipmentType> EquipmentList;
     public Transform InventoryParent;
     
     void Start()
@@ -14,10 +15,10 @@ public class ToolboxManager : MonoBehaviour
 
     public void LoadEquipmentSlots()
     {
-        for (int i = 0; i < EquipmentMap.Sets.Length; i++)
+        for (int i = 0; i < EquipmentList.Count; i++)
         {
             InventorySlot slot = InventoryParent.GetChild(i).GetComponent<InventorySlot>();
-            slot.LoadEquipment(EquipmentMap, EquipmentMap.Sets[i].Type);
+            slot.LoadEquipment(EquipmentMap, EquipmentList[i]);
         }
     }
 }

@@ -38,7 +38,7 @@ public class ScanTool : MonoBehaviour
         MeterRenderer.flipY = direction.x < 0;
     }
 
-    private void HandleToolUpdated(ToolType type)
+    private void HandleToolUpdated(EquipmentType type)
     {
         ObserveRenderer.enabled = false;
         ScanRenderer.enabled = false;
@@ -46,13 +46,13 @@ public class ScanTool : MonoBehaviour
 
         switch (type)
         {
-            case ToolType.Observe:
+            case EquipmentType.Observe:
                 ObserveRenderer.enabled = true;
                 break;
-            case ToolType.Scan:
+            case EquipmentType.Scan:
                 ScanRenderer.enabled = true;
                 break;
-            case ToolType.Meter:
+            case EquipmentType.Meter:
                 MeterRenderer.enabled = true;
                 break;
         }

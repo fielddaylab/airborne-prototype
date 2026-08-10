@@ -16,7 +16,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
     // data stuff
     private InvestigationRoom _currentRoom;
-    private ToolType _currentToolType;
+    private EquipmentType _currentToolType;
     private int _currentHour;
 
     private RoomType _currentRoomType;
@@ -73,13 +73,13 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     }
 
     // handle player activating or disabling tools and what information they should know
-    private void HandleToolUpdated(ToolType type)
+    private void HandleToolUpdated(EquipmentType type)
     {
         _currentToolType = type;
 
         if (_currentRoom == null) return;
         
-        if (_currentToolType == ToolType.Scan)
+        if (_currentToolType == EquipmentType.Scan)
         {
             RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
@@ -100,7 +100,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         // for now, check if they should know if a pollutant is present in a room
         if (_currentRoom == null) return;
         
-        if (_currentToolType == ToolType.Scan)
+        if (_currentToolType == EquipmentType.Scan)
         {
             _currentRoomType = _currentRoom.RoomTypeValue;
             _currentTimelineType = TimelineType.Room;

@@ -30,8 +30,8 @@ public class MeterPlaceable : MonoBehaviour
         }
     }
 
-    private void HandleToolUpdated(ToolType type)
+    private void HandleToolUpdated(EquipmentType type)
     {
-        IsClickable = type == ToolType.Meter;
+        IsClickable = type == EquipmentType.Meter;
     }
 }
