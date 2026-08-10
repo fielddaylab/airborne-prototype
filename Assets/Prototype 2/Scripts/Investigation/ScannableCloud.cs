@@ -28,9 +28,9 @@ public class ScannableCloud : MonoBehaviour
         //ScenarioEventDispatcher.OnPollutantUpdated -= HandlePollutantUpdated;
     }
 
-    private void HandleToolUpdated(ToolType type)
+    private void HandleToolUpdated(EquipmentType type)
     {
-        _scannerActive = type == ToolType.Scan;
+        _scannerActive = type == EquipmentType.Scan;
 
         UpdateVisibility();
     }

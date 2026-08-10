@@ -14,24 +14,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sets:
   - Type: 0
+    Sprite: {fileID: 0}
+    Label: Nothing
+    Description: If you see this something broke!
+    UsesPips: 0
+    NumPips: 0
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 5b979b56c5837e648a7b9110477a5d0f, type: 3}
+    Label: Search
+    Description: Investigates objects in a room.
+    UsesPips: 0
+    NumPips: 0
+  - Type: 2
+    Sprite: {fileID: 21300000, guid: 5791306da60fd5e4f9d053eef8601ce1, type: 3}
+    Label: Scan
+    Description: Scans for pollutants in a room.
+    UsesPips: 0
+    NumPips: 0
+  - Type: 3
+    Sprite: {fileID: 21300000, guid: 07f2b8f448c190947b729180c29b5911, type: 3}
+    Label: Meter
+    Description: Detects a specific poolutant in a room
+    UsesPips: 1
+    NumPips: 4
+  - Type: 4
     Sprite: {fileID: 21300000, guid: ba52fae4114faf54781ae018fcf59459, type: 3}
     Label: Fan
     Description: Stirs air in a room, moving gases around faster.
-  - Type: 1
+    UsesPips: 1
+    NumPips: 2
+  - Type: 5
     Sprite: {fileID: 21300000, guid: c891ff24d224ec74db68a91f677c0b75, type: 3}
     Label: Filter
-    Description: Removes particulate matter pollutant from a room.
-  - Type: 2
+    Description: Removes particulate matter pollutant from a room (dust, mold, etc)
+    UsesPips: 1
+    NumPips: 1
+  - Type: 6
     Sprite: {fileID: 21300000, guid: 78ba7c4e8ff5726449821b065033d895, type: 3}
     Label: Cleaner
-    Description: Removes a mold source, but produces VOCs.
-  - Type: 3
+    Description: Removes mold source, but produces VOCs.
+    UsesPips: 0
+    NumPips: 0
+  - Type: 7
     Sprite: {fileID: 21300000, guid: 9826ebae4cc3796458b08a12deca60a4, type: 3}
     Label: Electric Stove
-    Description: A stove that uses the power of electrickery instead of noxious gas
-      pulled from the depths.
-  - Type: 4
+    Description: Use on a gas stove to replace with an electric one. Ends pollutant
+      production.
+    UsesPips: 1
+    NumPips: 1
+  - Type: 8
     Sprite: {fileID: 21300000, guid: 1d9d7a1145040354a8de609e8532ba89, type: 3}
     Label: Heat Pump
     Description: A mysterious device that draws heat from the 5th dimension to fuel
       your home.
+    UsesPips: 1
+    NumPips: 1

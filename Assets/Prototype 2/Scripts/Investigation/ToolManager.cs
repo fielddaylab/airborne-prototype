@@ -4,38 +4,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ToolType
+public enum ToolbarMode
 {
-    None,
-    Observe,
-    Scan,
-    Meter
+    Investigation,
+    Intervention
 }
 
 public class ToolManager : MonoBehaviour
 {
+    public GameObject ToolButtonPrefab;
+    
     public Button ObserveButton, ScannerButton, MeterButton;
-    public ToolType SelectedTool = ToolType.None;
 
-    public static event Action<ToolType> OnToolUpdated;
+    public ToolbarMode CurrentMode = ToolbarMode.Investigation;
+
+    public EquipmentType SelectedTool = EquipmentType.None;
+
+    public static event Action<EquipmentType> OnToolUpdated;
+
+    List<EquipmentType> StarterTools = new List<EquipmentType>
+    {
+        EquipmentType.Observe,
+        EquipmentType.Scan,
+        EquipmentType.Meter
+    };
+
+    private Dictionary<Button, EquipmentType> ButtonTools;
 
     void Start()
     {
-        ObserveButton.onClick.AddListener(() => ChangeTool(ToolType.Observe));
-        ScannerButton.onClick.AddListener(() => ChangeTool(ToolType.Scan));
-        MeterButton.onClick.AddListener(() => ChangeTool(ToolType.Meter));
+        LoadTools(StarterTools);
 
-        ChangeTool(ToolType.None);
+        ChangeTool(EquipmentType.None);
     }
 
-    private void ChangeTool(ToolType tool)
+    private void LoadTools(List<EquipmentType> toolsToLoad)
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject toolObj = transform.GetChild(i).gameObject;
+            ToolButton toolButton = toolObj.GetComponent<ToolButton>();
+            toolButton.MyButton.onClick.RemoveAllListeners();
+
+            Destroy(toolObj);
+        }
+
+        for (int i = 0; i < toolsToLoad.Count; i++)
+        {
+            EquipmentType tool = toolsToLoad[i];
+            
+            GameObject toolPrefab = Instantiate(ToolButtonPrefab);
+            toolPrefab.transform.SetParent(transform, false);
+
+            ToolButton button = toolPrefab.GetComponent<ToolButton>();
+            button.Setup(tool);
+
+            button.MyButton.onClick.AddListener(() => ChangeTool(tool));
+        }
+    }
+
+    private void ChangeTool(EquipmentType tool)
+    {
+        Debug.Log("Changing tool to " + tool);
+        
         if (SelectedTool != tool)
         {
             SelectedTool = tool;
         } else
         {
-            SelectedTool = ToolType.None;
+            SelectedTool = EquipmentType.None;
         }
 
         OnToolUpdated?.Invoke(SelectedTool);
