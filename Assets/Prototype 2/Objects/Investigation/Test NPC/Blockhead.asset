@@ -20,7 +20,7 @@ MonoBehaviour:
     Symptom: 0
   - Time: 14
     CurrentRoom: 3
-    CharacterDialogue: 
+    CharacterDialogue: I want to use spray paint inside my bedroom!
     Symptom: 0
   - Time: 15
     CurrentRoom: 3
@@ -32,7 +32,7 @@ MonoBehaviour:
     Symptom: 6
   - Time: 17
     CurrentRoom: 4
-    CharacterDialogue: 
+    CharacterDialogue: Ok maybe that was a bad idea.
     Symptom: 0
   - Time: 18
     CurrentRoom: 1

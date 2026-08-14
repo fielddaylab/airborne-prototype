@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +10,9 @@ public class NPCController : MonoBehaviour
     public NavMeshAgent NavAgent;
     public NPCRoomWaypointEntry[] Waypoints;
 
-    public SpriteRenderer SymptomIndicator, DialogueIndicator;
+    public SpriteRenderer SymptomIndicator;
+    public GameObject DialogueObject;
+    public TMP_Text DialogueText;
 
     private RoomType _currentLocation;
 
@@ -51,7 +54,20 @@ public class NPCController : MonoBehaviour
         _currentLocation = expectedLocation;
 
         SymptomIndicator.enabled = slot.Symptom != Symptom.None;
-        DialogueIndicator.enabled = slot.CharacterDialogue != "";
+        DialogueObject.SetActive(slot.CharacterDialogue != "");
+        DialogueText.text = slot.CharacterDialogue;
+
+        if (slot.Symptom == Symptom.LossConsciousness)
+        {
+            NavAgent.enabled = false; 
+            
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90f));
+        } else
+        {
+            NavAgent.enabled = true; 
+            
+            transform.rotation = Quaternion.identity;
+        }
     }
 
     private void ResetLocation()
