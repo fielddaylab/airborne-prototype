@@ -34,7 +34,7 @@ public class TheoryCombo : MonoBehaviour
 
     private Color _baseColor;
 
-    public void Start()
+    public void Awake()
     {
         if (ComboPopup != null) {
             ComboPopup.SetActive(false);
@@ -65,6 +65,8 @@ public class TheoryCombo : MonoBehaviour
         ComboButton.enabled = ComboEnabled;
 
         ComboCloser.onClick.AddListener(HandleHideTheory);
+
+        CaseFileManager.OnCaseFileClosed += HandleHideTheory;
     }
 
     void OnDisable()
@@ -72,6 +74,8 @@ public class TheoryCombo : MonoBehaviour
         ComboButton.onClick.RemoveListener(HandleShowTheory);
 
         ComboCloser.onClick.RemoveListener(HandleHideTheory);
+        
+        CaseFileManager.OnCaseFileClosed += HandleHideTheory;
     }
 
     private void HandleShowTheory()
@@ -99,6 +103,8 @@ public class TheoryCombo : MonoBehaviour
 
     private void HandleHideTheory()
     {
+        Debug.Log("Called!");
+        
         ComboPopup.SetActive(false);
         if (PollutantAtSource != null)
         {

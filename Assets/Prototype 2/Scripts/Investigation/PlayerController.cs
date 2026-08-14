@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (CaseFileManager.CaseFileOpen) return; // don't allow movement while open
+        
         _input.x = Input.GetAxis("Horizontal");
         _input.y = Input.GetAxis("Vertical");
 

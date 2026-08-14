@@ -13,6 +13,18 @@ public class BossPromptController : MonoBehaviour
 
     public Sprite checkSprite;
 
+    public GameObject BossParent;
+
+    public Slider PersusasionSlider;
+    public int MaxValue;
+
+    public void Start()
+    {
+        BossParent.SetActive(false);
+        PersusasionSlider.value = 0;
+        PersusasionSlider.maxValue = MaxValue;
+    }
+
     public static void RegisterCheckmark(Image mark)
     {
         CheckMarks.Add(mark);
@@ -23,7 +35,7 @@ public class BossPromptController : MonoBehaviour
         int animationIndex = 0;
         for (int i = 0; i < CheckMarks.Count; i++)
         {
-            if (CheckMarks[i].enabled && CheckMarks[i].sprite == checkSprite) {
+            if (CheckMarks[i].enabled && CheckMarks[i].sprite == checkSprite && CheckMarks[i].gameObject.activeInHierarchy) {
                 StartCoroutine(MoveCheck(CheckMarks[i], animationIndex));
                 animationIndex++;
             }
@@ -49,10 +61,13 @@ public class BossPromptController : MonoBehaviour
 
         check.transform.position = end;
         check.enabled = false;
+
+        PersusasionSlider.value += 1;
     }
 
     public void StartBossSequence()
     {
+        BossParent.SetActive(true);
         AnimateCheckMarkMovement();
     }
 

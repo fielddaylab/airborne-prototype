@@ -27,7 +27,7 @@ public class SourceAndSymptomManager : MonoBehaviour
 
     void Start()
     {
-        SymptomList.gameObject.SetActive(false);
+        SymptomList.gameObject.SetActive(true);
         TimelineQuestion.gameObject.SetActive(false);
     }
 
