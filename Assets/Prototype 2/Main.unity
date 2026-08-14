@@ -7437,6 +7437,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334583240}
   m_CullTransparentMesh: 1
+--- !u!114 &334583246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334583240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea2e0cb83cbfba4cb5d782cba0687ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneToLoad: Main
 --- !u!1 &335009635
 GameObject:
   m_ObjectHideFlags: 0
@@ -9183,6 +9196,7 @@ MonoBehaviour:
   ToolButtonPrefab: {fileID: 5974976851804030870, guid: ed5876fecc3f0704dba5ac3b38973908, type: 3}
   CurrentMode: 0
   SelectedTool: 0
+  ToolButtons: []
 --- !u!114 &393875675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10235,7 +10249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -299.9998}
+  m_AnchoredPosition: {x: 0, y: -299.99976}
   m_SizeDelta: {x: 0, y: -600.0005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488254168
@@ -19999,11 +20013,7 @@ MonoBehaviour:
   O3Button: {fileID: 306730739}
   MeterObject: {fileID: 1180931502256856586, guid: 102e7409a6fba6341a83ce4990f2205a, type: 3}
   numMeters: 4
-  meterPips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  ToolsManager: {fileID: 393875674}
   FullPip: {fileID: 21300000, guid: 403ac739db858264dab512d0469212f1, type: 3}
   UsePip: {fileID: 21300000, guid: 4c28716a2ecb6264f9a96105229be0f9, type: 3}
   EmptyPip: {fileID: 21300000, guid: 128dd56f96c4c544cb877099a0cb1b37, type: 3}
