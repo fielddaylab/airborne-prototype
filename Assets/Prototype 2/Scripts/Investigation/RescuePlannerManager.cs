@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class RescuePlannerManager : MonoBehaviour
 {
     public static RescuePlannerManager Instance;
+    public ToolManager ToolManagerRef;
     
     public Button AdvanceButton;
     
@@ -43,6 +44,7 @@ public class RescuePlannerManager : MonoBehaviour
     public void HandleAdvance()
     {
         gameObject.SetActive(false);
+        ToolManagerRef.LoadTools(SelectedEquipment);
         NewGameManager.Instance.SwitchToPhase(NewGamePhase.Intervention);
     }
 }

@@ -14,8 +14,6 @@ public class ToolManager : MonoBehaviour
 {
     public GameObject ToolButtonPrefab;
     
-    public Button ObserveButton, ScannerButton, MeterButton;
-
     public ToolbarMode CurrentMode = ToolbarMode.Investigation;
 
     public EquipmentType SelectedTool = EquipmentType.None;
@@ -38,7 +36,7 @@ public class ToolManager : MonoBehaviour
         ChangeTool(EquipmentType.None);
     }
 
-    private void LoadTools(List<EquipmentType> toolsToLoad)
+    public void LoadTools(List<EquipmentType> toolsToLoad)
     {
         for (int i = 0; i < transform.childCount; i++)
         {
