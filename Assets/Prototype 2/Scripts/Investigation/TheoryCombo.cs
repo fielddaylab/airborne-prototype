@@ -34,7 +34,7 @@ public class TheoryCombo : MonoBehaviour
 
     private Color _baseColor;
 
-    public void Start()
+    public void Awake()
     {
         if (ComboPopup != null) {
             ComboPopup.SetActive(false);
