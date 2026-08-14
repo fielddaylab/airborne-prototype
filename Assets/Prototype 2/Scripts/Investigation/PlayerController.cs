@@ -22,12 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         
     }
-    
-    //void Update()
-    //{
-    //    _input.x = Input.GetAxis("Horizontal");
-    //    _input.y = Input.GetAxis("Vertical");
-    //}
 
     private void Update()
     {
@@ -39,11 +33,11 @@ public class PlayerController : MonoBehaviour
         if (_grounded && _velocity.y < -2f) _velocity.y = -2f;
 
         Vector3 move = new Vector3(_input.x, 0, _input.y);
-        move = Vector3.ClampMagnitude(move, 1f);
+        move = Vector3.ClampMagnitude(move, 1f) * m_moveSpeed;
 
         _velocity.y -= m_gravity * Time.deltaTime;
 
-        Vector3 finalMovement = m_moveSpeed * move + Vector3.up * _velocity.y;
+        Vector3 finalMovement = move + Vector3.up * _velocity.y;
         PlayerCharacterController.Move(finalMovement * Time.deltaTime);
 
         if (JustTeleported)
@@ -56,4 +50,5 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 }
