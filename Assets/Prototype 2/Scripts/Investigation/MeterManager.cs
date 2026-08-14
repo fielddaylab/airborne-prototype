@@ -17,9 +17,11 @@ public class MeterManager : MonoBehaviour
 
     public int numMeters = 4;
 
+    public ToolManager ToolsManager;
+
     private InvestigationRoom _sourceRoom;
 
-    public Image[] meterPips;
+    //public Image[] meterPips;
     public Sprite FullPip, UsePip, EmptyPip;
 
     void Start()
@@ -53,15 +55,18 @@ public class MeterManager : MonoBehaviour
     {
         transform.position = HiddenLocation;
         if (numMeters <= 0) return;
-        meterPips[numMeters - 1].sprite = FullPip;
+
+        ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
+        ToolGUI.ToolPips[numMeters - 1].sprite = FullPip;
     }
 
     public void ShowDialogue(Vector3 position, InvestigationRoom sourceRoom)
     {
         if (numMeters <= 0) return;
         if (sourceRoom.NumMeters >= 2) return;
-
-        meterPips[numMeters - 1].sprite = UsePip;
+        
+        ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
+        ToolGUI.ToolPips[numMeters - 1].sprite = UsePip;
 
         transform.position = position;
         _sourceRoom = sourceRoom;
@@ -70,7 +75,9 @@ public class MeterManager : MonoBehaviour
     public void PlaceMeter(PollutantType pollutantType)
     {
         if (numMeters <= 0) return;
-        meterPips[numMeters - 1].sprite = EmptyPip;
+        
+        ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
+        ToolGUI.ToolPips[numMeters - 1].sprite = EmptyPip;
         numMeters--;
         _sourceRoom.NumMeters++;
         

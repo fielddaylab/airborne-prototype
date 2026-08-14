@@ -9,6 +9,8 @@ public class ToolButton : MonoBehaviour
     public Button MyButton;
     public Image[] ToolPips;
     public EquipmentMapObject Map;
+
+    public EquipmentType ToolType;
     
     public void Setup(EquipmentType toolType)
     {
@@ -28,5 +30,7 @@ public class ToolButton : MonoBehaviour
                 ToolPips[i].gameObject.SetActive(true);
             }
         }
+
+        ToolType = toolType;
     }
 }

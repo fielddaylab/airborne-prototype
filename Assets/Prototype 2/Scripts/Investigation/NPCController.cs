@@ -61,7 +61,7 @@ public class NPCController : MonoBehaviour
         {
             NavAgent.enabled = false; 
             
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90f));
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -80f));
         } else
         {
             NavAgent.enabled = true; 

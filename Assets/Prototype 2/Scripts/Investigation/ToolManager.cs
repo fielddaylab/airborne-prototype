@@ -20,6 +20,8 @@ public class ToolManager : MonoBehaviour
 
     public static event Action<EquipmentType> OnToolUpdated;
 
+    public List<ToolButton> ToolButtons = new();
+
     List<EquipmentType> StarterTools = new List<EquipmentType>
     {
         EquipmentType.Observe,
@@ -38,6 +40,8 @@ public class ToolManager : MonoBehaviour
 
     public void LoadTools(List<EquipmentType> toolsToLoad)
     {
+        ToolButtons.Clear();
+        
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject toolObj = transform.GetChild(i).gameObject;
@@ -58,6 +62,8 @@ public class ToolManager : MonoBehaviour
             button.Setup(tool);
 
             button.MyButton.onClick.AddListener(() => ChangeTool(tool));
+
+            ToolButtons.Add(button);
         }
     }
 
