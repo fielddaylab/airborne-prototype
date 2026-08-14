@@ -13517,6 +13517,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1453331092024229381, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453331092024229381, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453331092024229381, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453331092024229381, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.603
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453331092024229381, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1530236887436869017, guid: 69506a62ab8d79f4480783b062e597bd, type: 3}
       propertyPath: m_Sprite
       value: 
