@@ -32,7 +32,6 @@ public class InvestigationPollutantsManager : MonoBehaviour
             foreach (var data in PollutantDataInfo)
             {
                 if (data.Type == panel.PollutantType) {
-                    Debug.Log($"Data type is {data.Type} and panel is {panel.PollutantType}");
                     panel.AssemblePanel(data);
                 }
             }
