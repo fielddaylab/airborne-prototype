@@ -9,15 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 4c628db6241258841aaa7bb447cdbb60
   - enabled: 1
-    path: Assets/Scenes/PollutantSuspect.unity
+    path: Assets/Prototype 1/Scenes/PollutantSuspect.unity
     guid: 8fb634fc6898efd48939a2e80c7762cb
   - enabled: 1
-    path: Assets/Scenes/Diffusion Modeling.unity
+    path: Assets/Prototype 1/Scenes/Diffusion Modeling.unity
     guid: 49d6f9cd80d06134aaf4daa038b816f9
   - enabled: 1
-    path: Assets/Scenes/FlowModel.unity
+    path: Assets/Prototype 1/Scenes/FlowModel.unity
     guid: ce5817c58613fb644a66df962a7ea366
   - enabled: 1
-    path: Assets/Scenes/Investigation.unity
+    path: Assets/Prototype 2/Main.unity
     guid: 19fbb062f7d481c40a206a7c7b4c793e
   m_configObjects: {}

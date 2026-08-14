@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5825ed832a5b3134499d14f5b2cc68dc, type: 3}
+  m_Name: Blockhead
+  m_EditorClassIdentifier: 
+  Character: 1
+  TimeSlots:
+  - Time: 13
+    CurrentRoom: 3
+    CharacterDialogue: 
+    Symptom: 0
+  - Time: 14
+    CurrentRoom: 3
+    CharacterDialogue: I want to use spray paint inside my bedroom!
+    Symptom: 0
+  - Time: 15
+    CurrentRoom: 3
+    CharacterDialogue: 
+    Symptom: 0
+  - Time: 16
+    CurrentRoom: 3
+    CharacterDialogue: 
+    Symptom: 6
+  - Time: 17
+    CurrentRoom: 4
+    CharacterDialogue: Ok maybe that was a bad idea.
+    Symptom: 0
+  - Time: 18
+    CurrentRoom: 1
+    CharacterDialogue: 
+    Symptom: 0
+  - Time: 19
+    CurrentRoom: 0
+    CharacterDialogue: Hey, you okay buddy? You're not lookin' so hot
+    Symptom: 0
+  - Time: 20
+    CurrentRoom: 0
+    CharacterDialogue: '!!!'
+    Symptom: 0
