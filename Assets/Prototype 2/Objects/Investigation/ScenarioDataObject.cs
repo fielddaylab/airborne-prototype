@@ -11,3 +11,19 @@ public class ScenarioDataObject : ScriptableObject
     public InvestigationNPCObject[] NPCs;
     public InvestigationFeatureEventObject[] FeatureEvents;
 }
+
+public static class ScenarioUtility
+{
+    public static RoomType GetRoom(FeatureType feature, ScenarioDataObject scenarioData)
+    {
+        foreach (var feat in scenarioData.FeatureEvents)
+        {
+            if (feat.FeatureType == feature)
+            {
+                return feat.RoomType;
+            }
+        }
+        Debug.LogError("No feature found in scenario data matching type.");
+        return RoomType.Kitchen;
+    }
+}

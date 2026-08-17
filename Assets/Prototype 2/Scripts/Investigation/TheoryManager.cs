@@ -35,6 +35,7 @@ public class TheoryManager : MonoBehaviour
 
     // internals
     private FeatureType _sourceType;
+    private PollutantType _pollutantType;
     private PollutantDataObject _pollutantData;
 
     private int _theoryProgress = 0;
@@ -153,7 +154,10 @@ public class TheoryManager : MonoBehaviour
         SourceButton.image.color = sourceColor;
         SourceQuestion.enabled = false;
 
-        SourceText.text = $"{feature}";
+        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        RoomType sourceRoom = ScenarioUtility.GetRoom(feature, scenarioData);
+
+        SourceText.text = $"{sourceRoom}\n{feature}";
 
         foreach (var image in SourcePortraits)
         {
@@ -226,6 +230,7 @@ public class TheoryManager : MonoBehaviour
 
     private void HandleTheorySubmission()
     {
-        bossPrompt.StartBossSequence();
+        bossPrompt.StartBossSequence(_pollutantData.Type, _sourceType);
+        TheorySlider.gameObject.SetActive(false);
     }
 }
