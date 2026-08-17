@@ -38,6 +38,11 @@ public class ToolManager : MonoBehaviour
         ChangeTool(EquipmentType.None);
     }
 
+    public void ClearTool()
+    {
+        ChangeTool(EquipmentType.None);
+    }
+
     public void LoadTools(List<EquipmentType> toolsToLoad)
     {
         ToolButtons.Clear();

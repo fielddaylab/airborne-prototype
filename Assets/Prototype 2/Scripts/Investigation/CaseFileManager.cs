@@ -14,7 +14,22 @@ public class CaseFileManager : MonoBehaviour
     public InvestigationPollutantsManager Pollutants;
     public static bool CaseFileOpen;
 
+    public static CaseFileManager Instance;
+
     public static event Action OnCaseFileClosed;
+
+    public RectTransform AnimatedItemLocation;
+
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void Start()
     {
@@ -51,6 +66,14 @@ public class CaseFileManager : MonoBehaviour
         {
             OnCaseFileClosed?.Invoke();
             PlayerInvestigationTimeline.OnResetRequested.Invoke();
+        }
+    }
+
+    public void SetCaseFile(bool open)
+    {
+        if (CaseFileButton != open)
+        {
+            ToggleCaseFile();
         }
     }
 }
