@@ -30,6 +30,7 @@ public class FeatureObservableBox : MonoBehaviour
         int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
         int maxHour = baseHour + InvestigationTimelineSystem.Instance.TotalNumHours;
 
+        int num = 0;
         for (int i = hour - 1; i <= hour + 1; i++)
         {
             if (i >= baseHour && i <= maxHour)
@@ -38,6 +39,8 @@ public class FeatureObservableBox : MonoBehaviour
 
                 Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
                 RectTransform canvasRect = CaseFileManager.Instance.AnimatedItemLocation.root as RectTransform;
+                Canvas canvas = canvasRect.GetComponentInParent<Canvas>();
+                Camera uiCamera = canvas.worldCamera;
 
                 GameObject flyer = Instantiate(FlyingObject, canvasRect);
                 RectTransform flyerRect = flyer.GetComponent<RectTransform>();
@@ -46,7 +49,7 @@ public class FeatureObservableBox : MonoBehaviour
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     canvasRect,
                     screenPoint,
-                    Camera.main,
+                    uiCamera,
                     out localPoint
                 );
 
@@ -54,7 +57,8 @@ public class FeatureObservableBox : MonoBehaviour
 
                 FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
                 Sprite flyerSprite = InvestigationLookup.Instance.SourceImages.GetSprite(FeatureType);
-                flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation); 
+                flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation, num * 0.25f); 
+                num++;
             }
         }
         
