@@ -5,8 +5,11 @@ using UnityEngine;
 public class FeatureObservableBox : MonoBehaviour
 {
     public KnowledgeType FeatureKnowledge;
+    public FeatureType FeatureType;
     public RoomType FeatureRoom;
     private EquipmentType _lastToolType;
+
+    public GameObject FlyingObject;
 
     public void Start()
     {
@@ -32,6 +35,26 @@ public class FeatureObservableBox : MonoBehaviour
             if (i >= baseHour && i <= maxHour)
             {
                 PlayerKnowledgeState.Discover(FeatureRoom, i, FeatureKnowledge); // learn 3 chunks of time locally
+
+                Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+                RectTransform canvasRect = CaseFileManager.Instance.AnimatedItemLocation.root as RectTransform;
+
+                GameObject flyer = Instantiate(FlyingObject, canvasRect);
+                RectTransform flyerRect = flyer.GetComponent<RectTransform>();
+
+                Vector2 localPoint;
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    canvasRect,
+                    screenPoint,
+                    Camera.main,
+                    out localPoint
+                );
+
+                flyerRect.anchoredPosition = localPoint;
+
+                FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
+                Sprite flyerSprite = InvestigationLookup.Instance.SourceImages.GetSprite(FeatureType);
+                flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation); 
             }
         }
         

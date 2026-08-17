@@ -6613,6 +6613,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
+      propertyPath: FeatureType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: FeatureKnowledge
       value: 8
       objectReference: {fileID: 0}
@@ -20269,6 +20273,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 684611695}
     m_Modifications:
     - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
+      propertyPath: FeatureType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: FeatureKnowledge
       value: 9
       objectReference: {fileID: 0}
@@ -27609,6 +27617,8 @@ MonoBehaviour:
   AdvanceButton: {fileID: 615989786}
   GoBackButton: {fileID: 1985753212}
   RescuePlanner: {fileID: 1932381037}
+  CaseFile: {fileID: 1789746821}
+  ToolManager: {fileID: 0}
 --- !u!1001 &1438036652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34103,6 +34113,7 @@ MonoBehaviour:
   TrueTimelineSlider: {fileID: 1088959796}
   Map: {fileID: 1783155902}
   Pollutants: {fileID: 712353867}
+  AnimatedItemLocation: {fileID: 1997784206}
 --- !u!114 &1792863449 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4549203437494238267, guid: f43056cd3f3944442bd286e206e557a4, type: 3}
@@ -35150,6 +35161,10 @@ PrefabInstance:
     - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: FeatureRoom
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
+      propertyPath: FeatureType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: FeatureKnowledge

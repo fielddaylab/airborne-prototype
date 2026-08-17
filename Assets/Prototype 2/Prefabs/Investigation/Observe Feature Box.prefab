@@ -119,4 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FeatureKnowledge: 0
+  FeatureType: 0
   FeatureRoom: 0
+  FlyingObject: {fileID: 2669463114903365202, guid: 01df687befb72f64da749a986df172e3, type: 3}

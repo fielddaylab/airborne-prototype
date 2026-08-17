@@ -25,6 +25,9 @@ public class BossPromptController : MonoBehaviour
 
     public RescuePlannerManager RescuePlanner;
 
+    public CaseFileManager CaseFile;
+    public ToolManager ToolManager;
+
     public void Start()
     {
         BossParent.SetActive(false);
@@ -52,6 +55,9 @@ public class BossPromptController : MonoBehaviour
 
     private void Advance()
     {
+        CaseFile.SetCaseFile(false);
+        ToolManager.ClearTool();
+
         RescuePlanner.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
