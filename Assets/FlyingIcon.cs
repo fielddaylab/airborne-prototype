@@ -7,14 +7,16 @@ public class FlyingIcon : MonoBehaviour
 {
     public Image Icon;
     
-    public void Setup(Sprite icon, Transform destination)
+    public void Setup(Sprite icon, Transform destination, float delay = 0)
     {
         Icon.sprite = icon;
-        StartCoroutine(Fly(destination));
+        StartCoroutine(Fly(destination, delay));
     }
 
-    IEnumerator Fly(Transform destination)
+    IEnumerator Fly(Transform destination, float delay)
     {
+        yield return new WaitForSeconds(delay);
+        
         Vector3 start = transform.position;
         Vector3 end = destination.position;
 
