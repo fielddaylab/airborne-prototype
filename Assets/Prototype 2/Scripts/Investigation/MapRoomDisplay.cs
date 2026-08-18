@@ -10,6 +10,7 @@ public class MapRoomDisplay : MonoBehaviour
     public RoomType roomType;
     public TextMeshProUGUI RoomText;
     public Image[] NPCImages;
+    public Image[] NPCSymptomImages;
     public Image[] MeterImages;
     public TextMeshProUGUI[] MeterTexts;
     public Image[] MeterIndicators;
@@ -93,6 +94,22 @@ public class MapRoomDisplay : MonoBehaviour
                             NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
                             CharacterTimelineRequester requester = NPCImages[npcTracked].GetComponent<CharacterTimelineRequester>();
                             requester.Character = npc.Character;
+
+                            if (PlayerKnowledgeState.IsKnownCharacterly(requester.Character, hour, KnowledgeType.NPCSymptom))
+                            {
+                                if (npcSlot.Symptom != Symptom.None)
+                                {
+                                    Sprite sympSprite = InvestigationLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
+                                    NPCSymptomImages[npcTracked].sprite = sympSprite;
+                                    NPCSymptomImages[npcTracked].enabled = true;
+                                } else
+                                {
+                                    NPCSymptomImages[npcTracked].enabled = false;
+                                }
+                            } else
+                            {
+                                NPCSymptomImages[npcTracked].enabled = false;
+                            }
                         }
 
                         npcTracked++;
@@ -301,6 +318,11 @@ public class MapRoomDisplay : MonoBehaviour
         }
 
         foreach (Image image in FeatureImages)
+        {
+            image.enabled = false;
+        }
+
+        foreach (Image image in NPCSymptomImages)
         {
             image.enabled = false;
         }
