@@ -22,6 +22,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public TextMeshProUGUI NOText, O3Text, VOCText, COText;
     public Image[] NPCImages;
+    public Image[] NPCSymptomImages;
 
     [Header("NPC Overlay")]
     public GameObject RoomTextBG;
@@ -128,6 +129,22 @@ public class InvestigationTimelineChunk : MonoBehaviour
                         NPCImages[npcTracked].gameObject.SetActive(true);
                         NPCImages[npcTracked].enabled = true;
                         NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+
+                        if (PlayerKnowledgeState.IsKnownCharacterly(npc.Character, hour, KnowledgeType.NPCSymptom))
+                            {
+                                if (npcSlot.Symptom != Symptom.None)
+                                {
+                                    Sprite sympSprite = InvestigationLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
+                                    NPCSymptomImages[npcTracked].sprite = sympSprite;
+                                    NPCSymptomImages[npcTracked].enabled = true;
+                                } else
+                                {
+                                    NPCSymptomImages[npcTracked].enabled = false;
+                                }
+                            } else
+                            {
+                                NPCSymptomImages[npcTracked].enabled = false;
+                            }
                     }
                     
                     npcTracked++;
@@ -356,6 +373,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         RoomOverlay.SetActive(false);
 
         foreach (var image in NPCImages) { image.enabled = false; image.gameObject.SetActive(false); }
+        foreach (var image in NPCSymptomImages) { image.enabled = false;}
 
 
         NPCOverlay.SetActive(false);
