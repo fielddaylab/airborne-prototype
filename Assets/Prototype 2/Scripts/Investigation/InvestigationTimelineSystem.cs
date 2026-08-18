@@ -22,15 +22,19 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public float TimelineSpeed = 1;
     private float _trueTime = 0;
     public bool IsPaused { get; private set; }
-
     private bool _isFinalLoop = false;
 
     public Dictionary<(RoomType, int), RoomTimeSlot> TimeSlotLookup = new();
 
-    public void Start()
+    public void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+    }
+
+    public void Start()
+    {
+        NewGameManager.TriggerPhase += HandlePhaseChange;
         
         CurrentHour = BaseHour;
         OnHourEntered?.Invoke(CurrentHour);
@@ -42,6 +46,11 @@ public class InvestigationTimelineSystem : MonoBehaviour
                 TimeSlotLookup[(room.RoomTypeValue, slot.Time)] = slot;
             }
         }
+    }
+
+    public void SetTime(int indexHour) // 0 for start
+    {
+        
     }
 
     public RoomTimeSlot GetTimeSlot(RoomType room, int hour)
@@ -96,6 +105,12 @@ public class InvestigationTimelineSystem : MonoBehaviour
 
     public void HandlePhaseChange(NewGamePhase phase)
     {
+        if (phase == NewGamePhase.RescuePlanning)
+        {
+            OnTimeReset?.Invoke();
+            _trueTime = 0;
+        }
+        
         if (phase == NewGamePhase.Intervention)
         {
             _isFinalLoop = true;

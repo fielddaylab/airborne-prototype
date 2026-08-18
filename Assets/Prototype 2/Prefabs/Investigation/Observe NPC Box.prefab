@@ -118,5 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ec4d3ace5141b4ebb485721fd37e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FeatureKnowledge: 0
-  FeatureRoom: 0
+  NPCData: {fileID: 0}
+  FlyerPrefab: {fileID: 2669463114903365202, guid: 01df687befb72f64da749a986df172e3, type: 3}
+  DialogueSprite: {fileID: 21300000, guid: da19abc76ba546e4cbb015be48d9b42f, type: 3}

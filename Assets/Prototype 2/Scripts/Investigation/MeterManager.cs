@@ -93,5 +93,7 @@ public class MeterManager : MonoBehaviour
         InvestigationTimelineSystem.Instance.RegisterMeter(gasMeter);
 
         HideDialogue();
+
+        ToolsManager.ClearTool();
     }
 }

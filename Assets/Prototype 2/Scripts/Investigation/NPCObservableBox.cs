@@ -6,6 +6,8 @@ public class NPCObservableBox : MonoBehaviour
 {
     public InvestigationNPCObject NPCData;
     private EquipmentType _lastToolType;
+    public GameObject FlyerPrefab;
+    public Sprite DialogueSprite;
 
     public void Start()
     {
@@ -32,6 +34,41 @@ public class NPCObservableBox : MonoBehaviour
         PlayerKnowledgeState.Discover(NPCData.Character, hour, KnowledgeType.NPCSymptom);
 
         PlayerKnowledgeState.Discover(slot.Symptom);
+
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+        RectTransform canvasRect = CaseFileManager.Instance.AnimatedItemLocation.root as RectTransform;
+        Canvas canvas = canvasRect.GetComponentInParent<Canvas>();
+        Camera uiCamera = canvas.worldCamera;
+
+        GameObject flyer = Instantiate(FlyerPrefab, canvasRect);
+        RectTransform flyerRect = flyer.GetComponent<RectTransform>();
+
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPoint,
+            uiCamera,
+            out localPoint
+        );
+
+        flyerRect.anchoredPosition = localPoint;
+
+        FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
+
+
+        Symptom symptomType = slot.Symptom;
+        string dialogue = slot.CharacterDialogue;
+
+        Sprite flySprite;
+        if (symptomType != Symptom.None)
+        {
+            flySprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptomType);
+        } else
+        {
+            flySprite = DialogueSprite;
+        }
+
+        flyerIcon.Setup(flySprite, CaseFileManager.Instance.AnimatedItemLocation); 
 
         VisibilityCheck();
     }
