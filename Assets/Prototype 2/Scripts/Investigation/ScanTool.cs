@@ -1,19 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScanTool : MonoBehaviour
 {
-    public SpriteRenderer ObserveRenderer;
-    public SpriteRenderer ScanRenderer;
-    public SpriteRenderer MeterRenderer;
+    public EquipmentMapObject EquipmentMap;
+    public SpriteRenderer ToolImage;
 
     public void Start()
     {
         ToolManager.OnToolUpdated += HandleToolUpdated;
-        ObserveRenderer.enabled = false;
-        ScanRenderer.enabled = false;
-        MeterRenderer.enabled = false;
+        ToolImage.enabled = false;
     }
 
     public void OnDestroy()
@@ -33,28 +31,18 @@ public class ScanTool : MonoBehaviour
         Vector3 direction = worldPosition - transform.position;
         transform.right = direction;
 
-        ObserveRenderer.flipY = direction.x < 0;
-        ScanRenderer.flipY = direction.x < 0;
-        MeterRenderer.flipY = direction.x < 0;
+        ToolImage.flipY = direction.x < 0;
     }
 
     private void HandleToolUpdated(EquipmentType type)
     {
-        ObserveRenderer.enabled = false;
-        ScanRenderer.enabled = false;
-        MeterRenderer.enabled = false;
-
-        switch (type)
+        if (type == EquipmentType.None)
         {
-            case EquipmentType.Observe:
-                ObserveRenderer.enabled = true;
-                break;
-            case EquipmentType.Scan:
-                ScanRenderer.enabled = true;
-                break;
-            case EquipmentType.Meter:
-                MeterRenderer.enabled = true;
-                break;
+            ToolImage.enabled = false;
+        } else
+        {
+            ToolImage.enabled = true;
+            ToolImage.sprite = EquipmentMapUtility.GetSprite(EquipmentMap, type);
         }
     }   
 }
