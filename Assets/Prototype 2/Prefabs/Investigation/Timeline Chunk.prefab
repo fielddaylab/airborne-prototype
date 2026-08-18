@@ -1631,7 +1631,7 @@ MonoBehaviour:
   NPCOverlay: {fileID: 8824977507835432632}
   SourceOverlay: {fileID: 416512907254807654}
   PollutantPresent: {fileID: 21300000, guid: 1d537888a01297b448f652ebaa8fcae6, type: 3}
-  PollutantAbsent: {fileID: 21300000, guid: 58450b18d57358943b57a9f250c59c0c, type: 3}
+  PollutantAbsent: {fileID: 21300000, guid: 4fb82aa4446ab6341bf03f33ade6f038, type: 3}
   TimelineImage: {fileID: 8044390635177218884}
   NOText: {fileID: 5273099916451668342}
   O3Text: {fileID: 4306838069534530386}

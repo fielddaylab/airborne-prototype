@@ -1511,7 +1511,7 @@ MonoBehaviour:
   AmbigiousReadingImage: {fileID: 959555605795854899}
   GasOverlay: {fileID: 8370217026554249786}
   PollutantPresent: {fileID: 21300000, guid: 1d537888a01297b448f652ebaa8fcae6, type: 3}
-  PollutantAbsent: {fileID: 21300000, guid: 58450b18d57358943b57a9f250c59c0c, type: 3}
+  PollutantAbsent: {fileID: 21300000, guid: 4fb82aa4446ab6341bf03f33ade6f038, type: 3}
   Lockout: {fileID: 7541915283427003676}
   LockoutButton: {fileID: 6966925492917377891}
   isLockoutMap: 0

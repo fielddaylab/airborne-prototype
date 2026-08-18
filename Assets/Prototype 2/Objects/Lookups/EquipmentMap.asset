@@ -53,8 +53,8 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 78ba7c4e8ff5726449821b065033d895, type: 3}
     Label: Cleaner
     Description: Removes mold source, but produces VOCs.
-    UsesPips: 0
-    NumPips: 0
+    UsesPips: 1
+    NumPips: 1
   - Type: 7
     Sprite: {fileID: 21300000, guid: 9826ebae4cc3796458b08a12deca60a4, type: 3}
     Label: Electric Stove
