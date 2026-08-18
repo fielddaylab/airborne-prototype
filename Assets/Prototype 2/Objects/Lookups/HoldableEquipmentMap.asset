@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c3a1ff986430c4c931d5cd680ccbf6, type: 3}
+  m_Name: HoldableEquipmentMap
+  m_EditorClassIdentifier: 
+  Sets:
+  - Type: 0
+    Sprite: {fileID: 0}
+    Label: Nothing
+    Description: If you see this something broke!
+    UsesPips: 0
+    NumPips: 0
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: 5b979b56c5837e648a7b9110477a5d0f, type: 3}
+    Label: Search
+    Description: Investigates objects in a room.
+    UsesPips: 0
+    NumPips: 0
+  - Type: 2
+    Sprite: {fileID: 21300000, guid: 5791306da60fd5e4f9d053eef8601ce1, type: 3}
+    Label: Scan
+    Description: Scans for pollutants in a room.
+    UsesPips: 0
+    NumPips: 0
+  - Type: 3
+    Sprite: {fileID: 21300000, guid: 07f2b8f448c190947b729180c29b5911, type: 3}
+    Label: Meter
+    Description: Detects a specific poolutant in a room
+    UsesPips: 1
+    NumPips: 4
+  - Type: 4
+    Sprite: {fileID: 21300000, guid: a6b4259b59bede548b3917fe72390fc7, type: 3}
+    Label: Fan
+    Description: Stirs air in a room, moving gases around faster.
+    UsesPips: 1
+    NumPips: 2
+  - Type: 5
+    Sprite: {fileID: 21300000, guid: d8f5efde13ded13409f96f72b8c1e93b, type: 3}
+    Label: Filter
+    Description: Removes particulate matter pollutant from a room (dust, mold, etc)
+    UsesPips: 1
+    NumPips: 1
+  - Type: 6
+    Sprite: {fileID: 21300000, guid: 920d938cc55537f4e980662daef1dbe6, type: 3}
+    Label: Cleaner
+    Description: Removes mold source, but produces VOCs.
+    UsesPips: 0
+    NumPips: 0
+  - Type: 7
+    Sprite: {fileID: 21300000, guid: b87765917589eab478e0c51431198b0f, type: 3}
+    Label: Electric Stove
+    Description: Use on a gas stove to replace with an electric one. Ends pollutant
+      production.
+    UsesPips: 1
+    NumPips: 1
+  - Type: 8
+    Sprite: {fileID: 21300000, guid: 1117d51e091213e46860398f3c233f28, type: 3}
+    Label: Heat Pump
+    Description: A mysterious device that draws heat from the 5th dimension to fuel
+      your home.
+    UsesPips: 1
+    NumPips: 1
