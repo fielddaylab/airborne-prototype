@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (CaseFileManager.CaseFileOpen) return; // don't allow movement while open
+        if (InvestigationTimelineSystem.Instance.TimelineSpeed == 0) return;
         
         _input.x = Input.GetAxis("Horizontal");
         _input.y = Input.GetAxis("Vertical");

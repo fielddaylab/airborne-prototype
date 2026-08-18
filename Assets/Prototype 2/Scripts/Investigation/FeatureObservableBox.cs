@@ -30,37 +30,35 @@ public class FeatureObservableBox : MonoBehaviour
         int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
         int maxHour = baseHour + InvestigationTimelineSystem.Instance.TotalNumHours;
 
-        int num = 0;
         for (int i = hour - 1; i <= hour + 1; i++)
         {
             if (i >= baseHour && i <= maxHour)
             {
                 PlayerKnowledgeState.Discover(FeatureRoom, i, FeatureKnowledge); // learn 3 chunks of time locally
-
-                Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
-                RectTransform canvasRect = CaseFileManager.Instance.AnimatedItemLocation.root as RectTransform;
-                Canvas canvas = canvasRect.GetComponentInParent<Canvas>();
-                Camera uiCamera = canvas.worldCamera;
-
-                GameObject flyer = Instantiate(FlyingObject, canvasRect);
-                RectTransform flyerRect = flyer.GetComponent<RectTransform>();
-
-                Vector2 localPoint;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    canvasRect,
-                    screenPoint,
-                    uiCamera,
-                    out localPoint
-                );
-
-                flyerRect.anchoredPosition = localPoint;
-
-                FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
-                Sprite flyerSprite = InvestigationLookup.Instance.SourceImages.GetSprite(FeatureType);
-                flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation, num * 0.25f); 
-                num++;
             }
         }
+
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+        RectTransform canvasRect = CaseFileManager.Instance.AnimatedItemLocation.root as RectTransform;
+        Canvas canvas = canvasRect.GetComponentInParent<Canvas>();
+        Camera uiCamera = canvas.worldCamera;
+
+        GameObject flyer = Instantiate(FlyingObject, canvasRect);
+        RectTransform flyerRect = flyer.GetComponent<RectTransform>();
+
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPoint,
+            uiCamera,
+            out localPoint
+        );
+
+        flyerRect.anchoredPosition = localPoint;
+
+        FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
+        Sprite flyerSprite = InvestigationLookup.Instance.SourceImages.GetSprite(FeatureType);
+        flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation); 
         
         VisibilityCheck();
     }

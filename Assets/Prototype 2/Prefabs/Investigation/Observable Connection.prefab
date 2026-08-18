@@ -118,3 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7707c94aa53f244bdf953909f7f98c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConnectorID: 
+  FlyerPrefab: {fileID: 2669463114903365202, guid: 01df687befb72f64da749a986df172e3, type: 3}
+  VentSprite: {fileID: 21300000, guid: 389c323fbe8b1064e9f67c599177efe1, type: 3}

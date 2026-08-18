@@ -76,4 +76,19 @@ public class CaseFileManager : MonoBehaviour
             ToggleCaseFile();
         }
     }
+
+    public void HideCaseFileKeepTimeline()
+    {
+        CaseFilePanel.gameObject.SetActive(false);
+
+        FalseTimelineSlider.gameObject.SetActive(true);
+        FalseTimelineSlider.value = InvestigationTimelineSystem.Instance.CurrentHour - InvestigationTimelineSystem.Instance.BaseHour;
+
+        TrueTimelineSlider.interactable = false;
+
+        InvestigationTimelineSystem.Instance.PauseTime(true);
+
+        Map.UpdateRooms(TrueTimelineSlider.value);
+        Pollutants.UpdateInformation();
+    }
 }

@@ -6,6 +6,8 @@ public class ConnectorObservableBox : MonoBehaviour
 {
     public string ConnectorID;
     private EquipmentType _lastToolType;
+    public GameObject FlyerPrefab;
+    public Sprite VentSprite;
 
     public void Start()
     {
@@ -23,6 +25,27 @@ public class ConnectorObservableBox : MonoBehaviour
     private void OnMouseDown()
     {
         PlayerKnowledgeState.Discover(ConnectorID);
+
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
+        RectTransform canvasRect = CaseFileManager.Instance.AnimatedItemLocation.root as RectTransform;
+        Canvas canvas = canvasRect.GetComponentInParent<Canvas>();
+        Camera uiCamera = canvas.worldCamera;
+
+        GameObject flyer = Instantiate(FlyerPrefab, canvasRect);
+        RectTransform flyerRect = flyer.GetComponent<RectTransform>();
+
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPoint,
+            uiCamera,
+            out localPoint
+        );
+
+        flyerRect.anchoredPosition = localPoint;
+
+        FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
+        flyerIcon.Setup(VentSprite, CaseFileManager.Instance.AnimatedItemLocation); 
 
         VisibilityCheck();
     }

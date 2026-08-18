@@ -16,9 +16,12 @@ public class NPCController : MonoBehaviour
 
     private RoomType _currentLocation;
 
+    private float _baseSpeed;
+
     void Start()
     {
         _currentLocation = NPCData.TimeSlots[0].CurrentRoom;
+        _baseSpeed = NavAgent.speed;
     }
 
     public void OnEnable()
@@ -31,6 +34,17 @@ public class NPCController : MonoBehaviour
     {
         InvestigationTimelineSystem.OnHourEntered -= CheckLocationAndIndicator;
         InvestigationTimelineSystem.OnTimeReset -= ResetLocation;
+    }
+
+    public void Update()
+    {
+        if (InvestigationTimelineSystem.Instance.TimelineSpeed == .75)
+        {
+            NavAgent.speed = _baseSpeed * 3f;
+        } else
+        {
+            NavAgent.speed = _baseSpeed;
+        }
     }
 
     private void CheckLocationAndIndicator(int hour)
