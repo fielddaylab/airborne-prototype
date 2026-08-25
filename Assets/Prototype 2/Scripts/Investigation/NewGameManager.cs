@@ -69,7 +69,7 @@ public class NewGameManager : MonoBehaviour
                 break;
             case NewGamePhase.Results:
                 Results.gameObject.SetActive(true);
-
+                Results.EvaluateResults(FinalLoopData);
                 break;
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -43,9 +44,13 @@ public class PSAManager : MonoBehaviour
         MLeft.onClick.AddListener(() => CycleMessage(-1));
         MRight.onClick.AddListener(()=> CycleMessage(1));
 
-        CycleBackground(0);
-        CycleSubject(0);
-        CycleMessage(0);
+        int b = (int) (UnityEngine.Random.value * 4);
+        int s = (int) (UnityEngine.Random.value * 4);
+        int m = (int) (UnityEngine.Random.value * 4);
+
+        CycleBackground(b);
+        CycleSubject(s);
+        CycleMessage(m);
     }
 
     private void OnFinish()

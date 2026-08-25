@@ -33,6 +33,8 @@ public static class ScenarioUtility
 [System.Serializable]
 public class TargetWinConditions
 {
+    public int TargetLoopCount = 10;
+    
     public bool ReplaceFurnace = false;
     public bool ReplaceStove = false;
     
