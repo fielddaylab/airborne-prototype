@@ -7,31 +7,16 @@ public class MeterPlaceable : MonoBehaviour
     public InvestigationRoom ParentRoom;
     public bool IsClickable = false;
 
-    void OnEnable()
-    {
-        ToolManager.OnToolUpdated += HandleToolUpdated;
-    }
-
-    void OnDisable()
-    {
-        ToolManager.OnToolUpdated -= HandleToolUpdated;
-    }
-
     private void OnMouseDown()
     {
-        if (IsClickable)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                Vector3 worldPosition = hit.point;
-                MeterManager.OnShowMeter?.Invoke(worldPosition, ParentRoom);
-            }
-        }
-    }
+            Vector3 worldPosition = hit.point;
 
-    private void HandleToolUpdated(EquipmentType type)
-    {
-        IsClickable = type == EquipmentType.Meter;
+            // gate internally
+            MeterManager.OnShowMeter?.Invoke(worldPosition, ParentRoom);
+            PlaceableEquipmentManager.OnShowMeter?.Invoke(worldPosition, ParentRoom);
+        }
     }
 }

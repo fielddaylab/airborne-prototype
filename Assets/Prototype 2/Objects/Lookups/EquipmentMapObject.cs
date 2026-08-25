@@ -17,6 +17,7 @@ public class EquipmentSet
     public string Description;
     public bool UsesPips;
     public int NumPips;
+    public bool hasPipDialogue;
 }
 
 // after learning a bit from spacefab and ais, it seems this is a better way to handle things than holding lookup tables in the object itself
@@ -85,5 +86,18 @@ public static class EquipmentMapUtility
         }
 
         return -1;
+    }
+
+    public static bool HasPipDialogue(EquipmentMapObject map, EquipmentType type)
+    {
+        foreach (var set in map.Sets)
+        {
+            if (set.Type == type)
+            {
+                return set.hasPipDialogue;
+            }
+        }
+
+        return false;
     }
 }

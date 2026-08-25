@@ -11,6 +11,9 @@ public class ToolButton : MonoBehaviour
     public EquipmentMapObject Map;
 
     public EquipmentType ToolType;
+
+    public int NumPips = 0;
+    public int UsedPips = 0;
     
     public void Setup(EquipmentType toolType)
     {
@@ -23,9 +26,10 @@ public class ToolButton : MonoBehaviour
 
         if (EquipmentMapUtility.UsesPips(Map, toolType))
         {
-            int numPips = EquipmentMapUtility.GetNumPips(Map, toolType);
-
-            for (int i = 0; i < numPips; i++ )
+            NumPips = EquipmentMapUtility.GetNumPips(Map, toolType);
+            UsedPips = NumPips;
+            
+            for (int i = 0; i < NumPips; i++ )
             {
                 ToolPips[i].gameObject.SetActive(true);
             }
