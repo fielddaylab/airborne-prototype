@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TestScenario
   m_EditorClassIdentifier: 
   ScenarioName: Test
+  MainNpc: 0
   Rooms:
   - {fileID: 11400000, guid: 480f74173ae0a074b94bb612307bf367, type: 2}
   - {fileID: 11400000, guid: e6d231a81cdf5664295cfcf18ee752f1, type: 2}
@@ -27,3 +28,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 496aff41f0d05d44398fa92b84ff4bc3, type: 2}
   - {fileID: 11400000, guid: 645c34c5d213bea4c8ab67c875968bc4, type: 2}
   - {fileID: 11400000, guid: f29289a693a34f6498ee07f25e42e274, type: 2}
+  WinConditions:
+    ReplaceFurnace: 1
+    ReplaceStove: 0
+    PlacedFansInRooms: 00000000
+    PlaceFilterInRoom: 0
+    PlaceCleanerInRoom: 5
+    PosterFeature: 0
+    PosterSubjectPollutant: 2
+    PosterMessagePollutant: 2

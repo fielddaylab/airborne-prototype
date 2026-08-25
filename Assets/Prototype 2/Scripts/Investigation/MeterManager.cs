@@ -15,7 +15,7 @@ public class MeterManager : MonoBehaviour
 
     public GameObject MeterObject;
 
-    public int numMeters = 4;
+    // public int numMeters = 4;
 
     public ToolManager ToolsManager;
 
@@ -38,6 +38,13 @@ public class MeterManager : MonoBehaviour
         VOCButton.onClick.AddListener(() => PlaceMeter(PollutantType.VOC));
         NOButton.onClick.AddListener(() => PlaceMeter(PollutantType.NOx));
         O3Button.onClick.AddListener(() => PlaceMeter(PollutantType.O3));
+
+        ToolManager.OnToolUpdated += HandleToolUpdated;
+    }
+
+    private void HandleToolUpdated(EquipmentType type)
+    {
+        if (type != EquipmentType.Meter) HideDialogue();
     }
 
     void OnDisable()
@@ -49,24 +56,28 @@ public class MeterManager : MonoBehaviour
         VOCButton.onClick.RemoveAllListeners();
         NOButton.onClick.RemoveAllListeners();
         O3Button.onClick.RemoveAllListeners();
+
+        ToolManager.OnToolUpdated -= HandleToolUpdated;
     }
     
     public void HideDialogue()
     {
         transform.position = HiddenLocation;
-        if (numMeters <= 0) return;
+        //if (numMeters <= 0) return;
 
         ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
-        ToolGUI.ToolPips[numMeters - 1].sprite = FullPip;
+        if (ToolGUI != null) ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
     }
 
     public void ShowDialogue(Vector3 position, InvestigationRoom sourceRoom)
     {
-        if (numMeters <= 0) return;
+        if (ToolsManager.SelectedTool != EquipmentType.Meter) return;
+        
+        //if (numMeters <= 0) return;
         if (sourceRoom.NumMeters >= 2) return;
         
         ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
-        ToolGUI.ToolPips[numMeters - 1].sprite = UsePip;
+        ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = UsePip;
 
         transform.position = position;
         _sourceRoom = sourceRoom;
@@ -74,11 +85,11 @@ public class MeterManager : MonoBehaviour
 
     public void PlaceMeter(PollutantType pollutantType)
     {
-        if (numMeters <= 0) return;
+        //if (numMeters <= 0) return;
         
-        ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
-        ToolGUI.ToolPips[numMeters - 1].sprite = EmptyPip;
-        numMeters--;
+        // ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
+        // ToolGUI.ToolPips[numMeters - 1].sprite = EmptyPip;
+        //numMeters--;
         _sourceRoom.NumMeters++;
         
         GameObject meter = Instantiate(MeterObject);
@@ -91,6 +102,8 @@ public class MeterManager : MonoBehaviour
         gasMeter.Label.text = pollutantType.ToString();
 
         InvestigationTimelineSystem.Instance.RegisterMeter(gasMeter);
+
+        ToolManager.OnToolUsed?.Invoke();
 
         HideDialogue();
 

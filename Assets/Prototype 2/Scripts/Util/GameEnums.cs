@@ -4,7 +4,8 @@ public enum RoomType
     Dining,
     Basement,
     Bedroom,
-    Living
+    Living,
+    None
 }
 
 public enum SlotType

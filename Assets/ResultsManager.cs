@@ -7,10 +7,16 @@ public class ResultsManager : MonoBehaviour
 {
     public Button FinishButton;
     public GameObject End;
+    public ResultsMap ResultsData;
 
     void Start()
     {
         FinishButton.onClick.AddListener(OnFinish);
+    }
+
+    public void EvaluateResults()
+    {
+        
     }
 
     private void OnFinish()

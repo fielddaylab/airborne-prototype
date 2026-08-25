@@ -19,6 +19,8 @@ public class NewGameManager : MonoBehaviour
     public PSAManager PSA;
     public ResultsManager Results;
 
+    public FinalLoopTracker FinalLoopData;
+
     void Awake()
     {
         if (Instance == null)
