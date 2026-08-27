@@ -33,3 +33,18 @@ MonoBehaviour:
     SpriteOverlay: {fileID: 21300000, guid: bae642466664d0b43b58ad832b278d05, type: 3}
     ColorOverlay: {r: 0.41568628, g: 0.39607844, b: 0.98039216, a: 1}
     FullName: Nitrogen Oxides
+  - Pollutant: 6
+    Knowledge: 6
+    SpriteOverlay: {fileID: 21300000, guid: 5b07fb87f79b8614996700110891a1ee, type: 3}
+    ColorOverlay: {r: 0.7490196, g: 0.5647059, b: 0, a: 1}
+    FullName: Sulfur Oxides
+  - Pollutant: 7
+    Knowledge: 7
+    SpriteOverlay: {fileID: 21300000, guid: 81e095a6d7136a34eaa308c8bbd42c20, type: 3}
+    ColorOverlay: {r: 0.21960784, g: 0.4627451, b: 0.11372549, a: 1}
+    FullName: Mold
+  - Pollutant: 8
+    Knowledge: 8
+    SpriteOverlay: {fileID: 21300000, guid: eee1735334310f94ba79cd7cb8a3276b, type: 3}
+    ColorOverlay: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+    FullName: Dust

@@ -8,6 +8,8 @@ public class NewGameManager : MonoBehaviour
     public static NewGameManager Instance;
     public static event Action<NewGamePhase> TriggerPhase;
 
+    public static ScenarioDataObject LoadedScenario;
+
     NewGamePhase CurrentPhase;
     public CaseFileManager CaseFile;
     public ToolManager ToolManager;

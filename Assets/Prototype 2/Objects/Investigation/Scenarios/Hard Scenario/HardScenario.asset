@@ -15,11 +15,11 @@ MonoBehaviour:
   ScenarioName: Hard Scenario
   MainNpc: 0
   Rooms:
-  - {fileID: 11400000, guid: 480f74173ae0a074b94bb612307bf367, type: 2}
-  - {fileID: 11400000, guid: e6d231a81cdf5664295cfcf18ee752f1, type: 2}
-  - {fileID: 11400000, guid: d5f4495655937e641b581691a91bd39c, type: 2}
-  - {fileID: 11400000, guid: b4756293f194803409173433796af244, type: 2}
-  - {fileID: 11400000, guid: 872b4fa32e7f6f34588abe1c532d6b9f, type: 2}
+  - {fileID: 11400000, guid: c1fdb8ca13393ec45bd02dea519d79ca, type: 2}
+  - {fileID: 11400000, guid: a5933ed9696767140a2760de35edb077, type: 2}
+  - {fileID: 11400000, guid: ebc99fde07ad379458464b76af6168f2, type: 2}
+  - {fileID: 11400000, guid: ddcfad21d18411e49b1e01ea194f9294, type: 2}
+  - {fileID: 11400000, guid: bd2626fb54983004d988c34f12a967b2, type: 2}
   NPCs:
   - {fileID: 11400000, guid: f305b992230b8544bacc3a1128da64e9, type: 2}
   - {fileID: 11400000, guid: 9842a6970f63d664495d72d7d5852e33, type: 2}
