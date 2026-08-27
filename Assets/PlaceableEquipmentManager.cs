@@ -34,7 +34,7 @@ public class PlaceableEquipmentManager : MonoBehaviour
         ToolManager.OnToolUpdated += HandleToolSelected;
 
         NoButton.onClick.AddListener(HideDialogue);
-        YesButton.onClick.AddListener(PlaceMeter);
+        YesButton.onClick.AddListener(PlaceObject);
 
         OnShowMeter += ShowDialogue;
     }
@@ -74,26 +74,33 @@ public class PlaceableEquipmentManager : MonoBehaviour
     {
         transform.position = HiddenLocation;
 
-        ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
+        ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == _currentTool);
+        if (ToolGUI == null) return;
         ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
     }
 
-    public void PlaceMeter()
+    public void PlaceObject()
     {
-        GameObject meter = Instantiate(WorldObject);
-        meter.transform.position = transform.position;
-        
-        // GasMeter gasMeter = meter.GetComponent<GasMeter>();
+        GameObject obj = Instantiate(WorldObject);
+        obj.transform.position = transform.position;
 
-        // gasMeter.TrackedRoom = _sourceRoom;
-        // gasMeter.TrackedPollutant = pollutantType;
-        // gasMeter.Label.text = pollutantType.ToString();
-
-        // InvestigationTimelineSystem.Instance.RegisterMeter(gasMeter);
+        GenericObject gen = obj.GetComponent<GenericObject>();
+        gen.spriteRenderer.sprite = EquipmentMapUtility.GetSprite(EquipmentMap, _currentTool);
 
         ToolManager.OnToolUsed?.Invoke();
 
         HideDialogue();
+
+        if (_currentTool == EquipmentType.Filter)
+        {
+            NewGameManager.Instance.FinalLoopData.FilterPlacement = _sourceRoom.RoomTypeValue;
+        } else if (_currentTool == EquipmentType.Fan)
+        {
+            NewGameManager.Instance.FinalLoopData.PlacedFans.Add(_sourceRoom.RoomTypeValue);
+        } else if (_currentTool == EquipmentType.Cleaner)
+        {
+            NewGameManager.Instance.FinalLoopData.CleanerPlacement = _sourceRoom.RoomTypeValue;
+        }
 
         ToolsManager.ClearTool();
     }
