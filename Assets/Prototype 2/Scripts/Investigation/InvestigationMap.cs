@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,14 @@ public class InvestigationMap : MonoBehaviour
 {
     public MapRoomDisplay[] MapRooms;
     public MapConnector[] MapConnectors;
-    public Button[] OverlayButtons;
-    public PollutantType[] OverlayButtonPollutants;
     //private int _startButton = 0;
+    public GasOverlayManager GasOverlayManager;
 
     public Slider FalseSlider;
 
-    private PollutantType _selectedPollutant = PollutantType.CO;
-    private int _selectedOverlayIndex = 0;
+    private PollutantType _selectedPollutant;
+
+    public static Action<PollutantType> OnSetPollutant;
 
     public void Start()
     {
@@ -24,24 +25,20 @@ public class InvestigationMap : MonoBehaviour
     public void OnEnable()
     {
         FalseSlider.onValueChanged.AddListener(UpdateRooms);
-        
-        for (int i = 0; i < OverlayButtons.Length; i++) 
-        {
-            int index = i; 
-            OverlayButtons[i].onClick.AddListener(() => SwitchTo(index));
-        }
+        OnSetPollutant += HandleSetPollutant;
 
         StartCoroutine(InitializeAfterFrame());
+    }
+
+    public void HandleSetPollutant(PollutantType pollutant)
+    {
+        _selectedPollutant = pollutant;
+        UpdateRooms(FalseSlider.value);
     }
 
     public void OnDisable()
     {
         FalseSlider.onValueChanged.RemoveListener(UpdateRooms);
-
-        foreach (var button in OverlayButtons)
-        {
-            button.onClick.RemoveAllListeners();
-        }
     }
 
     private IEnumerator InitializeAfterFrame()
@@ -76,30 +73,11 @@ public class InvestigationMap : MonoBehaviour
         {
             UpdateRooms(FalseSlider.value);
         }
-
-        if (OverlayButtons != null && OverlayButtons.Length > 0)
-        {
-            SwitchTo(_selectedOverlayIndex);
-        }
     }
 
     public void SetOverlayForPollutant(PollutantType pollutant)
     {
-        if (OverlayButtons == null || OverlayButtonPollutants == null)
-        {
-            return;
-        }
-
-        for (int i = 0; i < OverlayButtonPollutants.Length; i++)
-        {
-            if (OverlayButtonPollutants[i] == pollutant)
-            {
-                SwitchTo(i);
-                return;
-            }
-        }
-
-        SwitchTo(_selectedOverlayIndex);
+        GasOverlayManager.HandleOverlayChange(pollutant);
     }
 
     public void UpdateRooms(float f)
@@ -157,33 +135,6 @@ public class InvestigationMap : MonoBehaviour
             {
                 room.UpdateSymptomValidity(hour, pollutant);
             }
-        }
-    }
-
-    public void SwitchTo(int t)
-    {
-        if (OverlayButtons == null || OverlayButtons.Length == 0)
-        {
-            return;
-        }
-
-        _selectedOverlayIndex = Mathf.Clamp(t, 0, OverlayButtons.Length - 1);
-
-        for (int i = 0; i < OverlayButtons.Length; i++)
-        {
-            if (_selectedOverlayIndex == i) 
-            { 
-                _selectedPollutant = OverlayButtonPollutants[i];
-                OverlayButtons[i].interactable = false;
-            } else
-            {
-                OverlayButtons[i].interactable = true;
-            }
-        }
-
-        if (FalseSlider != null)
-        {
-            UpdateRooms(FalseSlider.value);
         }
     }
 }
