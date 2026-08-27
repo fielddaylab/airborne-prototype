@@ -11,7 +11,9 @@ public class MeterManager : MonoBehaviour
     public static Action<Vector3, InvestigationRoom> OnShowMeter;
 
     public Button XButton;
-    public Button COButton, VOCButton, NOButton, O3Button;
+
+    public GameObject MeterButtonPrefab;
+    public Transform MeterButtonParent;
 
     public GameObject MeterObject;
 
@@ -21,12 +23,35 @@ public class MeterManager : MonoBehaviour
 
     private InvestigationRoom _sourceRoom;
 
+    public static Action<PollutantType> OnMeterButton;
+
     //public Image[] meterPips;
     public Sprite FullPip, UsePip, EmptyPip;
 
     void Start()
     {
+        Setup();
+        
         HideDialogue();
+    }
+
+    private void Setup()
+    {
+        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+
+        for (int i = 0; i < MeterButtonParent.transform.childCount; i++)
+        {
+            Destroy(MeterButtonParent.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < pollutantDatas.Length; i++)
+        {
+            GameObject meterButtonObj = Instantiate(MeterButtonPrefab);
+            meterButtonObj.transform.SetParent(MeterButtonParent);
+
+            MeterButton meterButton = meterButtonObj.GetComponent<MeterButton>();
+            meterButton.Setup(pollutantDatas[i].Type);
+        }
     }
 
     void OnEnable()
@@ -34,10 +59,7 @@ public class MeterManager : MonoBehaviour
         XButton.onClick.AddListener(HideDialogue);
         OnShowMeter += ShowDialogue;
 
-        COButton.onClick.AddListener(() => PlaceMeter(PollutantType.CO));
-        VOCButton.onClick.AddListener(() => PlaceMeter(PollutantType.VOC));
-        NOButton.onClick.AddListener(() => PlaceMeter(PollutantType.NOx));
-        O3Button.onClick.AddListener(() => PlaceMeter(PollutantType.O3));
+        OnMeterButton += PlaceMeter;
 
         ToolManager.OnToolUpdated += HandleToolUpdated;
     }
@@ -51,11 +73,6 @@ public class MeterManager : MonoBehaviour
     {
         XButton.onClick.RemoveAllListeners();
         OnShowMeter -= ShowDialogue;
-
-        COButton.onClick.RemoveAllListeners();
-        VOCButton.onClick.RemoveAllListeners();
-        NOButton.onClick.RemoveAllListeners();
-        O3Button.onClick.RemoveAllListeners();
 
         ToolManager.OnToolUpdated -= HandleToolUpdated;
     }
@@ -100,6 +117,7 @@ public class MeterManager : MonoBehaviour
         gasMeter.TrackedRoom = _sourceRoom;
         gasMeter.TrackedPollutant = pollutantType;
         gasMeter.Label.text = pollutantType.ToString();
+        //gasMeter.Label.color = InvestigationLookup.Instance.PollutantMap.GetMaterial(pollutantType);
 
         InvestigationTimelineSystem.Instance.RegisterMeter(gasMeter);
 
