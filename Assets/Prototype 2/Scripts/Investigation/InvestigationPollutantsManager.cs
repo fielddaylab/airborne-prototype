@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,36 +6,72 @@ using UnityEngine.UI;
 
 public class InvestigationPollutantsManager : MonoBehaviour
 {
-    public PollutantButtonPair[] PollutantDisableButtons;
+    //public PollutantButtonPair[] PollutantDisableButtons;
     private List<PollutantType> _disabledPollutants = new();
 
-    public PollutantPanelPair[] PollutantPanels;
-    public PollutantButtonPair[] PollutantEnableButtons;
+    //public PollutantPanelPair[] PollutantPanels;
+    //public PollutantButtonPair[] PollutantEnableButtons;
 
-    public TheoryPanel[] TheoryPanels;
-    public PollutantDataObject[] PollutantDataInfo;
+    private TheoryPanel[] TheoryPanels;
+    private PollutantPanelExpander[] Expanders;
+    private PollutantDataObject[] _PollutantDataInfo;
 
-    public PollutantButtonPair[] PollutantTheoryButtons;
+    //public PollutantButtonPair[] PollutantTheoryButtons;
+    public GameObject PollutantPanelPrefab, PollutantExpandPrefab;
 
     public GameObject SuspectPanelParent, CollapsedParent;
     public TheoryManager TheoryManager;
     public Button TheoryCollapser;
 
+    public static Action<PollutantType> OnTheoryStart;
+    public static Action<PollutantType> OnCollapsePanel;
+    public static Action<PollutantType> OnExpandPanel;
+
     void Start()
     {
-        foreach (var pair in PollutantEnableButtons)
+        Setup();
+    }
+
+    private void Setup()
+    {
+        // pollutant panels
+        for (int i = 0; i < SuspectPanelParent.transform.childCount; i++)
         {
-            HandlePollutantEnable(pair);
+            Destroy(SuspectPanelParent.transform.GetChild(i).gameObject);
         }
 
-        foreach (var panel in TheoryPanels)
+        _PollutantDataInfo = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        TheoryPanels = new TheoryPanel[_PollutantDataInfo.Length];
+
+        for (int i = 0; i < TheoryPanels.Length; i++)
         {
-            foreach (var data in PollutantDataInfo)
-            {
-                if (data.Type == panel.PollutantType) {
-                    panel.AssemblePanel(data);
-                }
-            }
+            GameObject panel = Instantiate(PollutantPanelPrefab);
+            panel.transform.SetParent(SuspectPanelParent.transform, false);
+
+            TheoryPanel theoryPanel = panel.GetComponent<TheoryPanel>();
+            theoryPanel.AssemblePanel(_PollutantDataInfo[i]);
+
+            TheoryPanels[i] = theoryPanel;
+        }
+
+        // enable buttons
+        for (int i = 0; i < CollapsedParent.transform.childCount; i++)
+        {
+            Destroy(CollapsedParent.transform.GetChild(i).gameObject);
+        }
+
+        Expanders = new PollutantPanelExpander[_PollutantDataInfo.Length];
+
+        for (int i = 0; i < TheoryPanels.Length; i++)
+        {
+            GameObject expander = Instantiate(PollutantExpandPrefab);
+            expander.transform.SetParent(CollapsedParent.transform, false);
+
+            PollutantPanelExpander panelExpander = expander.GetComponent<PollutantPanelExpander>();
+            panelExpander.Setup(_PollutantDataInfo[i].Type);
+
+            Expanders[i] = panelExpander;
+            expander.SetActive(false);
         }
 
         TheoryManager.gameObject.SetActive(false);
@@ -42,6 +79,8 @@ public class InvestigationPollutantsManager : MonoBehaviour
 
     public void UpdateInformation()
     {
+        Setup();
+        
         foreach (var panel in TheoryPanels)
         {
             panel.UpdateInformation();
@@ -52,90 +91,67 @@ public class InvestigationPollutantsManager : MonoBehaviour
 
     void OnEnable()
     {
-        foreach (var pair in PollutantDisableButtons)
-        {
-            pair.PollutantButton.onClick.AddListener(() => HandlePollutantCollapse(pair));
-        }
-
-        foreach (var pair in PollutantEnableButtons)
-        {
-            pair.PollutantButton.onClick.AddListener(() => HandlePollutantEnable(pair));
-        }
-
-        foreach (var pair in PollutantTheoryButtons)
-        {
-            pair.PollutantButton.onClick.AddListener(() => HandlePollutantTheory(pair));
-        }
+        OnTheoryStart += HandleTheoryStart;
+        OnCollapsePanel += HandleCollapsePanel;
+        OnExpandPanel += HandleExpandPanel;
 
         TheoryCollapser.onClick.AddListener(HandleTheoryCollapse);
     }
 
     void OnDisable()
     {
-        foreach (var pair in PollutantDisableButtons)
-        {
-            pair.PollutantButton.onClick.RemoveAllListeners();
-        }
-
-        foreach (var pair in PollutantEnableButtons)
-        {
-            pair.PollutantButton.onClick.RemoveAllListeners();
-        }
-
-        foreach (var pair in PollutantTheoryButtons)
-        {
-            pair.PollutantButton.onClick.RemoveAllListeners();
-        }
+        OnTheoryStart -= HandleTheoryStart;
+        OnCollapsePanel -= HandleCollapsePanel;
+        OnExpandPanel -= HandleExpandPanel;
 
         TheoryCollapser.onClick.RemoveListener(HandleTheoryCollapse);
     }
 
-    private void HandlePollutantCollapse(PollutantButtonPair pair)
-    {
-        PollutantType pollutant = pair.Pollutant;
-        _disabledPollutants.Add(pollutant);
-
-        foreach (var panel in PollutantPanels)
-        {
-            if (panel.Pollutant == pollutant) panel.Panel.SetActive(false);
-        }
-
-        foreach (var button in PollutantEnableButtons)
-        {
-            if (button.Pollutant == pollutant) button.PollutantButton.gameObject.SetActive(true);
-        }
-    }
-
-    private void HandlePollutantEnable(PollutantButtonPair pair)
-    {
-        PollutantType pollutant = pair.Pollutant;
-        _disabledPollutants.Remove(pollutant);
-
-        foreach (var panel in PollutantPanels)
-        {
-            if (panel.Pollutant == pollutant) panel.Panel.SetActive(true);
-        }
-
-        foreach (var button in PollutantEnableButtons)
-        {
-            if (button.Pollutant == pollutant) button.PollutantButton.gameObject.SetActive(false);
-        }
-    }
-
-    private void HandlePollutantTheory(PollutantButtonPair pair)
+    private void HandleTheoryStart(PollutantType pollutant)
     {
         SuspectPanelParent.SetActive(false);
         CollapsedParent.SetActive(false);
         TheoryManager.gameObject.SetActive(true);
-        foreach (var data in PollutantDataInfo)
+
+        foreach (var data in _PollutantDataInfo)
         {
-            if (data.Type == pair.Pollutant) {
+            if (data.Type == pollutant) {
                 TheoryManager.AssemblePanel(data);
                 break;
             }
         }
 
         TheoryManager.InTheoryMode = true;
+    }
+    
+    private void HandleCollapsePanel(PollutantType pollutant)
+    {
+        _disabledPollutants.Add(pollutant);
+
+        foreach (var panel in TheoryPanels)
+        {
+            if (panel.PollutantType == pollutant) panel.gameObject.SetActive(false);
+        }
+
+        foreach (var expander in Expanders)
+        {
+            if (expander.PollutantType == pollutant) expander.gameObject.SetActive(true);
+        }
+    }
+
+    private void HandleExpandPanel(PollutantType pollutant)
+    {
+        _disabledPollutants.Remove(pollutant);
+
+        foreach (var panel in TheoryPanels)
+        {
+            if (panel.PollutantType == pollutant) panel.gameObject.SetActive(true);
+        }
+
+        foreach (var expander in Expanders)
+        {
+            if (expander.PollutantType == pollutant) expander.gameObject.SetActive(false);
+        }
     }
 
     private void HandleTheoryCollapse()
@@ -149,23 +165,9 @@ public class InvestigationPollutantsManager : MonoBehaviour
 
     private void Reset()
     {
-        foreach (PollutantButtonPair pair in PollutantEnableButtons)
-        {
-            pair.PollutantButton.gameObject.SetActive(false);
-        }
+        // foreach (PollutantButtonPair pair in PollutantEnableButtons)
+        // {
+        //     pair.PollutantButton.gameObject.SetActive(false);
+        // }
     }
-}
-
-[System.Serializable]
-public class PollutantButtonPair
-{
-    public Button PollutantButton;
-    public PollutantType Pollutant;
-}
-
-[System.Serializable]
-public class PollutantPanelPair
-{
-    public GameObject Panel;
-    public PollutantType Pollutant;
 }

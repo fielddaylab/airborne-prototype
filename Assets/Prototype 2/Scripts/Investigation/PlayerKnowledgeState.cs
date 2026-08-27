@@ -104,19 +104,17 @@ public static class PlayerKnowledgeState
         [PollutantType.CO] = KnowledgeType.CO,
         [PollutantType.O3] = KnowledgeType.O3,
         [PollutantType.NOx] = KnowledgeType.NO,
-        [PollutantType.VOC] = KnowledgeType.VOC
-    };
-
-    public static readonly KnowledgeType[] PollutantKnowledgeTypes =
-    {
-        KnowledgeType.CO, KnowledgeType.O3, KnowledgeType.NO, KnowledgeType.VOC
+        [PollutantType.VOC] = KnowledgeType.VOC,
+        [PollutantType.SOx] = KnowledgeType.SOx,
+        [PollutantType.Mold] = KnowledgeType.Mold,
+        [PollutantType.Dust] = KnowledgeType.Dust
     };
 }
 
 public enum KnowledgeType
 {
     RoomInfo,
-    PollutantPresence, CO, O3, NO, VOC,
+    PollutantPresence, CO, O3, NO, VOC, SOx, Mold, Dust,
     FanStatus, FurnaceStatus, SpraycanStatus, StoveStatus, ElectricStatus,
     NPCPresence, NPCSymptom, NPCDialogue, 
 }

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class TheoryPanel : MonoBehaviour
 {
     public PollutantType PollutantType;
+    public Image Portrait;
+    public TMP_Text Label;
     public Slider TheorySlider;
     public TextMeshProUGUI TheoryText;
     public GameObject TheoryPiece;
@@ -18,9 +20,16 @@ public class TheoryPanel : MonoBehaviour
     private List<TheoryPiece> _sources = new();
 
     public Button TheorizeButton;
+    public Button CollapseButton;
+
 
     public void AssemblePanel(PollutantDataObject pollutantData)
     {
+        PollutantType = pollutantData.Type;
+
+        Portrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(PollutantType);
+        Label.text = InvestigationLookup.Instance.PollutantMap.GetFullName(PollutantType);
+        
         foreach (var symptom in pollutantData.Symptoms)
         {
             GameObject theoryPiece = Instantiate(TheoryPiece, SymptomsBox); 
@@ -44,6 +53,20 @@ public class TheoryPanel : MonoBehaviour
 
             _sources.Add(piece);
         }
+
+        TheorizeButton.onClick.AddListener(StartTheory);
+        Debug.Log(CollapseButton == null);
+        CollapseButton.onClick.AddListener(HidePanel);
+    }
+
+    private void StartTheory()
+    {
+        InvestigationPollutantsManager.OnTheoryStart?.Invoke(PollutantType);
+    }
+
+    private void HidePanel()
+    {
+        InvestigationPollutantsManager.OnCollapsePanel?.Invoke(PollutantType);
     }
 
     public void UpdateInformation()

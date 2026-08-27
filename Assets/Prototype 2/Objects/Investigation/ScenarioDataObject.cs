@@ -10,6 +10,7 @@ public class ScenarioDataObject : ScriptableObject
     public InvestigationRoomObject[] Rooms;
     public InvestigationNPCObject[] NPCs;
     public InvestigationFeatureEventObject[] FeatureEvents;
+    public PollutantDataObject[] SuspectedPollutants;
 
     public TargetWinConditions WinConditions;
 }

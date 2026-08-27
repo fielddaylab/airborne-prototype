@@ -22,7 +22,7 @@ MonoBehaviour:
     Knowledge: 5
     SpriteOverlay: {fileID: 21300000, guid: 62a7787b353160340842a65e61fed581, type: 3}
     ColorOverlay: {r: 0.654902, g: 0.8980392, b: 0.47058824, a: 1}
-    FullName: Volatile Organic Compound
+    FullName: VOCs
   - Pollutant: 4
     Knowledge: 3
     SpriteOverlay: {fileID: 21300000, guid: f85ce8083f2cf8449b4c097062033c38, type: 3}
