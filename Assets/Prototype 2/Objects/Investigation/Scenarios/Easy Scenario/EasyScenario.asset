@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScenarioName: Easy Scenario
   MainNpc: 2
-  Rooms: []
+  Rooms:
+  - {fileID: 11400000, guid: 356c1c811aad0cd4a9ef0d4d1473c7f6, type: 2}
+  - {fileID: 11400000, guid: 08d9273243e4e2c4ab94de61e46e7a5f, type: 2}
+  - {fileID: 11400000, guid: 5e1f8d0b5bf4403488ba9e8b3feae769, type: 2}
   NPCs: []
   FeatureEvents: []
   SuspectedPollutants:
