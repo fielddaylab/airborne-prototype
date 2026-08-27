@@ -30,6 +30,10 @@ public class InvestigationTimelineSystem : MonoBehaviour
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+        
+        if (NewGameManager.LoadedScenario != null ) {
+            ScenarioData = NewGameManager.LoadedScenario;
+        }
     }
 
     public void Start()

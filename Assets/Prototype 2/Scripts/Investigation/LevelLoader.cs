@@ -22,6 +22,7 @@ public class LevelLoader : MonoBehaviour
 
     void LoadLevel()
     {
+        NewGameManager.LoadedScenario = LevelScenario;
         SceneManager.LoadScene(LevelScene);
     }
 }

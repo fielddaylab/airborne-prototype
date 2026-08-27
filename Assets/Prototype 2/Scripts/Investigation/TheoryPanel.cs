@@ -29,6 +29,7 @@ public class TheoryPanel : MonoBehaviour
 
         Portrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(PollutantType);
         Label.text = InvestigationLookup.Instance.PollutantMap.GetFullName(PollutantType);
+        name = Label.text;
         
         foreach (var symptom in pollutantData.Symptoms)
         {
