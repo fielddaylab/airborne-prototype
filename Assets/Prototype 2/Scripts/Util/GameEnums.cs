@@ -23,7 +23,8 @@ public enum FeatureType
     Electricity,
     Spraycan,
     Fan,
-    None
+    None,
+    MoldPatch
 }
 
 public enum FeatureEvent
@@ -39,7 +40,10 @@ public enum PollutantType
     CO,
     NOx,
     O3,
-    VOC
+    VOC,
+    SOx,
+    Mold,
+    Dust
 }
 
 public enum Symptom
