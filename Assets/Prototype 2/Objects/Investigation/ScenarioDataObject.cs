@@ -14,7 +14,9 @@ public class ScenarioDataObject : ScriptableObject
     public InvestigationFeatureEventObject[] FeatureEvents;
     public PollutantDataObject[] SuspectedPollutants;
 
-    public TargetWinConditions WinConditions;
+    public ResultsMap PSAOptions;
+
+    public WinConditionDataObject WinConditions;
 }
 
 public static class ScenarioUtility
@@ -31,21 +33,4 @@ public static class ScenarioUtility
         Debug.LogError("No feature found in scenario data matching type.");
         return RoomType.Kitchen;
     }
-}
-
-[System.Serializable]
-public class TargetWinConditions
-{
-    public int TargetLoopCount = 10;
-    
-    public bool ReplaceFurnace = false;
-    public bool ReplaceStove = false;
-    
-    public List<RoomType> PlacedFansInRooms = new();
-    public RoomType PlaceFilterInRoom = RoomType.None;
-    public RoomType PlaceCleanerInRoom = RoomType.None;
-
-    public FeatureType PosterFeature = FeatureType.None;
-    public PollutantType PosterSubjectPollutant = PollutantType.None;
-    public PollutantType PosterMessagePollutant = PollutantType.None;
 }
