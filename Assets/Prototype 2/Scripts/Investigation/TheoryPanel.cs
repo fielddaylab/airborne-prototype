@@ -74,6 +74,8 @@ public class TheoryPanel : MonoBehaviour
     {
         int totalInfo = 0;
 
+        Debug.Log("Updating info called!");
+
         foreach (var piece in _symptoms)
         {
             if (PlayerKnowledgeState.HasSeenSymptom(piece.RepresentedSymptom))

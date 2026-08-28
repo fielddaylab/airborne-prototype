@@ -94,8 +94,6 @@ public class InvestigationMap : MonoBehaviour
 
         foreach (var room in MapRooms)
         {
-            Debug.Log(room == null);
-            
             if (PlayerKnowledgeState.IsKnownGenerally(room.roomType, KnowledgeType.RoomInfo))
             {
                 knownRooms.Add(room.roomType);
