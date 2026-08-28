@@ -102,7 +102,7 @@ public class TheoryManager : MonoBehaviour
 
         foreach (var image in PollutantClouds)
         {
-            image.color = InvestigationLookup.Instance.PollutantMap.GetMaterial(pollutantData.Type);
+            image.color = InvestigationLookup.Instance.PollutantMap.GetColor(pollutantData.Type);
         }
 
         foreach (var text in PollutantTexts)
