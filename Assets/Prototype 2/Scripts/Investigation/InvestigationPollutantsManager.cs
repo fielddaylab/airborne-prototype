@@ -79,8 +79,6 @@ public class InvestigationPollutantsManager : MonoBehaviour
 
     public void UpdateInformation()
     {
-        Setup();
-        
         foreach (var panel in TheoryPanels)
         {
             panel.UpdateInformation();

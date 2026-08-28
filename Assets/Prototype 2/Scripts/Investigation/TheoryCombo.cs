@@ -103,8 +103,6 @@ public class TheoryCombo : MonoBehaviour
 
     private void HandleHideTheory()
     {
-        Debug.Log("Called!");
-        
         ComboPopup.SetActive(false);
         if (PollutantAtSource != null)
         {
