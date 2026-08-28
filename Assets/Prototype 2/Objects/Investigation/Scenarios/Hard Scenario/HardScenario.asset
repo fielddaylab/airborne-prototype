@@ -35,6 +35,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c8adc9bfdb1dbe34cb4f65edbf075fbb, type: 2}
   - {fileID: 11400000, guid: 782c6fb3c0209144c8995b41c8b2ae10, type: 2}
   - {fileID: 11400000, guid: 8b6034e89d2d99c4f9beba08c070c772, type: 2}
+  PSAOptions: {fileID: 11400000, guid: 920a7a2c6a46e5f40967c7f61c3fb159, type: 2}
   WinConditions:
     TargetLoopCount: 10
     ReplaceFurnace: 1
