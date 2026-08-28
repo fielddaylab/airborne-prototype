@@ -66,10 +66,14 @@ public class CaseFileManager : MonoBehaviour
 
         InvestigationTimelineSystem.Instance.PauseTime(CaseFileOpen);
 
+        Map.UpdateRooms(TrueTimelineSlider.value);
+        Pollutants.UpdateInformation();
+
         if (CaseFileOpen)
         {
             Map.UpdateRooms(TrueTimelineSlider.value);
             Pollutants.UpdateInformation();
+            Debug.Log("this happened!");
         } else
         {
             OnCaseFileClosed?.Invoke();

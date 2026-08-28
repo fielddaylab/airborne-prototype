@@ -114,7 +114,6 @@ public class ToolManager : MonoBehaviour
 
     private void HandleToolUsed()
     {
-        Debug.Log("USED!");
         ToolButton currentTool = ToolButtons.Find(button => button.ToolType == SelectedTool);
         if (currentTool.UsedPips > 0 && currentTool.NumPips > 0) {
             currentTool.ToolPips[currentTool.UsedPips - 1].sprite = EmptyPip;
