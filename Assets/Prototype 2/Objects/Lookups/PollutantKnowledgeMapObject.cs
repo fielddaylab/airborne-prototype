@@ -38,7 +38,7 @@ public class PollutantKnowledgeMapObject : ScriptableObject
         return sprite;
     }
 
-    public Color GetMaterial(PollutantType pollutant)
+    public Color GetColor(PollutantType pollutant)
     {
         _materialLookup.TryGetValue(pollutant, out Color mat);
         return mat;

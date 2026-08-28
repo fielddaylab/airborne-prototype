@@ -132,7 +132,7 @@ public class MapRoomDisplay : MonoBehaviour
 
                 if (pollutant == overlayedPollutant)
                 {
-                    Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetMaterial(pollutant);
+                    Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetColor(pollutant);
                     PollutantReading reading = slot.GetReading(pollutant);
                     overlayColor.a = reading != null ? reading.Concentration / 4f : 0; // magic number, but just set to max it can possible be later
                     GasOverlay.enabled = true;
@@ -158,7 +158,7 @@ public class MapRoomDisplay : MonoBehaviour
                         if (reading.Concentration > 0)
                         {
                             MeterIndicators[metersTracked].enabled = true;
-                            Color indicatorColor = InvestigationLookup.Instance.PollutantMap.GetMaterial(meterPollutant);
+                            Color indicatorColor = InvestigationLookup.Instance.PollutantMap.GetColor(meterPollutant);
                             MeterIndicators[metersTracked].color = indicatorColor;
                         }
                     }
