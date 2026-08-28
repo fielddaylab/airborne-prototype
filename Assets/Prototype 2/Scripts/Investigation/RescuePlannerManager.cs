@@ -8,9 +8,13 @@ public class RescuePlannerManager : MonoBehaviour
     public static RescuePlannerManager Instance;
     public ToolManager ToolManagerRef;
     
+    public Transform MapParent;
+    [HideInInspector] public InvestigationMap Map;
+
     public Button AdvanceButton;
     
     public List<EquipmentType> SelectedEquipment;
+    public Slider FalseSlider;
 
     void Awake()
     {
@@ -24,6 +28,16 @@ public class RescuePlannerManager : MonoBehaviour
     {
         AdvanceButton.interactable = false;
         AdvanceButton.onClick.AddListener(HandleAdvance);
+    }
+
+    public void Setup()
+    {
+        GameObject mapObj = Instantiate(InvestigationTimelineSystem.Instance.ScenarioData.MapObject);
+        mapObj.transform.SetParent(MapParent, false);
+
+        Map = mapObj.GetComponent<InvestigationMap>();
+        Map.Setup(FalseSlider);
+        Map.ForceUpdate();
     }
 
     public void AddEquipment(EquipmentType type)

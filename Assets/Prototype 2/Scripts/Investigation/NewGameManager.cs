@@ -64,6 +64,7 @@ public class NewGameManager : MonoBehaviour
                 TimeSwitcher.SwitchTo(0);
                 ToolManager.ClearTool();
                 RescuePlanner.gameObject.SetActive(true);
+                RescuePlanner.Setup();
 
                 break;
             case NewGamePhase.Intervention:
