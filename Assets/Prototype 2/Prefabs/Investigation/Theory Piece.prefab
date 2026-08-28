@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkMark: {fileID: 21300000, guid: 33d58cd5b8bd73b428a475f3cfabd5e5, type: 3}
   xMark: {fileID: 21300000, guid: 103e8569568ab4d468a6f9d6c1d5e62f, type: 3}
+  Image: {fileID: 7316648339809393942}
 --- !u!114 &7316648339809393942
 MonoBehaviour:
   m_ObjectHideFlags: 0

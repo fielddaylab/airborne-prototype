@@ -11,7 +11,7 @@ public class InvestigationMap : MonoBehaviour
     //private int _startButton = 0;
     public GasOverlayManager GasOverlayManager;
 
-    public Slider FalseSlider;
+    [HideInInspector] public Slider FalseSlider;
 
     private PollutantType _selectedPollutant;
 
@@ -22,9 +22,14 @@ public class InvestigationMap : MonoBehaviour
         InitializeDisplay();
     }
 
+    public void Setup(Slider falseSlider)
+    {
+        FalseSlider = falseSlider;
+    }
+
     public void OnEnable()
     {
-        FalseSlider.onValueChanged.AddListener(UpdateRooms);
+        if (FalseSlider != null) FalseSlider.onValueChanged.AddListener(UpdateRooms);
         OnSetPollutant += HandleSetPollutant;
 
         StartCoroutine(InitializeAfterFrame());
@@ -33,12 +38,12 @@ public class InvestigationMap : MonoBehaviour
     public void HandleSetPollutant(PollutantType pollutant)
     {
         _selectedPollutant = pollutant;
-        UpdateRooms(FalseSlider.value);
+        if (FalseSlider != null) UpdateRooms(FalseSlider.value);
     }
 
     public void OnDisable()
     {
-        FalseSlider.onValueChanged.RemoveListener(UpdateRooms);
+        if (FalseSlider != null) FalseSlider.onValueChanged.RemoveListener(UpdateRooms);
     }
 
     private IEnumerator InitializeAfterFrame()
@@ -89,6 +94,8 @@ public class InvestigationMap : MonoBehaviour
 
         foreach (var room in MapRooms)
         {
+            Debug.Log(room == null);
+            
             if (PlayerKnowledgeState.IsKnownGenerally(room.roomType, KnowledgeType.RoomInfo))
             {
                 knownRooms.Add(room.roomType);

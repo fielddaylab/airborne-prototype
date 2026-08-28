@@ -8,13 +8,12 @@ public class ImageCycler : MonoBehaviour
     [SerializeField] private Sprite checkMark;
     [SerializeField] private Sprite xMark;
 
-    private Image rawImage;
+    public Image Image;
     private int cycleState = 0;
     
-    void Awake()
+    void Start()
     {
-        rawImage = GetComponent<Image>();
-        rawImage.enabled = false;
+        Image.enabled = false;
     }
 
     public void IncrementCycle()
@@ -27,15 +26,15 @@ public class ImageCycler : MonoBehaviour
         switch (cycleState)
         {
             case 0:
-                rawImage.enabled = false;
-                rawImage.sprite = null;
+                Image.enabled = false;
+                Image.sprite = null;
                 break;
             case 1:
-                rawImage.enabled = true;
-                rawImage.sprite = checkMark;
+                Image.enabled = true;
+                Image.sprite = checkMark;
                 break;
             case 2:
-                rawImage.sprite = xMark;
+                Image.sprite = xMark;
                 break;
         }
 
@@ -47,15 +46,15 @@ public class ImageCycler : MonoBehaviour
         switch (cycleState)
         {
             case 0:
-                rawImage.enabled = false;
-                rawImage.sprite = null;
+                Image.enabled = false;
+                Image.sprite = null;
                 break;
             case 1:
-                rawImage.enabled = true;
-                rawImage.sprite = checkMark;
+                Image.enabled = true;
+                Image.sprite = checkMark;
                 break;
             case 2:
-                rawImage.sprite = xMark;
+                Image.sprite = xMark;
                 break;
         }
     }

@@ -10,7 +10,8 @@ public class CaseFileManager : MonoBehaviour
     public GameObject CaseFilePanel;
     public Slider FalseTimelineSlider;
     public Slider TrueTimelineSlider;
-    public InvestigationMap Map;
+    public Transform MapParent;
+    [HideInInspector] public InvestigationMap Map;
     public InvestigationPollutantsManager Pollutants;
     public static bool CaseFileOpen;
 
@@ -28,7 +29,14 @@ public class CaseFileManager : MonoBehaviour
         } else
         {
             Destroy(gameObject);
+            return;
         }
+
+        GameObject mapObj = Instantiate(InvestigationTimelineSystem.Instance.ScenarioData.MapObject);
+        mapObj.transform.SetParent(MapParent, false);
+
+        Map = mapObj.GetComponent<InvestigationMap>();
+        Map.Setup(FalseTimelineSlider);
     }
 
     public void Start()
