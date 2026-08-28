@@ -114,6 +114,7 @@ public class TheoryCombo : MonoBehaviour
         if (PollutantAtSymptom != null)
         {
             PollutantAtSymptom.LockedMap.gameObject.SetActive(false);
+            PollutantAtSymptom.MapBackground.SetActive(false);
             PollutantAtSymptom.FalseSlider.interactable = true;
         }
         
