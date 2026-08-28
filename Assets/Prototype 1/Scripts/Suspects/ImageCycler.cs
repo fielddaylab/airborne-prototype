@@ -9,53 +9,15 @@ public class ImageCycler : MonoBehaviour
     [SerializeField] private Sprite xMark;
 
     public Image Image;
-    private int cycleState = 0;
-    
-    void Start()
+
+    public void Awake()
     {
         Image.enabled = false;
     }
 
-    public void IncrementCycle()
+    public void SetChecked(bool check)
     {
-        if (GameManager.Instance != null) {
-            if (GameManager.Instance.GamePhase != GamePhase.SelectingPollutant) return;
-        }
-        
-        cycleState = (cycleState + 1) % 3;
-        switch (cycleState)
-        {
-            case 0:
-                Image.enabled = false;
-                Image.sprite = null;
-                break;
-            case 1:
-                Image.enabled = true;
-                Image.sprite = checkMark;
-                break;
-            case 2:
-                Image.sprite = xMark;
-                break;
-        }
-
-    }
-
-    public void SetCycle(int i)
-    {
-        cycleState = i;
-        switch (cycleState)
-        {
-            case 0:
-                Image.enabled = false;
-                Image.sprite = null;
-                break;
-            case 1:
-                Image.enabled = true;
-                Image.sprite = checkMark;
-                break;
-            case 2:
-                Image.sprite = xMark;
-                break;
-        }
+        Image.enabled = check;
+        Image.sprite = checkMark;
     }
 }

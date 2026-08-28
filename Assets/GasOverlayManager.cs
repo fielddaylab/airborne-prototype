@@ -10,7 +10,7 @@ public class GasOverlayManager : MonoBehaviour
 
     public static Action<PollutantType> OnOverlayChange;
 
-    public GasOverlayButton[] OverlayButtons;
+    [HideInInspector] public GasOverlayButton[] OverlayButtons;
 
     public void Start()
     {

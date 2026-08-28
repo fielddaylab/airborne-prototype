@@ -80,7 +80,8 @@ public class TheoryPanel : MonoBehaviour
         {
             if (PlayerKnowledgeState.HasSeenSymptom(piece.RepresentedSymptom))
             {
-                piece.Cycler.SetCycle(1);
+                Debug.Log($"{name} marking {piece.RepresentedSymptom} as checked!");
+                piece.Cycler.SetChecked(true);
                 totalInfo++;
             }
         }
@@ -89,7 +90,8 @@ public class TheoryPanel : MonoBehaviour
         {
             if (PlayerKnowledgeState.HasSeenFeature(piece.RepresentedFeature))
             {
-                piece.Cycler.SetCycle(1);
+                Debug.Log($"{name} marking {piece.RepresentedFeature} as checked!");
+                piece.Cycler.SetChecked(true);
                 totalInfo++;
             }
         }
