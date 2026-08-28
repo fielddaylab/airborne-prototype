@@ -18,9 +18,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 _velocity;
     private bool _grounded;
     
-    void Start()
+    void Awake()
     {
-        
+        playerCamera = Camera.main.GetComponent<InvestigationCamera>();
     }
 
     private void Update()

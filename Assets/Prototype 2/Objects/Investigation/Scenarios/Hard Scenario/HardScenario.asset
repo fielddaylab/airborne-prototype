@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScenarioName: Hard Scenario
   MainNpc: 0
+  WorldEnvironment: {fileID: 6187977802830985769, guid: d2298095b019fed46ae8aeca03d99b0c, type: 3}
+  MapObject: {fileID: 403726816189591066, guid: 880a277ac5549c342b411952f8bbe256, type: 3}
   Rooms:
   - {fileID: 11400000, guid: c1fdb8ca13393ec45bd02dea519d79ca, type: 2}
   - {fileID: 11400000, guid: a5933ed9696767140a2760de35edb077, type: 2}

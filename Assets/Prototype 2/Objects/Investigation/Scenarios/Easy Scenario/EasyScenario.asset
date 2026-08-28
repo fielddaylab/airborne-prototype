@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScenarioName: Easy Scenario
   MainNpc: 2
+  WorldEnvironment: {fileID: 3831750499708220546, guid: ed77d8964e36d1245b4f067866f577fa, type: 3}
+  MapObject: {fileID: 5432778866077223362, guid: 7cf42f1a0db1ab84d861aa7d29c643b1, type: 3}
   Rooms:
   - {fileID: 11400000, guid: 356c1c811aad0cd4a9ef0d4d1473c7f6, type: 2}
   - {fileID: 11400000, guid: 08d9273243e4e2c4ab94de61e46e7a5f, type: 2}
   - {fileID: 11400000, guid: 5e1f8d0b5bf4403488ba9e8b3feae769, type: 2}
-  NPCs: []
-  FeatureEvents: []
+  NPCs:
+  - {fileID: 11400000, guid: 44e26b2eb0754a044a04c0c2ec49f924, type: 2}
+  FeatureEvents:
+  - {fileID: 11400000, guid: c3ccca303d6cf9c4ab015661c7d21f7c, type: 2}
+  - {fileID: 11400000, guid: 0c858cae49a0a3441bc8339955c10393, type: 2}
   SuspectedPollutants:
   - {fileID: 11400000, guid: bbef27bfc64eb9f41b38195ef0594d61, type: 2}
   - {fileID: 11400000, guid: f471fadc163e9cc4c88638b32ae62162, type: 2}

@@ -22,6 +22,7 @@ public class NewGameManager : MonoBehaviour
     public ResultsManager Results;
 
     public FinalLoopTracker FinalLoopData;
+    public EnvironmentLoader EnvironmentLoad;
 
     void Awake()
     {
@@ -35,6 +36,12 @@ public class NewGameManager : MonoBehaviour
             Destroy(gameObject);
         }
     } 
+
+    void Start()
+    {
+        
+        EnvironmentLoad.LoadEnvironment(InvestigationTimelineSystem.Instance.ScenarioData.WorldEnvironment);
+    }
 
     public void SwitchToPhase(NewGamePhase phase)
     {
