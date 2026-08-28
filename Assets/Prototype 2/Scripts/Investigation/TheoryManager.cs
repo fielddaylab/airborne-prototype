@@ -126,13 +126,10 @@ public class TheoryManager : MonoBehaviour
     {
         int totalInfo = 0;
 
-        Debug.Log("Info updated!");
-
         foreach (var piece in _symptoms)
         {
             if (PlayerKnowledgeState.HasSeenSymptom(piece.RepresentedSymptom))
             {
-                Debug.Log($"{name} marking {piece.RepresentedSymptom} as checked!");
                 piece.Cycler.SetChecked(true);
                 totalInfo++;
             }
@@ -142,7 +139,6 @@ public class TheoryManager : MonoBehaviour
         {
             if (PlayerKnowledgeState.HasSeenFeature(piece.RepresentedFeature))
             {
-                Debug.Log($"{name} marking {piece.RepresentedFeature} as checked!");
                 piece.Cycler.SetChecked(true);
                 totalInfo++;
             }

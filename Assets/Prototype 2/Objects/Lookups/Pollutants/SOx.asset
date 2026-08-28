@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SOx
   m_EditorClassIdentifier: 
   Type: 6
-  Symptoms: 
+  Symptoms: 08000000
   Sources: 01000000
