@@ -27,6 +27,12 @@ public class InvestigationMap : MonoBehaviour
         FalseSlider = falseSlider;
     }
 
+    public void ForceUpdate()
+    {
+        InitializeDisplay();
+        UpdateRooms(FalseSlider.value);
+    }
+
     public void OnEnable()
     {
         if (FalseSlider != null) FalseSlider.onValueChanged.AddListener(UpdateRooms);

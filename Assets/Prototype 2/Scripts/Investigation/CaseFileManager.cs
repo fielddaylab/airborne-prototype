@@ -10,8 +10,10 @@ public class CaseFileManager : MonoBehaviour
     public GameObject CaseFilePanel;
     public Slider FalseTimelineSlider;
     public Slider TrueTimelineSlider;
+
     public Transform MapParent;
     [HideInInspector] public InvestigationMap Map;
+    
     public InvestigationPollutantsManager Pollutants;
     public static bool CaseFileOpen;
 
@@ -73,7 +75,6 @@ public class CaseFileManager : MonoBehaviour
         {
             Map.UpdateRooms(TrueTimelineSlider.value);
             Pollutants.UpdateInformation();
-            Debug.Log("this happened!");
         } else
         {
             OnCaseFileClosed?.Invoke();
