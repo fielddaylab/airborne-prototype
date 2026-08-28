@@ -37,11 +37,11 @@ MonoBehaviour:
   - Time: 18
     CurrentRoom: 0
     CharacterDialogue: 
-    Symptom: 0
+    Symptom: 2
   - Time: 19
     CurrentRoom: 0
     CharacterDialogue: 
-    Symptom: 0
+    Symptom: 6
   - Time: 20
     CurrentRoom: 0
     CharacterDialogue: 

@@ -107,6 +107,7 @@ public class TheoryCombo : MonoBehaviour
         if (PollutantAtSource != null)
         {
             PollutantAtSource.LockedMap.gameObject.SetActive(false);
+            PollutantAtSource.MapBackground.SetActive(false);
             PollutantAtSource.FalseSlider.interactable = true;
         }
 
@@ -190,6 +191,7 @@ public class TheoryCombo : MonoBehaviour
         yield return null;
         if (LockedMap == null)
         {
+            Debug.LogError("Locked map not set!");
             yield break;
         }
 

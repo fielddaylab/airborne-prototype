@@ -8,6 +8,7 @@ public class PollutantAtSymptomManager : MonoBehaviour
 {
     public TextMeshProUGUI QuestionText;
     public InvestigationMap LockedMap;
+    public GameObject MapBackground;
     public Slider FalseSlider;
 
     void Awake()
@@ -18,6 +19,7 @@ public class PollutantAtSymptomManager : MonoBehaviour
     public void Setup(int unconsciousTime, PollutantType pollutant)
     {
         LockedMap.gameObject.SetActive(true);
+        MapBackground.SetActive(true);
         FalseSlider.value = unconsciousTime - 13;
         FalseSlider.interactable = false;
         StartCoroutine(RefreshLockedMapAfterFrame(pollutant));

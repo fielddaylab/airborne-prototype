@@ -32,11 +32,17 @@ public class TheoryManager : MonoBehaviour
     public Slider TheorySlider;
     public TextMeshProUGUI TheoryText;
     public Button TheorizeButton;
+    public Transform MapParent;
+    [HideInInspector] public InvestigationMap Map;
+
+    public PollutantAtSourceManager PAtS;
+    public PollutantAtSymptomManager PAtSymp;
 
     // internals
     private FeatureType _sourceType;
     private PollutantType _pollutantType;
     private PollutantDataObject _pollutantData;
+    public Slider FalseSlider;
 
     private int _theoryProgress = 0;
 
@@ -118,6 +124,22 @@ public class TheoryManager : MonoBehaviour
             image.enabled = false;
         }
         SourceText.text = "";
+        
+        GameObject mapObj = Instantiate(InvestigationTimelineSystem.Instance.ScenarioData.MapObject);
+        mapObj.transform.SetParent(MapParent, false);
+
+        Map = mapObj.GetComponent<InvestigationMap>();
+        Map.Setup(FalseSlider);
+        Map.ForceUpdate();
+        PAtS.LockedMap = Map;
+        PAtSymp.LockedMap = Map;
+        Map.gameObject.SetActive(false);
+        Map.GasOverlayManager.gameObject.SetActive(false);
+
+        foreach (var combo in Combos)
+        {
+            combo.LockedMap = Map;
+        }
 
         UpdateInformation();
     }

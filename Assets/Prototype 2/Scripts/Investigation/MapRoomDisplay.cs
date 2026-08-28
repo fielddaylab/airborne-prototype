@@ -282,6 +282,7 @@ public class MapRoomDisplay : MonoBehaviour
     void HandleLockoutClick()
     {
         InvestigationTimelineChunk.OnValidSelected?.Invoke();
+        Debug.Log("Lockout invoked!");
     }
 
     private void ClearDisplay()
