@@ -68,19 +68,21 @@ public class BossPromptController : MonoBehaviour
     public void AnimateCheckMarkMovement()
     {
         int animationIndex = 0;
-        List<Image> AnimatableCheckmarks = new();
+        HashSet<Image> AnimatableCheckmarks = new();
 
         for (int i = 0; i < CheckMarks.Count; i++)
         {
             if (CheckMarks[i] != null && CheckMarks[i].enabled && CheckMarks[i].sprite == checkSprite && CheckMarks[i].gameObject.activeInHierarchy) {
-                
                 AnimatableCheckmarks.Add(CheckMarks[i]);
             }
         }
 
-        for (int i = 0; i < AnimatableCheckmarks.Count; i++)
+        Debug.Log($"Found {AnimatableCheckmarks.Count} checks");
+        int index = 0;
+        foreach (Image image in AnimatableCheckmarks)
         {
-            StartCoroutine(MoveCheck(CheckMarks[i], animationIndex, i == (AnimatableCheckmarks.Count - 1)));
+            StartCoroutine(MoveCheck(image, animationIndex, index == (AnimatableCheckmarks.Count - 1)));
+            index++;
             animationIndex++;
         }
     }

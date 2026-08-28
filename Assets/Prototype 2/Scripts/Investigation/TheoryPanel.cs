@@ -74,13 +74,10 @@ public class TheoryPanel : MonoBehaviour
     {
         int totalInfo = 0;
 
-        Debug.Log("Updating info called!");
-
         foreach (var piece in _symptoms)
         {
             if (PlayerKnowledgeState.HasSeenSymptom(piece.RepresentedSymptom))
             {
-                Debug.Log($"{name} marking {piece.RepresentedSymptom} as checked!");
                 piece.Cycler.SetChecked(true);
                 totalInfo++;
             }
@@ -90,7 +87,6 @@ public class TheoryPanel : MonoBehaviour
         {
             if (PlayerKnowledgeState.HasSeenFeature(piece.RepresentedFeature))
             {
-                Debug.Log($"{name} marking {piece.RepresentedFeature} as checked!");
                 piece.Cycler.SetChecked(true);
                 totalInfo++;
             }

@@ -13,6 +13,7 @@ public class ImageCycler : MonoBehaviour
     public void Awake()
     {
         Image.enabled = false;
+        BossPromptController.RegisterCheckmark(Image);
     }
 
     public void SetChecked(bool check)
