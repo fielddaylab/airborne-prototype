@@ -685,6 +685,7 @@ MonoBehaviour:
   SecondRoom: 3
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!1 &12818031
 GameObject:
   m_ObjectHideFlags: 0
@@ -3832,6 +3833,7 @@ MonoBehaviour:
   SecondRoom: 1
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!1001 &132611910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6356,6 +6358,7 @@ MonoBehaviour:
   SecondRoom: 0
   IsVent: 1
   ID: Basement-Kitchen
+  VentOverlays: []
 --- !u!1 &276162001
 GameObject:
   m_ObjectHideFlags: 0
@@ -7113,6 +7116,9 @@ MonoBehaviour:
   SecondRoom: 0
   IsVent: 1
   ID: Basement-Kitchen
+  VentOverlays:
+  - {fileID: 1124261518}
+  - {fileID: 809894001}
 --- !u!1 &306730735
 GameObject:
   m_ObjectHideFlags: 0
@@ -12675,6 +12681,7 @@ MonoBehaviour:
   SecondRoom: 4
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &557379356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14550,6 +14557,7 @@ MonoBehaviour:
   SecondRoom: 4
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &650934510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17669,6 +17677,7 @@ MonoBehaviour:
   SecondRoom: 3
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &825640586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26177,6 +26186,7 @@ MonoBehaviour:
   SecondRoom: 2
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &1265724795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27617,6 +27627,7 @@ MonoBehaviour:
   SecondRoom: 0
   IsVent: 1
   ID: Basement-Kitchen
+  VentOverlays: []
 --- !u!1 &1338498689
 GameObject:
   m_ObjectHideFlags: 0
@@ -29033,6 +29044,7 @@ MonoBehaviour:
   SecondRoom: 1
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &1412348315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33185,6 +33197,7 @@ MonoBehaviour:
   SecondRoom: 2
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &1622420000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38517,6 +38530,7 @@ MonoBehaviour:
   SecondRoom: 2
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!1 &1850049537
 GameObject:
   m_ObjectHideFlags: 0
@@ -41935,6 +41949,7 @@ MonoBehaviour:
   SecondRoom: 1
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &2000405519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42597,6 +42612,7 @@ MonoBehaviour:
   SecondRoom: 3
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!114 &2023215966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42877,6 +42893,7 @@ MonoBehaviour:
   SecondRoom: 4
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!1 &2034324523 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3674227286784123962, guid: 170127b7a0e9497499e1da401cfcbd2a, type: 3}
