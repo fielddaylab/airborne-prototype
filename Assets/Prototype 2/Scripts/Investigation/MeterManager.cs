@@ -66,7 +66,13 @@ public class MeterManager : MonoBehaviour
         //if (numMeters <= 0) return;
 
         ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == EquipmentType.Meter);
-        if (ToolGUI != null) ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
+        if (ToolGUI == null)
+        {
+            return;
+        }
+
+        int targetPip = ToolGUI.UsedPips - 1;
+        if (targetPip >= 0) ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
     }
 
     public void ShowDialogue(Vector3 position, InvestigationRoom sourceRoom)
