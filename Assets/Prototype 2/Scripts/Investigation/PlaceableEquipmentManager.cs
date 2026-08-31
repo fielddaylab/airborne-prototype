@@ -75,8 +75,13 @@ public class PlaceableEquipmentManager : MonoBehaviour
         transform.position = HiddenLocation;
 
         ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == _currentTool);
-        if (ToolGUI == null) return;
-        ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
+        if (ToolGUI == null)
+        {
+            return;
+        }
+
+        int targetPip = ToolGUI.UsedPips - 1;
+        if (targetPip >= 0) ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
     }
 
     public void PlaceObject()
