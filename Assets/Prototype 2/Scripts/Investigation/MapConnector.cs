@@ -44,7 +44,7 @@ public class MapConnector : MonoBehaviour
         {
             image.color = overlayColor;
             image.enabled = true;
-        }
+        } 
     }
 
     private void Reset()
