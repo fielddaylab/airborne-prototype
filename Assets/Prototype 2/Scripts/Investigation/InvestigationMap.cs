@@ -123,14 +123,17 @@ public class InvestigationMap : MonoBehaviour
         {
             if (knownRooms.Contains(connector.FirstRoom) && knownRooms.Contains(connector.SecondRoom))
             {
-                if (!connector.IsVent) {
+                if (!connector.IsVent) 
+                {
                     connector.gameObject.SetActive(true);
-                } else
+                } 
+                else
                 {
                     if (PlayerKnowledgeState.IsKnownID(connector.ID))
                     {
                         connector.gameObject.SetActive(true);
                     }
+                    connector.VentUpdate(hour, _selectedPollutant);
                 }
             }
         }

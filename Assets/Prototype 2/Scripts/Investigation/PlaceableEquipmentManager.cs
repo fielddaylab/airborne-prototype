@@ -52,6 +52,7 @@ public class PlaceableEquipmentManager : MonoBehaviour
     public void HandleToolSelected(EquipmentType tool)
     {
         _dialogueEnabled = (EquipmentMapUtility.HasPipDialogue(EquipmentMap, tool) && tool != EquipmentType.Meter); 
+        if (tool != _currentTool) HideDialogue();
         _currentTool = tool;  
     }
 
