@@ -21,34 +21,29 @@ public class MapConnector : MonoBehaviour
         if (!IsVent) return;
         Reset();
 
+        KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(overlayedPollutant);
+        if (!PlayerKnowledgeState.IsKnownHourly(FirstRoom, hour, knowledge)
+            || !PlayerKnowledgeState.IsKnownHourly(SecondRoom, hour, knowledge))
+        {
+            return;
+        }
+
         RoomTimeSlot firstSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(FirstRoom, hour);
         RoomTimeSlot secondSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(SecondRoom, hour);
 
-        foreach (PollutantType pollutant in Enum.GetValues(typeof(PollutantType)))
+        Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetMaterial(overlayedPollutant);
+        PollutantReading fReading = firstSlot.GetReading(overlayedPollutant);
+        PollutantReading sReading = secondSlot.GetReading(overlayedPollutant);
+        float fConcentration = fReading != null ? fReading.Concentration / 4f : 0;
+        float sConcentration = sReading != null ? sReading.Concentration / 4f : 0;
+        float finalConcentration = fConcentration + sConcentration / 2f;
+
+        overlayColor.a = finalConcentration / 4f; // magic number, but just set to max it can possible be later
+
+        foreach (var image in VentOverlays)
         {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
-            if (PlayerKnowledgeState.IsKnownHourly(FirstRoom, hour, knowledge) 
-                && PlayerKnowledgeState.IsKnownHourly(SecondRoom, hour, knowledge))
-            {
-
-                if (pollutant == overlayedPollutant)
-                {
-                    Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetMaterial(pollutant);
-                    PollutantReading fReading = firstSlot.GetReading(pollutant);
-                    PollutantReading sReading = secondSlot.GetReading(pollutant);
-                    float fConcentration = fReading != null ? fReading.Concentration / 4f : 0;
-                    float sConcentration = sReading != null ? sReading.Concentration / 4f : 0;
-                    float finalConcentration = fConcentration + sConcentration / 2f;
-
-                    overlayColor.a = finalConcentration / 4f; // magic number, but just set to max it can possible be later
-
-                    foreach (var image in VentOverlays)
-                    {
-                        image.color = overlayColor;
-                        image.enabled = true;
-                    }
-                }
-            }
+            image.color = overlayColor;
+            image.enabled = true;
         }
     }
 
