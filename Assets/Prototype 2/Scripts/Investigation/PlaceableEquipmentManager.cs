@@ -52,6 +52,7 @@ public class PlaceableEquipmentManager : MonoBehaviour
     public void HandleToolSelected(EquipmentType tool)
     {
         _dialogueEnabled = (EquipmentMapUtility.HasPipDialogue(EquipmentMap, tool) && tool != EquipmentType.Meter); 
+        if (tool != _currentTool) HideDialogue();
         _currentTool = tool;  
     }
 
@@ -75,8 +76,13 @@ public class PlaceableEquipmentManager : MonoBehaviour
         transform.position = HiddenLocation;
 
         ToolButton ToolGUI = ToolsManager.ToolButtons.Find(button => button.ToolType == _currentTool);
-        if (ToolGUI == null) return;
-        ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
+        if (ToolGUI == null)
+        {
+            return;
+        }
+
+        int targetPip = ToolGUI.UsedPips - 1;
+        if (targetPip >= 0) ToolGUI.ToolPips[ToolGUI.UsedPips - 1].sprite = FullPip;
     }
 
     public void PlaceObject()
