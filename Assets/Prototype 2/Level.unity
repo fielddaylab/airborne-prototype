@@ -20280,6 +20280,7 @@ MonoBehaviour:
   RescuePlanner: {fileID: 1932381037}
   CaseFile: {fileID: 1789746821}
   ToolManager: {fileID: 393875674}
+  TheoryManager: {fileID: 1133012573}
 --- !u!1 &1442115105
 GameObject:
   m_ObjectHideFlags: 0

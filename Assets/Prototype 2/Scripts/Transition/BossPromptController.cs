@@ -27,7 +27,8 @@ public class BossPromptController : MonoBehaviour
 
     public CaseFileManager CaseFile;
     public ToolManager ToolManager;
-
+    public TheoryManager TheoryManager;
+    HashSet<Image> AnimatableCheckmarks;
 
     public void Start()
     {
@@ -62,13 +63,22 @@ public class BossPromptController : MonoBehaviour
 
     private void GoBack()
     {
-        Debug.Log("TO DO");
+        NewGameManager.Instance.SwitchToPhase(NewGamePhase.Investigation);
+        BossParent.SetActive(false);
+
+        foreach (Image image in AnimatableCheckmarks)
+        {
+            image.enabled = true;
+        }
+
+        TheoryManager.TheorySlider.gameObject.SetActive(true);
+        PersusasionSlider.value = 0;
     }
 
     public void AnimateCheckMarkMovement()
     {
         int animationIndex = 0;
-        HashSet<Image> AnimatableCheckmarks = new();
+        AnimatableCheckmarks = new();
 
         for (int i = 0; i < CheckMarks.Count; i++)
         {
@@ -106,7 +116,7 @@ public class BossPromptController : MonoBehaviour
             yield return null;
         }
 
-        check.transform.position = end;
+        check.transform.position = start;
         check.enabled = false;
 
         PersusasionSlider.value += 1;
