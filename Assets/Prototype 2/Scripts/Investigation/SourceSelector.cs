@@ -7,28 +7,47 @@ using UnityEngine.UI;
 public class SourceSelector : MonoBehaviour
 {
     public Button CloseButton;
-    public FeatureButtonPair[] FeatureButtons;
+    public GameObject SourceButtonPrefab;
+    public Transform SourceButtonParent;
 
     public static event Action<FeatureType> OnSourceSelection;
+
+    public void Start()
+    {
+        Setup();
+    }
+
+    public void Setup()
+    {
+        Debug.Log("Setup on SourceSelector was called!");
+        
+        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        foreach (var featureEvent in scenarioData.FeatureEvents)
+        {
+            if (featureEvent.isPolluter)
+            {
+                FeatureType type = featureEvent.FeatureType;
+
+                GameObject sourceButton = Instantiate(SourceButtonPrefab);
+                sourceButton.transform.SetParent(SourceButtonParent, false);
+
+                SourceButton source = sourceButton.GetComponent<SourceButton>();
+                source.Setup(type);
+
+                source.MyButton.onClick.AddListener(() => HandleSourceSelection(type));
+            }
+        }
+    }
     
     void OnEnable()
     {
         CloseButton.onClick.AddListener(CloseMenu);
-
-        foreach (var pair in FeatureButtons)
-        {
-            pair.FeatureButton.onClick.AddListener(() => HandleSourceSelection(pair));
-        }
     }
 
     void OnDisable()
     {
         CloseButton.onClick.RemoveListener(CloseMenu);
-
-        foreach (var pair in FeatureButtons)
-        {
-            pair.FeatureButton.onClick.RemoveAllListeners();
-        }
     }
 
     private void CloseMenu()
@@ -36,16 +55,9 @@ public class SourceSelector : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void HandleSourceSelection(FeatureButtonPair pair)
+    private void HandleSourceSelection(FeatureType feature)
     {
-        OnSourceSelection?.Invoke(pair.Feature);
+        OnSourceSelection?.Invoke(feature);
         CloseMenu();
     }
-}
-
-[System.Serializable]
-public class FeatureButtonPair
-{
-    public Button FeatureButton;
-    public FeatureType Feature;
 }

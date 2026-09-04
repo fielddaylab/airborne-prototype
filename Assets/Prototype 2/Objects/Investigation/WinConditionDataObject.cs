@@ -17,4 +17,7 @@ public class WinConditionDataObject : ScriptableObject
     public FeatureType PosterFeature = FeatureType.None;
     public PollutantType PosterSubjectPollutant = PollutantType.None;
     public PollutantType PosterMessagePollutant = PollutantType.None;
+    
+    public PollutantType MainPollutant;
+    public PollutantType RedherringPollutant;
 }

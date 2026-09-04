@@ -30,13 +30,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f471fadc163e9cc4c88638b32ae62162, type: 2}
   - {fileID: 11400000, guid: 6077db69d19e28446a71f5c3e6ace791, type: 2}
   PSAOptions: {fileID: 11400000, guid: f6709879c6098a047bbebbe3fe0401c5, type: 2}
-  WinConditions:
-    TargetLoopCount: 8
-    ReplaceFurnace: 0
-    ReplaceStove: 1
-    PlacedFansInRooms: 00000000
-    PlaceFilterInRoom: 0
-    PlaceCleanerInRoom: 5
-    PosterFeature: 1
-    PosterSubjectPollutant: 6
-    PosterMessagePollutant: 6
+  WinConditions: {fileID: 11400000, guid: 41a3f5f1256d44e45a00b5b854e24c53, type: 2}

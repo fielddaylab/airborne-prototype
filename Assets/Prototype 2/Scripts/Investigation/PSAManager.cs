@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PSAManager : MonoBehaviour
 {
     public Button FinishButton;
-    public ResultsMap PSAData;
+    private ResultsMap PSAData;
 
     [Header("Background")]
     public Button BLeft, BRight;
@@ -34,6 +34,8 @@ public class PSAManager : MonoBehaviour
     public void Start()
     {
         FinishButton.onClick.AddListener(OnFinish);
+
+        PSAData = InvestigationTimelineSystem.Instance.ScenarioData.PSAOptions;
 
         BLeft.onClick.AddListener(() => CycleBackground(-1));
         BRight.onClick.AddListener(()=> CycleBackground(1));

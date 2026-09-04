@@ -8,6 +8,7 @@ public class InvestigationFeatureEventObject : ScriptableObject
     public RoomType RoomType;
     public FeatureType FeatureType;
     public FeatureTimeSlot[] TimeSlots;
+    public bool isPolluter;
 }
 
 [System.Serializable]
