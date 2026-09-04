@@ -14,6 +14,16 @@ public class InterventionReplaceBox : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void OnEnable()
+    {
+        ToolManager.OnToolUpdated += HandleToolUpdated;
+    }
+
+    public void OnDisable()
+    {
+        ToolManager.OnToolUpdated -= HandleToolUpdated;
+    }
+
     private void HandleToolUpdated(EquipmentType type)
     {
         if (type == TargetEquipment && !_AlreadyReplaced)
