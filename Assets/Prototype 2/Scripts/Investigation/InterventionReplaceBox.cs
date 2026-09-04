@@ -32,5 +32,8 @@ public class InterventionReplaceBox : MonoBehaviour
         gameObject.SetActive(false);
         ToolManager.OnToolUsed?.Invoke();
         // this will need updating as well for potentially replacing the model and tracking this state. TODO!
+
+        if (TargetEquipment == EquipmentType.HeatPump) NewGameManager.Instance.FinalLoopData.ReplacedFurnace = true;
+        if (TargetEquipment == EquipmentType.ElectricStove) NewGameManager.Instance.FinalLoopData.ReplacedStove = true;
     }
 }
