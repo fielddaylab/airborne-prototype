@@ -75,7 +75,7 @@ public class TheoryCombo : MonoBehaviour
 
         ComboCloser.onClick.RemoveListener(HandleHideTheory);
         
-        CaseFileManager.OnCaseFileClosed += HandleHideTheory;
+        CaseFileManager.OnCaseFileClosed -= HandleHideTheory;
     }
 
     private void HandleShowTheory()

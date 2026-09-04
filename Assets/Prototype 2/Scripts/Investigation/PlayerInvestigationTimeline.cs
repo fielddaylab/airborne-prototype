@@ -60,7 +60,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         OnTimelineRequested -= HandleTimelineRequest;
         OnFeatureDetailRequested -= HandleFeatureRequest;
         OnResetRequested -= HandleReset;
-        OnNPCDetailRequested += HandleNPCRequest;
+        OnNPCDetailRequested -= HandleNPCRequest;
     }
 
     // handle player moving between rooms and what information they should know
