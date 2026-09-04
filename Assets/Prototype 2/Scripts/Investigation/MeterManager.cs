@@ -74,9 +74,11 @@ public class MeterManager : MonoBehaviour
         XButton.onClick.RemoveAllListeners();
         OnShowMeter -= ShowDialogue;
 
+        OnMeterButton -= PlaceMeter;
+
         ToolManager.OnToolUpdated -= HandleToolUpdated;
     }
-    
+
     public void HideDialogue()
     {
         transform.position = HiddenLocation;
