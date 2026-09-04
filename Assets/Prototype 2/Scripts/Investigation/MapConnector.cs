@@ -31,7 +31,7 @@ public class MapConnector : MonoBehaviour
         RoomTimeSlot firstSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(FirstRoom, hour);
         RoomTimeSlot secondSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(SecondRoom, hour);
 
-        Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetMaterial(overlayedPollutant);
+        Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetColor(overlayedPollutant);
         PollutantReading fReading = firstSlot.GetReading(overlayedPollutant);
         PollutantReading sReading = secondSlot.GetReading(overlayedPollutant);
         float fConcentration = fReading != null ? fReading.Concentration / 4f : 0;
