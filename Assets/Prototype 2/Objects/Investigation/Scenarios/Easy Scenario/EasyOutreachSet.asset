@@ -13,37 +13,23 @@ MonoBehaviour:
   m_Name: EasyOutreachSet
   m_EditorClassIdentifier: 
   BackgroundSets:
-  - BackgroundSprite: {fileID: 21300000, guid: 1e93053565d36dd4b8552b9bd1d71081, type: 3}
-    Label: Furnace
-    RelevantPolluter: 0
   - BackgroundSprite: {fileID: 21300000, guid: b5d3fc906976a504d8e4855ecf0949fd, type: 3}
     Label: Stove
     RelevantPolluter: 1
-  - BackgroundSprite: {fileID: 21300000, guid: 664b6393a9b7d8449a183e1bf2e2086b, type: 3}
-    Label: Electricity
-    RelevantPolluter: 2
-  - BackgroundSprite: {fileID: 21300000, guid: 42398e6d3b0054649a7b98400e0a4287, type: 3}
-    Label: Spraycan
-    RelevantPolluter: 3
   SubjectSets:
   - SubjectSprite: {fileID: 21300000, guid: 35c58ec2592e2764ba1ee0b03a5d9f07, type: 3}
-    Label: CO Meter
-    RelevantPollutant: 2
+    Label: SOx Meter
+    RelevantPollutant: 6
   - SubjectSprite: {fileID: 21300000, guid: ba94cdf996b08504584da5be35014e25, type: 3}
-    Label: NOx Meter
-    RelevantPollutant: 3
+    Label: Mold Meter
+    RelevantPollutant: 7
   - SubjectSprite: {fileID: 21300000, guid: 1e2b4c0c7d39c5046991e9bff0f6574b, type: 3}
-    Label: Ozone Meter
-    RelevantPollutant: 4
-  - SubjectSprite: {fileID: 21300000, guid: b8121052bf270de4684ccb07dee9693a, type: 3}
-    Label: VOC Meter
-    RelevantPollutant: 5
+    Label: Dust Meter
+    RelevantPollutant: 8
   MessageSets:
-  - Label: Check your carbon monoxide detectors!
-    RelevantPollutant: 2
-  - Label: Switch to electric appliances!
-    RelevantPollutant: 3
-  - Label: Get your home wiring inspected!
-    RelevantPollutant: 4
-  - Label: Don't use spray paint inside your bedroom!
-    RelevantPollutant: 5
+  - Label: Service your appliances!
+    RelevantPollutant: 6
+  - Label: Clean your carpets!
+    RelevantPollutant: 7
+  - Label: Clean your house!
+    RelevantPollutant: 8

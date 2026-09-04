@@ -31,3 +31,4 @@ MonoBehaviour:
     FeatureEvent: 1
   - Time: 20
     FeatureEvent: 1
+  isPolluter: 1
