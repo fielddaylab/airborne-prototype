@@ -10,16 +10,11 @@ public class InterventionReplaceBox : MonoBehaviour
 
     public void Start()
     {
-        ToolManager.OnToolUpdated += HandleToolUpdated;
         gameObject.SetActive(false);
-    }
-
-    public void OnEnable()
-    {
         ToolManager.OnToolUpdated += HandleToolUpdated;
     }
 
-    public void OnDisable()
+    public void OnDestroy()
     {
         ToolManager.OnToolUpdated -= HandleToolUpdated;
     }

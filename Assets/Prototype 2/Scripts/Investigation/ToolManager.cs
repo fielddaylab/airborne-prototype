@@ -50,6 +50,11 @@ public class ToolManager : MonoBehaviour
         ChangeTool(EquipmentType.None);
     }
 
+    void OnDestroy()
+    {
+        OnToolUsed -= HandleToolUsed;
+    }
+
     public void LoadTools(List<EquipmentType> toolsToLoad)
     {
         ToolButtons.Clear();
