@@ -18,16 +18,16 @@ public enum SlotType
 
 public enum FeatureType
 {
-    Furnace,
-    Stove,
-    Electricity,
-    Spraycan,
-    Fan,
-    None,
-    MoldPatch,
-    Cigarrete,
-    Purifier,
-    HeatPump
+    None = 0,
+    Stove = 1,
+    Furnace = 2,
+    Electricity = 3,
+    Spraycan = 4,
+    MoldPatch = 5,
+    Cigarrete = 6,
+    Fan = 7,
+    Purifier = 8,
+    HeatPump = 9
 }
 
 public enum FeatureEvent

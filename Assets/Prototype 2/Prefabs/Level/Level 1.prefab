@@ -1115,7 +1115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: FeatureType
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 475040277822971778, guid: 7db97e33f7963144fb307cf8a70efca1, type: 3}
       propertyPath: FeatureKnowledge
