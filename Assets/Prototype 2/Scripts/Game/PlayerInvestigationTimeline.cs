@@ -217,7 +217,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                     }
                 }
 
-                TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(_currentFeatureType);
+                TimelineIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, _currentFeatureType);
                 TimelineText.text = _currentFeatureType.ToString();
 
                 break;
@@ -251,7 +251,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             }
         }
 
-        TimelineIcon.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(featureType);
+        TimelineIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, featureType);
         TimelineText.text = featureType.ToString();
     }
 

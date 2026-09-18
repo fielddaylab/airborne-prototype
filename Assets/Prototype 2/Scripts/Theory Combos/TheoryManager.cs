@@ -100,7 +100,7 @@ public class TheoryManager : MonoBehaviour
             theoryPiece.name = source.ToString();
             theoryPiece.transform.SetParent(SourcesBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(source);
+            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, source);
             piece.RepresentedFeature = source;
 
             _sources.Add(piece);
@@ -170,7 +170,7 @@ public class TheoryManager : MonoBehaviour
     private void HandleSourceSelected(FeatureType feature)
     {
         ResetSelectionState();
-        Sprite sourceSprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
+        Sprite sourceSprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, feature);
         Color sourceColor = SourceButton.image.color;
         sourceColor.a = 0;
         SourceButton.image.color = sourceColor;

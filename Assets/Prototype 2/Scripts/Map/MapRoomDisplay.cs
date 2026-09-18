@@ -58,7 +58,7 @@ public class MapRoomDisplay : MonoBehaviour
             {
                 if (feature.RoomType == roomType)
                 {
-                    FeatureImages[featuresTracked].sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature.FeatureType);
+                    FeatureImages[featuresTracked].sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, feature.FeatureType);
                     FeatureImages[featuresTracked].enabled = true;
                     FeatureTimelineRequester requester = FeatureImages[featuresTracked].GetComponent<FeatureTimelineRequester>();
                     requester.Feature = feature.FeatureType;

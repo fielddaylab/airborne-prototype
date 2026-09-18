@@ -12,7 +12,7 @@ public class InvestigationLookup : MonoBehaviour
         Instance = this;
     }
 
-    public SourceImageObject SourceImages;
+    public FeatureSpriteMapObject FeatureSpriteMap;
     public PollutantKnowledgeMapObject PollutantMap;
     public CharacterSpriteMapObject CharacterMap;
     public SymptomSpriteMapObject SymptomMap;

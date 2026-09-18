@@ -13853,7 +13853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7ec13dc3257f45489b223a14f3fd106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SourceImages: {fileID: 11400000, guid: e53dcdf3f503b6642bd8c8fc39f6ce35, type: 2}
+  FeatureSpriteMap: {fileID: 11400000, guid: e53dcdf3f503b6642bd8c8fc39f6ce35, type: 2}
   PollutantMap: {fileID: 11400000, guid: 032b3ef85ddc4094ea11f07e725d2df7, type: 2}
   CharacterMap: {fileID: 11400000, guid: 80e39f0c01d9cf145bec1ab6f62a8404, type: 2}
   SymptomMap: {fileID: 11400000, guid: 68ea9823d88e86b4abc4defcd34a4de7, type: 2}

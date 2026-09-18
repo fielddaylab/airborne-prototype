@@ -208,8 +208,18 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         if (PlayerKnowledgeState.IsKnownHourly(room, hour, knowledgeType)) {
             FeatureImage.enabled = true;
-            FeatureImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
-            FeatureImage.color = (slot.FeatureEvent == FeatureEvent.On) ? Color.white : FeatureOffColor;
+            
+            bool featureOn = slot.FeatureEvent == FeatureEvent.On;
+            FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
+            
+            if (featureOn)
+            {
+                FeatureImage.sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature);
+            } 
+            else
+            {
+                FeatureImage.sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
+            }
         }
     }
 
@@ -228,9 +238,17 @@ public class InvestigationTimelineChunk : MonoBehaviour
         bool featureOn = false;
         if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) {
             FeatureImage.enabled = true;
-            FeatureImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(feature);
-            FeatureImage.color = (featureSlot.FeatureEvent == FeatureEvent.On) ? Color.white : FeatureOffColor;
             featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
+            FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
+            
+            if (featureOn)
+            {
+                FeatureImage.sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature);
+            } 
+            else
+            {
+                FeatureImage.sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
+            }
         }
 
         RoomOverlay.SetActive(true);
