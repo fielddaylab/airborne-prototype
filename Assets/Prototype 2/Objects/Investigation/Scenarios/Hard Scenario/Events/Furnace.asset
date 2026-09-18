@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Furnace
   m_EditorClassIdentifier: 
   RoomType: 2
-  FeatureType: 0
+  FeatureType: 2
   TimeSlots:
   - Time: 13
     FeatureEvent: 1
