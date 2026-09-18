@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Paint
   m_EditorClassIdentifier: 
   RoomType: 3
-  FeatureType: 3
+  FeatureType: 4
   TimeSlots:
   - Time: 13
     FeatureEvent: 1

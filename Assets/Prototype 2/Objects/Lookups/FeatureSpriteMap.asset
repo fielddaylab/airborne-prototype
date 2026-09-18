@@ -13,27 +13,39 @@ MonoBehaviour:
   m_Name: FeatureSpriteMap
   m_EditorClassIdentifier: 
   FeatureSprites:
-  - Feature: 0
-    OnSprite: {fileID: 0}
-    OffSprite: {fileID: 0}
-    UnknownSprite: {fileID: 0}
   - Feature: 1
-    OnSprite: {fileID: 0}
-    OffSprite: {fileID: 0}
-    UnknownSprite: {fileID: 0}
+    OnSprite: {fileID: 21300000, guid: f39d87a945497a34fa5aa07c31338f74, type: 3}
+    OffSprite: {fileID: 21300000, guid: e8df8a93fbb008f4790fd8394fa94a1c, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: 1c77b8377f9dd234b88f61b3ff808e44, type: 3}
   - Feature: 2
-    OnSprite: {fileID: 0}
-    OffSprite: {fileID: 0}
-    UnknownSprite: {fileID: 0}
+    OnSprite: {fileID: 21300000, guid: 16d5ebcf1b09db249a965a974f5cf395, type: 3}
+    OffSprite: {fileID: 21300000, guid: df7e599067e1ecc49a40fd1067434950, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: 8c79a92ca456bf54997c27a2d4ff52ec, type: 3}
   - Feature: 3
-    OnSprite: {fileID: 0}
-    OffSprite: {fileID: 0}
-    UnknownSprite: {fileID: 0}
+    OnSprite: {fileID: 21300000, guid: e43f2306419fabe449282881bb7381a6, type: 3}
+    OffSprite: {fileID: 21300000, guid: d02e412d5667bb34b9b6dd1fc2eddbb0, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: eb7a555df14213343802357f08dbbf7e, type: 3}
   - Feature: 4
-    OnSprite: {fileID: 0}
-    OffSprite: {fileID: 0}
-    UnknownSprite: {fileID: 0}
+    OnSprite: {fileID: 21300000, guid: 4a3636cbd7f84964599ea5e884fef1df, type: 3}
+    OffSprite: {fileID: 21300000, guid: a577a61e5010fe5498a74d8f5effd552, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: 9be94bce42b7d7a469501ab10cf7d7d4, type: 3}
+  - Feature: 5
+    OnSprite: {fileID: 21300000, guid: 4f2c520c40d6f85498df8d9e6dfdd3be, type: 3}
+    OffSprite: {fileID: 21300000, guid: 1a95e539719fa034eb3a7235ff99fc26, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: 1ba8c91f4f893674e9cf9982b4e1388e, type: 3}
   - Feature: 6
-    OnSprite: {fileID: 0}
-    OffSprite: {fileID: 0}
-    UnknownSprite: {fileID: 0}
+    OnSprite: {fileID: 21300000, guid: 952ae121029561c4daac28d958be6d83, type: 3}
+    OffSprite: {fileID: 21300000, guid: 98279b1640fc6134996893d46c21b9c2, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: d9e01e1e7785ccd4f9ff47ffb2c4811c, type: 3}
+  - Feature: 7
+    OnSprite: {fileID: 21300000, guid: cc7923e3b5447a1488b2c9423e866ea7, type: 3}
+    OffSprite: {fileID: 21300000, guid: e8471b7dba893bb43a14c2a8dfdbba27, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: 1ba426a1ce2c8964f8cf7e545ede8bac, type: 3}
+  - Feature: 8
+    OnSprite: {fileID: 21300000, guid: 1379c73207ca67545b8490583e244c4f, type: 3}
+    OffSprite: {fileID: 21300000, guid: f3a33ced79d243243a0c25e01faef84a, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: 2eb985d1383deb44a8cc0866084af693, type: 3}
+  - Feature: 9
+    OnSprite: {fileID: 21300000, guid: cc350361381bcf74e98883b7e6e142c6, type: 3}
+    OffSprite: {fileID: 21300000, guid: 2c80a28e1e4b6cb44a53d78467f904a1, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: d0ee24cb75449284ebca2bf16f3bef5b, type: 3}

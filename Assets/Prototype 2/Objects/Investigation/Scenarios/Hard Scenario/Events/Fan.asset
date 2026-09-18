@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fan
   m_EditorClassIdentifier: 
   RoomType: 3
-  FeatureType: 4
+  FeatureType: 7
   TimeSlots:
   - Time: 13
     FeatureEvent: 1
@@ -31,3 +31,4 @@ MonoBehaviour:
     FeatureEvent: 0
   - Time: 20
     FeatureEvent: 0
+  isPolluter: 0
