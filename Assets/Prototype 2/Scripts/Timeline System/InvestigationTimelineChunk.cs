@@ -30,8 +30,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image SymptomImage, DialogueImage;
 
     [Header("Source Overlay")]
-    public Image FeatureImage;
-    public Color FeatureOffColor;
+    public Image[] FeatureImages;
 
     [Header("Clickables")]
     public Image InvalidImage;
@@ -72,7 +71,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ValidImage.onClick.RemoveListener(HandleTimelineClick);
     }
 
-    public void SetRoomGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
+    public void SetRoomNPCGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -158,6 +157,90 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
     }
 
+    public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
+    {
+        ClearChunk();
+        RoomOverlay.SetActive(true);
+
+        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        
+        TimelineImage.enabled = false;
+        TextEnabled(false);
+
+        for (int i = 0; i < pollutantDatas.Length; i++)
+        {
+            PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":?";
+        }
+
+        if (slot == null) return;
+        
+        bool anyKnowledgeKnown = false;
+        for (int i = 0; i < pollutantDatas.Length; i++)
+        {
+            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutantDatas[i].Type);
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
+            {
+                PollutantReading reading = slot.GetReading(pollutantDatas[i].Type);
+                PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":" + (reading != null ? reading.Concentration : 0);
+                anyKnowledgeKnown = true;
+                TextEnabled(true);
+            }
+        }
+
+        if (!anyKnowledgeKnown)
+        {
+            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
+            {
+                TimelineImage.enabled = true;
+                bool pollutantsPresent = slot.PollutantReadings.Length > 0;
+                    
+                if (pollutantsPresent)
+                {
+                    TimelineImage.sprite = PollutantPresent;
+                } else
+                {
+                    TimelineImage.sprite = PollutantAbsent;
+                }
+            }
+        }
+
+        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+
+        int featuresTracked = 0;
+        foreach (var featureEvent in scenario.FeatureEvents)
+        {
+            foreach (var featureSlot in featureEvent.TimeSlots)
+            {
+                if (featureSlot.Time == hour && featureEvent.RoomType == roomType)
+                {
+                    KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(featureEvent.FeatureType);
+                    FeatureImages[featuresTracked].gameObject.SetActive(true);
+                    FeatureImages[featuresTracked].enabled = true;
+                    FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
+
+                    if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) 
+                    {
+                       bool featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
+                        if (featureOn)
+                        {
+                            FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, featureEvent.FeatureType);
+                        } 
+                        else
+                        {
+                            FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, featureEvent.FeatureType);
+                        }
+                    } else
+                    {
+                        FeatureImages[0].sprite = FeatureSpriteMapUtility.GetUnkownSprite(featureMap, featureEvent.FeatureType);
+                    }
+                    
+                    featuresTracked++;
+                    if (featuresTracked >= 3) break;
+                }
+            }
+        }
+    }
+
     public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot)
     {
         ClearChunk();
@@ -207,18 +290,19 @@ public class InvestigationTimelineChunk : MonoBehaviour
         KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(feature);
 
         if (PlayerKnowledgeState.IsKnownHourly(room, hour, knowledgeType)) {
-            FeatureImage.enabled = true;
+            FeatureImages[0].enabled = true;
+            FeatureImages[0].gameObject.SetActive(true);
             
             bool featureOn = slot.FeatureEvent == FeatureEvent.On;
             FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
             
             if (featureOn)
             {
-                FeatureImage.sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature);
+                FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature);
             } 
             else
             {
-                FeatureImage.sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
+                FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
             }
         }
     }
@@ -237,17 +321,18 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         bool featureOn = false;
         if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) {
-            FeatureImage.enabled = true;
+            FeatureImages[0].enabled = true;
+            FeatureImages[0].gameObject.SetActive(true);
             featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
             FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
             
             if (featureOn)
             {
-                FeatureImage.sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature);
+                FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature);
             } 
             else
             {
-                FeatureImage.sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
+                FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
             }
         }
 
@@ -424,10 +509,9 @@ public class InvestigationTimelineChunk : MonoBehaviour
         RoomTextBG.SetActive(false);
         RoomText.text = "";
 
-        SourceOverlay.SetActive(false);
+        //SourceOverlay.SetActive(false);
 
-        FeatureImage.enabled = false;
-        FeatureImage.color = Color.white;
+        foreach (var image in FeatureImages) { image.enabled = false; image.gameObject.SetActive(false); }
 
         ValidImage.gameObject.SetActive(false);
         InvalidImage.gameObject.SetActive(false);

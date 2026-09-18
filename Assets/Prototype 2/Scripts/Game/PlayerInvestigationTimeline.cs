@@ -13,6 +13,11 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     public Slider TimelineSlider;
     public PlayerTimelineOverlay TimelineOverlay;
 
+    public Button TimelineToggleButton;
+    public Image TimelineToggleImage;
+    public Image SourceImage, NPCImage;
+    public Color DisabledColor;
+
 
     // data stuff
     private InvestigationRoom _currentRoom;
@@ -23,6 +28,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private FeatureType _currentFeatureType;
     private CharacterType _currentCharacterType;
     private TimelineType _currentTimelineType;
+    private bool _inSourceMode = true;
 
     // event
     public static Action<Enum> OnTimelineRequested;
@@ -33,10 +39,32 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
     public enum TimelineType
     {
-        Room,
+        RoomNPC,
+        RoomFeature,
         NPC,
         Feature,
         FeatureDetail
+    }
+
+    private void Start()
+    {
+        ToggleMode();
+    }
+
+    private void ToggleMode()
+    {
+        _inSourceMode = !_inSourceMode;
+        if (_inSourceMode)
+        {
+            SourceImage.color = Color.white;
+            NPCImage.color = DisabledColor;
+        } else
+        {
+            SourceImage.color = DisabledColor;
+            NPCImage.color = Color.white;
+        }
+
+        TimelineToggleButton.transform.localScale = new Vector3(-TimelineToggleButton.transform.localScale.x, TimelineToggleButton.transform.localScale.y, TimelineToggleButton.transform.localScale.z);
     }
 
     private void OnEnable()
@@ -49,6 +77,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         OnFeatureDetailRequested += HandleFeatureRequest;
         OnResetRequested += HandleReset;
         OnNPCDetailRequested += HandleNPCRequest;
+        TimelineToggleButton.onClick.AddListener(ToggleMode);
     }
 
     public void OnDisable()
@@ -61,6 +90,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         OnFeatureDetailRequested -= HandleFeatureRequest;
         OnResetRequested -= HandleReset;
         OnNPCDetailRequested -= HandleNPCRequest;
+        TimelineToggleButton.onClick.RemoveListener(ToggleMode);
     }
 
     // handle player moving between rooms and what information they should know
@@ -68,7 +98,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     {
         _currentRoom = room;
         _currentRoomType = _currentRoom.RoomTypeValue;
-        _currentTimelineType = TimelineType.Room;
+        _currentTimelineType = TimelineType.RoomNPC;
         UpdateInformation();
     }
 
@@ -103,7 +133,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         if (_currentToolType == EquipmentType.Scan)
         {
             _currentRoomType = _currentRoom.RoomTypeValue;
-            _currentTimelineType = TimelineType.Room;
+            _currentTimelineType = TimelineType.RoomNPC;
             RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
@@ -121,13 +151,17 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                 PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, hour, KnowledgeType.NPCPresence);
             }
         }
-
-        UpdateTimelineVisuals(TimelineType.Room);
+        if (_inSourceMode) {
+            UpdateTimelineVisuals(TimelineType.RoomFeature);
+        } else
+        {
+            UpdateTimelineVisuals(TimelineType.RoomNPC);
+        }
     }
 
     private void HandleKnowledgeUpdated()
     {
-        UpdateTimelineVisuals(TimelineType.Room);
+        UpdateTimelineVisuals(TimelineType.RoomNPC);
     }
 
     private void HandleTimelineRequest(Enum enumType)
@@ -147,7 +181,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         else if (enumType is RoomType)
         {
             RoomType room = (RoomType) enumType;
-            _currentTimelineType = TimelineType.Room;
+            _currentTimelineType = TimelineType.RoomNPC;
             _currentRoomType = room;
         }
 
@@ -161,19 +195,33 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         
         switch (timelineType)
         {
-            case TimelineType.Room:
+            case TimelineType.RoomNPC:
                 if (_currentRoom == null) return;
 
                 for (int i = 0; i < totalHours; i++)
                 {
                     int actualHour = baseHour + i;
                     RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
-                    TimelineOverlay.TimelineChunks[i].SetRoomGraphics(_currentRoomType, actualHour, slot);
+                    TimelineOverlay.TimelineChunks[i].SetRoomNPCGraphics(_currentRoomType, actualHour, slot);
                 }
 
                 TimelineIcon.sprite = InvestigationLookup.Instance.RoomMap.GetSprite(_currentRoomType);
                 TimelineText.text = _currentRoomType.ToString();
 
+                break;
+            case TimelineType.RoomFeature:
+                if (_currentRoom == null) return;
+
+                for (int i = 0; i < totalHours; i++)
+                {
+                    int actualHour = baseHour + i;
+                    RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
+                    TimelineOverlay.TimelineChunks[i].SetRoomFeatureGraphics(_currentRoomType, actualHour, slot);
+                }
+
+                TimelineIcon.sprite = InvestigationLookup.Instance.RoomMap.GetSprite(_currentRoomType);
+                TimelineText.text = _currentRoomType.ToString();
+                
                 break;
             case TimelineType.NPC:
                 
