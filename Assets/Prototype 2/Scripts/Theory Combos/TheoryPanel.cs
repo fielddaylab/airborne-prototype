@@ -49,7 +49,7 @@ public class TheoryPanel : MonoBehaviour
             theoryPiece.name = source.ToString();
             theoryPiece.transform.SetParent(SourcesBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = InvestigationLookup.Instance.SourceImages.GetSprite(source);
+            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, source);
             piece.RepresentedFeature = source;
 
             _sources.Add(piece);

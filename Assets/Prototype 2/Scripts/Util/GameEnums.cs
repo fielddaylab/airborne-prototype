@@ -24,7 +24,10 @@ public enum FeatureType
     Spraycan,
     Fan,
     None,
-    MoldPatch
+    MoldPatch,
+    Cigarrete,
+    Purifier,
+    HeatPump
 }
 
 public enum FeatureEvent

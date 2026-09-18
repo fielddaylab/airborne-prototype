@@ -57,7 +57,31 @@ public class FeatureObservableBox : MonoBehaviour
         flyerRect.anchoredPosition = localPoint;
 
         FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
-        Sprite flyerSprite = InvestigationLookup.Instance.SourceImages.GetSprite(FeatureType);
+
+        bool featureOn = false;
+        foreach (var feature in InvestigationTimelineSystem.Instance.ScenarioData.FeatureEvents)
+        {
+            if (feature.FeatureType == FeatureType)
+            {
+                foreach (var slot in feature.TimeSlots)
+                {
+                    if (slot.Time == hour)
+                    {
+                        featureOn = slot.FeatureEvent == FeatureEvent.On;
+                    }
+                }            
+            }
+        }
+
+        Sprite flyerSprite;
+        if (featureOn)
+        {
+            flyerSprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, FeatureType);
+        } else
+        {
+            flyerSprite = FeatureSpriteMapUtility.GetOffSprite(InvestigationLookup.Instance.FeatureSpriteMap, FeatureType);
+        }
+
         flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation); 
         
         VisibilityCheck();
