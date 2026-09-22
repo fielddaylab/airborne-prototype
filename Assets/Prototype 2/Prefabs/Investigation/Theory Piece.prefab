@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a6b3b57d4146946a440cc5cfe02d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkMark: {fileID: 21300000, guid: 33d58cd5b8bd73b428a475f3cfabd5e5, type: 3}
+  checkMark: {fileID: 21300000, guid: eaa3cd8f88afa914a93ab5e9a1823c0b, type: 3}
   xMark: {fileID: 21300000, guid: 103e8569568ab4d468a6f9d6c1d5e62f, type: 3}
   Image: {fileID: 7316648339809393942}
 --- !u!114 &7316648339809393942
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: eaa3cd8f88afa914a93ab5e9a1823c0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

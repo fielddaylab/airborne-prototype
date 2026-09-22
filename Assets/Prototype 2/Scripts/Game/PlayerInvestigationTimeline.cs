@@ -17,7 +17,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     public Image TimelineToggleImage;
     public Image SourceImage, NPCImage;
     public Color DisabledColor;
-
+    public TMP_Text LoopCounter;
 
     // data stuff
     private InvestigationRoom _currentRoom;
@@ -129,6 +129,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private void UpdateInformation()
     {
         // for now, check if they should know if a pollutant is present in a room
+        LoopCounter.text = "Loop " + (NewGameManager.Instance.Statistics.NumLoops + 1);
+
         if (_currentRoom == null) return;
         
         if (_currentToolType == EquipmentType.Scan)
