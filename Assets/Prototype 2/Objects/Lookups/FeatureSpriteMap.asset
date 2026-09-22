@@ -18,9 +18,9 @@ MonoBehaviour:
     OffSprite: {fileID: 21300000, guid: e8df8a93fbb008f4790fd8394fa94a1c, type: 3}
     UnknownSprite: {fileID: 21300000, guid: 1c77b8377f9dd234b88f61b3ff808e44, type: 3}
   - Feature: 2
-    OnSprite: {fileID: 21300000, guid: 16d5ebcf1b09db249a965a974f5cf395, type: 3}
-    OffSprite: {fileID: 21300000, guid: df7e599067e1ecc49a40fd1067434950, type: 3}
-    UnknownSprite: {fileID: 21300000, guid: 8c79a92ca456bf54997c27a2d4ff52ec, type: 3}
+    OnSprite: {fileID: 21300000, guid: 2576a79a3f32651469c9c7a52f5517f9, type: 3}
+    OffSprite: {fileID: 21300000, guid: 53fe8fbc052a823418f849f23a5f1fd6, type: 3}
+    UnknownSprite: {fileID: 21300000, guid: bc878f142f7440644a209a5f0bf59bee, type: 3}
   - Feature: 3
     OnSprite: {fileID: 21300000, guid: e43f2306419fabe449282881bb7381a6, type: 3}
     OffSprite: {fileID: 21300000, guid: d02e412d5667bb34b9b6dd1fc2eddbb0, type: 3}
@@ -49,7 +49,3 @@ MonoBehaviour:
     OnSprite: {fileID: 21300000, guid: cc350361381bcf74e98883b7e6e142c6, type: 3}
     OffSprite: {fileID: 21300000, guid: 2c80a28e1e4b6cb44a53d78467f904a1, type: 3}
     UnknownSprite: {fileID: 21300000, guid: d0ee24cb75449284ebca2bf16f3bef5b, type: 3}
-  - Feature: 2
-    OnSprite: {fileID: 21300000, guid: 2576a79a3f32651469c9c7a52f5517f9, type: 3}
-    OffSprite: {fileID: 21300000, guid: 53fe8fbc052a823418f849f23a5f1fd6, type: 3}
-    UnknownSprite: {fileID: 21300000, guid: bc878f142f7440644a209a5f0bf59bee, type: 3}
