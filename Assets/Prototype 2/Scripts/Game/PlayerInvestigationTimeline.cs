@@ -65,6 +65,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         }
 
         TimelineToggleButton.transform.localScale = new Vector3(-TimelineToggleButton.transform.localScale.x, TimelineToggleButton.transform.localScale.y, TimelineToggleButton.transform.localScale.z);
+        UpdateInformation();
     }
 
     private void OnEnable()
@@ -161,7 +162,12 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
     private void HandleKnowledgeUpdated()
     {
-        UpdateTimelineVisuals(TimelineType.RoomNPC);
+        if(_inSourceMode) {
+            UpdateTimelineVisuals(TimelineType.RoomFeature);
+        } else
+        {
+            UpdateTimelineVisuals(TimelineType.RoomNPC);
+        }
     }
 
     private void HandleTimelineRequest(Enum enumType)

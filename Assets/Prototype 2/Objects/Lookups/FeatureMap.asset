@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: FeatureMap
   m_EditorClassIdentifier: 
   Pairs:
-  - Featre: 0
+  - Featre: 2
     KnowledgeType: 10
   - Featre: 1
     KnowledgeType: 12
-  - Featre: 2
-    KnowledgeType: 13
   - Featre: 3
-    KnowledgeType: 11
+    KnowledgeType: 13
   - Featre: 4
+    KnowledgeType: 11
+  - Featre: 7
     KnowledgeType: 9
