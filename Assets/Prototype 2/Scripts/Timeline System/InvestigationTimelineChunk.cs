@@ -13,7 +13,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     a modular system, rather than specifiying each timeline type.
     */
 
-    public GameObject RoomOverlay, NPCOverlay, SourceOverlay;
+    public GameObject RoomOverlay, NPCOverlay;
     
     [Header("Room Overlay")]
     public Sprite PollutantPresent;
@@ -75,48 +75,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     {
         ClearChunk();
         RoomOverlay.SetActive(true);
-
-        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
-        
-        TimelineImage.enabled = false;
-        TextEnabled(false);
-
-        for (int i = 0; i < pollutantDatas.Length; i++)
-        {
-            PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":?";
-        }
-
-        if (slot == null) return;
-        
-        bool anyKnowledgeKnown = false;
-        for (int i = 0; i < pollutantDatas.Length; i++)
-        {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutantDatas[i].Type);
-            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
-            {
-                PollutantReading reading = slot.GetReading(pollutantDatas[i].Type);
-                PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":" + (reading != null ? reading.Concentration : 0);
-                anyKnowledgeKnown = true;
-                TextEnabled(true);
-            }
-        }
-
-        if (!anyKnowledgeKnown)
-        {
-            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
-            {
-                TimelineImage.enabled = true;
-                bool pollutantsPresent = slot.PollutantReadings.Length > 0;
-                    
-                if (pollutantsPresent)
-                {
-                    TimelineImage.sprite = PollutantPresent;
-                } else
-                {
-                    TimelineImage.sprite = PollutantAbsent;
-                }
-            }
-        }
+        SetPollutantDisplay(roomType, hour, slot);
 
         ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
 
@@ -157,11 +116,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
     }
 
-    public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
+    public void SetPollutantDisplay(RoomType roomType, int hour, RoomTimeSlot slot)
     {
-        ClearChunk();
-        RoomOverlay.SetActive(true);
-
         PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         
         TimelineImage.enabled = false;
@@ -203,6 +159,13 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
+    {
+        ClearChunk();
+        RoomOverlay.SetActive(true);
+        SetPollutantDisplay(roomType, hour, slot);
 
         ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
 
@@ -213,6 +176,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
             {
                 if (featureSlot.Time == hour && featureEvent.RoomType == roomType)
                 {
+                    Debug.Log(featureEvent.FeatureType);
+
                     KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(featureEvent.FeatureType);
                     FeatureImages[featuresTracked].gameObject.SetActive(true);
                     FeatureImages[featuresTracked].enabled = true;
@@ -223,15 +188,15 @@ public class InvestigationTimelineChunk : MonoBehaviour
                        bool featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
                         if (featureOn)
                         {
-                            FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, featureEvent.FeatureType);
+                            FeatureImages[featuresTracked].sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, featureEvent.FeatureType);
                         } 
                         else
                         {
-                            FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, featureEvent.FeatureType);
+                            FeatureImages[featuresTracked].sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, featureEvent.FeatureType);
                         }
                     } else
                     {
-                        FeatureImages[0].sprite = FeatureSpriteMapUtility.GetUnkownSprite(featureMap, featureEvent.FeatureType);
+                        FeatureImages[featuresTracked].sprite = FeatureSpriteMapUtility.GetUnkownSprite(featureMap, featureEvent.FeatureType);
                     }
                     
                     featuresTracked++;
@@ -282,19 +247,20 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot)
     {
         ClearChunk();
-        SourceOverlay.SetActive(true);
+        RoomOverlay.SetActive(true);
+        //SourceOverlay.SetActive(true);
 
         // just need to show the features if the players have discovered them
         // and change the lightness/darkness depending on that status
 
         KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(feature);
+        FeatureImages[0].enabled = true;
+        FeatureImages[0].gameObject.SetActive(true);
+        FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
 
         if (PlayerKnowledgeState.IsKnownHourly(room, hour, knowledgeType)) {
-            FeatureImages[0].enabled = true;
-            FeatureImages[0].gameObject.SetActive(true);
             
             bool featureOn = slot.FeatureEvent == FeatureEvent.On;
-            FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
             
             if (featureOn)
             {
@@ -304,13 +270,16 @@ public class InvestigationTimelineChunk : MonoBehaviour
             {
                 FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
             }
+        } else
+        {
+            FeatureImages[0].sprite = FeatureSpriteMapUtility.GetUnkownSprite(featureMap, feature);
         }
     }
 
     public void SetDetailedFeatureGraphics(RoomType roomType, FeatureType feature, int hour, FeatureTimeSlot featureSlot, RoomTimeSlot roomSlot, PollutantType targetPollutant)
     {
         ClearChunk();
-        SourceOverlay.SetActive(true);
+        //SourceOverlay.SetActive(true);
 
         bool valid = false;
 
