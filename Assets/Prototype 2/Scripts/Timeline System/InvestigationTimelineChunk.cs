@@ -20,7 +20,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Sprite PollutantAbsent;
     public Image TimelineImage;
 
-    public TextMeshProUGUI[] PollutantTexts;
+    public CondensedMeaderReading[] CondensedReadings;
+
     public Image[] NPCImages;
     public Image[] NPCSymptomImages;
 
@@ -125,7 +126,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         for (int i = 0; i < pollutantDatas.Length; i++)
         {
-            PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":?";
+            CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
         }
 
         if (slot == null) return;
@@ -137,7 +138,14 @@ public class InvestigationTimelineChunk : MonoBehaviour
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 PollutantReading reading = slot.GetReading(pollutantDatas[i].Type);
-                PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":" + (reading != null ? reading.Concentration : 0);
+
+                if (reading!= null) {
+                    CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                } 
+                else
+                {
+                    CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
+                }
                 anyKnowledgeKnown = true;
                 TextEnabled(true);
             }
@@ -313,7 +321,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         for (int i = 0; i < pollutantDatas.Length; i++)
         {
-            PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":?";
+            CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
         }
 
         if (featureSlot == null) return;
@@ -325,14 +333,17 @@ public class InvestigationTimelineChunk : MonoBehaviour
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 PollutantReading reading = roomSlot.GetReading(pollutantDatas[i].Type);
-                PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":" + (reading != null ? reading.Concentration : 0);
+                
+                if (reading!= null) {
+                    CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                } 
+                else
+                {
+                    CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
+                }
+
                 anyKnowledgeKnown = true;
                 TextEnabled(true);
-
-                if (reading != null && reading.Pollutant == targetPollutant && reading.Concentration > 0 && featureOn)
-                {
-                    valid = true;
-                }
             }
         }
 
@@ -397,15 +408,27 @@ public class InvestigationTimelineChunk : MonoBehaviour
         }
 
         bool anyKnowledgeKnown = false;
-
+        
         PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+
+        for (int i = 0; i < CondensedReadings.Length; i++)
+        {
+            CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
+        }
+
         for (int i = 0; i < pollutantDatas.Length; i++)
         {
             KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutantDatas[i].Type);
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 PollutantReading reading = roomSlot.GetReading(pollutantDatas[i].Type);
-                PollutantTexts[i].text = pollutantDatas[i].Type.ToString() + ":" + (reading != null ? reading.Concentration : 0);
+                if (reading!= null) {
+                    CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                } 
+                else
+                {
+                    CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
+                }
                 anyKnowledgeKnown = true;
                 TextEnabled(true);
 
@@ -444,18 +467,9 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     private void TextEnabled(bool enabled)
     {
-        
-        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
-        
-        for (int i = 0; i < pollutantDatas.Length; i++)
+        foreach (var c in CondensedReadings)
         {
-            PollutantTexts[i].enabled = enabled;
-            PollutantTexts[i].color = InvestigationLookup.Instance.PollutantMap.GetColor(pollutantDatas[i].Type);
-        }
-
-        for (int i = pollutantDatas.Length; i < 4; i++)
-        {
-            PollutantTexts[i].enabled = false;
+            c.gameObject.SetActive(enabled);
         }
     }
 
