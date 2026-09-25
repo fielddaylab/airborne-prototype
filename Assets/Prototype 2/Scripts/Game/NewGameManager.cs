@@ -7,6 +7,7 @@ public class NewGameManager : MonoBehaviour
 {
     public static NewGameManager Instance;
     public static event Action<NewGamePhase> TriggerPhase;
+    public static Action<PollutantType> ChooseSuspect;
 
     public static ScenarioDataObject LoadedScenario;
 
@@ -41,6 +42,7 @@ public class NewGameManager : MonoBehaviour
     {
         
         EnvironmentLoad.LoadEnvironment(InvestigationTimelineSystem.Instance.ScenarioData.WorldEnvironment);
+        ChooseSuspect += HandleSuspect;
     }
 
     public void SwitchToPhase(NewGamePhase phase)
@@ -82,6 +84,11 @@ public class NewGameManager : MonoBehaviour
                 Results.EvaluateResults(FinalLoopData);
                 break;
         }
+    }
+
+    private void HandleSuspect(PollutantType pollutant)
+    {
+        InvestigationTimelineSystem.Instance.PauseTime(false);
     }
 }
 
