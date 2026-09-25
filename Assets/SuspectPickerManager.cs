@@ -50,6 +50,8 @@ public class SuspectPickerManager : MonoBehaviour
         Clear();
         ConfirmButton.interactable = false;
 
+        PanelCard.Clear();
+
         PollutantDataObject[] datas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         foreach (var d in datas)
         {
