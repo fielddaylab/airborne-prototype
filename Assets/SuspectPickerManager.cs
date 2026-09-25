@@ -146,5 +146,6 @@ public class SuspectPickerManager : MonoBehaviour
     public void ConfirmSuspect()
     {
         gameObject.SetActive(false);
+        NewGameManager.ChooseSuspect(_selectedPollutant);
     }
 }

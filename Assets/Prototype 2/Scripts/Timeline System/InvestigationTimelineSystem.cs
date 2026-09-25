@@ -39,6 +39,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public void Start()
     {
         NewGameManager.TriggerPhase += HandlePhaseChange;
+        IsPaused = true;
         
         CurrentHour = BaseHour;
         OnHourEntered?.Invoke(CurrentHour);
