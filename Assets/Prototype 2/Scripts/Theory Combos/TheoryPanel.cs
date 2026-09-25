@@ -39,6 +39,7 @@ public class TheoryPanel : MonoBehaviour
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
             piece.TheoryImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
             piece.RepresentedSymptom = symptom;
+            piece.Tooltip.ChangeText(symptom.ToString());
 
             _symptoms.Add(piece);
         }
@@ -51,6 +52,7 @@ public class TheoryPanel : MonoBehaviour
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
             piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, source);
             piece.RepresentedFeature = source;
+            piece.Tooltip.ChangeText(source.ToString());
 
             _sources.Add(piece);
         }

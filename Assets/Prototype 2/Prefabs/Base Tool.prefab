@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 9191790589390603442}
   - component: {fileID: 1200717300196192883}
   - component: {fileID: 9099873739300129694}
+  - component: {fileID: 1672067653817930770}
   m_Layer: 5
   m_Name: Base Tool
   m_TagString: Untagged
@@ -218,6 +219,23 @@ MonoBehaviour:
   - {fileID: 7500989903100308469}
   - {fileID: 6604629251902438680}
   Map: {fileID: 11400000, guid: 03b97335e0f1d5942b13811432e84d10, type: 2}
+  Tooltip: {fileID: 1672067653817930770}
+  ToolType: 0
+  NumPips: 0
+  UsedPips: 0
+--- !u!114 &1672067653817930770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5974976851804030870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33fa6b0264a82f42a2cd748a0f2e2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: 
 --- !u!1 &6229894026694804688
 GameObject:
   m_ObjectHideFlags: 0
