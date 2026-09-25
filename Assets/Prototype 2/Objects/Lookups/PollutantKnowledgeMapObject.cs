@@ -51,6 +51,69 @@ public class PollutantKnowledgeMapObject : ScriptableObject
     }
 }
 
+public class PollutantKnowledgeMapUtility
+{
+    public static KnowledgeType GetKnowledge(PollutantKnowledgeMapObject map, PollutantType pollutant)
+    {
+        foreach (var p in map.Pairs)
+        {
+            if (p.Pollutant == pollutant)
+            {
+                return p.Knowledge;
+            }
+        }
+        return KnowledgeType.None;
+    }
+
+    public static Sprite GetSprite(PollutantKnowledgeMapObject map, PollutantType pollutant)
+    {
+        foreach (var p in map.Pairs)
+        {
+            if (p.Pollutant == pollutant)
+            {
+                return p.SpriteOverlay;
+            }
+        }
+        return null;
+    }
+
+    public static Color GetColor(PollutantKnowledgeMapObject map, PollutantType pollutant)
+    {
+        foreach (var p in map.Pairs)
+        {
+            if (p.Pollutant == pollutant)
+            {
+                return p.ColorOverlay;
+            }
+        }
+        return Color.white;
+    }
+
+    public static string GetFullName(PollutantKnowledgeMapObject map, PollutantType pollutant)
+    {
+        foreach (var p in map.Pairs)
+        {
+            if (p.Pollutant == pollutant)
+            {
+                return p.FullName;
+            }
+        }
+        return null;
+    }
+
+    public static string GetDescription(PollutantKnowledgeMapObject map, PollutantType pollutant)
+    {
+        foreach (var p in map.Pairs)
+        {
+            if (p.Pollutant == pollutant)
+            {
+                return p.Description;
+            }
+        }
+        return null;
+    }
+}
+
 [System.Serializable]
 public class PollutantKnowledgePair
 {
@@ -59,4 +122,5 @@ public class PollutantKnowledgePair
     public Sprite SpriteOverlay;
     public Color ColorOverlay;
     public string FullName;
+    public string Description;
 }

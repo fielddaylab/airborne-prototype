@@ -117,4 +117,5 @@ public enum KnowledgeType
     PollutantPresence, CO, O3, NO, VOC, SOx, Mold, Dust,
     FanStatus, FurnaceStatus, SpraycanStatus, StoveStatus, ElectricStatus,
     NPCPresence, NPCSymptom, NPCDialogue, 
+    None,
 }

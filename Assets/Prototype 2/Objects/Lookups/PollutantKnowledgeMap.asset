@@ -18,33 +18,41 @@ MonoBehaviour:
     SpriteOverlay: {fileID: 21300000, guid: 3d350796997edb54f9a03c67ea870362, type: 3}
     ColorOverlay: {r: 0.98039216, g: 0.39607844, b: 0.39607844, a: 1}
     FullName: Carbon Monoxide
+    Description: A colorless, odorless toxic gas released by partial burning.
   - Pollutant: 5
     Knowledge: 5
     SpriteOverlay: {fileID: 21300000, guid: 62a7787b353160340842a65e61fed581, type: 3}
     ColorOverlay: {r: 0.654902, g: 0.8980392, b: 0.47058824, a: 1}
     FullName: VOCs
+    Description: Organic chemicals released by paints and cleaners.
   - Pollutant: 4
     Knowledge: 3
     SpriteOverlay: {fileID: 21300000, guid: f85ce8083f2cf8449b4c097062033c38, type: 3}
     ColorOverlay: {r: 0.42352942, g: 0.7019608, b: 0.6784314, a: 1}
     FullName: Ozone
+    Description: 'A pale blue gas with a pungent odor. '
   - Pollutant: 3
     Knowledge: 4
     SpriteOverlay: {fileID: 21300000, guid: bae642466664d0b43b58ad832b278d05, type: 3}
     ColorOverlay: {r: 0.41568628, g: 0.39607844, b: 0.98039216, a: 1}
     FullName: Nitrogen Oxides
+    Description: Odorless gases released by combustion of fossil fuels.
   - Pollutant: 6
     Knowledge: 6
     SpriteOverlay: {fileID: 21300000, guid: 5b07fb87f79b8614996700110891a1ee, type: 3}
     ColorOverlay: {r: 0.7490196, g: 0.5647059, b: 0, a: 1}
     FullName: Sulfur Oxides
+    Description: Colorless gasses with a strong pungent odor, released by combustion
+      of fossil fuels.
   - Pollutant: 7
     Knowledge: 7
     SpriteOverlay: {fileID: 21300000, guid: 81e095a6d7136a34eaa308c8bbd42c20, type: 3}
     ColorOverlay: {r: 0.21960784, g: 0.4627451, b: 0.11372549, a: 1}
     FullName: Mold
+    Description: A structure formed by fungi that releases airborne spores.
   - Pollutant: 8
     Knowledge: 8
     SpriteOverlay: {fileID: 21300000, guid: eee1735334310f94ba79cd7cb8a3276b, type: 3}
     ColorOverlay: {r: 0.4, g: 0.4, b: 0.4, a: 1}
     FullName: Dust
+    Description: Fine particles of airborne solid matter.
