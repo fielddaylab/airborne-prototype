@@ -18,6 +18,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     public Image SourceImage, NPCImage;
     public Color DisabledColor;
     public TMP_Text LoopCounter;
+    public TooltipHoverable Tooltip;
+    public string SourceToolTip, NPCTooltip;
 
     // data stuff
     private InvestigationRoom _currentRoom;
@@ -54,14 +56,18 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     private void ToggleMode()
     {
         _inSourceMode = !_inSourceMode;
+
+        
         if (_inSourceMode)
         {
             SourceImage.color = Color.white;
             NPCImage.color = DisabledColor;
+            Tooltip.ChangeText(SourceToolTip);
         } else
         {
             SourceImage.color = DisabledColor;
             NPCImage.color = Color.white;
+            Tooltip.ChangeText(NPCTooltip);
         }
 
         TimelineToggleButton.transform.localScale = new Vector3(-TimelineToggleButton.transform.localScale.x, TimelineToggleButton.transform.localScale.y, TimelineToggleButton.transform.localScale.z);
