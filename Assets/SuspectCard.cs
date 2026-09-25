@@ -17,8 +17,16 @@ public class SuspectCard : MonoBehaviour
         PollutantType = pollutant;
         PollutantKnowledgeMapObject map = InvestigationLookup.Instance.PollutantMap;
 
+        Portrait.enabled = true;
         Portrait.sprite = PollutantKnowledgeMapUtility.GetSprite(map, pollutant);
         Label.text = PollutantKnowledgeMapUtility.GetFullName(map, pollutant);
         Description.text = PollutantKnowledgeMapUtility.GetDescription(map, pollutant);
+    }
+
+    public void Clear()
+    {
+        Label.text = "";
+        Description.text = "";
+        Portrait.enabled = false;
     }
 }
