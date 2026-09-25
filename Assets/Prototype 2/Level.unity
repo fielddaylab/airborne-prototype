@@ -10208,7 +10208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea2e0cb83cbfba4cb5d782cba0687ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneToLoad: Main
+  m_SceneToLoad: Menu
 --- !u!1 &337560990
 GameObject:
   m_ObjectHideFlags: 0
@@ -18753,7 +18753,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reset Game
+  m_text: Return to Level Select
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19630,6 +19630,7 @@ GameObject:
   - component: {fileID: 718267492}
   - component: {fileID: 718267491}
   - component: {fileID: 718267494}
+  - component: {fileID: 718267495}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -19763,6 +19764,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TargetTime: 0.25
+--- !u!114 &718267495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718267489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33fa6b0264a82f42a2cd748a0f2e2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: Play
 --- !u!1 &720748010
 GameObject:
   m_ObjectHideFlags: 0
@@ -29839,6 +29853,7 @@ GameObject:
   - component: {fileID: 1385657749}
   - component: {fileID: 1385657748}
   - component: {fileID: 1385657751}
+  - component: {fileID: 1385657752}
   m_Layer: 5
   m_Name: Fast Forward
   m_TagString: Untagged
@@ -29972,6 +29987,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TargetTime: 0.75
+--- !u!114 &1385657752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385657746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33fa6b0264a82f42a2cd748a0f2e2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: Fast forward
 --- !u!1 &1388432757
 GameObject:
   m_ObjectHideFlags: 0
@@ -38993,6 +39021,7 @@ GameObject:
   - component: {fileID: 1911223098}
   - component: {fileID: 1911223097}
   - component: {fileID: 1911223100}
+  - component: {fileID: 1911223101}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -39126,6 +39155,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TargetTime: 0
+--- !u!114 &1911223101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911223095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33fa6b0264a82f42a2cd748a0f2e2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: Pause
 --- !u!1 &1912420540
 GameObject:
   m_ObjectHideFlags: 0

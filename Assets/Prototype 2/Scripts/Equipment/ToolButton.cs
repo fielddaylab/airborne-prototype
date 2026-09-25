@@ -9,6 +9,7 @@ public class ToolButton : MonoBehaviour
     public Button MyButton;
     public Image[] ToolPips;
     public EquipmentMapObject Map;
+    public TooltipHoverable Tooltip;
 
     public EquipmentType ToolType;
 
@@ -34,6 +35,8 @@ public class ToolButton : MonoBehaviour
                 ToolPips[i].gameObject.SetActive(true);
             }
         }
+
+        Tooltip.ChangeText(toolType.ToString());
 
         ToolType = toolType;
     }

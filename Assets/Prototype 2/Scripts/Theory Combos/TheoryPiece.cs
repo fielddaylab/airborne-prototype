@@ -12,6 +12,8 @@ public class TheoryPiece : MonoBehaviour
     public Image Status;
     public ImageCycler Cycler;
 
+    public TooltipHoverable Tooltip;
+
     public void Start()
     {
         BossPromptController.RegisterCheckmark(Status);

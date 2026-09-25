@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 8524249689496780034}
   - component: {fileID: 1127554329815537109}
   - component: {fileID: 3146448795505556434}
+  - component: {fileID: 4320980249888033041}
   m_Layer: 5
   m_Name: Theory Piece
   m_TagString: Untagged
@@ -230,3 +231,17 @@ MonoBehaviour:
   TheoryImage: {fileID: 621820759862434806}
   Status: {fileID: 7316648339809393942}
   Cycler: {fileID: 6687835388962429558}
+  Tooltip: {fileID: 4320980249888033041}
+--- !u!114 &4320980249888033041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7640606647731593121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33fa6b0264a82f42a2cd748a0f2e2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: Test
