@@ -7,6 +7,8 @@ public class ScenarioDataObject : ScriptableObject
 {
     public string ScenarioName;
     public CharacterType MainNpc;
+    public Symptom MajorSymptom;
+    public RoomType MajorSymptomRoom;
     public GameObject WorldEnvironment;
     public GameObject MapObject;
     public InvestigationRoomObject[] Rooms;

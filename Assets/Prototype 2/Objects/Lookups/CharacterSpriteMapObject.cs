@@ -25,9 +25,37 @@ public class CharacterSpriteMapObject : ScriptableObject
     }
 }
 
+public class CharacterLookupUtility
+{
+    public static Sprite GetSprite(CharacterSpriteMapObject map, CharacterType character)
+    {
+        foreach (var p in map.Pairs)
+        {
+            if (p.Character == character)
+            {
+                return p.CharacterPortrait;
+            }
+        }
+        return null;
+    }
+
+    public static string GetBlurb(CharacterSpriteMapObject map, CharacterType character)
+    {
+        foreach (var p in map.Pairs)
+        {
+            if (p.Character == character)
+            {
+                return p.CharacterBlurb;
+            }
+        }
+        return null;
+    }
+}
+
 [System.Serializable]
 public class CharacterSpritePair
 {
     public CharacterType Character;
     public Sprite CharacterPortrait;
+    public string CharacterBlurb;
 }

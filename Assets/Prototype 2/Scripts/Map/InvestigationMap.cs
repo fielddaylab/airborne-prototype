@@ -17,6 +17,16 @@ public class InvestigationMap : MonoBehaviour
 
     public static Action<PollutantType> OnSetPollutant;
 
+    public void Awake()
+    {
+        InvestigationRoom.OnRoomUpdated += HandleNewRoom;
+    }
+
+    public void OnDestroy()
+    {
+        InvestigationRoom.OnRoomUpdated -= HandleNewRoom;
+    }
+
     public void Start()
     {
         InitializeDisplay();
@@ -25,6 +35,11 @@ public class InvestigationMap : MonoBehaviour
     public void Setup(Slider falseSlider)
     {
         FalseSlider = falseSlider;
+    }
+
+    private void HandleNewRoom(InvestigationRoom room)
+    {
+        ForceUpdate();
     }
 
     public void ForceUpdate()

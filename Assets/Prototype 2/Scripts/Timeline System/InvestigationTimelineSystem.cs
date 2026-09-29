@@ -13,7 +13,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
 
     public static event Action<int> OnHourLeft;
     public static event Action<int> OnHourEntered;
-    public static event Action OnTimeReset;
+    public static event Action OnLoopEnd;
     public static event Action<bool> OnTimePaused;
     
     public int BaseHour = 13; // default to 1PM based on scenario tables
@@ -39,7 +39,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
     public void Start()
     {
         NewGameManager.TriggerPhase += HandlePhaseChange;
-        IsPaused = true;
+        //IsPaused = true;
         
         CurrentHour = BaseHour;
         OnHourEntered?.Invoke(CurrentHour);
@@ -74,12 +74,16 @@ public class InvestigationTimelineSystem : MonoBehaviour
         _trueTime = _trueTime % TotalNumHours;
         if (_trueTime < previous)
         {
-            OnTimeReset?.Invoke();
+            OnLoopEnd?.Invoke();
             NewGameManager.Instance.Statistics.NumLoops++;
+
+            if (NewGameManager.Instance.CurrentPhase != NewGamePhase.VictimSearch) 
+            {
+                IsPaused = true;
+            }
 
             if (_isFinalLoop)
             {
-                IsPaused = true;
                 NewGameManager.Instance.SwitchToPhase(NewGamePhase.PSA);
             }
         }
@@ -112,7 +116,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
     {
         if (phase == NewGamePhase.RescuePlanning)
         {
-            OnTimeReset?.Invoke();
+            OnLoopEnd?.Invoke();
             _trueTime = 0;
         }
         
