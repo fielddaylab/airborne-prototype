@@ -12,7 +12,7 @@ public class SuspectCard : MonoBehaviour
     public Button Button;
     [NonSerialized] public PollutantType PollutantType;
 
-    public void Setup(PollutantType pollutant)
+    public void SetupPollutant(PollutantType pollutant)
     {
         PollutantType = pollutant;
         PollutantKnowledgeMapObject map = InvestigationLookup.Instance.PollutantMap;
@@ -21,6 +21,16 @@ public class SuspectCard : MonoBehaviour
         Portrait.sprite = PollutantKnowledgeMapUtility.GetSprite(map, pollutant);
         Label.text = PollutantKnowledgeMapUtility.GetFullName(map, pollutant);
         Description.text = PollutantKnowledgeMapUtility.GetDescription(map, pollutant);
+    }
+
+    public void SetupNPC(CharacterType c)
+    {
+        Portrait.enabled = true;
+        CharacterSpriteMapObject map = InvestigationLookup.Instance.CharacterMap;
+
+        Portrait.sprite = CharacterLookupUtility.GetSprite(map, c);
+        Label.text = c.ToString();
+        Description.text = CharacterLookupUtility.GetBlurb(map, c);
     }
 
     public void Clear()

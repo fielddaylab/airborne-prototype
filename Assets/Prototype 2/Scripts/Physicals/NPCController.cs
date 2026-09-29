@@ -27,13 +27,13 @@ public class NPCController : MonoBehaviour
     public void OnEnable()
     {
         InvestigationTimelineSystem.OnHourEntered += CheckLocationAndIndicator;
-        InvestigationTimelineSystem.OnTimeReset += ResetLocation;
+        InvestigationTimelineSystem.OnLoopEnd += ResetLocation;
     }
 
     public void OnDisable()
     {
         InvestigationTimelineSystem.OnHourEntered -= CheckLocationAndIndicator;
-        InvestigationTimelineSystem.OnTimeReset -= ResetLocation;
+        InvestigationTimelineSystem.OnLoopEnd -= ResetLocation;
     }
 
     public void Update()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class SuspectPickerManager : MonoBehaviour
     public Transform SuspectCardParent;
     public List<SuspectCard> Cards = new();
     public Button ConfirmButton;
+    public TMP_Text ConfirmText;
 
     public SuspectCard PanelCard;
 
@@ -26,12 +28,10 @@ public class SuspectPickerManager : MonoBehaviour
 
     void Awake()
     {
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
         ConfirmButton.onClick.AddListener(ConfirmSuspect);
-    }
-
-    void Start()
-    {
+        InvestigationTimelineSystem.OnLoopEnd += HandleNewLoop;
+        ConfirmText.text = "Confirm";
         Setup();
     }
     
@@ -43,6 +43,16 @@ public class SuspectPickerManager : MonoBehaviour
         }
 
         ConfirmButton.onClick.RemoveAllListeners();
+        InvestigationTimelineSystem.OnLoopEnd -= HandleNewLoop;
+    }
+
+    public void HandleNewLoop()
+    {
+        if (NewGameManager.Instance.CurrentPhase == NewGamePhase.Investigation) {
+            gameObject.SetActive(true);
+            UpdateInformation();
+            ConfirmText.text = "Keep";
+        }
     }
 
     public void Setup()
@@ -58,7 +68,7 @@ public class SuspectPickerManager : MonoBehaviour
             GameObject cardObj = Instantiate(SuspectCardPrefab);
             cardObj.transform.SetParent(SuspectCardParent, false);
             SuspectCard card = cardObj.GetComponent<SuspectCard>();
-            card.Setup(d.Type);
+            card.SetupPollutant(d.Type);
             card.Button.onClick.AddListener(() => SetSuspect(d.Type));
             Cards.Add(card);
         }
@@ -76,6 +86,8 @@ public class SuspectPickerManager : MonoBehaviour
 
             Destroy(SuspectCardParent.GetChild(i).gameObject);
         }
+
+        Cards = new();
     }
 
     public void ClearBoxes()
@@ -85,16 +97,21 @@ public class SuspectPickerManager : MonoBehaviour
             Destroy(SymptomsBox.GetChild(i).gameObject);
         }
 
+        _symptoms = new();
+
         for (int i = 0; i < SourcesBox.transform.childCount; i++)
         {
             Destroy(SourcesBox.GetChild(i).gameObject);
         }
+
+        _sources = new();
     }
 
     public void SetSuspect(PollutantType pollutant)
     {
         _selectedPollutant = pollutant;
         ConfirmButton.interactable = true;
+        ConfirmText.text = "Confirm";
 
         ClearBoxes();
         
@@ -139,8 +156,43 @@ public class SuspectPickerManager : MonoBehaviour
             _sources.Add(piece);
         }
 
-        PanelCard.Setup(pollutant);
+        PanelCard.SetupPollutant(pollutant);
         // fixing other stuff later!
+
+        UpdateInformation();
+    }
+
+    public void UpdateInformation()
+    {
+        int totalInfo = 0;
+
+        foreach (var piece in _symptoms)
+        {
+            if (PlayerKnowledgeState.HasSeenSymptom(piece.RepresentedSymptom))
+            {
+                piece.Cycler.SetChecked(true);
+                totalInfo++;
+            }
+        }
+
+        foreach (var piece in _sources)
+        {
+            if (PlayerKnowledgeState.HasSeenFeature(piece.RepresentedFeature))
+            {
+                piece.Cycler.SetChecked(true);
+                totalInfo++;
+            }
+        }
+
+        // TheorySlider.value = totalInfo;
+        // TheoryText.text = $"{totalInfo}/4";
+        // TheorizeButton.interactable = false;
+
+        // if (totalInfo >= 4)
+        // {
+        //     TheoryText.text = "Theorize";
+        //     TheorizeButton.interactable = true;
+        // }
     }
 
     public void ConfirmSuspect()

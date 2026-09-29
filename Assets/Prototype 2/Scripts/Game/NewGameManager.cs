@@ -11,7 +11,7 @@ public class NewGameManager : MonoBehaviour
 
     public static ScenarioDataObject LoadedScenario;
 
-    NewGamePhase CurrentPhase;
+    public NewGamePhase CurrentPhase {get; private set;}
     public CaseFileManager CaseFile;
     public ToolManager ToolManager;
     public RescuePlannerManager RescuePlanner;
@@ -31,7 +31,7 @@ public class NewGameManager : MonoBehaviour
         {
             Instance = this;
             Statistics = new RoundStatistics();
-            CurrentPhase = NewGamePhase.Investigation;
+            CurrentPhase = NewGamePhase.VictimSearch;
         } else
         {
             Destroy(gameObject);
@@ -56,6 +56,9 @@ public class NewGameManager : MonoBehaviour
     {
         switch (phase)
         {
+            case NewGamePhase.VictimSearch:
+                break;
+
             case NewGamePhase.Investigation:
                 break;
             case NewGamePhase.Transition:
@@ -84,6 +87,8 @@ public class NewGameManager : MonoBehaviour
                 Results.EvaluateResults(FinalLoopData);
                 break;
         }
+
+        CurrentPhase = phase;
     }
 
     private void HandleSuspect(PollutantType pollutant)
@@ -99,5 +104,6 @@ public enum NewGamePhase
     RescuePlanning,
     Intervention,
     PSA,
-    Results
+    Results,
+    VictimSearch
 }

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScenarioName: Easy Scenario
   MainNpc: 2
+  MajorSymptom: 8
+  MajorSymptomRoom: 0
   WorldEnvironment: {fileID: 3831750499708220546, guid: ed77d8964e36d1245b4f067866f577fa, type: 3}
   MapObject: {fileID: 5432778866077223362, guid: 7cf42f1a0db1ab84d861aa7d29c643b1, type: 3}
   Rooms:

@@ -46,8 +46,6 @@ public static class PlayerKnowledgeState
 
     public static void Discover(CharacterType character, int time, KnowledgeType type)
     {
-        //Debug.Log($"Recorded information about {type} for {character}!");
-
         CharacterDiscovered.Add((character, time, type));
         OnKnowledgeUpdated.Invoke();
     }
@@ -61,11 +59,13 @@ public static class PlayerKnowledgeState
     public static void Discover(Symptom symptom)
     {
         SeenSymptoms.Add(symptom);
+        OnKnowledgeUpdated.Invoke();
     } 
 
     public static void Discover(FeatureType feature)
     {
         SeenFeatures.Add(feature);
+        OnKnowledgeUpdated.Invoke();
     }
 
     // other classes can query this to figure out what the players knows or not yet
