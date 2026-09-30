@@ -77,6 +77,8 @@ public class SidebarSuspectManager : MonoBehaviour
 
             _sources.Add(piece);
         }
+
+        UpdateInformation();
     }
 
     public void ClearBoxes()
