@@ -21,6 +21,12 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image TimelineImage;
 
     public CondensedMeaderReading[] CondensedReadings;
+    public SpecificReading Specific;
+
+    private bool _inSpecificMode = false;
+    private PollutantType _targetedPollutant;
+
+    public static Action<(bool, PollutantType)> OnOverlayChange;
 
     public Image[] NPCImages;
     public Image[] NPCSymptomImages;
@@ -49,6 +55,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     //private List<PollutantUIEntry> _pollutantEntries;
 
+    private Action _rebuild;
+
     private void Awake()
     {
         // _pollutantEntries = new List<PollutantUIEntry>
@@ -65,15 +73,25 @@ public class InvestigationTimelineChunk : MonoBehaviour
     private void OnEnable()
     {
         ValidImage.onClick.AddListener(HandleTimelineClick);
+        OnOverlayChange += HandleOverlayChange;
     }
 
     private void OnDisable()
     {
         ValidImage.onClick.RemoveListener(HandleTimelineClick);
+        OnOverlayChange -= HandleOverlayChange;
+    }
+
+    private void HandleOverlayChange((bool, PollutantType) tuple)
+    {
+        _inSpecificMode = tuple.Item1;
+        _targetedPollutant = tuple.Item2;
+        _rebuild?.Invoke();
     }
 
     public void SetRoomNPCGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
+        _rebuild = () => SetRoomNPCGraphics(roomType, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
         SetPollutantDisplay(roomType, hour, slot);
@@ -128,6 +146,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         {
             CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
         }
+        Specific.Clear();
 
         if (slot == null) return;
         
@@ -140,14 +159,16 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 PollutantReading reading = slot.GetReading(pollutantDatas[i].Type);
 
                 if (reading!= null) {
-                    CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                    else if (pollutantDatas[i].Type == _targetedPollutant) Specific.SetPollutant(reading.Concentration, pollutantDatas[i].Type);
                 } 
                 else
                 {
-                    CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
+                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
+                    else if (pollutantDatas[i].Type == _targetedPollutant) Specific.SetPollutant(0, pollutantDatas[i].Type);
                 }
                 anyKnowledgeKnown = true;
-                TextEnabled(true);
+                if (!_inSpecificMode) TextEnabled(true);
             }
         }
 
@@ -171,6 +192,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
+        _rebuild = () => SetRoomFeatureGraphics(roomType, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
         SetPollutantDisplay(roomType, hour, slot);
@@ -216,6 +238,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot)
     {
+        _rebuild = () => SetNPCGraphics(room, character, hour, isNewRoom, slot);
         ClearChunk();
 
         if (PlayerKnowledgeState.IsKnownCharacterly(character, hour, KnowledgeType.NPCSymptom))
@@ -254,6 +277,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot)
     {
+        _rebuild = () => SetFeatureGraphics(room, feature, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
         //SourceOverlay.SetActive(true);
@@ -286,6 +310,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetDetailedFeatureGraphics(RoomType roomType, FeatureType feature, int hour, FeatureTimeSlot featureSlot, RoomTimeSlot roomSlot, PollutantType targetPollutant)
     {
+        _rebuild = () => SetDetailedFeatureGraphics(roomType, feature, hour, featureSlot, roomSlot, targetPollutant);
         ClearChunk();
         //SourceOverlay.SetActive(true);
 
@@ -323,6 +348,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         {
             CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
         }
+        Specific.Clear();
 
         if (featureSlot == null) return;
         
@@ -335,11 +361,12 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 PollutantReading reading = roomSlot.GetReading(pollutantDatas[i].Type);
                 
                 if (reading!= null) {
-                    CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                    else if (pollutantDatas[i].Type == _targetedPollutant) Specific.SetPollutant(reading.Concentration, pollutantDatas[i].Type);
                 } 
                 else
                 {
-                    CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
+                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
                 }
 
                 anyKnowledgeKnown = true;
@@ -375,6 +402,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetDetailedNPCGraphics(RoomType roomType, CharacterType character, int hour, bool isNewRoom, Symptom targetSymptom, PollutantType targetPollutant, NPCTimeSlot NPCSlot, RoomTimeSlot roomSlot)
     {
+        _rebuild = () => SetDetailedNPCGraphics(roomType, character, hour, isNewRoom, targetSymptom, targetPollutant, NPCSlot, roomSlot);
         ClearChunk();
         NPCOverlay.SetActive(true);
         RoomOverlay.SetActive(true);
@@ -415,6 +443,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         {
             CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
         }
+        Specific.Clear();
 
         for (int i = 0; i < pollutantDatas.Length; i++)
         {
@@ -423,11 +452,12 @@ public class InvestigationTimelineChunk : MonoBehaviour
             {
                 PollutantReading reading = roomSlot.GetReading(pollutantDatas[i].Type);
                 if (reading!= null) {
-                    CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
+                    else if (pollutantDatas[i].Type == _targetedPollutant) Specific.SetPollutant(reading.Concentration, pollutantDatas[i].Type);
                 } 
                 else
                 {
-                    CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
+                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
                 }
                 anyKnowledgeKnown = true;
                 TextEnabled(true);
@@ -471,6 +501,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         {
             c.gameObject.SetActive(enabled);
         }
+        Specific.Clear();
     }
 
     private void ClearChunk()
