@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dust
   m_EditorClassIdentifier: 
   Type: 8
-  Symptoms: 
+  Symptoms: 0a000000010000000200000006000000
   Sources: 
