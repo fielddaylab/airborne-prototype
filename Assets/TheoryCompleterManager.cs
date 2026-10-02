@@ -25,6 +25,7 @@ public class TheoryCompleterManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
         ScreenDimmer.onClick.AddListener(ScreenClick);
+        InvestigationTimelineChunk.OnSlotSelected += HandleTimeSlot;
     }
 
     void Start()
@@ -45,6 +46,9 @@ public class TheoryCompleterManager : MonoBehaviour
     public void HandleTimeSlot(int hour)
     {
         // FINAL SCAFFOLD
+        Debug.Log("Player chose hour: " + hour);
+
+        
     }
 
     private void Succeeded()

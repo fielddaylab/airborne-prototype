@@ -84,7 +84,7 @@ public class CaseFileManager : MonoBehaviour
 
     public void SetCaseFile(bool open)
     {
-        if (CaseFileButton != open)
+        if (CaseFileOpen != open)
         {
             ToggleCaseFile();
         }

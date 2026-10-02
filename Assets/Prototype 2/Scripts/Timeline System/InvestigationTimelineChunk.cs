@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class InvestigationTimelineChunk : MonoBehaviour
@@ -40,10 +41,12 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public Image[] FeatureImages;
 
     [Header("Clickables")]
-    public Image InvalidImage;
     public Button ValidImage;
 
     public static Action OnValidSelected;
+
+    public static Action<int> OnSlotSelected;
+    private int RepresentedHour;
 
     private struct PollutantUIEntry
     {
@@ -91,6 +94,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetRoomNPCGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
+        RepresentedHour = hour;
         _rebuild = () => SetRoomNPCGraphics(roomType, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -137,6 +141,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetPollutantDisplay(RoomType roomType, int hour, RoomTimeSlot slot)
     {
+        RepresentedHour = hour;
         PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         
         TimelineImage.enabled = false;
@@ -192,6 +197,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
+        RepresentedHour = hour;
         _rebuild = () => SetRoomFeatureGraphics(roomType, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -238,6 +244,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot)
     {
+        RepresentedHour = hour;
         _rebuild = () => SetNPCGraphics(room, character, hour, isNewRoom, slot);
         ClearChunk();
 
@@ -277,6 +284,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot)
     {
+        RepresentedHour = hour;
         _rebuild = () => SetFeatureGraphics(room, feature, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -310,6 +318,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetDetailedFeatureGraphics(RoomType roomType, FeatureType feature, int hour, FeatureTimeSlot featureSlot, RoomTimeSlot roomSlot, PollutantType targetPollutant)
     {
+        RepresentedHour = hour;
         _rebuild = () => SetDetailedFeatureGraphics(roomType, feature, hour, featureSlot, roomSlot, targetPollutant);
         ClearChunk();
         //SourceOverlay.SetActive(true);
@@ -390,18 +399,11 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 }
             }
         }
-
-        if (valid)
-        {
-            ValidImage.gameObject.SetActive(true);
-        } else
-        {
-            InvalidImage.gameObject.SetActive(true);
-        }
     }
 
     public void SetDetailedNPCGraphics(RoomType roomType, CharacterType character, int hour, bool isNewRoom, Symptom targetSymptom, PollutantType targetPollutant, NPCTimeSlot NPCSlot, RoomTimeSlot roomSlot)
     {
+        RepresentedHour = hour;
         _rebuild = () => SetDetailedNPCGraphics(roomType, character, hour, isNewRoom, targetSymptom, targetPollutant, NPCSlot, roomSlot);
         ClearChunk();
         NPCOverlay.SetActive(true);
@@ -485,14 +487,6 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 }
             }
         }
-
-        if (valid)
-        {
-            ValidImage.gameObject.SetActive(true);
-        } else
-        {
-            InvalidImage.gameObject.SetActive(true);
-        }
     }
 
     private void TextEnabled(bool enabled)
@@ -526,13 +520,20 @@ public class InvestigationTimelineChunk : MonoBehaviour
         //SourceOverlay.SetActive(false);
 
         foreach (var image in FeatureImages) { image.enabled = false; image.gameObject.SetActive(false); }
-
-        ValidImage.gameObject.SetActive(false);
-        InvalidImage.gameObject.SetActive(false);
     }
 
     private void HandleTimelineClick()
     {
         OnValidSelected?.Invoke();
+        OnSlotSelected?.Invoke(RepresentedHour);
     }
+}
+
+public struct TimelineData
+{
+    public PollutantType Pollutant;
+    public int Concentration;
+    public CharacterType[] Characters;
+    public Symptom[] Symptoms;
+    public FeatureType[] Features;
 }
