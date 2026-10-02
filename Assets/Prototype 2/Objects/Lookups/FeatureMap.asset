@@ -23,3 +23,5 @@ MonoBehaviour:
     KnowledgeType: 11
   - Featre: 7
     KnowledgeType: 9
+  - Featre: 5
+    KnowledgeType: 18

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Mold
   m_EditorClassIdentifier: 
   Type: 7
-  Symptoms: 
-  Sources: 06000000
+  Symptoms: 0a000000020000000100000006000000
+  Sources: 05000000
