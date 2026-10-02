@@ -96,7 +96,7 @@ public class SidebarTheoryPiece : MonoBehaviour
         } 
         else if (result == TheoryCompleterManager.FulfillmentResult.BothFailed)
         {
-            
+            Debug.Log("Failed check!");
         }
     }
 
