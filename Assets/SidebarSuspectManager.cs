@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SidebarSuspectManager : MonoBehaviour
 {
@@ -14,6 +16,11 @@ public class SidebarSuspectManager : MonoBehaviour
     public Transform SymptomsBox;
     public Transform SourcesBox;
 
+    public TMP_Text TheoryText;
+    public Button TheorizeButton;
+
+    public SidebarTheoryManager TheoryManager;
+
     private List<TheoryPiece> _symptoms = new();
     private List<TheoryPiece> _sources = new();
 
@@ -21,6 +28,7 @@ public class SidebarSuspectManager : MonoBehaviour
     {
         InvestigationTimelineSystem.OnLoopEnd += HandleLoopEnd;
         PollutantPanel.SetActive(false);
+        TheoryManager.gameObject.SetActive(false);
     }
     
     public void Start()
@@ -92,6 +100,9 @@ public class SidebarSuspectManager : MonoBehaviour
         {
             Destroy(SourcesBox.GetChild(i).gameObject);
         }
+
+        _symptoms = new();
+        _sources = new();
     }
 
     public void UpdateInformation()
@@ -127,15 +138,13 @@ public class SidebarSuspectManager : MonoBehaviour
             }
         }
 
-        // TheorySlider.value = totalInfo;
-        // TheoryText.text = $"{totalInfo}/4";
-        // TheorizeButton.interactable = false;
+        TheoryText.text = $"{totalInfo}/4";
+        TheorizeButton.interactable = false;
 
-        // if (totalInfo >= 4)
-        // {
-        //     TheoryText.text = "Theorize";
-        //     TheorizeButton.interactable = true;
-        // }
+        if (totalInfo >= 4)
+        {
+            TheorizeButton.interactable = true;
+        }
     }
 
     private void FillInData()

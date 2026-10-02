@@ -18,7 +18,9 @@ public class ImageCycler : MonoBehaviour
 
     public void SetChecked(bool check)
     {
-        Image.enabled = check;
-        Image.sprite = checkMark;
+        if (Image != null) {
+            Image.enabled = check;
+            Image.sprite = checkMark;
+        }
     }
 }
