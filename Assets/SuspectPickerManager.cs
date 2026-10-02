@@ -260,6 +260,7 @@ public class SuspectPickerManager : MonoBehaviour
                 }
             }
         }
+        SidebarTheory.gameObject.SetActive(true);
 
         SidebarTheory.SetupPollutant(_selectedPollutant);
         OverviewTheory.SetupPollutant(_selectedPollutant);
@@ -274,7 +275,6 @@ public class SuspectPickerManager : MonoBehaviour
 
     private void HandleTheoryConfirmation()
     {
-        SidebarTheory.gameObject.SetActive(true);
         NewGameManager.ChooseSuspect(_selectedPollutant);
         gameObject.SetActive(false);
     }
