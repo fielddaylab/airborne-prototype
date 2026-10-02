@@ -14,6 +14,12 @@ public class SidebarTheoryManager : MonoBehaviour
 
     public SidebarTheoryPiece[] Pieces;
 
+    public void Awake()
+    {
+        SourcePortrait.enabled = false;
+        SourcePortraitText.text = "";
+    }
+
     public void SetupPollutant(PollutantType pollutant)
     {
         
@@ -35,6 +41,7 @@ public class SidebarTheoryManager : MonoBehaviour
         
         Sprite featureSprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, feature);
         
+        SourcePortrait.enabled = true;
         SourcePortrait.sprite = featureSprite;
 
         foreach (var p in Pieces)

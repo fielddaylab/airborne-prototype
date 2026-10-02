@@ -6692,7 +6692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Confirm
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -24250,8 +24250,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5795850456943782268, guid: a62cd5496996f6543b8437a2917bdf60, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6011741403905250138, guid: a62cd5496996f6543b8437a2917bdf60, type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352404677512693268, guid: a62cd5496996f6543b8437a2917bdf60, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8803441385524671483, guid: a62cd5496996f6543b8437a2917bdf60, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8816990792532457762, guid: a62cd5496996f6543b8437a2917bdf60, type: 3}
@@ -27351,7 +27363,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1132745351}
   m_OnClick:
     m_PersistentCalls:
@@ -33123,6 +33135,8 @@ MonoBehaviour:
   SourceCardParent: {fileID: 1248068532}
   SidebarTheory: {fileID: 8317881084225050449}
   OverviewTheory: {fileID: 976343778}
+  TheoryBackButton: {fileID: 1132745350}
+  TheoryConfirmButton: {fileID: 1619064738}
 --- !u!1 &1442115105
 GameObject:
   m_ObjectHideFlags: 0
@@ -35391,7 +35405,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1619064739}
   m_OnClick:
     m_PersistentCalls:
