@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 public class SuspectPickerManager : MonoBehaviour
 {
-    public GameObject SuspectCardPrefab;
+    public GameObject InfoCardPrefab;
     public TMP_Text Header;
     public Transform SuspectCardParent;
-    public List<SuspectCard> Cards = new();
+    public List<InfoCard> SuspectCards = new();
     public Button ConfirmButton;
     public TMP_Text ConfirmText;
 
-    public SuspectCard PanelCard;
+    public InfoCard PanelCard;
 
     private PollutantType _selectedPollutant = PollutantType.None;
 
@@ -33,6 +33,13 @@ public class SuspectPickerManager : MonoBehaviour
     public GameObject SuspectRegion;
     public GameObject TheoryRegion;
 
+    public List<InfoCard> SourceCards;
+    public Transform SourceCardParent;
+
+    public SidebarTheoryManager SidebarTheory, OverviewTheory;
+
+    public Button TheoryBackButton, TheoryConfirmButton;
+
     void Awake()
     {
         gameObject.SetActive(false);
@@ -42,11 +49,12 @@ public class SuspectPickerManager : MonoBehaviour
         Setup();
         TheorizeButton.onClick.AddListener(HandleTheoryStart);
         TheoryRegion.SetActive(false);
+        TheoryConfirmButton.onClick.AddListener(HandleTheoryConfirmation);
     }
     
     public void OnDestroy()
     {
-        foreach (var c in Cards)
+        foreach (var c in SuspectCards)
         {
             c.Button.onClick.RemoveAllListeners();
         }
@@ -66,7 +74,7 @@ public class SuspectPickerManager : MonoBehaviour
 
     public void Setup()
     {
-        Clear();
+        ClearSuspect();
         ConfirmButton.interactable = false;
 
         PanelCard.Clear();
@@ -74,29 +82,29 @@ public class SuspectPickerManager : MonoBehaviour
         PollutantDataObject[] datas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         foreach (var d in datas)
         {
-            GameObject cardObj = Instantiate(SuspectCardPrefab);
+            GameObject cardObj = Instantiate(InfoCardPrefab);
             cardObj.transform.SetParent(SuspectCardParent, false);
-            SuspectCard card = cardObj.GetComponent<SuspectCard>();
+            InfoCard card = cardObj.GetComponent<InfoCard>();
             card.SetupPollutant(d.Type);
             card.Button.onClick.AddListener(() => SetSuspect(d.Type));
-            Cards.Add(card);
+            SuspectCards.Add(card);
         }
     }
 
-    public void Clear()
+    public void ClearSuspect()
     {
         for (int i = 0; i < SuspectCardParent.transform.childCount; i++)
         {
-            if (Cards.Count > i && Cards[i] != null)
+            if (SuspectCards.Count > i && SuspectCards[i] != null)
             {
-                Cards[i].Button.onClick.RemoveAllListeners();
-                Cards.Remove(Cards[i]); 
+                SuspectCards[i].Button.onClick.RemoveAllListeners();
+                SuspectCards.Remove(SuspectCards[i]); 
             }
 
             Destroy(SuspectCardParent.GetChild(i).gameObject);
         }
 
-        Cards = new();
+        SuspectCards = new();
     }
 
     public void ClearBoxes()
@@ -124,14 +132,14 @@ public class SuspectPickerManager : MonoBehaviour
 
         ClearBoxes();
         
-        for (int i = 0; i < Cards.Count; i++)
+        for (int i = 0; i < SuspectCards.Count; i++)
         {
-            if (Cards[i].PollutantType == pollutant) 
+            if (SuspectCards[i].PollutantType == pollutant) 
             {
-                Cards[i].gameObject.SetActive(false);
+                SuspectCards[i].gameObject.SetActive(false);
             } else
             {
-                Cards[i].gameObject.SetActive(true);
+                SuspectCards[i].gameObject.SetActive(true);
             }
         }
 
@@ -208,13 +216,66 @@ public class SuspectPickerManager : MonoBehaviour
         NewGameManager.ChooseSuspect(_selectedPollutant);
     }
 
+    public void ClearSources()
+    {
+        for (int i = 0; i < SourceCardParent.transform.childCount; i++)
+        {
+            if (SourceCards.Count > i && SourceCards[i] != null)
+            {
+                SourceCards[i].Button.onClick.RemoveAllListeners();
+                SourceCards.Remove(SourceCards[i]); 
+            }
+
+            Destroy(SourceCardParent.GetChild(i).gameObject);
+        }
+
+        SourceCards = new();
+    }
+
     private void HandleTheoryStart()
     {
         string fullName = InvestigationLookup.Instance.PollutantMap.GetFullName(_selectedPollutant);
         
         Header.text = $"Choose a <b>Source</b> of <b>{fullName}</b> to investigate in this loop.";
 
-        SuspectRegion.SetActive(true);
+        SuspectRegion.SetActive(false);
         TheoryRegion.SetActive(true);
+
+        ClearSources();
+
+        PollutantDataObject suspectedPollutantData;
+        foreach (var d in InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants)
+        {
+            if (d.Type == _selectedPollutant)
+            {
+                suspectedPollutantData = d;
+                foreach (var s in d.Sources)
+                {
+                    GameObject cardObj = Instantiate(InfoCardPrefab);
+                    cardObj.transform.SetParent(SourceCardParent, false);
+                    InfoCard card = cardObj.GetComponent<InfoCard>();
+                    card.SetupFeature(s);
+                    card.Button.onClick.AddListener(() => HandleSourceSelection(s));
+                    SourceCards.Add(card);
+                }
+            }
+        }
+
+        SidebarTheory.SetupPollutant(_selectedPollutant);
+        OverviewTheory.SetupPollutant(_selectedPollutant);
+    }
+
+    private void HandleSourceSelection(FeatureType source)
+    {
+        SidebarTheory.SetupSource(source);
+        OverviewTheory.SetupSource(source);
+        TheoryConfirmButton.interactable = true;
+    }
+
+    private void HandleTheoryConfirmation()
+    {
+        SidebarTheory.gameObject.SetActive(true);
+        NewGameManager.ChooseSuspect(_selectedPollutant);
+        gameObject.SetActive(false);
     }
 }

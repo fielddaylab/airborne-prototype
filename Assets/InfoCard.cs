@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SuspectCard : MonoBehaviour
+public class InfoCard : MonoBehaviour
 {
     public Image Portrait;
     public TMP_Text Label, Description;
@@ -31,6 +31,21 @@ public class SuspectCard : MonoBehaviour
         Portrait.sprite = CharacterLookupUtility.GetSprite(map, c);
         Label.text = c.ToString();
         Description.text = CharacterLookupUtility.GetBlurb(map, c);
+    }
+
+    public void SetupFeature(FeatureType f)
+    {
+        Portrait.enabled = true;
+        FeatureSpriteMapObject map = InvestigationLookup.Instance.FeatureSpriteMap;
+        
+        Portrait.sprite = FeatureSpriteMapUtility.GetOnSprite(map, f);
+
+        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        RoomType sourceRoom = ScenarioUtility.GetRoom(f, scenarioData);
+
+        Label.text = $"{sourceRoom} {f}";
+
+        Description.text = FeatureSpriteMapUtility.GetBlurb(map, f);
     }
 
     public void Clear()
