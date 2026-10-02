@@ -33,6 +33,12 @@ public class TheoryCompleterManager : MonoBehaviour
         ScreenDimmer.gameObject.SetActive(false);
     }
 
+    void OnDestroy()
+    {
+        ScreenDimmer.onClick.RemoveListener(ScreenClick);
+        InvestigationTimelineChunk.OnSlotSelected -= HandleTimeSlot;
+    }
+
     public void RequestTimeSlot(SidebarTheoryPiece.TheoryType theoryType, PollutantType pollutant, FeatureType source)
     {
         OnLockout?.Invoke(true);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,6 +48,13 @@ public class SidebarSuspectManager : MonoBehaviour
             NPCPanel.gameObject.SetActive(false);
             PollutantPanel.gameObject.SetActive(true);
         }
+    }
+
+    void OnDestroy()
+    {
+        PlayerKnowledgeState.OnKnowledgeUpdated -= UpdateInformation;
+        InvestigationTimelineSystem.OnLoopEnd -= HandleLoopEnd;
+        NewGameManager.ChooseSuspect -= HandleSuspect;
     }
 
     private void HandleSuspect(PollutantType pollutant)
