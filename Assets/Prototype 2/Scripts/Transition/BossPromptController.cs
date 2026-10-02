@@ -89,12 +89,16 @@ public class BossPromptController : MonoBehaviour
 
         Debug.Log($"Found {AnimatableCheckmarks.Count} checks");
         int index = 0;
+        bool backup = true;
         foreach (Image image in AnimatableCheckmarks)
         {
             StartCoroutine(MoveCheck(image, animationIndex, index == (AnimatableCheckmarks.Count - 1)));
             index++;
             animationIndex++;
+            backup = false;
         }
+
+        if (backup) EndBossSequence();
     }
 
     IEnumerator MoveCheck(Image check, int index, bool finalCheck = false)
