@@ -94,7 +94,7 @@ public class SidebarTheoryPiece : MonoBehaviour
             Check.gameObject.SetActive(true);
             MyManager.IncrementEvidence();
         } 
-        else if (result == TheoryCompleterManager.FulfillmentResult.Failed)
+        else if (result == TheoryCompleterManager.FulfillmentResult.BothFailed)
         {
             
         }

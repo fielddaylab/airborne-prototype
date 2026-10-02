@@ -147,7 +147,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
             }
         }
 
-        MergeData(characters, symptoms, null);
+        MergeData(hour, characters, symptoms, null);
     }
 
     public void SetPollutantDisplay(RoomType roomType, int hour, RoomTimeSlot slot)
@@ -256,7 +256,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
             }
         }
 
-        MergeData(null, null, features);
+        MergeData(hour, null, null, features);
     }
 
     public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot, RoomTimeSlot roomSlot)
@@ -304,7 +304,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
             }
         }
 
-        MergeData(new List<CharacterType> { character }, symptoms, null);
+        MergeData(hour, new List<CharacterType> { character }, symptoms, null);
     }
 
     public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot, RoomTimeSlot roomSlot)
@@ -343,7 +343,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
             FeatureImages[0].sprite = FeatureSpriteMapUtility.GetUnkownSprite(featureMap, feature);
         }
 
-        MergeData(null, null, new List<FeatureType> { feature });
+        MergeData(hour, null, null, new List<FeatureType> { feature });
     }
 
 
@@ -408,11 +408,12 @@ public class InvestigationTimelineChunk : MonoBehaviour
         };
     }
 
-    private void MergeData(List<CharacterType> characters, List<Symptom> symptoms, List<FeatureType> features)
+    private void MergeData(int hour, List<CharacterType> characters, List<Symptom> symptoms, List<FeatureType> features)
     {
         if (_pollutantsAmbiguous) { _data = null; return; }
 
         TimelineData data = _data ?? default;
+        data.Hour = hour;
         data.Characters = characters != null && characters.Count > 0 ? characters.ToArray() : null;
         data.Symptoms   = symptoms   != null && symptoms.Count   > 0 ? symptoms.ToArray()   : null;
         data.Features   = features   != null && features.Count   > 0 ? features.ToArray()   : null;
@@ -425,6 +426,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
 public struct TimelineData
 {
+    public int? Hour;
     public PollutantType? Pollutant;
     public int? Concentration;
     public CharacterType[] Characters;
