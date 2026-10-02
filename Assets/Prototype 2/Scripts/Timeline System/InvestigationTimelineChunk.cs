@@ -45,8 +45,9 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public static Action OnValidSelected;
 
-    public static Action<int> OnSlotSelected;
-    private int RepresentedHour;
+    public static Action<TimelineData?> OnSlotSelected;
+    private TimelineData? _data;
+    private bool _pollutantsAmbiguous;
 
     private struct PollutantUIEntry
     {
@@ -94,7 +95,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetRoomNPCGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
-        RepresentedHour = hour;
+        //RepresentedHour = hour;
         _rebuild = () => SetRoomNPCGraphics(roomType, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -141,7 +142,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetPollutantDisplay(RoomType roomType, int hour, RoomTimeSlot slot)
     {
-        RepresentedHour = hour;
+        //RepresentedHour = hour;
         PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         
         TimelineImage.enabled = false;
@@ -197,7 +198,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
-        RepresentedHour = hour;
+        //RepresentedHour = hour;
         _rebuild = () => SetRoomFeatureGraphics(roomType, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -244,7 +245,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot)
     {
-        RepresentedHour = hour;
+        //RepresentedHour = hour;
         _rebuild = () => SetNPCGraphics(room, character, hour, isNewRoom, slot);
         ClearChunk();
 
@@ -284,7 +285,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot)
     {
-        RepresentedHour = hour;
+        //RepresentedHour = hour;
         _rebuild = () => SetFeatureGraphics(room, feature, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -318,7 +319,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetDetailedFeatureGraphics(RoomType roomType, FeatureType feature, int hour, FeatureTimeSlot featureSlot, RoomTimeSlot roomSlot, PollutantType targetPollutant)
     {
-        RepresentedHour = hour;
+        //RepresentedHour = hour;
         _rebuild = () => SetDetailedFeatureGraphics(roomType, feature, hour, featureSlot, roomSlot, targetPollutant);
         ClearChunk();
         //SourceOverlay.SetActive(true);
@@ -403,7 +404,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
     public void SetDetailedNPCGraphics(RoomType roomType, CharacterType character, int hour, bool isNewRoom, Symptom targetSymptom, PollutantType targetPollutant, NPCTimeSlot NPCSlot, RoomTimeSlot roomSlot)
     {
-        RepresentedHour = hour;
+        //RepresentedHour = hour;
         _rebuild = () => SetDetailedNPCGraphics(roomType, character, hour, isNewRoom, targetSymptom, targetPollutant, NPCSlot, roomSlot);
         ClearChunk();
         NPCOverlay.SetActive(true);
@@ -519,20 +520,55 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         //SourceOverlay.SetActive(false);
 
+        _data = null;
+        _pollutantsAmbiguous = false;
+
         foreach (var image in FeatureImages) { image.enabled = false; image.gameObject.SetActive(false); }
     }
 
     private void HandleTimelineClick()
     {
         OnValidSelected?.Invoke();
-        OnSlotSelected?.Invoke(RepresentedHour);
+        OnSlotSelected?.Invoke(_data);
+    }
+
+    private void BeginPollutantTracking(int pollutantCount)
+    {
+        _data = null;
+        _pollutantsAmbiguous = !_inSpecificMode && pollutantCount > 1;
+    }
+
+    private void TrackPollutant(PollutantType type, PollutantReading reading, int pollutantCount)
+    {
+        bool selected = _inSpecificMode ? type == _targetedPollutant : pollutantCount == 1;
+        if (!selected) return;
+
+        _data = new TimelineData
+        {
+            Pollutant = type,
+            Concentration = reading != null ? reading.Concentration : 0
+        };
+    }
+
+    private void MergeData(List<CharacterType> characters, List<Symptom> symptoms, List<FeatureType> features)
+    {
+        if (_pollutantsAmbiguous) { _data = null; return; }
+
+        TimelineData data = _data ?? default;
+        data.Characters = characters != null && characters.Count > 0 ? characters.ToArray() : null;
+        data.Symptoms   = symptoms   != null && symptoms.Count   > 0 ? symptoms.ToArray()   : null;
+        data.Features   = features   != null && features.Count   > 0 ? features.ToArray()   : null;
+
+        bool hasAnything = data.Pollutant.HasValue || data.Characters != null
+                        || data.Symptoms != null || data.Features != null;
+        _data = hasAnything ? data : (TimelineData?)null;
     }
 }
 
 public struct TimelineData
 {
-    public PollutantType Pollutant;
-    public int Concentration;
+    public PollutantType? Pollutant;
+    public int? Concentration;
     public CharacterType[] Characters;
     public Symptom[] Symptoms;
     public FeatureType[] Features;

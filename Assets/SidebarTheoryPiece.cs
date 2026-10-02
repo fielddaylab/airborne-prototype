@@ -22,6 +22,12 @@ public class SidebarTheoryPiece : MonoBehaviour
     public PollutantType TargetPollutant;
     public FeatureType TargetSource;
 
+    public Image Check;
+
+    private bool _ignoreLocks = false;
+
+    public SidebarTheoryManager MyManager;
+
     public void Awake()
     {
         UpdateText("???");
@@ -29,6 +35,7 @@ public class SidebarTheoryPiece : MonoBehaviour
         ImageOverlay.enabled = false;
         if (SlotButton != null) SlotButton.onClick.AddListener(HandleSlotClick);
         TheoryCompleterManager.OnLockout += HandleLockout;
+        Check.gameObject.SetActive(false);
     }
 
     public void UpdateText(string name)
@@ -79,10 +86,22 @@ public class SidebarTheoryPiece : MonoBehaviour
     private void HandleFullfilled(TheoryCompleterManager.FulfillmentResult result)
     {
         TheoryCompleterManager.OnFulfilledRequest -= HandleFullfilled;
+
+        if (result == TheoryCompleterManager.FulfillmentResult.Succeeded)
+        {
+            SlotButton.interactable = false;
+            _ignoreLocks = true;
+            Check.gameObject.SetActive(true);
+            MyManager.IncrementEvidence();
+        } 
+        else if (result == TheoryCompleterManager.FulfillmentResult.Failed)
+        {
+            
+        }
     }
 
     private void HandleLockout(bool locked)
     {
-        if (SlotButton != null) SlotButton.interactable = !locked;
+        if (SlotButton != null && !_ignoreLocks) SlotButton.interactable = !locked;
     }
 }
