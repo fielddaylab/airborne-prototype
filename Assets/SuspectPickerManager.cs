@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class SuspectPickerManager : MonoBehaviour
 {
     public GameObject SuspectCardPrefab;
+    public TMP_Text Header;
     public Transform SuspectCardParent;
     public List<SuspectCard> Cards = new();
     public Button ConfirmButton;
@@ -29,6 +30,9 @@ public class SuspectPickerManager : MonoBehaviour
     private List<TheoryPiece> _symptoms = new();
     private List<TheoryPiece> _sources = new();
 
+    public GameObject SuspectRegion;
+    public GameObject TheoryRegion;
+
     void Awake()
     {
         gameObject.SetActive(false);
@@ -36,6 +40,8 @@ public class SuspectPickerManager : MonoBehaviour
         InvestigationTimelineSystem.OnLoopEnd += HandleNewLoop;
         ConfirmText.text = "Confirm";
         Setup();
+        TheorizeButton.onClick.AddListener(HandleTheoryStart);
+        TheoryRegion.SetActive(false);
     }
     
     public void OnDestroy()
@@ -200,5 +206,15 @@ public class SuspectPickerManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         NewGameManager.ChooseSuspect(_selectedPollutant);
+    }
+
+    private void HandleTheoryStart()
+    {
+        string fullName = InvestigationLookup.Instance.PollutantMap.GetFullName(_selectedPollutant);
+        
+        Header.text = $"Choose a <b>Source</b> of <b>{fullName}</b> to investigate in this loop.";
+
+        SuspectRegion.SetActive(true);
+        TheoryRegion.SetActive(true);
     }
 }
