@@ -28,6 +28,7 @@ public class SidebarTheoryManager : MonoBehaviour
 
         foreach (var p in Pieces)
         {
+            p.TargetPollutant = pollutant;
             p.UpdateText(pollutant.ToString());
         }
     }
@@ -46,6 +47,7 @@ public class SidebarTheoryManager : MonoBehaviour
 
         foreach (var p in Pieces)
         {
+            p.TargetSource = feature;
             p.UpdateImage(featureSprite);
         }
     }

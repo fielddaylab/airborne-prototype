@@ -17,11 +17,18 @@ public class SidebarTheoryPiece : MonoBehaviour
 
     public TheoryType PieceType;
 
+    public Button SlotButton;
+
+    public PollutantType TargetPollutant;
+    public FeatureType TargetSource;
+
     public void Awake()
     {
         UpdateText("???");
         BaseImage.enabled = false;
         ImageOverlay.enabled = false;
+        if (SlotButton != null) SlotButton.onClick.AddListener(HandleSlotClick);
+        TheoryCompleterManager.OnLockout += HandleLockout;
     }
 
     public void UpdateText(string name)
@@ -61,5 +68,21 @@ public class SidebarTheoryPiece : MonoBehaviour
                 ImageOverlay.enabled = true;
                 break;
         }
+    }
+
+    private void HandleSlotClick()
+    {
+        TheoryCompleterManager.Instance.RequestTimeSlot(PieceType, TargetPollutant, TargetSource);
+        TheoryCompleterManager.OnFulfilledRequest += HandleFullfilled;
+    }
+
+    private void HandleFullfilled(TheoryCompleterManager.FulfillmentResult result)
+    {
+        TheoryCompleterManager.OnFulfilledRequest -= HandleFullfilled;
+    }
+
+    private void HandleLockout(bool locked)
+    {
+        if (SlotButton != null) SlotButton.interactable = !locked;
     }
 }

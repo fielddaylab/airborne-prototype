@@ -42,6 +42,11 @@ public class TimelineGasOverlay : MonoBehaviour
             overlay.Setup(pollutants[i].Type);
             OverlayButtons[i] = overlay;
         }
+
+        foreach (var overlay in OverlayButtons)
+        {
+            overlay.OverlayImage.color = UnselectedColor;
+        }
     }
 
     public void HandleOverlayChange(PollutantType pollutant)
