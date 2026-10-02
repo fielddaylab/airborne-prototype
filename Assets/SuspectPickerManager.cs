@@ -23,6 +23,9 @@ public class SuspectPickerManager : MonoBehaviour
     public Transform SymptomsBox;
     public Transform SourcesBox;
 
+    public TMP_Text TheoryText;
+    public Button TheorizeButton;
+
     private List<TheoryPiece> _symptoms = new();
     private List<TheoryPiece> _sources = new();
 
@@ -184,15 +187,13 @@ public class SuspectPickerManager : MonoBehaviour
             }
         }
 
-        // TheorySlider.value = totalInfo;
-        // TheoryText.text = $"{totalInfo}/4";
-        // TheorizeButton.interactable = false;
+        TheoryText.text = $"{totalInfo}/4";
+        TheorizeButton.interactable = false;
 
-        // if (totalInfo >= 4)
-        // {
-        //     TheoryText.text = "Theorize";
-        //     TheorizeButton.interactable = true;
-        // }
+        if (totalInfo >= 4)
+        {
+            TheorizeButton.interactable = true;
+        }
     }
 
     public void ConfirmSuspect()
