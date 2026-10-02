@@ -9,7 +9,7 @@ public class SidebarSuspectManager : MonoBehaviour
     public NPCSidePanel NPCPanel;
     public GameObject PollutantPanel;
     
-    public SuspectCard Card;
+    public InfoCard Card;
 
     public GameObject TheoryPiece;
 

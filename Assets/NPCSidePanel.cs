@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class NPCSidePanel : MonoBehaviour
 {
-    public SuspectCard Card;
+    public InfoCard Card;
 
     public Image SymptomOverlay, SourceOverlay;
     public TMP_Text SymptomText, SourceText;

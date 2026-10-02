@@ -13,6 +13,7 @@ public class FeatureSpriteMap
 {
     public FeatureType Feature;
     public Sprite OnSprite, OffSprite, UnknownSprite;
+    public string Blurb;
 }
 
 public static class FeatureSpriteMapUtility
@@ -50,6 +51,19 @@ public static class FeatureSpriteMapUtility
             if (spriteMap.Feature == feature)
             {
                 return spriteMap.UnknownSprite;
+            }
+        }
+
+        return null;
+    }
+
+    public static string GetBlurb(FeatureSpriteMapObject map, FeatureType feature)
+    {
+        foreach (var spriteMap in map.FeatureSprites)
+        {
+            if (spriteMap.Feature == feature)
+            {
+                return spriteMap.Blurb;
             }
         }
 

@@ -1,18 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SidebarTheoryManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public TMP_Text PollutantPortraitText;
+    public Image PollutantPortrait;
+
+    public TMP_Text SourcePortraitText;
+    public Image SourcePortrait;
+
+    public SidebarTheoryPiece[] Pieces;
+
+    public void SetupPollutant(PollutantType pollutant)
     {
         
+        PollutantPortraitText.text = InvestigationLookup.Instance.PollutantMap.GetFullName(pollutant);
+        PollutantPortrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutant);
+
+        foreach (var p in Pieces)
+        {
+            p.UpdateText(pollutant.ToString());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetupSource(FeatureType feature)
     {
+        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        RoomType sourceRoom = ScenarioUtility.GetRoom(feature, scenarioData);
+
+        SourcePortraitText.text = $"{sourceRoom} {feature}";
         
+        Sprite featureSprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, feature);
+        
+        SourcePortrait.sprite = featureSprite;
+
+        foreach (var p in Pieces)
+        {
+            p.UpdateImage(featureSprite);
+        }
     }
 }

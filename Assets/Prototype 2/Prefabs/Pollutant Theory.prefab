@@ -1357,6 +1357,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0236670e7c46f60449921e3ec96a0399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PollutantPortraitText: {fileID: 3746778056944040465}
+  PollutantPortrait: {fileID: 557009447191856000}
+  SourcePortraitText: {fileID: 8277021007192564157}
+  SourcePortrait: {fileID: 1140998739170221520}
+  Pieces:
+  - {fileID: 8590234687434391916}
+  - {fileID: 7715302479226680451}
+  - {fileID: 6734078721583799275}
 --- !u!1001 &5174897217467953251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1459,6 +1467,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8472950866524081504, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
   m_PrefabInstance: {fileID: 5174897217467953251}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8590234687434391916 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3523584532128313615, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
+  m_PrefabInstance: {fileID: 5174897217467953251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bd7cc9e9b09564ca5b0079047ea865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6625933925479777676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1470,6 +1489,10 @@ PrefabInstance:
     - target: {fileID: 3193160328557295720, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
       propertyPath: m_Name
       value: Sidebar Theory Panel (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523584532128313615, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
+      propertyPath: PieceType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6973714075460435128, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
       propertyPath: m_text
@@ -1565,6 +1588,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8472950866524081504, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
   m_PrefabInstance: {fileID: 6625933925479777676}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7715302479226680451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3523584532128313615, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
+  m_PrefabInstance: {fileID: 6625933925479777676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bd7cc9e9b09564ca5b0079047ea865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7895383669803936484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1576,6 +1610,10 @@ PrefabInstance:
     - target: {fileID: 3193160328557295720, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
       propertyPath: m_Name
       value: Sidebar Theory Panel (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523584532128313615, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
+      propertyPath: PieceType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6973714075460435128, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
       propertyPath: m_text
@@ -1671,3 +1709,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8472950866524081504, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
   m_PrefabInstance: {fileID: 7895383669803936484}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6734078721583799275 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3523584532128313615, guid: 63d7814ad6c30c048b4b900fc8e8bed0, type: 3}
+  m_PrefabInstance: {fileID: 7895383669803936484}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bd7cc9e9b09564ca5b0079047ea865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
