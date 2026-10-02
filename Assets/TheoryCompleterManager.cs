@@ -81,17 +81,34 @@ public class TheoryCompleterManager : MonoBehaviour
                 {
                     if (f == _soughtFeature)
                     {
+                        foundValidFeature = true;
                         // check if on or off, if yes foundSomething;
                         ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
-                        
+                        foreach (var featEvent in scenario.FeatureEvents)
+                        {
+                            if (featEvent.FeatureType == _soughtFeature)
+                            {
+                                foreach (var slot in featEvent.TimeSlots)
+                                {
+                                    if (slot.Time == d.Hour)
+                                    {
+                                        if (slot.FeatureEvent != FeatureEvent.On)
+                                        {
+                                            topFailed = true; // we can assume the event exists
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                topFailed = foundValidFeature;
+                if (!foundValidFeature) topFailed = true;
 
                 break;
             case SidebarTheoryPiece.TheoryType.PresentMinorSymptom:
 
-                if (d.Characters == null)
+                if (d.Characters == null || d.Symptoms == null)
                 {
                     topFailed = true;
                     break;
@@ -114,7 +131,7 @@ public class TheoryCompleterManager : MonoBehaviour
                 break;
             case SidebarTheoryPiece.TheoryType.PresentMajorSymptom:
                 
-                if (d.Characters == null)
+                if (d.Characters == null || d.Symptoms == null)
                 {
                     topFailed = true;
                     break;
@@ -137,7 +154,7 @@ public class TheoryCompleterManager : MonoBehaviour
                 break;
         }
 
-        if (topFailed && bottomFailed) { Failed(FulfillmentResult.BottomFailed); return; }
+        if (topFailed && bottomFailed) { Failed(FulfillmentResult.BothFailed); return; }
         else if (topFailed) { Failed(FulfillmentResult.TopFailed); return; }
         else if (bottomFailed) { Failed(FulfillmentResult.BottomFailed); return; }
         
