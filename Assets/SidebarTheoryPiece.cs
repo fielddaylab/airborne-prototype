@@ -28,6 +28,8 @@ public class SidebarTheoryPiece : MonoBehaviour
 
     public SidebarTheoryManager MyManager;
 
+    public Image TopStatus, BottomStatus;
+
     public void Awake()
     {
         UpdateText("???");
