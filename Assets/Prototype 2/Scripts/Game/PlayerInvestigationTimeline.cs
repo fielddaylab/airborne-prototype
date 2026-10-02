@@ -253,8 +253,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                             {
                                 isNewRoom = true;
                             }
-
-                            TimelineOverlay.TimelineChunks[i].SetNPCGraphics(_currentRoomType, npc.Character, actualHour, isNewRoom, slot);
+                            RoomTimeSlot roomSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
+                            TimelineOverlay.TimelineChunks[i].SetNPCGraphics(_currentRoomType, npc.Character, actualHour, isNewRoom, slot, roomSlot);
                         }
                     }
                 }
@@ -274,7 +274,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                         {
                             int actualHour = baseHour + i;
                             FeatureTimeSlot slot = feature.TimeSlots[i];
-                            TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(_currentRoomType, feature.FeatureType, actualHour, slot);
+                            RoomTimeSlot roomSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
+                            TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(_currentRoomType, feature.FeatureType, actualHour, slot, roomSlot);
                         }
                     }
                 }
@@ -306,7 +307,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                             FeatureTimeSlot featureSlot = feature.TimeSlots[i];
                             RoomTimeSlot roomSlot = room.TimeSlots[i];
 
-                            TimelineOverlay.TimelineChunks[i].SetDetailedFeatureGraphics(feature.RoomType, feature.FeatureType, actualHour, featureSlot, roomSlot, pollutantType);
+                            //TimelineOverlay.TimelineChunks[i].SetDetailedFeatureGraphics(feature.RoomType, feature.FeatureType, actualHour, featureSlot, roomSlot, pollutantType);
                         }
                     }
                 }
@@ -342,7 +343,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                         if (room.RoomTypeValue == npc.TimeSlots[i].CurrentRoom)
                         {
                             RoomTimeSlot roomSlot = room.TimeSlots[i];
-                            TimelineOverlay.TimelineChunks[i].SetDetailedNPCGraphics(room.RoomTypeValue, npc.Character, actualHour, isNewRoom, symptom, pollutant, slot, roomSlot);
+                            //TimelineOverlay.TimelineChunks[i].SetDetailedNPCGraphics(room.RoomTypeValue, npc.Character, actualHour, isNewRoom, symptom, pollutant, slot, roomSlot);
                         }
                     }
                 }
