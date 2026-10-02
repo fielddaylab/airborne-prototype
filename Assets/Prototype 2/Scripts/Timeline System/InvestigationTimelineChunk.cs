@@ -104,6 +104,10 @@ public class InvestigationTimelineChunk : MonoBehaviour
         ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
 
         int npcTracked = 0;
+
+        var characters = new List<CharacterType>();
+        var symptoms = new List<Symptom>(); 
+
         foreach (var npc in scenario.NPCs)
         {
             foreach (var npcSlot in npc.TimeSlots)
@@ -112,6 +116,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 {
                     if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCPresence)) 
                     {
+                        characters.Add(npc.Character);
+                        
                         NPCImages[npcTracked].gameObject.SetActive(true);
                         NPCImages[npcTracked].enabled = true;
                         NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
@@ -120,6 +126,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
                             {
                                 if (npcSlot.Symptom != Symptom.None)
                                 {
+                                    symptoms.Add(npcSlot.Symptom);
+                                    
                                     Sprite sympSprite = InvestigationLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
                                     NPCSymptomImages[npcTracked].sprite = sympSprite;
                                     NPCSymptomImages[npcTracked].enabled = true;
@@ -138,13 +146,16 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 }
             }
         }
+
+        MergeData(characters, symptoms, null);
     }
 
     public void SetPollutantDisplay(RoomType roomType, int hour, RoomTimeSlot slot)
     {
         //RepresentedHour = hour;
         PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
-        
+        BeginPollutantTracking(pollutantDatas.Length);
+
         TimelineImage.enabled = false;
         TextEnabled(false);
 
@@ -163,6 +174,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 PollutantReading reading = slot.GetReading(pollutantDatas[i].Type);
+                TrackPollutant(pollutantDatas[i].Type, reading, pollutantDatas.Length);
 
                 if (reading!= null) {
                     if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
@@ -199,6 +211,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
     {
         //RepresentedHour = hour;
+        var features = new List<FeatureType>();
         _rebuild = () => SetRoomFeatureGraphics(roomType, hour, slot);
         ClearChunk();
         RoomOverlay.SetActive(true);
@@ -222,7 +235,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
                     if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) 
                     {
-                       bool featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
+                        features.Add(featureEvent.FeatureType);
+                        bool featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
                         if (featureOn)
                         {
                             FeatureImages[featuresTracked].sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, featureEvent.FeatureType);
@@ -241,19 +255,27 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 }
             }
         }
+
+        MergeData(null, null, features);
     }
 
-    public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot)
+    public void SetNPCGraphics(RoomType room, CharacterType character, int hour, bool isNewRoom, NPCTimeSlot slot, RoomTimeSlot roomSlot)
     {
+        var symptoms = new List<Symptom>();
+        
         //RepresentedHour = hour;
-        _rebuild = () => SetNPCGraphics(room, character, hour, isNewRoom, slot);
+        _rebuild = () => SetNPCGraphics(room, character, hour, isNewRoom, slot, roomSlot);
         ClearChunk();
+        
+        RoomOverlay.SetActive(true);
+        SetPollutantDisplay(room, hour, roomSlot);
 
         if (PlayerKnowledgeState.IsKnownCharacterly(character, hour, KnowledgeType.NPCSymptom))
         {
             NPCOverlay.SetActive(true);
             if (slot.Symptom != Symptom.None)
             {
+                symptoms.Add(slot.Symptom);
                 SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(slot.Symptom);
                 SymptomImage.enabled = true;
                 SymptomImage.gameObject.SetActive(true);
@@ -281,15 +303,20 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 RoomText.text = slot.CurrentRoom.ToString();
             }
         }
+
+        MergeData(new List<CharacterType> { character }, symptoms, null);
     }
 
-    public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot)
+    public void SetFeatureGraphics(RoomType room, FeatureType feature, int hour, FeatureTimeSlot slot, RoomTimeSlot roomSlot)
     {
         //RepresentedHour = hour;
-        _rebuild = () => SetFeatureGraphics(room, feature, hour, slot);
+        _rebuild = () => SetFeatureGraphics(room, feature, hour, slot, roomSlot);
         ClearChunk();
         RoomOverlay.SetActive(true);
         //SourceOverlay.SetActive(true);
+
+        
+        SetPollutantDisplay(room, hour, roomSlot);
 
         // just need to show the features if the players have discovered them
         // and change the lightness/darkness depending on that status
@@ -315,180 +342,11 @@ public class InvestigationTimelineChunk : MonoBehaviour
         {
             FeatureImages[0].sprite = FeatureSpriteMapUtility.GetUnkownSprite(featureMap, feature);
         }
+
+        MergeData(null, null, new List<FeatureType> { feature });
     }
 
-    public void SetDetailedFeatureGraphics(RoomType roomType, FeatureType feature, int hour, FeatureTimeSlot featureSlot, RoomTimeSlot roomSlot, PollutantType targetPollutant)
-    {
-        //RepresentedHour = hour;
-        _rebuild = () => SetDetailedFeatureGraphics(roomType, feature, hour, featureSlot, roomSlot, targetPollutant);
-        ClearChunk();
-        //SourceOverlay.SetActive(true);
 
-        bool valid = false;
-
-        // just need to show the features if the players have discovered them
-        // and change the lightness/darkness depending on that status
-
-        KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(feature);
-
-        bool featureOn = false;
-        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) {
-            FeatureImages[0].enabled = true;
-            FeatureImages[0].gameObject.SetActive(true);
-            featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
-            FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
-            
-            if (featureOn)
-            {
-                FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature);
-            } 
-            else
-            {
-                FeatureImages[0].sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature);
-            }
-        }
-
-        RoomOverlay.SetActive(true);
-        
-        TimelineImage.enabled = false;
-        TextEnabled(false);
-
-        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
-        for (int i = 0; i < pollutantDatas.Length; i++)
-        {
-            CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
-        }
-        Specific.Clear();
-
-        if (featureSlot == null) return;
-        
-        bool anyKnowledgeKnown = false;
-        for (int i = 0; i < pollutantDatas.Length; i++)
-        {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutantDatas[i].Type);
-            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
-            {
-                PollutantReading reading = roomSlot.GetReading(pollutantDatas[i].Type);
-                
-                if (reading!= null) {
-                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
-                    else if (pollutantDatas[i].Type == _targetedPollutant) Specific.SetPollutant(reading.Concentration, pollutantDatas[i].Type);
-                } 
-                else
-                {
-                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
-                }
-
-                anyKnowledgeKnown = true;
-                TextEnabled(true);
-            }
-        }
-
-        if (!anyKnowledgeKnown)
-        {
-            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
-            {
-                TimelineImage.enabled = true;
-                bool pollutantsPresent = roomSlot.PollutantReadings.Length > 0;
-                    
-                if (pollutantsPresent)
-                {
-                    TimelineImage.sprite = PollutantPresent;
-                } else
-                {
-                    TimelineImage.sprite = PollutantAbsent;
-                }
-            }
-        }
-    }
-
-    public void SetDetailedNPCGraphics(RoomType roomType, CharacterType character, int hour, bool isNewRoom, Symptom targetSymptom, PollutantType targetPollutant, NPCTimeSlot NPCSlot, RoomTimeSlot roomSlot)
-    {
-        //RepresentedHour = hour;
-        _rebuild = () => SetDetailedNPCGraphics(roomType, character, hour, isNewRoom, targetSymptom, targetPollutant, NPCSlot, roomSlot);
-        ClearChunk();
-        NPCOverlay.SetActive(true);
-        RoomOverlay.SetActive(true);
-
-        Symptom blockSymptom = Symptom.None;
-
-        if (PlayerKnowledgeState.IsKnownCharacterly(character, hour, KnowledgeType.NPCSymptom))
-        {
-            NPCOverlay.SetActive(true);
-            if (NPCSlot.Symptom != Symptom.None)
-            {
-                SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(NPCSlot.Symptom);
-                SymptomImage.enabled = true;
-                SymptomImage.gameObject.SetActive(true);
-                blockSymptom = NPCSlot.Symptom;
-            }
-        }
-
-        bool valid = false;
-
-        // Need to run over this and check for dialogue and symptoms, and put on timeline if they exist
-        // you then also need to check for room changes, in which case the title of the room they have entered should show up
-        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCPresence))
-        {
-            NPCOverlay.SetActive(true);
-            if (isNewRoom)
-            {
-                RoomTextBG.SetActive(true);
-                RoomText.text = NPCSlot.CurrentRoom.ToString();
-            }
-        }
-
-        bool anyKnowledgeKnown = false;
-        
-        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
-
-        for (int i = 0; i < CondensedReadings.Length; i++)
-        {
-            CondensedReadings[i].UpdateDisplay(false, 0, pollutantDatas[i].Type);
-        }
-        Specific.Clear();
-
-        for (int i = 0; i < pollutantDatas.Length; i++)
-        {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutantDatas[i].Type);
-            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
-            {
-                PollutantReading reading = roomSlot.GetReading(pollutantDatas[i].Type);
-                if (reading!= null) {
-                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, reading.Concentration, pollutantDatas[i].Type);
-                    else if (pollutantDatas[i].Type == _targetedPollutant) Specific.SetPollutant(reading.Concentration, pollutantDatas[i].Type);
-                } 
-                else
-                {
-                    if (!_inSpecificMode) CondensedReadings[i].UpdateDisplay(true, 0, pollutantDatas[i].Type);
-                }
-                anyKnowledgeKnown = true;
-                TextEnabled(true);
-
-                if (reading != null && reading.Pollutant == targetPollutant && reading.Concentration > 0 && blockSymptom == targetSymptom)
-                {
-                    valid = true;
-                }
-            }
-        }
-
-        if (!anyKnowledgeKnown)
-        {
-            if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.PollutantPresence))
-            {
-                TimelineImage.enabled = true;
-                bool pollutantsPresent = roomSlot.PollutantReadings.Length > 0;
-                    
-                if (pollutantsPresent)
-                {
-                    TimelineImage.sprite = PollutantPresent;
-                } else
-                {
-                    TimelineImage.sprite = PollutantAbsent;
-                }
-            }
-        }
-    }
 
     private void TextEnabled(bool enabled)
     {
