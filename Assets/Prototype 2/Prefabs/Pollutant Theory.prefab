@@ -1365,7 +1365,9 @@ MonoBehaviour:
   - {fileID: 8590234687434391916}
   - {fileID: 7715302479226680451}
   - {fileID: 6734078721583799275}
-  RequestTheory: {fileID: 5475402401767446955}
+  SubmitTheory: {fileID: 5475402401767446955}
+  BossPrompter: {fileID: 0}
+  TotalEvidence: 0
 --- !u!1001 &5174897217467953251
 PrefabInstance:
   m_ObjectHideFlags: 0

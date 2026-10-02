@@ -14,18 +14,21 @@ public class SidebarTheoryManager : MonoBehaviour
 
     public SidebarTheoryPiece[] Pieces;
 
-    public Button RequestTheory;
+    public Button SubmitTheory;
 
     public BossPromptController BossPrompter;
 
     private PollutantType _Pollutant;
     private FeatureType _Source;
 
+    public int TotalEvidence = 0;
+
     public void Awake()
     {
         SourcePortrait.enabled = false;
         SourcePortraitText.text = "";
-        if (RequestTheory != null) RequestTheory.onClick.AddListener(HandleTheorySubmission);
+        if (SubmitTheory != null) SubmitTheory.interactable = false;
+        if (SubmitTheory != null) SubmitTheory.onClick.AddListener(HandleTheorySubmission);
     }
 
     public void SetupPollutant(PollutantType pollutant)
@@ -40,6 +43,7 @@ public class SidebarTheoryManager : MonoBehaviour
         {
             p.TargetPollutant = pollutant;
             p.UpdateText(pollutant.ToString());
+            p.MyManager = this;
         }
     }
 
@@ -69,5 +73,14 @@ public class SidebarTheoryManager : MonoBehaviour
         BossPrompter.StartBossSequence(_Pollutant, _Source);
         InvestigationTimelineSystem.Instance.PauseTime(true);
         transform.parent.gameObject.SetActive(false);
+    }
+
+    public void IncrementEvidence()
+    {
+        TotalEvidence++;
+        if (TotalEvidence >= 3)
+        {
+            SubmitTheory.interactable = true;
+        }
     }
 }

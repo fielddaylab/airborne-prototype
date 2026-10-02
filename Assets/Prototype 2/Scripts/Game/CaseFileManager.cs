@@ -88,6 +88,7 @@ public class CaseFileManager : MonoBehaviour
         {
             ToggleCaseFile();
         }
+        FalseTimelineSlider.gameObject.SetActive(open);
     }
 
     public void HideCaseFileKeepTimeline()

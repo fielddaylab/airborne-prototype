@@ -43,12 +43,9 @@ public class TheoryCompleterManager : MonoBehaviour
         _soughtFeature = source;
     }
 
-    public void HandleTimeSlot(int hour)
+    private void HandleTimeSlot(TimelineData? nullable)
     {
-        // FINAL SCAFFOLD
-        Debug.Log("Player chose hour: " + hour);
-
-        
+        Succeeded();
     }
 
     private void Succeeded()
