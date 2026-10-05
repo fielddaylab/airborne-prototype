@@ -298,6 +298,9 @@ MonoBehaviour:
   MyManager: {fileID: 0}
   TopStatus: {fileID: 1676009807580541931}
   BottomStatus: {fileID: 8055711770248294346}
+  Valid: {fileID: 21300000, guid: ec03dd5a591fec747a28012c149c8640, type: 3}
+  Fail: {fileID: 21300000, guid: 504148b3d51d0974b96959c4cade92d0, type: 3}
+  Unknown: {fileID: 21300000, guid: cd45e09f02686f54d832203a1cf353b6, type: 3}
 --- !u!1 &3673226646312820126
 GameObject:
   m_ObjectHideFlags: 0

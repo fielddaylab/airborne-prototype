@@ -30,6 +30,8 @@ public class SidebarTheoryPiece : MonoBehaviour
 
     public Image TopStatus, BottomStatus;
 
+    public Sprite Valid, Fail, Unknown;
+
     public void Awake()
     {
         UpdateText("???");
@@ -38,6 +40,8 @@ public class SidebarTheoryPiece : MonoBehaviour
         if (SlotButton != null) SlotButton.onClick.AddListener(HandleSlotClick);
         TheoryCompleterManager.OnLockout += HandleLockout;
         Check.gameObject.SetActive(false);
+        TopStatus.enabled = false;
+        BottomStatus.enabled = false;
     }
 
     public void UpdateText(string name)
@@ -96,10 +100,46 @@ public class SidebarTheoryPiece : MonoBehaviour
             Check.gameObject.SetActive(true);
             MyManager.IncrementEvidence();
         } 
-        else if (result == TheoryCompleterManager.FulfillmentResult.BothFailed)
+        else
         {
-            Debug.Log("Failed check!");
+            StartCoroutine(FlashFail(result));
         }
+    }
+
+    IEnumerator FlashFail(TheoryCompleterManager.FulfillmentResult result)
+    {
+        Time.timeScale = 0;
+        
+        switch (result)
+        {
+            case TheoryCompleterManager.FulfillmentResult.BothFailed:
+                TopStatus.sprite = Fail;
+                BottomStatus.sprite = Fail;
+                break;
+            case TheoryCompleterManager.FulfillmentResult.TopFailed:
+                TopStatus.sprite = Fail;
+                BottomStatus.sprite = Valid;
+                break;
+            case TheoryCompleterManager.FulfillmentResult.BottomFailed:
+                TopStatus.sprite = Valid;
+                BottomStatus.sprite = Fail;
+                break;
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            TopStatus.enabled = true;
+            BottomStatus.enabled = true;
+
+            yield return new WaitForSecondsRealtime(0.33f);
+
+            TopStatus.enabled = false;
+            BottomStatus.enabled = false;
+
+            yield return new WaitForSecondsRealtime(0.33f);
+        }
+
+        Time.timeScale = 1;
     }
 
     private void HandleLockout(bool locked)
