@@ -130,7 +130,7 @@ public class BossPromptController : MonoBehaviour
 
     private void EndBossSequence()
     {
-        BossText.text = $"With this evidence, you theory has about an <b>{PersusasionSlider.value}0% chance</b> of being correct. Are you ready to plan your Rescue?";
+        BossText.text = $"With this evidence, you theory has about an <b>70% chance</b> of being correct. Are you ready to plan your Rescue?";
         AdvanceButton.interactable = true;
         GoBackButton.interactable = true;
     }

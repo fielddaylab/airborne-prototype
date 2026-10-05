@@ -44,6 +44,14 @@ public class SidebarTheoryPiece : MonoBehaviour
         BottomStatus.enabled = false;
     }
 
+    public void Reset()
+    {
+        SlotButton.interactable = true;
+        _ignoreLocks = false;
+        Check.gameObject.SetActive(false);
+        if (MyManager != null) MyManager.IncrementEvidence(-1);
+    }
+
     public void UpdateText(string name)
     {
         switch (PieceType)
@@ -98,7 +106,7 @@ public class SidebarTheoryPiece : MonoBehaviour
             SlotButton.interactable = false;
             _ignoreLocks = true;
             Check.gameObject.SetActive(true);
-            MyManager.IncrementEvidence();
+            MyManager.IncrementEvidence(1);
         } 
         else
         {
