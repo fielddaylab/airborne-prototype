@@ -212,6 +212,7 @@ MonoBehaviour:
   SecondRoom: 3
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!1 &1758821497355236655
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,8 +464,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -41.114014}
-  m_SizeDelta: {x: 1048.481, y: 529.772}
+  m_AnchoredPosition: {x: -84.66461, y: -41.114014}
+  m_SizeDelta: {x: 879.1517, y: 529.772}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5548062428342614886
 CanvasRenderer:
@@ -617,6 +618,7 @@ MonoBehaviour:
   SecondRoom: 4
   IsVent: 0
   ID: 
+  VentOverlays: []
 --- !u!1 &7941861167976545974
 GameObject:
   m_ObjectHideFlags: 0
