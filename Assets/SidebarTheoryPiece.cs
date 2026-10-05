@@ -49,7 +49,6 @@ public class SidebarTheoryPiece : MonoBehaviour
         SlotButton.interactable = true;
         _ignoreLocks = false;
         Check.gameObject.SetActive(false);
-        if (MyManager != null) MyManager.IncrementEvidence(-1);
     }
 
     public void UpdateText(string name)
@@ -108,7 +107,7 @@ public class SidebarTheoryPiece : MonoBehaviour
             Check.gameObject.SetActive(true);
             MyManager.IncrementEvidence(1);
         } 
-        else
+        else if (result != TheoryCompleterManager.FulfillmentResult.Canceled)
         {
             StartCoroutine(FlashFail(result));
         }
