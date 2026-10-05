@@ -77,6 +77,8 @@ public class SidebarTheoryManager : MonoBehaviour
         {
             p.Reset();
         }
+
+        TotalEvidence = 0;
     }
 
     private void HandleTheorySubmission()

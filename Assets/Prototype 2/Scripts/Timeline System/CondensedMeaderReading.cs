@@ -11,12 +11,18 @@ public class CondensedMeaderReading : MonoBehaviour
     public Image[] ReadingTicks;
     public Image Unknown;
     public TMP_Text Label;
-    
+
+    public void Awake()
+    {
+        Reset();
+    }
+
     public void UpdateDisplay(bool known, int concentration, PollutantType type)
     {
         Reset();
 
         Label.text = type.ToString();
+        Label.enabled = true;
         Color pollutantCol = InvestigationLookup.Instance.PollutantMap.GetColor(type);
         Label.color = pollutantCol;
         
@@ -38,6 +44,11 @@ public class CondensedMeaderReading : MonoBehaviour
         {
             Unknown.gameObject.SetActive(true);
         }
+
+        if (type == PollutantType.None)
+        {
+            Reset();
+        }
     }
 
     public void Reset()
@@ -47,7 +58,7 @@ public class CondensedMeaderReading : MonoBehaviour
             image.gameObject.SetActive(false);
         }
 
-
+        Label.enabled = false;
 
         Unknown.gameObject.SetActive(false);
     }
