@@ -23,6 +23,11 @@ public class TimelineGasOverlay : MonoBehaviour
         Setup();
     }
 
+    public void OnDestroy()
+    {
+        OnOverlayChange -= HandleOverlayChange;
+    }
+
     public void Setup()
     {
         for (int i = 0; i < GasOverlayButtonParent.childCount; i++)
