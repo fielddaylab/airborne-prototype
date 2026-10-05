@@ -33,7 +33,8 @@ public class SidebarTheoryManager : MonoBehaviour
 
     public void SetupPollutant(PollutantType pollutant)
     {
-        
+        Reset();
+
         PollutantPortraitText.text = InvestigationLookup.Instance.PollutantMap.GetFullName(pollutant);
         PollutantPortrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutant);
 
@@ -49,6 +50,8 @@ public class SidebarTheoryManager : MonoBehaviour
 
     public void SetupSource(FeatureType feature)
     {
+        Reset();
+        
         ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
         RoomType sourceRoom = ScenarioUtility.GetRoom(feature, scenarioData);
 
@@ -68,6 +71,14 @@ public class SidebarTheoryManager : MonoBehaviour
         }
     }
 
+    private void Reset()
+    {
+        foreach (var p in Pieces)
+        {
+            p.Reset();
+        }
+    }
+
     private void HandleTheorySubmission()
     {
         BossPrompter.StartBossSequence(_Pollutant, _Source);
@@ -75,9 +86,9 @@ public class SidebarTheoryManager : MonoBehaviour
         transform.parent.gameObject.SetActive(false);
     }
 
-    public void IncrementEvidence()
+    public void IncrementEvidence(int dir)
     {
-        TotalEvidence++;
+        TotalEvidence += dir;
         if (TotalEvidence >= 3)
         {
             SubmitTheory.interactable = true;

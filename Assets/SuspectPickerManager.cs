@@ -50,6 +50,7 @@ public class SuspectPickerManager : MonoBehaviour
         TheorizeButton.onClick.AddListener(HandleTheoryStart);
         TheoryRegion.SetActive(false);
         TheoryConfirmButton.onClick.AddListener(HandleTheoryConfirmation);
+        TheoryBackButton.onClick.AddListener(HandleTheoryBack);
     }
     
     public void OnDestroy()
@@ -60,7 +61,11 @@ public class SuspectPickerManager : MonoBehaviour
         }
 
         ConfirmButton.onClick.RemoveAllListeners();
+        
         InvestigationTimelineSystem.OnLoopEnd -= HandleNewLoop;
+        TheorizeButton.onClick.RemoveListener(HandleTheoryStart);
+        TheoryConfirmButton.onClick.RemoveListener(HandleTheoryConfirmation);
+        TheoryBackButton.onClick.RemoveListener(HandleTheoryBack);
     }
 
     public void HandleNewLoop()
@@ -237,6 +242,7 @@ public class SuspectPickerManager : MonoBehaviour
         string fullName = InvestigationLookup.Instance.PollutantMap.GetFullName(_selectedPollutant);
         
         Header.text = $"Choose a <b>Source</b> of <b>{fullName}</b> to investigate in this loop.";
+        TheoryConfirmButton.GetComponentInChildren<TMP_Text>().text = "Confirm";
 
         SuspectRegion.SetActive(false);
         TheoryRegion.SetActive(true);
@@ -266,16 +272,33 @@ public class SuspectPickerManager : MonoBehaviour
         OverviewTheory.SetupPollutant(_selectedPollutant);
     }
 
+    private void HandleTheoryBack()
+    {
+        TheoryRegion.SetActive(false);
+        SuspectRegion.SetActive(true);
+
+        ClearSources();
+        TheoryConfirmButton.interactable = false;
+
+        SidebarTheory.gameObject.SetActive(false);
+
+        Header.text = "Choose a <b>Prime Suspect</b> to investigate this loop.";
+
+        UpdateInformation();
+    }
+
     private void HandleSourceSelection(FeatureType source)
     {
         SidebarTheory.SetupSource(source);
         OverviewTheory.SetupSource(source);
+
         TheoryConfirmButton.interactable = true;
     }
 
     private void HandleTheoryConfirmation()
     {
         NewGameManager.ChooseSuspect(_selectedPollutant);
+        TheoryConfirmButton.GetComponentInChildren<TMP_Text>().text = "Keep";
         gameObject.SetActive(false);
     }
 }

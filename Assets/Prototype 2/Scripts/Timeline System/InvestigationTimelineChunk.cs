@@ -36,6 +36,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public GameObject RoomTextBG;
     public TextMeshProUGUI RoomText;
     public Image SymptomImage, DialogueImage;
+    public Image EmptySlot;
 
     [Header("Source Overlay")]
     public Image[] FeatureImages;
@@ -380,6 +381,8 @@ public class InvestigationTimelineChunk : MonoBehaviour
 
         _data = null;
         _pollutantsAmbiguous = false;
+
+        EmptySlot.enabled = false;
 
         foreach (var image in FeatureImages) { image.enabled = false; image.gameObject.SetActive(false); }
     }
