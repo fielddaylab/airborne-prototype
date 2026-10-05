@@ -15,7 +15,7 @@ public class FlyingIcon : MonoBehaviour
 
     IEnumerator Fly(Transform destination, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         
         Vector3 start = transform.position;
         Vector3 end = destination.position;
@@ -24,7 +24,7 @@ public class FlyingIcon : MonoBehaviour
 
         float duration = 0.75f;
 
-        for (float t = 0; t < 1f; t += Time.deltaTime / duration)
+        for (float t = 0; t < 1f; t += Time.unscaledDeltaTime / duration)
         {
             transform.position = Bezier(start, control, end, t);
             yield return null;

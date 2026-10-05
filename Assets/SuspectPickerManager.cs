@@ -72,6 +72,7 @@ public class SuspectPickerManager : MonoBehaviour
     {
         if (NewGameManager.Instance.CurrentPhase == NewGamePhase.Investigation) {
             gameObject.SetActive(true);
+            Time.timeScale = 0;
             UpdateInformation();
             ConfirmText.text = "Keep";
         }
@@ -218,6 +219,7 @@ public class SuspectPickerManager : MonoBehaviour
     public void ConfirmSuspect()
     {
         gameObject.SetActive(false);
+        Time.timeScale = 1;
         NewGameManager.ChooseSuspect(_selectedPollutant);
     }
 
@@ -300,5 +302,6 @@ public class SuspectPickerManager : MonoBehaviour
         NewGameManager.ChooseSuspect(_selectedPollutant);
         TheoryConfirmButton.GetComponentInChildren<TMP_Text>().text = "Keep";
         gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }
