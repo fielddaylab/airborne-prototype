@@ -37,6 +37,7 @@ public class SuspectPickerManager : MonoBehaviour
     public Transform SourceCardParent;
 
     public SidebarTheoryManager SidebarTheory, OverviewTheory;
+    public SidebarSuspectManager SuspectManager;
 
     public Button TheoryBackButton, TheoryConfirmButton;
 
@@ -182,6 +183,7 @@ public class SuspectPickerManager : MonoBehaviour
         PanelCard.SetupPollutant(pollutant);
         // fixing other stuff later!
 
+
         UpdateInformation();
     }
 
@@ -221,6 +223,7 @@ public class SuspectPickerManager : MonoBehaviour
         gameObject.SetActive(false);
         Time.timeScale = 1;
         NewGameManager.ChooseSuspect(_selectedPollutant);
+        SuspectManager.HandleSetPollutant();
     }
 
     public void ClearSources()

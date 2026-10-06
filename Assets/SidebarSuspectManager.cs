@@ -45,9 +45,15 @@ public class SidebarSuspectManager : MonoBehaviour
     {
         if (NewGameManager.Instance.CurrentPhase == NewGamePhase.Investigation)
         {
-            NPCPanel.gameObject.SetActive(false);
-            PollutantPanel.gameObject.SetActive(true);
+            // NPCPanel.gameObject.SetActive(false);
+            // PollutantPanel.gameObject.SetActive(true);
         }
+    }
+
+    public void HandleSetPollutant()
+    {
+        NPCPanel.gameObject.SetActive(false);
+        PollutantPanel.gameObject.SetActive(true);
     }
 
     void OnDestroy()
