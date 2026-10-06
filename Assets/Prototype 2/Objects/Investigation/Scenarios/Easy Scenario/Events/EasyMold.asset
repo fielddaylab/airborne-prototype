@@ -16,11 +16,11 @@ MonoBehaviour:
   FeatureType: 5
   TimeSlots:
   - Time: 13
-    FeatureEvent: 1
+    FeatureEvent: 0
   - Time: 14
-    FeatureEvent: 1
+    FeatureEvent: 0
   - Time: 15
-    FeatureEvent: 1
+    FeatureEvent: 0
   - Time: 16
     FeatureEvent: 0
   - Time: 17

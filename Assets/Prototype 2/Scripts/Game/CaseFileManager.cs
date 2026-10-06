@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class CaseFileManager : MonoBehaviour
 {
     public Button CaseFileButton;
+    public Image CaseFileImage;
+    public Sprite FileSprite, HomeSprite;
     public GameObject CaseFilePanel;
     public Slider FalseTimelineSlider;
     public Slider TrueTimelineSlider;
@@ -75,10 +77,14 @@ public class CaseFileManager : MonoBehaviour
         {
             Map.UpdateRooms(TrueTimelineSlider.value);
             Pollutants.UpdateInformation();
+            CaseFileImage.sprite = HomeSprite;
+            CaseFileButton.GetComponent<TooltipHoverable>().ChangeText("Back to Home");
         } else
         {
             OnCaseFileClosed?.Invoke();
             PlayerInvestigationTimeline.OnResetRequested.Invoke();
+            CaseFileImage.sprite = FileSprite;
+            CaseFileButton.GetComponent<TooltipHoverable>().ChangeText("Case File");
         }
     }
 
