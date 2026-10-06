@@ -29,7 +29,7 @@ public class TooltipManager : MonoBehaviour
         {
             if (_toolTipCounter < ToolTipTime)
             {
-                _toolTipCounter += Time.deltaTime;
+                _toolTipCounter += Time.unscaledDeltaTime;
                 if (_toolTipCounter >= ToolTipTime)
                 {
                     Renderer.ShowTooltip(_lastTooltip.TooltipText);
