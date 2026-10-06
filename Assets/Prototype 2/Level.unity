@@ -38506,6 +38506,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CaseFileButton: {fileID: 1997784209}
+  CaseFileImage: {fileID: 1997784207}
+  FileSprite: {fileID: 21300000, guid: f7fff69ec64276745a16cc82f1dbb2c9, type: 3}
+  HomeSprite: {fileID: 21300000, guid: 4794fbcd74d0661479077065caceff5d, type: 3}
   CaseFilePanel: {fileID: 1028655480}
   FalseTimelineSlider: {fileID: 748099634}
   TrueTimelineSlider: {fileID: 1088959796}

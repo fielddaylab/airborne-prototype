@@ -15,7 +15,10 @@ MonoBehaviour:
   Pairs:
   - Character: 0
     CharacterPortrait: {fileID: 21300000, guid: e40ec0e62f1eb3c4aaca12ab56e3a58f, type: 3}
+    CharacterBlurb: '[...]'
   - Character: 1
     CharacterPortrait: {fileID: 21300000, guid: e637f675cf3eaf746ac60b6d5e01de41, type: 3}
+    CharacterBlurb: '[...]'
   - Character: 2
     CharacterPortrait: {fileID: 21300000, guid: 0fed41e855a8b5e49b2d99cf49b16429, type: 3}
+    CharacterBlurb: The pointy-headed one.
