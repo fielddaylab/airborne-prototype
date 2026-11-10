@@ -7,6 +7,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
 {
     public static InvestigationTimelineSystem Instance;
     public PlayerInvestigationTimeline UITimeline;
+    public MinimalTimeline MinimalTimeline;
     public ScenarioDataObject ScenarioData;
     public InvestigationRegistry InvestigationRegistry;
     public List<GasMeter> Meters;
@@ -75,6 +76,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
         if (_trueTime < previous)
         {
             OnLoopEnd?.Invoke();
+            TimelineSpeed = 0.25f;
             NewGameManager.Instance.Statistics.NumLoops++;
 
             if (NewGameManager.Instance.CurrentPhase != NewGamePhase.VictimSearch) 
@@ -89,6 +91,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
         }
 
         UITimeline.TimelineSlider.value = _trueTime;
+        MinimalTimeline.TimelineSlider.value = _trueTime;
 
         int thisHour = Mathf.FloorToInt(_trueTime + BaseHour);
 

@@ -3018,7 +3018,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 8
   m_WholeNumbers: 0
   m_Value: 0.61
   m_OnValueChanged:
@@ -7073,6 +7073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UITimeline: {fileID: 488254170}
+  MinimalTimeline: {fileID: 2107318546}
   ScenarioData: {fileID: 11400000, guid: 50ff8fbbd6e43194b86feedce6beec74, type: 2}
   InvestigationRegistry: {fileID: 11400000, guid: 72423f6eb0bb16a4ca20e269e0c61b5e, type: 2}
   Meters: []
@@ -47421,8 +47422,9 @@ GameObject:
   - component: {fileID: 2107318543}
   - component: {fileID: 2107318545}
   - component: {fileID: 2107318544}
+  - component: {fileID: 2107318546}
   m_Layer: 5
-  m_Name: Timeline BG
+  m_Name: Timeline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47490,6 +47492,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107318542}
   m_CullTransparentMesh: 1
+--- !u!114 &2107318546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107318542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c59bbacd9a12ab4dadb7d14093b6a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timestamps:
+  - {fileID: 1857210725}
+  - {fileID: 393084164}
+  - {fileID: 965826651}
+  - {fileID: 462025057}
+  - {fileID: 180593123}
+  - {fileID: 529938587}
+  - {fileID: 1333635305}
+  - {fileID: 1376287358}
+  TimelineSlider: {fileID: 33831620}
+  PauseButton: {fileID: 393526320}
+  FastForwardButton: {fileID: 1923234445}
 --- !u!1 &2127867752
 GameObject:
   m_ObjectHideFlags: 0
