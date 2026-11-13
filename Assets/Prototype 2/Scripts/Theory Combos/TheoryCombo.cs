@@ -123,7 +123,7 @@ public class TheoryCombo : MonoBehaviour
 
     private void HandlePAndSCombo()
     {
-        PlayerInvestigationTimeline.OnFeatureDetailRequested.Invoke(_source, _pollutant);
+        PlayerTimeline.OnFeatureDetailRequested.Invoke(_source, _pollutant);
     }
 
     private void HandlePAndSymCombo()
@@ -135,7 +135,7 @@ public class TheoryCombo : MonoBehaviour
     {
         Debug.Log("Pollutant at source!");
 
-        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject data = TimelineSystem.Instance.ScenarioData;
         
         int earliestTimeSeen = 99;
         foreach (var room in data.Rooms)
@@ -146,7 +146,7 @@ public class TheoryCombo : MonoBehaviour
                 {
                     if (reading.Pollutant == _pollutant && reading.Concentration > 0 && timeSlot.Time < earliestTimeSeen)
                     {
-                        KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(_pollutant);
+                        KnowledgeType knowledge = AssetLookup.Instance.PollutantMap.GetKnowledge(_pollutant);
                         if (PlayerKnowledgeState.IsKnownHourly(room.RoomTypeValue, timeSlot.Time, knowledge)) {
                             earliestTimeSeen = timeSlot.Time;
                         }
@@ -163,7 +163,7 @@ public class TheoryCombo : MonoBehaviour
     {
         Debug.Log("Pollutant at Symptom!");
 
-        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject data = TimelineSystem.Instance.ScenarioData;
 
         int unconsciousTime = 99;
         foreach (var npc in data.NPCs)
@@ -211,7 +211,7 @@ public class TheoryCombo : MonoBehaviour
         HandleHideTheory();
         UnassignedIndicator.sprite = Checkmark;
         UnassignedIndicator.color = Color.white;
-        PlayerInvestigationTimeline.OnResetRequested.Invoke();
+        PlayerTimeline.OnResetRequested.Invoke();
         InvestigationTimelineChunk.OnValidSelected -= HandleValidSelection;
     }
 }

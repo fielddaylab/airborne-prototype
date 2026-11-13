@@ -14,7 +14,7 @@ public class MeterButton : MonoBehaviour
         MyButton.onClick.AddListener(RequestPlaceMeter);
         PollutantType = pollutant;
 
-        MyImage.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutant);
+        MyImage.sprite = AssetLookup.Instance.PollutantMap.GetSprite(pollutant);
     }
 
     public void RequestPlaceMeter()

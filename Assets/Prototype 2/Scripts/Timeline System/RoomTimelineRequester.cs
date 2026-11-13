@@ -8,6 +8,6 @@ public class RoomTimelineRequester : TimelineRequester
     
     public override void RequestTimelineDisplay()
     {
-        PlayerInvestigationTimeline.OnTimelineRequested?.Invoke(RoomType);
+        PlayerTimeline.OnTimelineRequested?.Invoke(RoomType);
     }
 }

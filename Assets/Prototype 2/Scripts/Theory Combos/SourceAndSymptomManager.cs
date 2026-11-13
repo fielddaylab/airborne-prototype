@@ -54,7 +54,7 @@ public class SourceAndSymptomManager : MonoBehaviour
         PollutantDataObject pollutantData = null;
         _pollutant = pollutant;
 
-        foreach (var map in InvestigationLookup.Instance.PollutantSymptomMaps)
+        foreach (var map in AssetLookup.Instance.PollutantSymptomMaps)
         {
             if (map.Type == pollutant)
             {
@@ -62,7 +62,7 @@ public class SourceAndSymptomManager : MonoBehaviour
             }
         }
 
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
         List<Symptom> symptoms = new();
         foreach (InvestigationNPCObject npc in scenario.NPCs) {
             if (npc.Character == scenario.MainNpc)
@@ -79,12 +79,12 @@ public class SourceAndSymptomManager : MonoBehaviour
             if (symptoms.Contains(symptom)) {
                 GameObject buttonObj = Instantiate(SymptomButton, SymptomPanel.transform);
                 SymptomButton symptomButton = buttonObj.GetComponent<SymptomButton>();
-                symptomButton.SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
+                symptomButton.SymptomImage.sprite = AssetLookup.Instance.SymptomMap.GetSprite(symptom);
                 symptomButton.Symptom = symptom;
             }
         }
 
-        PlayerInvestigationTimeline.OnTimelineRequested?.Invoke(scenario.MainNpc);
+        PlayerTimeline.OnTimelineRequested?.Invoke(scenario.MainNpc);
 
         SymptomSelectText.text = $"Select a symptom Roundy experienced that matches with {pollutant}:";
     }
@@ -97,6 +97,6 @@ public class SourceAndSymptomManager : MonoBehaviour
 
         TimelineQuestionText.text = $"Does the {_symptom} occur while {_pollutant} is present?\n\nSelect from timeline:";
 
-        PlayerInvestigationTimeline.OnNPCDetailRequested.Invoke(_symptom, _pollutant);
+        PlayerTimeline.OnNPCDetailRequested.Invoke(_symptom, _pollutant);
     }
 }

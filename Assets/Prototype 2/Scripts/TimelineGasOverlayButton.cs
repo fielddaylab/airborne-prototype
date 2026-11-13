@@ -12,7 +12,7 @@ public class TimelineGasOverlayButton : MonoBehaviour
     public void Setup(PollutantType pollutant)
     {
         PollutantType = pollutant;
-        OverlayImage.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutant);
+        OverlayImage.sprite = AssetLookup.Instance.PollutantMap.GetSprite(pollutant);
         OverlayButton.onClick.AddListener(HandleSwitch);
     } 
 

@@ -37,7 +37,7 @@ public class MeterManager : MonoBehaviour
 
     private void Setup()
     {
-        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        PollutantDataObject[] pollutantDatas = TimelineSystem.Instance.ScenarioData.SuspectedPollutants;
 
         for (int i = 0; i < MeterButtonParent.transform.childCount; i++)
         {
@@ -127,7 +127,7 @@ public class MeterManager : MonoBehaviour
         gasMeter.Label.text = pollutantType.ToString();
         //gasMeter.Label.color = InvestigationLookup.Instance.PollutantMap.GetMaterial(pollutantType);
 
-        InvestigationTimelineSystem.Instance.RegisterMeter(gasMeter);
+        TimelineSystem.Instance.RegisterMeter(gasMeter);
 
         ToolManager.OnToolUsed?.Invoke();
 

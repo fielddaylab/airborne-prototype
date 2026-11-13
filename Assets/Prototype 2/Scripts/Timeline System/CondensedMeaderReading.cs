@@ -23,7 +23,7 @@ public class CondensedMeaderReading : MonoBehaviour
 
         Label.text = type.ToString();
         Label.enabled = true;
-        Color pollutantCol = InvestigationLookup.Instance.PollutantMap.GetColor(type);
+        Color pollutantCol = AssetLookup.Instance.PollutantMap.GetColor(type);
         Label.color = pollutantCol;
         
         if (known)

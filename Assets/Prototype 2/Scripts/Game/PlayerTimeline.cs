@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInvestigationTimeline : MonoBehaviour
+public class PlayerTimeline : MonoBehaviour
 {
     // UI Stuff
     public TextMeshProUGUI TimelineText;
@@ -78,7 +78,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     {
         InvestigationRoom.OnRoomUpdated += HandleRoomUpdated;
         ToolManager.OnToolUpdated += HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
+        TimelineSystem.OnHourEntered += HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated += HandleKnowledgeUpdated;
         OnTimelineRequested += HandleTimelineRequest;
         OnFeatureDetailRequested += HandleFeatureRequest;
@@ -91,7 +91,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
     {
         InvestigationRoom.OnRoomUpdated -= HandleRoomUpdated;
         ToolManager.OnToolUpdated -= HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
+        TimelineSystem.OnHourEntered -= HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated -= HandleKnowledgeUpdated;
         OnTimelineRequested -= HandleTimelineRequest;
         OnFeatureDetailRequested -= HandleFeatureRequest;
@@ -118,7 +118,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         
         if (_currentToolType == EquipmentType.Scan)
         {
-            RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
+            RoomTimeSlot slot = TimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
         
@@ -143,16 +143,16 @@ public class PlayerInvestigationTimeline : MonoBehaviour
         {
             _currentRoomType = _currentRoom.RoomTypeValue;
             _currentTimelineType = TimelineType.RoomNPC;
-            RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
+            RoomTimeSlot slot = TimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
 
         // update npc information statuses
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
         foreach (var npc in scenario.NPCs)
         {
-            int hour = InvestigationTimelineSystem.Instance.CurrentHour;
-            int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
+            int hour = TimelineSystem.Instance.CurrentHour;
+            int baseHour = TimelineSystem.Instance.BaseHour;
             int index = hour - baseHour;
             
             if (npc.TimeSlots[index].CurrentRoom == _currentRoom.RoomTypeValue)
@@ -204,8 +204,8 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
     private void UpdateTimelineVisuals(TimelineType timelineType)
     {
-        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
-        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+        int baseHour = TimelineSystem.Instance.BaseHour;
+        int totalHours = TimelineSystem.Instance.TotalNumHours;
         
         switch (timelineType)
         {
@@ -215,11 +215,11 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                 for (int i = 0; i < totalHours; i++)
                 {
                     int actualHour = baseHour + i;
-                    RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
+                    RoomTimeSlot slot = TimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
                     TimelineOverlay.TimelineChunks[i].SetRoomNPCGraphics(_currentRoomType, actualHour, slot);
                 }
 
-                TimelineIcon.sprite = InvestigationLookup.Instance.RoomMap.GetSprite(_currentRoomType);
+                TimelineIcon.sprite = AssetLookup.Instance.RoomMap.GetSprite(_currentRoomType);
                 TimelineText.text = _currentRoomType.ToString();
 
                 break;
@@ -229,17 +229,17 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                 for (int i = 0; i < totalHours; i++)
                 {
                     int actualHour = baseHour + i;
-                    RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
+                    RoomTimeSlot slot = TimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
                     TimelineOverlay.TimelineChunks[i].SetRoomFeatureGraphics(_currentRoomType, actualHour, slot);
                 }
 
-                TimelineIcon.sprite = InvestigationLookup.Instance.RoomMap.GetSprite(_currentRoomType);
+                TimelineIcon.sprite = AssetLookup.Instance.RoomMap.GetSprite(_currentRoomType);
                 TimelineText.text = _currentRoomType.ToString();
                 
                 break;
             case TimelineType.NPC:
                 
-                ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+                ScenarioDataObject data = TimelineSystem.Instance.ScenarioData;
 
                 foreach (var npc in data.NPCs) {   
                     if (npc.Character == _currentCharacterType) {
@@ -253,19 +253,19 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                             {
                                 isNewRoom = true;
                             }
-                            RoomTimeSlot roomSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
+                            RoomTimeSlot roomSlot = TimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
                             TimelineOverlay.TimelineChunks[i].SetNPCGraphics(_currentRoomType, npc.Character, actualHour, isNewRoom, slot, roomSlot);
                         }
                     }
                 }
 
-                TimelineIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(_currentCharacterType);
+                TimelineIcon.sprite = AssetLookup.Instance.CharacterMap.GetSprite(_currentCharacterType);
                 TimelineText.text = _currentCharacterType.ToString();
 
                 break;
             case TimelineType.Feature:
                 
-                data = InvestigationTimelineSystem.Instance.ScenarioData;
+                data = TimelineSystem.Instance.ScenarioData;
 
                 foreach (var feature in data.FeatureEvents)
                 {
@@ -274,13 +274,13 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                         {
                             int actualHour = baseHour + i;
                             FeatureTimeSlot slot = feature.TimeSlots[i];
-                            RoomTimeSlot roomSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
+                            RoomTimeSlot roomSlot = TimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
                             TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(_currentRoomType, feature.FeatureType, actualHour, slot, roomSlot);
                         }
                     }
                 }
 
-                TimelineIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, _currentFeatureType);
+                TimelineIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, _currentFeatureType);
                 TimelineText.text = _currentFeatureType.ToString();
 
                 break;
@@ -289,10 +289,10 @@ public class PlayerInvestigationTimeline : MonoBehaviour
 
     private void HandleFeatureRequest(FeatureType featureType, PollutantType pollutantType)
     {
-        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
-        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+        int baseHour = TimelineSystem.Instance.BaseHour;
+        int totalHours = TimelineSystem.Instance.TotalNumHours;
         
-        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject data = TimelineSystem.Instance.ScenarioData;
 
         foreach (var feature in data.FeatureEvents)
         {
@@ -314,16 +314,16 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             }
         }
 
-        TimelineIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, featureType);
+        TimelineIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, featureType);
         TimelineText.text = featureType.ToString();
     }
 
     private void HandleNPCRequest(Symptom symptom, PollutantType pollutant)
     {
-        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
-        int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+        int baseHour = TimelineSystem.Instance.BaseHour;
+        int totalHours = TimelineSystem.Instance.TotalNumHours;
         
-        ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject data = TimelineSystem.Instance.ScenarioData;
 
         foreach (var npc in data.NPCs) {   
             if (npc.Character == data.MainNpc) {
@@ -332,10 +332,10 @@ public class PlayerInvestigationTimeline : MonoBehaviour
                     int actualHour = baseHour + i;
                     NPCTimeSlot slot = npc.TimeSlots[i];
 
-                    bool isNewRoom = false;
+                    //bool isNewRoom = false;
                     if (i == 0 || npc.TimeSlots[i - 1].CurrentRoom != npc.TimeSlots[i].CurrentRoom)
                     {
-                        isNewRoom = true;
+                        //isNewRoom = true;
                     }
 
                     foreach (var room in data.Rooms)
@@ -350,7 +350,7 @@ public class PlayerInvestigationTimeline : MonoBehaviour
             }
         }
 
-        TimelineIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(data.MainNpc);
+        TimelineIcon.sprite = AssetLookup.Instance.CharacterMap.GetSprite(data.MainNpc);
         TimelineText.text = data.MainNpc.ToString();
     }
 

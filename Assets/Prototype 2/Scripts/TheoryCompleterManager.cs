@@ -43,7 +43,7 @@ public class TheoryCompleterManager : MonoBehaviour
     {
         OnLockout?.Invoke(true);
         ScreenDimmer.gameObject.SetActive(true);
-        InvestigationTimelineSystem.Instance.PauseTime(true);
+        TimelineSystem.Instance.PauseTime(true);
         _soughtType = theoryType;
         _soughtPollutant = pollutant;
         _soughtFeature = source;
@@ -70,7 +70,7 @@ public class TheoryCompleterManager : MonoBehaviour
             bottomFailed = true;
         }
 
-        CharacterType mainChar = InvestigationTimelineSystem.Instance.ScenarioData.MainNpc;
+        CharacterType mainChar = TimelineSystem.Instance.ScenarioData.MainNpc;
 
         // checks based on chars
         switch (_soughtType)
@@ -89,7 +89,7 @@ public class TheoryCompleterManager : MonoBehaviour
                     {
                         foundValidFeature = true;
                         // check if on or off, if yes foundSomething;
-                        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+                        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
                         foreach (var featEvent in scenario.FeatureEvents)
                         {
                             if (featEvent.FeatureType == _soughtFeature)
@@ -198,7 +198,7 @@ public class TheoryCompleterManager : MonoBehaviour
     {
         OnLockout?.Invoke(false);
         ScreenDimmer.gameObject.SetActive(false);
-        InvestigationTimelineSystem.Instance.PauseTime(false);
+        TimelineSystem.Instance.PauseTime(false);
     }
 }
 

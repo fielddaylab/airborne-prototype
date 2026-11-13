@@ -36,7 +36,7 @@ public class CaseFileManager : MonoBehaviour
             return;
         }
 
-        GameObject mapObj = Instantiate(InvestigationTimelineSystem.Instance.ScenarioData.MapObject);
+        GameObject mapObj = Instantiate(TimelineSystem.Instance.ScenarioData.MapObject);
         mapObj.transform.SetParent(MapParent, false);
 
         Map = mapObj.GetComponent<InvestigationMap>();
@@ -64,11 +64,11 @@ public class CaseFileManager : MonoBehaviour
         CaseFilePanel.gameObject.SetActive(CaseFileOpen);
 
         FalseTimelineSlider.gameObject.SetActive(CaseFileOpen);
-        FalseTimelineSlider.value = InvestigationTimelineSystem.Instance.CurrentHour - InvestigationTimelineSystem.Instance.BaseHour;
+        FalseTimelineSlider.value = TimelineSystem.Instance.CurrentHour - TimelineSystem.Instance.BaseHour;
 
         TrueTimelineSlider.interactable = !CaseFileOpen;
 
-        InvestigationTimelineSystem.Instance.PauseTime(CaseFileOpen);
+        TimelineSystem.Instance.PauseTime(CaseFileOpen);
 
         Map.UpdateRooms(TrueTimelineSlider.value);
         Pollutants.UpdateInformation();
@@ -82,7 +82,7 @@ public class CaseFileManager : MonoBehaviour
         } else
         {
             OnCaseFileClosed?.Invoke();
-            PlayerInvestigationTimeline.OnResetRequested.Invoke();
+            PlayerTimeline.OnResetRequested.Invoke();
             CaseFileImage.sprite = FileSprite;
             CaseFileButton.GetComponent<TooltipHoverable>().ChangeText("Case File");
         }
@@ -102,11 +102,11 @@ public class CaseFileManager : MonoBehaviour
         CaseFilePanel.gameObject.SetActive(false);
 
         FalseTimelineSlider.gameObject.SetActive(true);
-        FalseTimelineSlider.value = InvestigationTimelineSystem.Instance.CurrentHour - InvestigationTimelineSystem.Instance.BaseHour;
+        FalseTimelineSlider.value = TimelineSystem.Instance.CurrentHour - TimelineSystem.Instance.BaseHour;
 
         TrueTimelineSlider.interactable = false;
 
-        InvestigationTimelineSystem.Instance.PauseTime(true);
+        TimelineSystem.Instance.PauseTime(true);
 
         Map.UpdateRooms(TrueTimelineSlider.value);
         Pollutants.UpdateInformation();

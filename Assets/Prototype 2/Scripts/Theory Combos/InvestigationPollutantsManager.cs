@@ -40,7 +40,7 @@ public class InvestigationPollutantsManager : MonoBehaviour
             Destroy(SuspectPanelParent.transform.GetChild(i).gameObject);
         }
 
-        _PollutantDataInfo = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        _PollutantDataInfo = TimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         TheoryPanels = new TheoryPanel[_PollutantDataInfo.Length];
 
         for (int i = 0; i < TheoryPanels.Length; i++)

@@ -50,7 +50,7 @@ public class ScannableCloud : MonoBehaviour
 
                 // remember to disable this once done debugging, the player should not see this information!
                 transform.localScale = Vector3.one * readings[cloudIndex].Concentration;
-                meshRenderer.material = InvestigationTimelineSystem.Instance.InvestigationRegistry.PollutantMaterials.GetMaterial(pollutantType);
+                meshRenderer.material = TimelineSystem.Instance.InvestigationRegistry.PollutantMaterials.GetMaterial(pollutantType);
             } else
             {
                 _nothingToRender = true;

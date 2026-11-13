@@ -26,19 +26,19 @@ public class NPCController : MonoBehaviour
 
     public void OnEnable()
     {
-        InvestigationTimelineSystem.OnHourEntered += CheckLocationAndIndicator;
-        InvestigationTimelineSystem.OnLoopEnd += ResetLocation;
+        TimelineSystem.OnHourEntered += CheckLocationAndIndicator;
+        TimelineSystem.OnLoopEnd += ResetLocation;
     }
 
     public void OnDisable()
     {
-        InvestigationTimelineSystem.OnHourEntered -= CheckLocationAndIndicator;
-        InvestigationTimelineSystem.OnLoopEnd -= ResetLocation;
+        TimelineSystem.OnHourEntered -= CheckLocationAndIndicator;
+        TimelineSystem.OnLoopEnd -= ResetLocation;
     }
 
     public void Update()
     {
-        if (InvestigationTimelineSystem.Instance.TimelineSpeed == .75)
+        if (TimelineSystem.Instance.TimelineSpeed == .75)
         {
             NavAgent.speed = _baseSpeed * 3f;
         } else
@@ -49,7 +49,7 @@ public class NPCController : MonoBehaviour
 
     private void CheckLocationAndIndicator(int hour)
     {
-        int index = hour - InvestigationTimelineSystem.Instance.BaseHour;
+        int index = hour - TimelineSystem.Instance.BaseHour;
         NPCTimeSlot slot = NPCData.TimeSlots[index];
 
         RoomType expectedLocation = slot.CurrentRoom;

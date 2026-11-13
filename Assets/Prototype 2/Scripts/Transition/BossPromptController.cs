@@ -139,10 +139,10 @@ public class BossPromptController : MonoBehaviour
     {
         BossParent.SetActive(true);
 
-        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenarioData = TimelineSystem.Instance.ScenarioData;
         RoomType sourceRoom = ScenarioUtility.GetRoom(selectedSource, scenarioData);
 
-        string pollutantName = InvestigationLookup.Instance.PollutantMap.GetFullName(selectedPollutant);
+        string pollutantName = AssetLookup.Instance.PollutantMap.GetFullName(selectedPollutant);
 
         BossText.text = $"So it was <b>{pollutantName}</b> from the <b>{sourceRoom} {selectedSource}</b> that caused roundy to faint? Let's see your evidence...";
 

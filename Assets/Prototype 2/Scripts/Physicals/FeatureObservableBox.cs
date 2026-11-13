@@ -17,21 +17,21 @@ public class FeatureObservableBox : MonoBehaviour
     public void Start()
     {
         ToolManager.OnToolUpdated += HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered += HandleHourEntered;
+        TimelineSystem.OnHourEntered += HandleHourEntered;
         gameObject.SetActive(false);
     }
 
     public void OnDestroy()
     {
         ToolManager.OnToolUpdated -= HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered -= HandleHourEntered;
+        TimelineSystem.OnHourEntered -= HandleHourEntered;
     }
 
     private void OnMouseDown()
     {
-        int hour = InvestigationTimelineSystem.Instance.CurrentHour;
-        int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
-        int maxHour = baseHour + InvestigationTimelineSystem.Instance.TotalNumHours;
+        int hour = TimelineSystem.Instance.CurrentHour;
+        int baseHour = TimelineSystem.Instance.BaseHour;
+        int maxHour = baseHour + TimelineSystem.Instance.TotalNumHours;
 
         for (int i = hour - 1; i <= hour + 1; i++)
         {
@@ -62,7 +62,7 @@ public class FeatureObservableBox : MonoBehaviour
         FlyingIcon flyerIcon = flyer.GetComponent<FlyingIcon>();
 
         bool featureOn = false;
-        foreach (var feature in InvestigationTimelineSystem.Instance.ScenarioData.FeatureEvents)
+        foreach (var feature in TimelineSystem.Instance.ScenarioData.FeatureEvents)
         {
             if (feature.FeatureType == FeatureType)
             {
@@ -79,10 +79,10 @@ public class FeatureObservableBox : MonoBehaviour
         Sprite flyerSprite;
         if (featureOn)
         {
-            flyerSprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, FeatureType);
+            flyerSprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, FeatureType);
         } else
         {
-            flyerSprite = FeatureSpriteMapUtility.GetOffSprite(InvestigationLookup.Instance.FeatureSpriteMap, FeatureType);
+            flyerSprite = FeatureSpriteMapUtility.GetOffSprite(AssetLookup.Instance.FeatureSpriteMap, FeatureType);
         }
 
         flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation); 
@@ -114,7 +114,7 @@ public class FeatureObservableBox : MonoBehaviour
     {
         // only show box as observable when info not known
         
-        int hour = InvestigationTimelineSystem.Instance.CurrentHour;
+        int hour = TimelineSystem.Instance.CurrentHour;
         bool knowsFeature = PlayerKnowledgeState.IsKnownHourly(FeatureRoom, hour, FeatureKnowledge);
 
         if (!knowsFeature)

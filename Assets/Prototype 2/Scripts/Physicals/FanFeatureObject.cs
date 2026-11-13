@@ -13,17 +13,17 @@ public class FanFeatureObject : MonoBehaviour
 
     void OnEnable()
     {
-        InvestigationTimelineSystem.OnHourEntered += CheckIfOn;
+        TimelineSystem.OnHourEntered += CheckIfOn;
     }
 
     void OnDisable()
     {
-        InvestigationTimelineSystem.OnHourEntered -= CheckIfOn;
+        TimelineSystem.OnHourEntered -= CheckIfOn;
     }
 
     private void CheckIfOn(int hour)
     {
-        int index = hour - InvestigationTimelineSystem.Instance.BaseHour;
+        int index = hour - TimelineSystem.Instance.BaseHour;
         FeatureEvent status = FanData.TimeSlots[index].FeatureEvent;
         _isOn = status == FeatureEvent.On;
     }

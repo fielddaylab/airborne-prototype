@@ -35,8 +35,8 @@ public class SidebarTheoryManager : MonoBehaviour
     {
         Reset();
 
-        PollutantPortraitText.text = InvestigationLookup.Instance.PollutantMap.GetFullName(pollutant);
-        PollutantPortrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutant);
+        PollutantPortraitText.text = AssetLookup.Instance.PollutantMap.GetFullName(pollutant);
+        PollutantPortrait.sprite = AssetLookup.Instance.PollutantMap.GetSprite(pollutant);
 
         _Pollutant = pollutant;
 
@@ -52,12 +52,12 @@ public class SidebarTheoryManager : MonoBehaviour
     {
         Reset();
         
-        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenarioData = TimelineSystem.Instance.ScenarioData;
         RoomType sourceRoom = ScenarioUtility.GetRoom(feature, scenarioData);
 
         SourcePortraitText.text = $"{sourceRoom} {feature}";
         
-        Sprite featureSprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, feature);
+        Sprite featureSprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, feature);
         
         SourcePortrait.enabled = true;
         SourcePortrait.sprite = featureSprite;
@@ -84,7 +84,7 @@ public class SidebarTheoryManager : MonoBehaviour
     private void HandleTheorySubmission()
     {
         BossPrompter.StartBossSequence(_Pollutant, _Source);
-        InvestigationTimelineSystem.Instance.PauseTime(true);
+        TimelineSystem.Instance.PauseTime(true);
         transform.parent.gameObject.SetActive(false);
     }
 

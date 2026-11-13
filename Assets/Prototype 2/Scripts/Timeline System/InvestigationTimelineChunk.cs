@@ -102,7 +102,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         RoomOverlay.SetActive(true);
         SetPollutantDisplay(roomType, hour, slot);
 
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
 
         int npcTracked = 0;
 
@@ -121,7 +121,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
                         
                         NPCImages[npcTracked].gameObject.SetActive(true);
                         NPCImages[npcTracked].enabled = true;
-                        NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+                        NPCImages[npcTracked].sprite = AssetLookup.Instance.CharacterMap.GetSprite(npc.Character);
 
                         if (PlayerKnowledgeState.IsKnownCharacterly(npc.Character, hour, KnowledgeType.NPCSymptom))
                             {
@@ -129,7 +129,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
                                 {
                                     symptoms.Add(npcSlot.Symptom);
                                     
-                                    Sprite sympSprite = InvestigationLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
+                                    Sprite sympSprite = AssetLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
                                     NPCSymptomImages[npcTracked].sprite = sympSprite;
                                     NPCSymptomImages[npcTracked].enabled = true;
                                 } else
@@ -154,7 +154,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
     public void SetPollutantDisplay(RoomType roomType, int hour, RoomTimeSlot slot)
     {
         //RepresentedHour = hour;
-        PollutantDataObject[] pollutantDatas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        PollutantDataObject[] pollutantDatas = TimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         BeginPollutantTracking(pollutantDatas.Length);
 
         TimelineImage.enabled = false;
@@ -171,7 +171,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         bool anyKnowledgeKnown = false;
         for (int i = 0; i < pollutantDatas.Length; i++)
         {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutantDatas[i].Type);
+            KnowledgeType knowledge = AssetLookup.Instance.PollutantMap.GetKnowledge(pollutantDatas[i].Type);
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 PollutantReading reading = slot.GetReading(pollutantDatas[i].Type);
@@ -218,7 +218,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
         RoomOverlay.SetActive(true);
         SetPollutantDisplay(roomType, hour, slot);
 
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
 
         int featuresTracked = 0;
         foreach (var featureEvent in scenario.FeatureEvents)
@@ -229,10 +229,10 @@ public class InvestigationTimelineChunk : MonoBehaviour
                 {
                     Debug.Log(featureEvent.FeatureType);
 
-                    KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(featureEvent.FeatureType);
+                    KnowledgeType knowledgeType = AssetLookup.Instance.FeatureMap.GetKnowledgeType(featureEvent.FeatureType);
                     FeatureImages[featuresTracked].gameObject.SetActive(true);
                     FeatureImages[featuresTracked].enabled = true;
-                    FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
+                    FeatureSpriteMapObject featureMap = AssetLookup.Instance.FeatureSpriteMap;
 
                     if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) 
                     {
@@ -277,7 +277,7 @@ public class InvestigationTimelineChunk : MonoBehaviour
             if (slot.Symptom != Symptom.None)
             {
                 symptoms.Add(slot.Symptom);
-                SymptomImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(slot.Symptom);
+                SymptomImage.sprite = AssetLookup.Instance.SymptomMap.GetSprite(slot.Symptom);
                 SymptomImage.enabled = true;
                 SymptomImage.gameObject.SetActive(true);
             }
@@ -322,10 +322,10 @@ public class InvestigationTimelineChunk : MonoBehaviour
         // just need to show the features if the players have discovered them
         // and change the lightness/darkness depending on that status
 
-        KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(feature);
+        KnowledgeType knowledgeType = AssetLookup.Instance.FeatureMap.GetKnowledgeType(feature);
         FeatureImages[0].enabled = true;
         FeatureImages[0].gameObject.SetActive(true);
-        FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
+        FeatureSpriteMapObject featureMap = AssetLookup.Instance.FeatureSpriteMap;
 
         if (PlayerKnowledgeState.IsKnownHourly(room, hour, knowledgeType)) {
             

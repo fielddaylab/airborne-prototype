@@ -12,7 +12,7 @@ public class PollutantPanelExpander : MonoBehaviour
     public void Setup(PollutantType pollutantType)
     {
         ExpandButton.onClick.AddListener(HandleExpand);
-        Portrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutantType);
+        Portrait.sprite = AssetLookup.Instance.PollutantMap.GetSprite(pollutantType);
         PollutantType = pollutantType;
     }
 

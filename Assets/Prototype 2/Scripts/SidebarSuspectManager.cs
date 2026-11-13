@@ -27,7 +27,7 @@ public class SidebarSuspectManager : MonoBehaviour
 
     public void Awake()
     {
-        InvestigationTimelineSystem.OnLoopEnd += HandleLoopEnd;
+        TimelineSystem.OnLoopEnd += HandleLoopEnd;
         PollutantPanel.SetActive(false);
         TheoryManager.gameObject.SetActive(false);
     }
@@ -59,7 +59,7 @@ public class SidebarSuspectManager : MonoBehaviour
     void OnDestroy()
     {
         PlayerKnowledgeState.OnKnowledgeUpdated -= UpdateInformation;
-        InvestigationTimelineSystem.OnLoopEnd -= HandleLoopEnd;
+        TimelineSystem.OnLoopEnd -= HandleLoopEnd;
         NewGameManager.ChooseSuspect -= HandleSuspect;
     }
 
@@ -68,8 +68,8 @@ public class SidebarSuspectManager : MonoBehaviour
         Card.SetupPollutant(pollutant);
         ClearBoxes();
 
-        PollutantDataObject pollutantData = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants[0];
-        foreach (var p in InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants)
+        PollutantDataObject pollutantData = TimelineSystem.Instance.ScenarioData.SuspectedPollutants[0];
+        foreach (var p in TimelineSystem.Instance.ScenarioData.SuspectedPollutants)
         {
             if (p.Type == pollutant) pollutantData = p;
         }
@@ -80,7 +80,7 @@ public class SidebarSuspectManager : MonoBehaviour
             theoryPiece.name = symptom.ToString();
             theoryPiece.transform.SetParent(SymptomsBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
+            piece.TheoryImage.sprite = AssetLookup.Instance.SymptomMap.GetSprite(symptom);
             piece.RepresentedSymptom = symptom;
             piece.Tooltip.ChangeText(symptom.ToString());
 
@@ -93,7 +93,7 @@ public class SidebarSuspectManager : MonoBehaviour
             theoryPiece.name = source.ToString();
             theoryPiece.transform.SetParent(SourcesBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, source);
+            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, source);
             piece.RepresentedFeature = source;
             piece.Tooltip.ChangeText(source.ToString());
 
@@ -123,8 +123,8 @@ public class SidebarSuspectManager : MonoBehaviour
     {
         if (NewGameManager.Instance.CurrentPhase == NewGamePhase.VictimSearch)
         {
-            ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
-            int finalHour = InvestigationTimelineSystem.Instance.BaseHour + InvestigationTimelineSystem.Instance.TotalNumHours - 1;
+            ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
+            int finalHour = TimelineSystem.Instance.BaseHour + TimelineSystem.Instance.TotalNumHours - 1;
             
             if (PlayerKnowledgeState.IsKnownCharacterly(scenario.MainNpc, finalHour, KnowledgeType.NPCSymptom))
             {

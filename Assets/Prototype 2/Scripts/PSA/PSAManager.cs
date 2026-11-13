@@ -35,7 +35,7 @@ public class PSAManager : MonoBehaviour
     {
         FinishButton.onClick.AddListener(OnFinish);
 
-        PSAData = InvestigationTimelineSystem.Instance.ScenarioData.PSAOptions;
+        PSAData = TimelineSystem.Instance.ScenarioData.PSAOptions;
 
         BLeft.onClick.AddListener(() => CycleBackground(-1));
         BRight.onClick.AddListener(()=> CycleBackground(1));

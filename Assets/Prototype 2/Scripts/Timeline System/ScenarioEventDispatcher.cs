@@ -9,17 +9,17 @@ public class ScenarioEventDispatcher : MonoBehaviour
 
     public void OnEnable()
     {
-        InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
+        TimelineSystem.OnHourEntered += HandleHourUpdated;
     }
 
     public void OnDisable()
     {
-        InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
+        TimelineSystem.OnHourEntered -= HandleHourUpdated;
     }
 
     private void HandleHourUpdated(int h)
     {
-        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenarioData = TimelineSystem.Instance.ScenarioData;
 
         foreach (InvestigationRoomObject roomObject in scenarioData.Rooms)
         {

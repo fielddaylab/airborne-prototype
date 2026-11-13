@@ -50,7 +50,7 @@ public class MapRoomDisplay : MonoBehaviour
         roomTimelineRqstr.RoomType = roomType;
         
         // displaying basic room features
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
         if (PlayerKnowledgeState.IsKnownGenerally(roomType, KnowledgeType.RoomInfo))
         {
             int featuresTracked = 0;
@@ -58,7 +58,7 @@ public class MapRoomDisplay : MonoBehaviour
             {
                 if (feature.RoomType == roomType)
                 {
-                    FeatureImages[featuresTracked].sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, feature.FeatureType);
+                    FeatureImages[featuresTracked].sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, feature.FeatureType);
                     FeatureImages[featuresTracked].enabled = true;
                     FeatureTimelineRequester requester = FeatureImages[featuresTracked].GetComponent<FeatureTimelineRequester>();
                     requester.Feature = feature.FeatureType;
@@ -71,7 +71,7 @@ public class MapRoomDisplay : MonoBehaviour
             }
 
             int metersTracked = 0;
-            foreach (var meter in InvestigationTimelineSystem.Instance.Meters)
+            foreach (var meter in TimelineSystem.Instance.Meters)
             {
                 if (meter.TrackedRoom.RoomTypeValue != roomType) continue;
 
@@ -91,7 +91,7 @@ public class MapRoomDisplay : MonoBehaviour
                     {
                         if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, KnowledgeType.NPCPresence)) {
                             NPCImages[npcTracked].enabled = true;
-                            NPCImages[npcTracked].sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(npc.Character);
+                            NPCImages[npcTracked].sprite = AssetLookup.Instance.CharacterMap.GetSprite(npc.Character);
                             CharacterTimelineRequester requester = NPCImages[npcTracked].GetComponent<CharacterTimelineRequester>();
                             requester.Character = npc.Character;
 
@@ -99,7 +99,7 @@ public class MapRoomDisplay : MonoBehaviour
                             {
                                 if (npcSlot.Symptom != Symptom.None)
                                 {
-                                    Sprite sympSprite = InvestigationLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
+                                    Sprite sympSprite = AssetLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
                                     NPCSymptomImages[npcTracked].sprite = sympSprite;
                                     NPCSymptomImages[npcTracked].enabled = true;
                                 } else
@@ -120,19 +120,19 @@ public class MapRoomDisplay : MonoBehaviour
         }
 
         // hour specific information
-        RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(roomType, hour);
+        RoomTimeSlot slot = TimelineSystem.Instance.GetTimeSlot(roomType, hour);
 
         bool anyKnowledgeKnown = false;
         foreach (PollutantType pollutant in Enum.GetValues(typeof(PollutantType)))
         {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
+            KnowledgeType knowledge = AssetLookup.Instance.PollutantMap.GetKnowledge(pollutant);
             if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 anyKnowledgeKnown = true;
 
                 if (pollutant == overlayedPollutant)
                 {
-                    Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetColor(pollutant);
+                    Color overlayColor = AssetLookup.Instance.PollutantMap.GetColor(pollutant);
                     PollutantReading reading = slot.GetReading(pollutant);
                     overlayColor.a = reading != null ? reading.Concentration / 4f : 0; // magic number, but just set to max it can possible be later
                     GasOverlay.enabled = true;
@@ -145,7 +145,7 @@ public class MapRoomDisplay : MonoBehaviour
         if (anyKnowledgeKnown)
         {
             int metersTracked = 0;
-            foreach (var meter in InvestigationTimelineSystem.Instance.Meters)
+            foreach (var meter in TimelineSystem.Instance.Meters)
             {
                 if (meter.TrackedRoom.RoomTypeValue != roomType) continue;
                 
@@ -158,7 +158,7 @@ public class MapRoomDisplay : MonoBehaviour
                         if (reading.Concentration > 0)
                         {
                             MeterIndicators[metersTracked].enabled = true;
-                            Color indicatorColor = InvestigationLookup.Instance.PollutantMap.GetColor(meterPollutant);
+                            Color indicatorColor = AssetLookup.Instance.PollutantMap.GetColor(meterPollutant);
                             MeterIndicators[metersTracked].color = indicatorColor;
                         }
                     }
@@ -191,7 +191,7 @@ public class MapRoomDisplay : MonoBehaviour
 
     public void UpdateSourceValidity(int hour, PollutantType pollutant, FeatureType source)
     {
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
 
         bool featureValid = false;
         foreach (var feature in scenario.FeatureEvents)
@@ -203,10 +203,10 @@ public class MapRoomDisplay : MonoBehaviour
         }
 
         bool pollutantValid = false;
-        RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(roomType, hour);
+        RoomTimeSlot slot = TimelineSystem.Instance.GetTimeSlot(roomType, hour);
         foreach (var reading in slot.PollutantReadings)
         {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
+            KnowledgeType knowledge = AssetLookup.Instance.PollutantMap.GetKnowledge(pollutant);
             if (reading.Pollutant == pollutant && reading.Concentration > 0 && PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 pollutantValid = true;
@@ -233,7 +233,7 @@ public class MapRoomDisplay : MonoBehaviour
 
     public void UpdateSymptomValidity(int hour, PollutantType pollutant)
     {
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
 
         bool validNpc = false;
         foreach (var npc in scenario.NPCs)
@@ -251,10 +251,10 @@ public class MapRoomDisplay : MonoBehaviour
         }
 
         bool pollutantValid = false;
-        RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(roomType, hour);
+        RoomTimeSlot slot = TimelineSystem.Instance.GetTimeSlot(roomType, hour);
         foreach (var reading in slot.PollutantReadings)
         {
-            KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(pollutant);
+            KnowledgeType knowledge = AssetLookup.Instance.PollutantMap.GetKnowledge(pollutant);
             if (reading.Pollutant == pollutant && reading.Concentration > 0 && PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledge))
             {
                 pollutantValid = true;

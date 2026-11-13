@@ -25,7 +25,7 @@ public class GasOverlayManager : MonoBehaviour
             Destroy(GasOverlayButtonParent.GetChild(i).gameObject);
         }
 
-        PollutantDataObject[] pollutants = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        PollutantDataObject[] pollutants = TimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         OverlayButtons = new GasOverlayButton[pollutants.Length];
 
         for (int i = 0; i < pollutants.Length; i++)

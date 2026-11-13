@@ -21,17 +21,17 @@ public class MapConnector : MonoBehaviour
         if (!IsVent) return;
         Reset();
 
-        KnowledgeType knowledge = InvestigationLookup.Instance.PollutantMap.GetKnowledge(overlayedPollutant);
+        KnowledgeType knowledge = AssetLookup.Instance.PollutantMap.GetKnowledge(overlayedPollutant);
         if (!PlayerKnowledgeState.IsKnownHourly(FirstRoom, hour, knowledge)
             || !PlayerKnowledgeState.IsKnownHourly(SecondRoom, hour, knowledge))
         {
             return;
         }
 
-        RoomTimeSlot firstSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(FirstRoom, hour);
-        RoomTimeSlot secondSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(SecondRoom, hour);
+        RoomTimeSlot firstSlot = TimelineSystem.Instance.GetTimeSlot(FirstRoom, hour);
+        RoomTimeSlot secondSlot = TimelineSystem.Instance.GetTimeSlot(SecondRoom, hour);
 
-        Color overlayColor = InvestigationLookup.Instance.PollutantMap.GetColor(overlayedPollutant);
+        Color overlayColor = AssetLookup.Instance.PollutantMap.GetColor(overlayedPollutant);
         PollutantReading fReading = firstSlot.GetReading(overlayedPollutant);
         PollutantReading sReading = secondSlot.GetReading(overlayedPollutant);
         float fConcentration = fReading != null ? fReading.Concentration / 4f : 0;

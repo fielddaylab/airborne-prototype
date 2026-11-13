@@ -43,7 +43,7 @@ public class NotebookTimeSlot : MonoBehaviour
     {
         Clear();
 
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
         InvestigationNPCObject npc = scenario.NPCs[0];
         foreach (var scenarioNpc in scenario.NPCs)
         {
@@ -67,7 +67,7 @@ public class NotebookTimeSlot : MonoBehaviour
         {
             if (npcSlot.Symptom != Symptom.None)
             {
-                Sprite sympSprite = InvestigationLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
+                Sprite sympSprite = AssetLookup.Instance.SymptomMap.GetSprite(npcSlot.Symptom);
                 m_EventIcon.sprite = sympSprite;
                 m_EventIcon.enabled = true;
                 m_BodyText.text = npcSlot.Symptom + "";
@@ -77,7 +77,7 @@ public class NotebookTimeSlot : MonoBehaviour
 
             MarkFilled();
         }
-        
+
         if (logged) return;
 
         if (PlayerKnowledgeState.IsKnownCharacterly(npc.Character, hour, KnowledgeType.NPCDialogue))
@@ -95,7 +95,7 @@ public class NotebookTimeSlot : MonoBehaviour
     {
         Clear();
 
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
         InvestigationFeatureEventObject featureEvent = scenario.FeatureEvents[0];
         foreach (var scenarioFeature in scenario.FeatureEvents)
         {
@@ -114,12 +114,12 @@ public class NotebookTimeSlot : MonoBehaviour
             }
         }
 
-        KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(featureEvent.FeatureType);
+        KnowledgeType knowledgeType = AssetLookup.Instance.FeatureMap.GetKnowledgeType(featureEvent.FeatureType);
         if (PlayerKnowledgeState.IsKnownHourly(featureEvent.RoomType, hour, knowledgeType)) {
             m_EventIcon.enabled = true; 
             m_BodyText.enabled = true;
             bool featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
-            FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
+            FeatureSpriteMapObject featureMap = AssetLookup.Instance.FeatureSpriteMap;
             if (featureOn)
             {
                 m_EventIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, featureEvent.FeatureType);

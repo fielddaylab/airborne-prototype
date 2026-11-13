@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvestigationLookup : MonoBehaviour
+public class AssetLookup : MonoBehaviour
 {
-    public static InvestigationLookup Instance {get; private set;}
+    public static AssetLookup Instance {get; private set;}
 
     public void Awake()
     {

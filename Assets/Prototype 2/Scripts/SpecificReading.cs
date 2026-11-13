@@ -10,7 +10,7 @@ public class SpecificReading : MonoBehaviour
 
     public void SetPollutant(int Concentration, PollutantType pollutant)
     {
-        Color pollutantColor = InvestigationLookup.Instance.PollutantMap.GetColor(pollutant);
+        Color pollutantColor = AssetLookup.Instance.PollutantMap.GetColor(pollutant);
         
         for (int i = 0; i < Images.Length; i++)
         {

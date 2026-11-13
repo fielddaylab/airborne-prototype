@@ -12,14 +12,14 @@ public class ConnectorObservableBox : MonoBehaviour
     public void Start()
     {
         ToolManager.OnToolUpdated += HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered += HandleHourEntered;
+        TimelineSystem.OnHourEntered += HandleHourEntered;
         gameObject.SetActive(false);
     }
 
     public void OnDestroy()
     {
         ToolManager.OnToolUpdated -= HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered -= HandleHourEntered;
+        TimelineSystem.OnHourEntered -= HandleHourEntered;
     }
 
     private void OnMouseDown()

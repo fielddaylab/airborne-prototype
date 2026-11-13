@@ -13,17 +13,17 @@ public class NPCSidePanel : MonoBehaviour
     
     public void Setup()
     {
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
 
         Card.SetupNPC(scenario.MainNpc);
     }
 
     public void Fill()
     {
-        ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenario = TimelineSystem.Instance.ScenarioData;
 
-        SymptomSpriteMapObject symptomMap = InvestigationLookup.Instance.SymptomMap;
-        RoomSpriteMapObject roomMap = InvestigationLookup.Instance.RoomMap;
+        SymptomSpriteMapObject symptomMap = AssetLookup.Instance.SymptomMap;
+        RoomSpriteMapObject roomMap = AssetLookup.Instance.RoomMap;
 
         SymptomOverlay.sprite = symptomMap.GetSprite(scenario.MajorSymptom);
         SymptomText.text = scenario.MajorSymptom.ToString();

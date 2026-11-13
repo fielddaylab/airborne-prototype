@@ -21,7 +21,7 @@ public class SourceSelector : MonoBehaviour
     {
         Debug.Log("Setup on SourceSelector was called!");
         
-        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenarioData = TimelineSystem.Instance.ScenarioData;
 
         foreach (var featureEvent in scenarioData.FeatureEvents)
         {

@@ -88,7 +88,7 @@ public class TheoryManager : MonoBehaviour
             theoryPiece.name = symptom.ToString();
             theoryPiece.transform.SetParent(SymptomsBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
+            piece.TheoryImage.sprite = AssetLookup.Instance.SymptomMap.GetSprite(symptom);
             piece.RepresentedSymptom = symptom;
 
             _symptoms.Add(piece);
@@ -100,7 +100,7 @@ public class TheoryManager : MonoBehaviour
             theoryPiece.name = source.ToString();
             theoryPiece.transform.SetParent(SourcesBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, source);
+            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, source);
             piece.RepresentedFeature = source;
 
             _sources.Add(piece);
@@ -108,7 +108,7 @@ public class TheoryManager : MonoBehaviour
 
         foreach (var image in PollutantClouds)
         {
-            image.color = InvestigationLookup.Instance.PollutantMap.GetColor(pollutantData.Type);
+            image.color = AssetLookup.Instance.PollutantMap.GetColor(pollutantData.Type);
         }
 
         foreach (var text in PollutantTexts)
@@ -116,8 +116,8 @@ public class TheoryManager : MonoBehaviour
             text.text = pollutantData.Type.ToString();
         }
 
-        PollutantPortrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(pollutantData.Type);
-        PollutantText.text = InvestigationLookup.Instance.PollutantMap.GetFullName(pollutantData.Type);
+        PollutantPortrait.sprite = AssetLookup.Instance.PollutantMap.GetSprite(pollutantData.Type);
+        PollutantText.text = AssetLookup.Instance.PollutantMap.GetFullName(pollutantData.Type);
 
         foreach (var image in SourcePortraits)
         {
@@ -125,7 +125,7 @@ public class TheoryManager : MonoBehaviour
         }
         SourceText.text = "";
         
-        GameObject mapObj = Instantiate(InvestigationTimelineSystem.Instance.ScenarioData.MapObject);
+        GameObject mapObj = Instantiate(TimelineSystem.Instance.ScenarioData.MapObject);
         mapObj.transform.SetParent(MapParent, false);
 
         Map = mapObj.GetComponent<InvestigationMap>();
@@ -170,13 +170,13 @@ public class TheoryManager : MonoBehaviour
     private void HandleSourceSelected(FeatureType feature)
     {
         ResetSelectionState();
-        Sprite sourceSprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, feature);
+        Sprite sourceSprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, feature);
         Color sourceColor = SourceButton.image.color;
         sourceColor.a = 0;
         SourceButton.image.color = sourceColor;
         SourceQuestion.enabled = false;
 
-        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenarioData = TimelineSystem.Instance.ScenarioData;
         RoomType sourceRoom = ScenarioUtility.GetRoom(feature, scenarioData);
 
         SourceText.text = $"{sourceRoom}\n{feature}";

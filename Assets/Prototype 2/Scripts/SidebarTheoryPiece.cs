@@ -78,12 +78,12 @@ public class SidebarTheoryPiece : MonoBehaviour
                 BaseImage.sprite = sprite;
                 break;
             case TheoryType.PresentMinorSymptom:
-                BaseImage.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(InvestigationTimelineSystem.Instance.ScenarioData.MainNpc);
+                BaseImage.sprite = AssetLookup.Instance.CharacterMap.GetSprite(TimelineSystem.Instance.ScenarioData.MainNpc);
                 ImageOverlay.sprite = MinorSymptom;
                 ImageOverlay.enabled = true;
                 break;
             case TheoryType.PresentMajorSymptom:
-                BaseImage.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(InvestigationTimelineSystem.Instance.ScenarioData.MainNpc);
+                BaseImage.sprite = AssetLookup.Instance.CharacterMap.GetSprite(TimelineSystem.Instance.ScenarioData.MainNpc);
                 ImageOverlay.sprite = MajorSymptom;
                 ImageOverlay.enabled = true;
                 break;

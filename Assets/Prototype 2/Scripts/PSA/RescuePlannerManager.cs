@@ -32,7 +32,7 @@ public class RescuePlannerManager : MonoBehaviour
 
     public void Setup()
     {
-        GameObject mapObj = Instantiate(InvestigationTimelineSystem.Instance.ScenarioData.MapObject);
+        GameObject mapObj = Instantiate(TimelineSystem.Instance.ScenarioData.MapObject);
         mapObj.transform.SetParent(MapParent, false);
 
         Map = mapObj.GetComponent<InvestigationMap>();

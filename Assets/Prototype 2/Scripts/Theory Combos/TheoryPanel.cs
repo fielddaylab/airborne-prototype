@@ -27,8 +27,8 @@ public class TheoryPanel : MonoBehaviour
     {
         PollutantType = pollutantData.Type;
 
-        Portrait.sprite = InvestigationLookup.Instance.PollutantMap.GetSprite(PollutantType);
-        Label.text = InvestigationLookup.Instance.PollutantMap.GetFullName(PollutantType);
+        Portrait.sprite = AssetLookup.Instance.PollutantMap.GetSprite(PollutantType);
+        Label.text = AssetLookup.Instance.PollutantMap.GetFullName(PollutantType);
         name = Label.text;
         
         foreach (var symptom in pollutantData.Symptoms)
@@ -37,7 +37,7 @@ public class TheoryPanel : MonoBehaviour
             theoryPiece.name = symptom.ToString();
             theoryPiece.transform.SetParent(SymptomsBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
+            piece.TheoryImage.sprite = AssetLookup.Instance.SymptomMap.GetSprite(symptom);
             piece.RepresentedSymptom = symptom;
             piece.Tooltip.ChangeText(symptom.ToString());
 
@@ -50,7 +50,7 @@ public class TheoryPanel : MonoBehaviour
             theoryPiece.name = source.ToString();
             theoryPiece.transform.SetParent(SourcesBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, source);
+            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, source);
             piece.RepresentedFeature = source;
             piece.Tooltip.ChangeText(source.ToString());
 

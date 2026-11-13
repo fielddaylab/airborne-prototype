@@ -45,7 +45,7 @@ public class SuspectPickerManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         ConfirmButton.onClick.AddListener(ConfirmSuspect);
-        InvestigationTimelineSystem.OnLoopEnd += HandleNewLoop;
+        TimelineSystem.OnLoopEnd += HandleNewLoop;
         ConfirmText.text = "Confirm";
         Setup();
         TheorizeButton.onClick.AddListener(HandleTheoryStart);
@@ -63,7 +63,7 @@ public class SuspectPickerManager : MonoBehaviour
 
         ConfirmButton.onClick.RemoveAllListeners();
         
-        InvestigationTimelineSystem.OnLoopEnd -= HandleNewLoop;
+        TimelineSystem.OnLoopEnd -= HandleNewLoop;
         TheorizeButton.onClick.RemoveListener(HandleTheoryStart);
         TheoryConfirmButton.onClick.RemoveListener(HandleTheoryConfirmation);
         TheoryBackButton.onClick.RemoveListener(HandleTheoryBack);
@@ -86,7 +86,7 @@ public class SuspectPickerManager : MonoBehaviour
 
         PanelCard.Clear();
 
-        PollutantDataObject[] datas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        PollutantDataObject[] datas = TimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         foreach (var d in datas)
         {
             GameObject cardObj = Instantiate(InfoCardPrefab);
@@ -150,7 +150,7 @@ public class SuspectPickerManager : MonoBehaviour
             }
         }
 
-        PollutantDataObject[] datas = InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants;
+        PollutantDataObject[] datas = TimelineSystem.Instance.ScenarioData.SuspectedPollutants;
         PollutantDataObject pollutantData = datas[0];
         foreach (var d in datas) if (d.Type == pollutant) pollutantData = d;
 
@@ -160,7 +160,7 @@ public class SuspectPickerManager : MonoBehaviour
             theoryPiece.name = symptom.ToString();
             theoryPiece.transform.SetParent(SymptomsBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptom);
+            piece.TheoryImage.sprite = AssetLookup.Instance.SymptomMap.GetSprite(symptom);
             piece.RepresentedSymptom = symptom;
             piece.Tooltip.ChangeText(symptom.ToString());
 
@@ -173,7 +173,7 @@ public class SuspectPickerManager : MonoBehaviour
             theoryPiece.name = source.ToString();
             theoryPiece.transform.SetParent(SourcesBox);
             TheoryPiece piece = theoryPiece.GetComponent<TheoryPiece>();
-            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, source);
+            piece.TheoryImage.sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, source);
             piece.RepresentedFeature = source;
             piece.Tooltip.ChangeText(source.ToString());
 
@@ -244,7 +244,7 @@ public class SuspectPickerManager : MonoBehaviour
 
     private void HandleTheoryStart()
     {
-        string fullName = InvestigationLookup.Instance.PollutantMap.GetFullName(_selectedPollutant);
+        string fullName = AssetLookup.Instance.PollutantMap.GetFullName(_selectedPollutant);
         
         Header.text = $"Choose a <b>Source</b> of <b>{fullName}</b> to investigate in this loop.";
         TheoryConfirmButton.GetComponentInChildren<TMP_Text>().text = "Confirm";
@@ -255,7 +255,7 @@ public class SuspectPickerManager : MonoBehaviour
         ClearSources();
 
         PollutantDataObject suspectedPollutantData;
-        foreach (var d in InvestigationTimelineSystem.Instance.ScenarioData.SuspectedPollutants)
+        foreach (var d in TimelineSystem.Instance.ScenarioData.SuspectedPollutants)
         {
             if (d.Type == _selectedPollutant)
             {

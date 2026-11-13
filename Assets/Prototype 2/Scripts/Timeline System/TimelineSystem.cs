@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvestigationTimelineSystem : MonoBehaviour
+public class TimelineSystem : MonoBehaviour
 {
-    public static InvestigationTimelineSystem Instance;
-    public PlayerInvestigationTimeline UITimeline;
+    public static TimelineSystem Instance;
+    public PlayerTimeline UITimeline;
     public MinimalTimeline MinimalTimeline;
     public ScenarioDataObject ScenarioData;
     public InvestigationRegistry InvestigationRegistry;

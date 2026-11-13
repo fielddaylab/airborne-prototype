@@ -15,7 +15,7 @@ public class InfoCard : MonoBehaviour
     public void SetupPollutant(PollutantType pollutant)
     {
         PollutantType = pollutant;
-        PollutantKnowledgeMapObject map = InvestigationLookup.Instance.PollutantMap;
+        PollutantKnowledgeMapObject map = AssetLookup.Instance.PollutantMap;
 
         Portrait.enabled = true;
         Portrait.sprite = PollutantKnowledgeMapUtility.GetSprite(map, pollutant);
@@ -26,7 +26,7 @@ public class InfoCard : MonoBehaviour
     public void SetupNPC(CharacterType c)
     {
         Portrait.enabled = true;
-        CharacterSpriteMapObject map = InvestigationLookup.Instance.CharacterMap;
+        CharacterSpriteMapObject map = AssetLookup.Instance.CharacterMap;
 
         Portrait.sprite = CharacterLookupUtility.GetSprite(map, c);
         Label.text = c.ToString();
@@ -36,11 +36,11 @@ public class InfoCard : MonoBehaviour
     public void SetupFeature(FeatureType f)
     {
         Portrait.enabled = true;
-        FeatureSpriteMapObject map = InvestigationLookup.Instance.FeatureSpriteMap;
+        FeatureSpriteMapObject map = AssetLookup.Instance.FeatureSpriteMap;
         
         Portrait.sprite = FeatureSpriteMapUtility.GetOnSprite(map, f);
 
-        ScenarioDataObject scenarioData = InvestigationTimelineSystem.Instance.ScenarioData;
+        ScenarioDataObject scenarioData = TimelineSystem.Instance.ScenarioData;
         RoomType sourceRoom = ScenarioUtility.GetRoom(f, scenarioData);
 
         Label.text = $"{sourceRoom} {f}";

@@ -15,20 +15,20 @@ public class NPCObservableBox : MonoBehaviour
     public void Start()
     {
         ToolManager.OnToolUpdated += HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered += HandleHourEntered;
+        TimelineSystem.OnHourEntered += HandleHourEntered;
         gameObject.SetActive(false);
     }
 
     public void OnDestroy()
     {
         ToolManager.OnToolUpdated -= HandleToolUpdated;
-        InvestigationTimelineSystem.OnHourEntered -= HandleHourEntered;
+        TimelineSystem.OnHourEntered -= HandleHourEntered;
     }
 
     private void OnMouseDown()
     {
-        int hour = InvestigationTimelineSystem.Instance.CurrentHour;
-        int index = hour - InvestigationTimelineSystem.Instance.BaseHour;
+        int hour = TimelineSystem.Instance.CurrentHour;
+        int index = hour - TimelineSystem.Instance.BaseHour;
 
         NPCTimeSlot slot = NPCData.TimeSlots[index];
         RoomType room = slot.CurrentRoom;
@@ -65,7 +65,7 @@ public class NPCObservableBox : MonoBehaviour
         Sprite flySprite;
         if (symptomType != Symptom.None)
         {
-            flySprite = InvestigationLookup.Instance.SymptomMap.GetSprite(symptomType);
+            flySprite = AssetLookup.Instance.SymptomMap.GetSprite(symptomType);
         } else
         {
             flySprite = DialogueSprite;
@@ -100,8 +100,8 @@ public class NPCObservableBox : MonoBehaviour
     {
         // only show box as observable when info not known
         
-        int hour = InvestigationTimelineSystem.Instance.CurrentHour;
-        int index = hour - InvestigationTimelineSystem.Instance.BaseHour;
+        int hour = TimelineSystem.Instance.CurrentHour;
+        int index = hour - TimelineSystem.Instance.BaseHour;
 
         NPCTimeSlot slot = NPCData.TimeSlots[index];
         RoomType room = slot.CurrentRoom;

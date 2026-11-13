@@ -41,7 +41,7 @@ public class NewGameManager : MonoBehaviour
     void Start()
     {
         
-        EnvironmentLoad.LoadEnvironment(InvestigationTimelineSystem.Instance.ScenarioData.WorldEnvironment);
+        EnvironmentLoad.LoadEnvironment(TimelineSystem.Instance.ScenarioData.WorldEnvironment);
         ChooseSuspect += HandleSuspect;
     }
 
@@ -93,7 +93,7 @@ public class NewGameManager : MonoBehaviour
 
     private void HandleSuspect(PollutantType pollutant)
     {
-        InvestigationTimelineSystem.Instance.PauseTime(false);
+        TimelineSystem.Instance.PauseTime(false);
     }
 }
 

@@ -8,6 +8,6 @@ public class FeatureTimelineRequester : TimelineRequester
     
     public override void RequestTimelineDisplay()
     {
-        PlayerInvestigationTimeline.OnTimelineRequested?.Invoke(Feature);
+        PlayerTimeline.OnTimelineRequested?.Invoke(Feature);
     }
 }

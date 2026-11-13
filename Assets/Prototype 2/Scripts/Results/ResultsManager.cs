@@ -21,7 +21,7 @@ public class ResultsManager : MonoBehaviour
     {
         FinishButton.onClick.AddListener(OnFinish);
 
-        Scenario = InvestigationTimelineSystem.Instance.ScenarioData;
+        Scenario = TimelineSystem.Instance.ScenarioData;
         WinCons = Scenario.WinConditions;
         
         for (int i = 0; i < Results.Length; i++)

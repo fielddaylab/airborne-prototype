@@ -10,6 +10,6 @@ public class TimeAdjuster : MonoBehaviour
 
     public void SetTime()
     {
-        InvestigationTimelineSystem.Instance.TimelineSpeed = m_TargetTime;
+        TimelineSystem.Instance.TimelineSpeed = m_TargetTime;
     }
 }

@@ -109,7 +109,7 @@ public class InvestigationMap : MonoBehaviour
     public void UpdateRooms(float f)
     {
         int sliderVal = Mathf.FloorToInt(f);
-        int hour = InvestigationTimelineSystem.Instance.BaseHour + sliderVal;
+        int hour = TimelineSystem.Instance.BaseHour + sliderVal;
         
         List<RoomType> knownRooms = new();
 

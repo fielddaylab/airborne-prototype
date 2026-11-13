@@ -16,7 +16,7 @@ public class MinimalTimeline : MonoBehaviour
 
     private void Start()
     {
-        int startHour = InvestigationTimelineSystem.Instance.BaseHour;
+        int startHour = TimelineSystem.Instance.BaseHour;
         for (int i = 0; i < Timestamps.Length; i++)
         {
             Timestamps[i].text = (startHour + i) % 12 + ":00";
@@ -27,27 +27,27 @@ public class MinimalTimeline : MonoBehaviour
     {
         PauseButton.onClick.AddListener(() => HandlePause(0));
         FastForwardButton.onClick.AddListener(() => HandleFastForward(1f));
-        InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
-        InvestigationTimelineSystem.OnTimePaused += HandleTimePaused;
+        TimelineSystem.OnHourEntered += HandleHourUpdated;
+        TimelineSystem.OnTimePaused += HandleTimePaused;
     }
 
     private void OnDisable()
     {
         PauseButton.onClick.RemoveAllListeners();
         FastForwardButton.onClick.RemoveAllListeners();
-        InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
-        InvestigationTimelineSystem.OnTimePaused -= HandleTimePaused;
+        TimelineSystem.OnHourEntered -= HandleHourUpdated;
+        TimelineSystem.OnTimePaused -= HandleTimePaused;
     }
 
     private void HandlePause(float speed)
     {
-        if (!_timelinePaused) InvestigationTimelineSystem.Instance.TimelineSpeed = speed;
-        else InvestigationTimelineSystem.Instance.PauseTime(false);
+        if (!_timelinePaused) TimelineSystem.Instance.TimelineSpeed = speed;
+        else TimelineSystem.Instance.PauseTime(false);
     }
 
     private void HandleFastForward(float speed)
     {
-        if (!_timelinePaused) InvestigationTimelineSystem.Instance.TimelineSpeed = speed;
+        if (!_timelinePaused) TimelineSystem.Instance.TimelineSpeed = speed;
         else CaseFile.ToggleCaseFile();
     }
 

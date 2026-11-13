@@ -12,7 +12,7 @@ public class SourceButton : MonoBehaviour
     
     public void Setup(FeatureType type)
     {
-        Icon.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, type);
+        Icon.sprite = FeatureSpriteMapUtility.GetOnSprite(AssetLookup.Instance.FeatureSpriteMap, type);
         Label.text = type.ToString();
     }
 }
