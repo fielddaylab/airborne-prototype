@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MinimalTimeline : MonoBehaviour
 {
     [SerializeField] private TMP_Text[] Timestamps;
+    [SerializeField] private TMP_Text LoopCounter;
     public Slider TimelineSlider;
     [SerializeField] private Button PauseButton, FastForwardButton;
 
@@ -23,16 +24,23 @@ public class MinimalTimeline : MonoBehaviour
     {
         PauseButton.onClick.AddListener(() => UpdateTimespeed(0));
         FastForwardButton.onClick.AddListener(() => UpdateTimespeed(1f));
+        InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
     }
 
     private void OnDisable()
     {
         PauseButton.onClick.RemoveAllListeners();
         FastForwardButton.onClick.RemoveAllListeners();
+        InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
     }
 
     private void UpdateTimespeed(float speed)
     {
-         InvestigationTimelineSystem.Instance.TimelineSpeed = speed;
+        InvestigationTimelineSystem.Instance.TimelineSpeed = speed;
+    }
+
+    private void HandleHourUpdated(int hour)
+    {
+        LoopCounter.text = "Loop " + (NewGameManager.Instance.Statistics.NumLoops + 1);
     }
 }
