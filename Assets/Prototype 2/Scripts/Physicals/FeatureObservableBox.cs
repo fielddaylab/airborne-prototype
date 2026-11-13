@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class FeatureObservableBox : MonoBehaviour
     private EquipmentType _lastToolType;
 
     public GameObject FlyingObject;
+
+    public static event Action<FeatureType> OnObserveFeature;
 
     public void Start()
     {
@@ -85,6 +88,8 @@ public class FeatureObservableBox : MonoBehaviour
         flyerIcon.Setup(flyerSprite, CaseFileManager.Instance.AnimatedItemLocation); 
         
         VisibilityCheck();
+
+        OnObserveFeature?.Invoke(FeatureType);
     }
 
     private void HandleToolUpdated(EquipmentType type)

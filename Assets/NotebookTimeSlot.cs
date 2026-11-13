@@ -36,16 +36,24 @@ public class NotebookTimeSlot : MonoBehaviour
         m_SlotBG.sprite = FilledOutline;
     }
 
-    public void SetRoomNPCGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
+    public void SetRoomNPCGraphics(CharacterType character, int hour)
     {
         Clear();
 
         ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
         InvestigationNPCObject npc = scenario.NPCs[0];
+        foreach (var scenarioNpc in scenario.NPCs)
+        {
+            if (scenarioNpc.Character == character)
+            {
+                npc = scenarioNpc;
+            }
+        }
+
         var npcSlot = npc.TimeSlots[0];
         foreach (var npcTimeSlot in npc.TimeSlots)
         {
-            if (npcTimeSlot.Time == hour && npcTimeSlot.CurrentRoom == roomType)
+            if (npcTimeSlot.Time == hour)
             {
                 npcSlot = npcTimeSlot;
             }
@@ -66,34 +74,43 @@ public class NotebookTimeSlot : MonoBehaviour
         }
     }
 
-    public void SetRoomFeatureGraphics(RoomType roomType, int hour, RoomTimeSlot slot)
+    public void SetRoomFeatureGraphics(FeatureType feature, int hour)
     {
         Clear();
 
         ScenarioDataObject scenario = InvestigationTimelineSystem.Instance.ScenarioData;
-        InvestigationFeatureEventObject feature = scenario.FeatureEvents[0];
-        var featureSlot = feature.TimeSlots[0];
-        foreach (var featureTimeSlot in feature.TimeSlots)
+        InvestigationFeatureEventObject featureEvent = scenario.FeatureEvents[0];
+        foreach (var scenarioFeature in scenario.FeatureEvents)
         {
-            if (featureTimeSlot.Time == hour && feature.RoomType == roomType)
+            if (scenarioFeature.FeatureType == feature)
+            {
+                featureEvent = scenarioFeature;
+            }
+        }
+
+        var featureSlot = featureEvent.TimeSlots[0];
+        foreach (var featureTimeSlot in featureEvent.TimeSlots)
+        {
+            if (featureTimeSlot.Time == hour)
             {
                 featureSlot = featureTimeSlot;
             }
         }
-        KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(feature.FeatureType);
-        if (PlayerKnowledgeState.IsKnownHourly(roomType, hour, knowledgeType)) {
+
+        KnowledgeType knowledgeType = InvestigationLookup.Instance.FeatureMap.GetKnowledgeType(featureEvent.FeatureType);
+        if (PlayerKnowledgeState.IsKnownHourly(featureEvent.RoomType, hour, knowledgeType)) {
             m_EventIcon.enabled = true; 
             m_BodyText.enabled = true;
             bool featureOn = featureSlot.FeatureEvent == FeatureEvent.On;
             FeatureSpriteMapObject featureMap = InvestigationLookup.Instance.FeatureSpriteMap;
             if (featureOn)
             {
-                m_EventIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, feature.FeatureType);
+                m_EventIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(featureMap, featureEvent.FeatureType);
                 m_BodyText.text = "On";
             } 
             else
             {
-                m_EventIcon.sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, feature.FeatureType);
+                m_EventIcon.sprite = FeatureSpriteMapUtility.GetOffSprite(featureMap, featureEvent.FeatureType);
                 m_BodyText.text = "Off";
             }
 

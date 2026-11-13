@@ -22,8 +22,10 @@ public class NotebookTimeline : MonoBehaviour
 
     public enum TimelineType
     {
-        RoomNPC,
-        RoomFeature
+        NPC,
+        Feature,
+        Scanner,
+        Meter
     }
 
     private void Start()
@@ -37,26 +39,36 @@ public class NotebookTimeline : MonoBehaviour
 
     private void OnEnable()
     {
-        InvestigationRoom.OnRoomUpdated += HandleRoomUpdated;
         ToolManager.OnToolUpdated += HandleToolUpdated;
         InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated += HandleKnowledgeUpdated;
+
+        NPCObservableBox.OnObserveNPC += HandleNPCObservation;
+        FeatureObservableBox.OnObserveFeature += HandleFeatureObservation;
     }
 
     private void OnDisable()
     {
-        InvestigationRoom.OnRoomUpdated -= HandleRoomUpdated;
         ToolManager.OnToolUpdated -= HandleToolUpdated;
         InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
         PlayerKnowledgeState.OnKnowledgeUpdated -= HandleKnowledgeUpdated;
+
+        NPCObservableBox.OnObserveNPC -= HandleNPCObservation;
+        FeatureObservableBox.OnObserveFeature -= HandleFeatureObservation;
     }
 
-    private void HandleRoomUpdated(InvestigationRoom room)
+    private void HandleNPCObservation(CharacterType character)
     {
-        _currentRoom = room;
-        _currentRoomType = _currentRoom.RoomTypeValue;
-        _currentTimelineType = TimelineType.RoomNPC;
-        UpdateInformation();
+        _currentTimelineType = TimelineType.NPC;
+        _currentCharacterType = character;
+        UpdateTimelineVisuals(_currentTimelineType);
+    }
+
+    private void HandleFeatureObservation(FeatureType feature)
+    {
+        _currentTimelineType = TimelineType.Feature;
+        _currentFeatureType = feature;
+        UpdateTimelineVisuals(_currentTimelineType);
     }
 
     private void HandleToolUpdated(EquipmentType type)
@@ -82,7 +94,7 @@ public class NotebookTimeline : MonoBehaviour
 
     private void HandleKnowledgeUpdated()
     {
-        UpdateTimelineVisuals(_currentTimelineType);
+        //UpdateTimelineVisuals(_currentTimelineType);
     }
 
     private void UpdateInformation()
@@ -92,7 +104,7 @@ public class NotebookTimeline : MonoBehaviour
         if (_currentToolType == EquipmentType.Scan)
         {
             _currentRoomType = _currentRoom.RoomTypeValue;
-            _currentTimelineType = TimelineType.RoomNPC;
+            _currentTimelineType = TimelineType.NPC;
             RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoom.RoomTypeValue, _currentHour);
             if (slot != null) PlayerKnowledgeState.Discover(_currentRoom.RoomTypeValue, _currentHour, KnowledgeType.PollutantPresence);
         }
@@ -121,81 +133,29 @@ public class NotebookTimeline : MonoBehaviour
         
         switch (timelineType)
         {
-            case TimelineType.RoomNPC:
-                if (_currentRoom == null) return;
-
+            case TimelineType.NPC:
                 for (int i = 0; i < totalHours; i++)
                 {
                     int actualHour = baseHour + i;
-                    RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
-                    TimeSlots[i].SetRoomNPCGraphics(_currentRoomType, actualHour, slot);
+                    TimeSlots[i].SetRoomNPCGraphics(_currentCharacterType, actualHour);
                 }
 
-                FocusIcon.sprite = InvestigationLookup.Instance.RoomMap.GetSprite(_currentRoomType);
-                FocusTitle.text = _currentRoomType.ToString();
+                FocusIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(_currentCharacterType);
+                FocusTitle.text = _currentCharacterType.ToString();
 
                 break;
-            case TimelineType.RoomFeature:
-                if (_currentRoom == null) return;
-
+            case TimelineType.Feature:
                 for (int i = 0; i < totalHours; i++)
                 {
                     int actualHour = baseHour + i;
-                    RoomTimeSlot slot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
-                    TimeSlots[i].SetRoomFeatureGraphics(_currentRoomType, actualHour, slot);
+                    TimeSlots[i].SetRoomFeatureGraphics(_currentFeatureType, actualHour);
                 }
 
-                FocusIcon.sprite = InvestigationLookup.Instance.RoomMap.GetSprite(_currentRoomType);
-                FocusTitle.text = _currentRoomType.ToString();
+                var map = InvestigationLookup.Instance.FeatureSpriteMap;
+                FocusIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(map, _currentFeatureType);
+                FocusTitle.text = _currentFeatureType.ToString();
                 
                 break;
-            // case TimelineType.NPC:
-                
-            //     ScenarioDataObject data = InvestigationTimelineSystem.Instance.ScenarioData;
-
-            //     foreach (var npc in data.NPCs) {   
-            //         if (npc.Character == _currentCharacterType) {
-            //             for (int i = 0; i < totalHours; i++)
-            //             {
-            //                 int actualHour = baseHour + i;
-            //                 NPCTimeSlot slot = npc.TimeSlots[i];
-
-            //                 bool isNewRoom = false;
-            //                 if (i == 0 || npc.TimeSlots[i - 1].CurrentRoom != npc.TimeSlots[i].CurrentRoom)
-            //                 {
-            //                     isNewRoom = true;
-            //                 }
-            //                 RoomTimeSlot roomSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
-            //                 TimelineOverlay.TimelineChunks[i].SetNPCGraphics(_currentRoomType, npc.Character, actualHour, isNewRoom, slot, roomSlot);
-            //             }
-            //         }
-            //     }
-
-            //     FocusIcon.sprite = InvestigationLookup.Instance.CharacterMap.GetSprite(_currentCharacterType);
-            //     TimelineText.text = _currentCharacterType.ToString();
-
-            //     break;
-            // case TimelineType.Feature:
-                
-            //     data = InvestigationTimelineSystem.Instance.ScenarioData;
-
-            //     foreach (var feature in data.FeatureEvents)
-            //     {
-            //         if (feature.FeatureType == _currentFeatureType) {
-            //             for (int i = 0; i < totalHours; i++)
-            //             {
-            //                 int actualHour = baseHour + i;
-            //                 FeatureTimeSlot slot = feature.TimeSlots[i];
-            //                 RoomTimeSlot roomSlot = InvestigationTimelineSystem.Instance.GetTimeSlot(_currentRoomType, actualHour);
-            //                 TimelineOverlay.TimelineChunks[i].SetFeatureGraphics(_currentRoomType, feature.FeatureType, actualHour, slot, roomSlot);
-            //             }
-            //         }
-            //     }
-
-            //     FocusIcon.sprite = FeatureSpriteMapUtility.GetOnSprite(InvestigationLookup.Instance.FeatureSpriteMap, _currentFeatureType);
-            //     TimelineText.text = _currentFeatureType.ToString();
-
-            //     break;
         }
     }
 }

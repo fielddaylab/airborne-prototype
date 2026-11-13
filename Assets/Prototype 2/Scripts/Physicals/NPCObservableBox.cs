@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class NPCObservableBox : MonoBehaviour
     private EquipmentType _lastToolType;
     public GameObject FlyerPrefab;
     public Sprite DialogueSprite;
+
+    public static event Action<CharacterType> OnObserveNPC;
 
     public void Start()
     {
@@ -71,6 +74,8 @@ public class NPCObservableBox : MonoBehaviour
         flyerIcon.Setup(flySprite, CaseFileManager.Instance.AnimatedItemLocation); 
 
         VisibilityCheck();
+
+        OnObserveNPC?.Invoke(NPCData.Character);
     }
 
     private void HandleToolUpdated(EquipmentType type)

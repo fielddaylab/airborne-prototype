@@ -58,7 +58,6 @@ public class TheoryPanel : MonoBehaviour
         }
 
         TheorizeButton.onClick.AddListener(StartTheory);
-        Debug.Log(CollapseButton == null);
         CollapseButton.onClick.AddListener(HidePanel);
     }
 
