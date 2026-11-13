@@ -49291,6 +49291,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5525562230700288664, guid: eeb6c98aa0efb514d95b5cf07ddced25, type: 3}
+      propertyPath: AnimSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5525562230700288664, guid: eeb6c98aa0efb514d95b5cf07ddced25, type: 3}
+      propertyPath: OffscreenOffset
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5525562230700288664, guid: eeb6c98aa0efb514d95b5cf07ddced25, type: 3}
+      propertyPath: OffscreenPosition.x
+      value: 96
+      objectReference: {fileID: 0}
     - target: {fileID: 7512650800998856010, guid: eeb6c98aa0efb514d95b5cf07ddced25, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

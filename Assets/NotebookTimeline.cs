@@ -10,6 +10,14 @@ public class NotebookTimeline : MonoBehaviour
     [SerializeField] private TMP_Text FocusTitle;
     [SerializeField] private NotebookTimeSlot[] TimeSlots;
 
+    public float OffscreenOffset;
+    public float OnscreenTime = 5f;
+    public float AnimSpeed;
+    private Vector3 _initialPosition;
+    private RectTransform _rectTransform;
+
+    private float _offscreenTimer;
+
     // data stuff
     private InvestigationRoom _currentRoom;
     private EquipmentType _currentToolType;
@@ -35,6 +43,29 @@ public class NotebookTimeline : MonoBehaviour
         {
             TimeSlots[i].Init(startHour + i);
         }
+
+        _rectTransform = GetComponent<RectTransform>();
+        _offscreenTimer = OnscreenTime;
+
+        _initialPosition = _rectTransform.anchoredPosition;
+        _rectTransform.anchoredPosition = _initialPosition + (Vector3.right * OffscreenOffset);
+    }
+
+    void Update()
+    {
+        Vector3 target;
+        
+        if (_offscreenTimer < OnscreenTime)
+        {
+            _offscreenTimer += Time.deltaTime;
+            target = _initialPosition;
+        } 
+        else
+        {
+            target = _initialPosition + (Vector3.right * OffscreenOffset);
+        }
+
+        _rectTransform.anchoredPosition = Vector3.Lerp(_rectTransform.anchoredPosition, target, AnimSpeed * Time.deltaTime * 100f);
     }
 
     private void OnEnable()
@@ -130,6 +161,8 @@ public class NotebookTimeline : MonoBehaviour
     {
         int baseHour = InvestigationTimelineSystem.Instance.BaseHour;
         int totalHours = InvestigationTimelineSystem.Instance.TotalNumHours;
+
+        _offscreenTimer = 0;
         
         switch (timelineType)
         {
