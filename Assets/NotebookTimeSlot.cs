@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class NotebookTimeSlot : MonoBehaviour
     [SerializeField] private Image m_RoomIcon;
 
     [SerializeField] private Sprite EmptyOutline, FilledOutline;
+
+    public Sprite DialogueSprite;
 
     public void Init(int time)
     {
@@ -59,6 +62,7 @@ public class NotebookTimeSlot : MonoBehaviour
             }
         }
 
+        bool logged = false;
         if (PlayerKnowledgeState.IsKnownCharacterly(npc.Character, hour, KnowledgeType.NPCSymptom))
         {
             if (npcSlot.Symptom != Symptom.None)
@@ -68,7 +72,20 @@ public class NotebookTimeSlot : MonoBehaviour
                 m_EventIcon.enabled = true;
                 m_BodyText.text = npcSlot.Symptom + "";
                 m_BodyText.enabled = true;
+                logged = true;
             }
+
+            MarkFilled();
+        }
+        
+        if (logged) return;
+
+        if (PlayerKnowledgeState.IsKnownCharacterly(npc.Character, hour, KnowledgeType.NPCDialogue))
+        {
+            m_EventIcon.sprite = DialogueSprite;
+            m_EventIcon.enabled = true;
+            m_BodyText.text = npcSlot.CharacterDialogue + "";
+            m_BodyText.enabled = true;
 
             MarkFilled();
         }

@@ -639,3 +639,4 @@ MonoBehaviour:
   m_RoomIcon: {fileID: 1811400477164976504}
   EmptyOutline: {fileID: 21300000, guid: 6c3d199986445654aaa7875f4327b8ad, type: 3}
   FilledOutline: {fileID: 21300000, guid: 24e8b3583a5c6524690496e884d1fb6e, type: 3}
+  DialogueSprite: {fileID: 21300000, guid: da19abc76ba546e4cbb015be48d9b42f, type: 3}
