@@ -10,6 +10,9 @@ public class MinimalTimeline : MonoBehaviour
     [SerializeField] private TMP_Text LoopCounter;
     public Slider TimelineSlider;
     [SerializeField] private Button PauseButton, FastForwardButton;
+    public Sprite PauseSprite, FastForwardSprite, RewindSprite, CaseFileSprite;
+    public CaseFileManager CaseFile;
+    bool _timelinePaused = false;
 
     private void Start()
     {
@@ -22,9 +25,10 @@ public class MinimalTimeline : MonoBehaviour
 
     private void OnEnable()
     {
-        PauseButton.onClick.AddListener(() => UpdateTimespeed(0));
-        FastForwardButton.onClick.AddListener(() => UpdateTimespeed(1f));
+        PauseButton.onClick.AddListener(() => HandlePause(0));
+        FastForwardButton.onClick.AddListener(() => HandleFastForward(1f));
         InvestigationTimelineSystem.OnHourEntered += HandleHourUpdated;
+        InvestigationTimelineSystem.OnTimePaused += HandleTimePaused;
     }
 
     private void OnDisable()
@@ -32,15 +36,38 @@ public class MinimalTimeline : MonoBehaviour
         PauseButton.onClick.RemoveAllListeners();
         FastForwardButton.onClick.RemoveAllListeners();
         InvestigationTimelineSystem.OnHourEntered -= HandleHourUpdated;
+        InvestigationTimelineSystem.OnTimePaused -= HandleTimePaused;
     }
 
-    private void UpdateTimespeed(float speed)
+    private void HandlePause(float speed)
     {
-        InvestigationTimelineSystem.Instance.TimelineSpeed = speed;
+        if (!_timelinePaused) InvestigationTimelineSystem.Instance.TimelineSpeed = speed;
+        else InvestigationTimelineSystem.Instance.PauseTime(false);
+    }
+
+    private void HandleFastForward(float speed)
+    {
+        if (!_timelinePaused) InvestigationTimelineSystem.Instance.TimelineSpeed = speed;
+        else CaseFile.ToggleCaseFile();
     }
 
     private void HandleHourUpdated(int hour)
     {
         LoopCounter.text = "Loop " + (NewGameManager.Instance.Statistics.NumLoops + 1);
+    }
+
+    private void HandleTimePaused(bool paused)
+    {
+        _timelinePaused = paused;
+        if (paused)
+        {
+            PauseButton.image.sprite = RewindSprite;
+            FastForwardButton.image.sprite = CaseFileSprite;
+        } 
+        else
+        {
+            PauseButton.image.sprite = PauseSprite;
+            FastForwardButton.image.sprite = FastForwardSprite;
+        }
     }
 }

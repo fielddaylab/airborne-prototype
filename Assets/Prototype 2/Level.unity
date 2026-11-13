@@ -47424,7 +47424,7 @@ GameObject:
   - component: {fileID: 2107318544}
   - component: {fileID: 2107318546}
   m_Layer: 5
-  m_Name: Timeline
+  m_Name: Minimial Timeline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47517,6 +47517,11 @@ MonoBehaviour:
   TimelineSlider: {fileID: 33831620}
   PauseButton: {fileID: 393526320}
   FastForwardButton: {fileID: 1923234445}
+  PauseSprite: {fileID: 21300000, guid: e1789d5065009f5438c625dd61acf3d0, type: 3}
+  FastForwardSprite: {fileID: 21300000, guid: 93e73916ac6fcf74ea5874b019b7d75e, type: 3}
+  RewindSprite: {fileID: 21300000, guid: 665ff175f96fc7545bab504c86b652ee, type: 3}
+  CaseFileSprite: {fileID: 21300000, guid: 32d2a16493845614c9a8b67dc1497515, type: 3}
+  CaseFile: {fileID: 1789746821}
 --- !u!1 &2127867752
 GameObject:
   m_ObjectHideFlags: 0

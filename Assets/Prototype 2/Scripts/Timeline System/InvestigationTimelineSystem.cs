@@ -79,10 +79,7 @@ public class InvestigationTimelineSystem : MonoBehaviour
             TimelineSpeed = 0.25f;
             NewGameManager.Instance.Statistics.NumLoops++;
 
-            if (NewGameManager.Instance.CurrentPhase != NewGamePhase.VictimSearch) 
-            {
-                IsPaused = true;
-            }
+            PauseTime(true);
 
             if (_isFinalLoop)
             {
